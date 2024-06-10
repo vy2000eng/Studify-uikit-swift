@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="FlashCard" representedClassName="FlashCard" syncable="YES">
+        <attribute name="back" optional="YES" attributeType="String"/>
+        <attribute name="front" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="topic" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Topic" inverseName="flashcardset" inverseEntity="Topic"/>
+    </entity>
+    <entity name="Maps" representedClassName="Maps" syncable="YES">
+        <attribute name="createdOn" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="mapSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MindMap" inverseName="maps" inverseEntity="MindMap"/>
+        <relationship name="subject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subject" inverseName="maps" inverseEntity="Subject"/>
+    </entity>
+    <entity name="MindMap" representedClassName="MindMap" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="maps" maxCount="1" deletionRule="Cascade" destinationEntity="Maps" inverseName="mapSet" inverseEntity="Maps"/>
+    </entity>
+    <entity name="Subject" representedClassName="Subject" syncable="YES">
+        <attribute name="createdOn" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="maps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Maps" inverseName="subject" inverseEntity="Maps"/>
+        <relationship name="topics" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Topic" inverseName="subject" inverseEntity="Topic"/>
+    </entity>
+    <entity name="Topic" representedClassName="Topic" syncable="YES">
+        <attribute name="createdOn" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="topicTitle" optional="YES" attributeType="String"/>
+        <relationship name="flashcardset" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FlashCard" inverseName="topic" inverseEntity="FlashCard"/>
+        <relationship name="subject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subject" inverseName="topics" inverseEntity="Subject"/>
+    </entity>
+</model>
