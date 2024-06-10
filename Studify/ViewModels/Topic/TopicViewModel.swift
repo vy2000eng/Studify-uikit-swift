@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct TopicViewModel{
+struct TopicViewModel:Hashable{
     private var topic: Topic
     
     init(topic: Topic) {

@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct MapViewModel{
+struct MapViewModel:Hashable{
     private var map:Maps
     
     init(map: Maps) {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SubjectTopicViewCell: UITableViewCell {
+class SubjectTopicViewCell: UICollectionViewCell {
 
  
     lazy var topicNameLabel: UILabel = {
@@ -71,24 +71,34 @@ class SubjectTopicViewCell: UITableViewCell {
         mainContentView.layer.cornerRadius = 2
         return mainContentView
     }()
-    
-
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+
+    
+    
+    
+//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+//        super.init(style: style, reuseIdentifier: reuseIdentifier)
+//        
+//        setup()
+//    }
+    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
 
 }
 
 extension SubjectTopicViewCell{
     private func setup(){
-        selectionStyle = .none
+       // selectionStyle = .none
         backgroundColor = UIColor.white
         contentView.addSubview(mainContentView)
         mainContentView.addSubview(topContentView)

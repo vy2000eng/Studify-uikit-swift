@@ -9,7 +9,9 @@ import Foundation
 
 import UIKit
 
-class TopicMapHeaderViewCell: UITableViewCell{
+class TopicMapHeaderViewCell: UICollectionViewCell{
+    
+    //static var whatImage = false
     
    // let viewmodel: TopicMapViewModel
     
@@ -19,6 +21,7 @@ class TopicMapHeaderViewCell: UITableViewCell{
     lazy var headerView: UIView = {
        let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = .systemBackground
         return v
     }()
     
@@ -38,9 +41,21 @@ class TopicMapHeaderViewCell: UITableViewCell{
 
     
     lazy var collapseButton: UIButton = {
-       let cButton = UIButton()
-       let collapseImage = UIImage(systemName: "ellipsis")
-        cButton.setImage(collapseImage, for: .normal)
+       var cButton = UIButton()
+        //var collapseImage = UIImage(named: TopicMapHeaderViewCell.whatImage ? "arrow.up.arrow.down.square" : "arrow.left.arrow.right.square")
+
+//        
+        if cButton.isSelected == true {
+          cButton.isSelected = false
+            cButton.setImage(UIImage(named : "arrow.up.arrow.down"), for: .normal)
+        }else {
+          cButton.isSelected = true
+            cButton.setImage(UIImage(named : "arrow.left.arrow.right"), for: .normal)
+        }
+        
+//       var collapseImage = UIImage(systemName: "ellipsis")
+//        cButton.setImage(collapseImage, for: .normal)
+      //  cButton.setImage(collapseImage, for: .normal)
         cButton.translatesAutoresizingMaskIntoConstraints = false
         return cButton
     }()
@@ -83,10 +98,14 @@ class TopicMapHeaderViewCell: UITableViewCell{
 //    ])
 //
 //    return headerView
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+//        super.init(style: style, reuseIdentifier: reuseIdentifier)
+//        setup()
+//        
+//    }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
-        
     }
     
     required init?(coder: NSCoder) {

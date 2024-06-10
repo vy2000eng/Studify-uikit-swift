@@ -10,7 +10,9 @@ import UIKit
 
 
 
-extension TopicMapViewController: UITableViewDelegate{
+extension TopicMapViewController: UICollectionViewDelegate{
+    
+    
     
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -32,10 +34,11 @@ extension TopicMapViewController: UITableViewDelegate{
     
     
     
+    
     func deleteTopic(at indexPath: IndexPath){
         let topic = viewmodel.topic(by: indexPath.row)
         viewmodel.deleteTopic(topic: topic)
-        tableView.deleteRows(at: [indexPath], with: .fade)
+        //tableView.deleteRows(at: [indexPath], with: .fade)
         
         //tableView.deleteRows(at: [IndexPath.SubSequence(row: indexPath.row, section: 0)], with: .fade)
     }
@@ -43,7 +46,7 @@ extension TopicMapViewController: UITableViewDelegate{
     func deleteMap(at indexPath: IndexPath){
         let map = viewmodel.map(by: indexPath.row)
         viewmodel.deleteMap(map:map)
-        tableView.deleteRows(at: [indexPath], with: .fade)
+        //tableView.deleteRows(at: [indexPath], with: .fade)
         
         //tableView.deleteRows(at: [indexPath], with: .fade)
     }
@@ -53,13 +56,20 @@ extension TopicMapViewController: UITableViewDelegate{
         return true
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0{
-            let vc = FlashCardSetViewController(topicID: viewmodel.topic(by: indexPath.row).id)
-            navigationController?.pushViewController(vc, animated: true)
-        }
-        
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+                if indexPath.section == 0{
+                    let vc = FlashCardSetViewController(topicID: viewmodel.topic(by: indexPath.row).id)
+                    navigationController?.pushViewController(vc, animated: true)
+                }
     }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if indexPath.section == 0{
+//            let vc = FlashCardSetViewController(topicID: viewmodel.topic(by: indexPath.row).id)
+//            navigationController?.pushViewController(vc, animated: true)
+//        }
+//        
+//    }
+    
     
     
 }
