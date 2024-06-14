@@ -37,46 +37,14 @@ class TopicMapViewController: UIViewController {
         layoutConfig.headerMode = .supplementary
         let listLayout = UICollectionViewCompositionalLayout.list(using: layoutConfig)
         let v = UICollectionView(frame: view.bounds, collectionViewLayout: listLayout)
-        //v.backgroundColor = .systemBackground
-
-        
-        
         v.translatesAutoresizingMaskIntoConstraints = false
-       // v.dataSource = self
-       // v.delegate = self
-//        v.register(SubjectTopicViewCell.self, forCellWithReuseIdentifier: "topicCell")
-//        v.register(SubjectMapViewCell.self, forCellWithReuseIdentifier: "mapCell")
-//        v.register(TopicMapHeaderViewCell.self, forCellWithReuseIdentifier: "topicCell")
+
         
         return v
     }()
+   
     var dataSource: UICollectionViewDiffableDataSource<sectionType, AnyHashable>!
-
-   // var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
-
-//
-//    let headerCellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, headerItem> {
-//        (cell,indexPath,headerItem) in
-//        var content  = cell.defaultContentConfiguration()
-//        cell.contentConfiguration = headerItem.header
-//        
-//    }
-//    lazy var tableView:UITableView = {
-//        let v = UITableView()
-//        v.separatorColor = UIColor.clear
-//        v.translatesAutoresizingMaskIntoConstraints = false
-//        v.dataSource = self
-//        v.delegate = self
-//        v.register(SubjectTopicViewCell.self, forCellReuseIdentifier: "topicCell")
-//        v.register(SubjectMapViewCell.self, forCellReuseIdentifier: "mapCell")
-//        v.register(TopicMapHeaderViewCell.self, forCellReuseIdentifier: "headerCell")
-//        v.estimatedRowHeight = 500
-//       // v.clipsToBounds = true
-//        ///v.tableHeaderView = TopicMapHeaderViewCell()
-//        v.rowHeight = UITableView.automaticDimension
-//        
-//        return v
-//    }()
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,58 +115,29 @@ extension TopicMapViewController{
         })
         
         dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
-             // Ensure headers or footers are dequeued correctly
-           
-            guard let self = self else {
-               // return nil
-                return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "defaultHeader", for: indexPath)
-
+             // Ensure headers or footers are deque
+            guard let self = self, kind == UICollectionView.elementKindSectionHeader else {
+                    return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "defaultHeader", for: indexPath)
             }
-            guard kind == UICollectionView.elementKindSectionHeader else {
-                //return nil
-                return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "defaultHeader", for: indexPath)
-
-            }
-//            guard let self = self, kind == UICollectionView.elementKindSectionHeader else {
-//                 // Return a default header view if the kind is not a header or self is nil
-//                 return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "defaultHeader", for: indexPath) as? UICollectionReusableView
-//             }
-//
-//             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath) as? TopicMapHeaderViewCell else {
-//                 // Return a default header view if the header cannot be dequeued properly
-//                 return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "defaultHeader", for: indexPath) as? UICollectionReusableView
-//             }
-
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath) as? TopicMapHeaderViewCell
-
-                // let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath) as! TopicMapHeaderViewCell
-            header!.sectionTitle.text = sectionTitles[indexPath.row]
-            
-            header!.addButton.addTarget(self, action: #selector(handleAddButton(_:)), for: .touchUpInside)
-            header!.collapseButton.addTarget(self, action: #selector(handleCollapseButton(_:)), for: .touchUpInside)
-            
-            switch indexPath.section {
-            case 0:
-                //let collapseImageName = self.viewmodel.isSectionCollapsed(indexPath.section) ? "arrow.down.circle" : "arrow.up.circle"
-
-               // var image = UIImage(named: header?.addButton.setImage(viewmodel.isSectionCollapsed(0) ? "arrow.up.arrow.down.square" : "arrow.left.arrow.right.square", for: .normal)
-
-               // header?.addButton.setImage(image)
-                    //header?.add
-               // TopicMapHeaderViewCell.whatImage.toggle()
-              //  header!.collapseButton.setImage(collapseImageName, for: .normal)
-                header?.sectionTitle.text = sectionTitles[0]
-                header?.collapseButton.tag = 0
-                
-            case 1:
-                header!.sectionTitle.text = sectionTitles[1]
-                header?.collapseButton.tag = 1
-
-            default:
-                header?.collapseButton.tag = -1
+            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath) as? TopicMapHeaderViewCell else {
+                return nil
             }
             
-            
+            //let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath) as? TopicMapHeaderViewCell
+
+            header.sectionTitle.text = sectionTitles[indexPath.section]
+            header.addButton.tag = indexPath.section
+            header.addButton.addTarget(self, action: #selector(handleAddButton(_:)), for: .touchUpInside)
+            let isCollapsed = self.viewmodel.collapsedSections[indexPath.section]
+               let imageName = isCollapsed ? "arrow.up.arrow.down" : "arrow.left.arrow.right"
+            header.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
+
+            //let imageName = viewmodel.isSectionCollapsed(indexPath.section) ?  "arrow.up.arrow.down" : "arrow.left.arrow.right"
+            header.collapseButton.addTarget(self, action: #selector(handleCollapseButton(_:)), for: .touchUpInside)
+            header.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
+
+            header.collapseButton.tag = indexPath.section
+
             return header
          }
     }
@@ -206,16 +145,23 @@ extension TopicMapViewController{
     func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<sectionType, AnyHashable>()
         snapshot.appendSections([.topics])
+ 
         if !viewmodel.collapsedSections[0] {
             snapshot.appendItems(viewmodel.topics, toSection: .topics)
+        }else {
+
+            snapshot.deleteItems(viewmodel.topics)
         }
 
         snapshot.appendSections([.maps])
         if !viewmodel.collapsedSections[1] {
             snapshot.appendItems(viewmodel.maps, toSection: .maps)
+        }else {
+            snapshot.deleteItems(viewmodel.maps)
         }
 
         dataSource.apply(snapshot, animatingDifferences: true)
+
     }
     
     func getAllData() {
@@ -238,18 +184,30 @@ extension TopicMapViewController{
     }
     @objc func handleCollapseButton(_ sender:UIButton){
         let section = sender.tag
-        // var image = UIImage(named: viewmodel.isSectionCollapsed(section) ? "arrow.up.arrow.down.square" : "arrow.left.arrow.right.square")
-       // sender.
-        print(section)
-        viewmodel.toggleSection(section)
-        viewmodel.getAllTopics()
-        reloadData()
-    }
 
-    
-    
-    
+        viewmodel.toggleSection(section)
+        print(section)
+        print(viewmodel.isSectionCollapsed(section))
+        reloadData()
+       // collectionView.reloadSections(IndexSet(integer: section))  // Ensures that the section headers are updated
+
+
+    }
 }
+
+//class AnimatedDiffableDataSource: UICollectionViewDiffableDataSource<sectionType, AnyHashable> {
+//    override func apply(_ snapshot: NSDiffableDataSourceSnapshot<sectionType, AnyHashable>, animatingDifferences: Bool = true, completion: (() -> Void)? = nil) {
+//        if animatingDifferences {
+//            UIView.animate(withDuration: 0.5, animations: {
+//                super.apply(snapshot, animatingDifferences: animatingDifferences, completion: completion)
+//            })
+//        } else {
+//            super.apply(snapshot, animatingDifferences: animatingDifferences, completion: completion)
+//        }
+//    }
+//}
+
+
     
 //    let viewmodel : TopicListViewModel
 //    

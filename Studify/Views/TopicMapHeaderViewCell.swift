@@ -41,17 +41,19 @@ class TopicMapHeaderViewCell: UICollectionViewCell{
 
     
     lazy var collapseButton: UIButton = {
-       var cButton = UIButton()
+        var cButton = UIButton()
         //var collapseImage = UIImage(named: TopicMapHeaderViewCell.whatImage ? "arrow.up.arrow.down.square" : "arrow.left.arrow.right.square")
 
-//        
-        if cButton.isSelected == true {
-          cButton.isSelected = false
-            cButton.setImage(UIImage(named : "arrow.up.arrow.down"), for: .normal)
-        }else {
-          cButton.isSelected = true
-            cButton.setImage(UIImage(named : "arrow.left.arrow.right"), for: .normal)
-        }
+       //cButton.setImage(UIImage(systemName : "arrow.up.arrow.down"), for: .normal)
+
+//
+//        if cButton.isSelected == true {
+//          cButton.isSelected = false
+//            cButton.setImage(UIImage(named : "arrow.up.arrow.down"), for: .normal)
+//        }else {
+//          cButton.isSelected = true
+//            cButton.setImage(UIImage(named : "arrow.left.arrow.right"), for: .normal)
+//        }
         
 //       var collapseImage = UIImage(systemName: "ellipsis")
 //        cButton.setImage(collapseImage, for: .normal)
@@ -136,6 +138,7 @@ extension TopicMapHeaderViewCell{
         NSLayoutConstraint.activate([
             sectionTitle.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
             sectionTitle.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            //sectionTitle.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -5)
             collapseButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
             collapseButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             addButton.trailingAnchor.constraint(equalTo: collapseButton.leadingAnchor,constant: -20),

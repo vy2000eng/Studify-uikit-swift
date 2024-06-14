@@ -30,7 +30,11 @@ class TopicMapViewModel{
     }
     
     func toggleSection(_ section: Int) {
-           collapsedSections[section].toggle()
+     ///  collapsedSections = collapsedSections.first(where: {$0 == [section]})
+        //var s = isSectionCollapsed(section)
+
+
+        collapsedSections[section] = collapsedSections[section] ? false : true
     }
     
     func isSectionCollapsed(_ section: Int) -> Bool {
@@ -76,13 +80,13 @@ class TopicMapViewModel{
     //MARK: read
     func getAllMaps(){
         maps = CoreDataManager.shared.getAllMapsForSubject(subjectid: subjectID).map(MapViewModel.init)
-        print(maps.count)
+            // print(maps.count)
     }
     
     
     func getAllTopics(){
         topics = CoreDataManager.shared.getAllTopicsForSubject(subjectid: subjectID).map(TopicViewModel.init)
-        print(topics.count)
+        //print(topics.count)
     }
     
     //MARK: delete
