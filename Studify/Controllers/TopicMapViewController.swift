@@ -135,7 +135,7 @@ extension TopicMapViewController{
             let imageName = isCollapsed ?  "arrow.left.arrow.right" : "arrow.up.arrow.down"
             header.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
             header.collapseButton.addTarget(self, action: #selector(handleCollapseButton(_:)), for: .touchUpInside)
-            header.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
+           // header.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
             header.collapseButton.tag = indexPath.section
             return header
         }
@@ -194,6 +194,7 @@ extension TopicMapViewController{
         
         print(section)
         print(viewmodel.isSectionCollapsed(section))
+        
         reloadData()
     }
     func updateTopicSection(){
