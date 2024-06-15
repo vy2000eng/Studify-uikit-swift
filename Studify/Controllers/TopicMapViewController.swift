@@ -78,16 +78,16 @@ class TopicMapViewController: UIViewController {
         configureCollectionView()
         configureDataSource()
         setupConstraints()
-        viewmodel.getAllTopics()
-        viewmodel.getAllMaps()
-        reloadData()
+//        viewmodel.getAllTopics()
+//        viewmodel.getAllMaps()
+       // reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
          viewmodel.getAllTopics()
          viewmodel.getAllMaps()
-//        reloadData()
+        reloadData()
     }
 }
 
