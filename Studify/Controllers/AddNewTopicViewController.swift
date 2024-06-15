@@ -7,9 +7,13 @@
 
 import UIKit
 
+protocol AddNewTopicViewControllerDelgate: AnyObject{
+    func didUpdateTopic()
+}
+
 class AddNewTopicViewController: UIViewController {
     
-    
+    weak var delegate: AddNewTopicViewControllerDelgate?
     let subjectID : UUID
     let viewModel: AddNewTopicViewModel
     
@@ -133,7 +137,13 @@ extension AddNewTopicViewController{
         viewModel.addTopic(title: topicName)
         //viewmodel.addTopic(title: topicName)
         //viewModel.addT(title: subjectName, createdOn: createdOn)
+        updateSectionInTopicMapViewController()
         navigationController?.popViewController(animated: true)
         
+    }
+    
+    func updateSectionInTopicMapViewController(){
+        print("didUpdate Called")
+        delegate?.didUpdateTopic()
     }
 }

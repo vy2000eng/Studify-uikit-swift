@@ -19,7 +19,11 @@ enum sectionType{
 
 
 
-class TopicMapViewController: UIViewController {
+class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate {
+  
+    
+  
+    
     
     //MARK: this word begin
 
@@ -78,6 +82,9 @@ class TopicMapViewController: UIViewController {
         configureCollectionView()
         configureDataSource()
         setupConstraints()
+        viewmodel.getAllTopics()
+        viewmodel.getAllMaps()
+       reloadData()
 //        viewmodel.getAllTopics()
 //        viewmodel.getAllMaps()
        // reloadData()
@@ -85,9 +92,9 @@ class TopicMapViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-         viewmodel.getAllTopics()
-         viewmodel.getAllMaps()
-        reloadData()
+//         viewmodel.getAllTopics()
+//         viewmodel.getAllMaps()
+//        reloadData()
     }
 }
 
@@ -182,22 +189,49 @@ extension TopicMapViewController{
         let section = sender.tag
         if section == 0{
             let vc = AddNewTopicViewController(subjectID: viewmodel.subjectID)
+            vc.delegate = self
+            snapshot = dataSource.snapshot()
             navigationController?.pushViewController(vc, animated: true)
         }else{
             let vc = AddNewMapViewController(subjectID: viewmodel.subjectID)
+            vc.delegate = self
+            snapshot = dataSource.snapshot()
             navigationController?.pushViewController(vc, animated: true)
         }
     }
     @objc func handleCollapseButton(_ sender:UIButton){
         let section = sender.tag
-
         viewmodel.toggleSection(section)
         print(section)
         print(viewmodel.isSectionCollapsed(section))
         reloadData()
-        
-        
     }
+    func updateTopicSection(){
+        print("updateTopic called")
+        viewmodel.getAllTopics()
+        snapshot.appendItems(viewmodel.topics, toSection: .topics)
+        snapshot.reloadSections([.topics])
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func updateMapSection(){
+        print("updateMap called")
+        viewmodel.getAllMaps()
+        snapshot.appendItems(viewmodel.maps, toSection: .maps)
+        snapshot.reloadSections([.maps])
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func didUpdateTopic() {
+        print("updateTopic called")
+        updateTopicSection()
+    }
+    
+    func didUpdateMap(){
+        print("updateSection called")
+        updateMapSection()
+    }
+  
 }
 
 //MARK: this word end

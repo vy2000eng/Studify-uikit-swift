@@ -8,10 +8,17 @@
 import Foundation
 import UIKit
 
+
+protocol AddNewMapViewControllerDelgate: AnyObject{
+    func didUpdateMap()
+}
+
 class AddNewMapViewController: UIViewController{
+
     let subjectID: UUID
     let viewModel: AddNewMapViewModel
-    
+    weak var delegate: AddNewMapViewControllerDelgate?
+
     
     init(subjectID: UUID) {
         self.subjectID = subjectID
@@ -101,9 +108,14 @@ extension AddNewMapViewController{
             return
         }
         viewModel.addMap(title: mapTitle)
+        updateSectionInTopicMapViewController()
         navigationController?.popViewController(animated: true)
-
-        
-    
     }
+    
+    func updateSectionInTopicMapViewController(){
+        print("didUpdate Map called")
+        delegate?.didUpdateMap()
+    }
+    
+    
 }
