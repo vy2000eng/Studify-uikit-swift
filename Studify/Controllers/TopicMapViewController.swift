@@ -209,16 +209,14 @@ extension TopicMapViewController{
     func updateTopicSection(){
         print("updateTopic called")
         viewmodel.getAllTopics()
-        snapshot.appendItems(viewmodel.topics, toSection: .topics)
-        snapshot.reloadSections([.topics])
+        snapshot.appendItems([viewmodel.topic(by: viewmodel.numberOfTopics-1)], toSection: .topics)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     func updateMapSection(){
         print("updateMap called")
         viewmodel.getAllMaps()
-        snapshot.appendItems(viewmodel.maps, toSection: .maps)
-        snapshot.reloadSections([.maps])
+        snapshot.appendItems([viewmodel.map(by: viewmodel.numberOfMaps-1)], toSection: .maps)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     

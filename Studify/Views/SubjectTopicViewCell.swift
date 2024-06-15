@@ -171,7 +171,7 @@ extension SubjectTopicViewCell{
         
         attachment.bounds = flashCardOrCreatedOn == 0 ? CGRect(x: 0, y: -2, width: 15, height: 17) : CGRect(x: 0, y: -2, width: 15, height: 15)
         attrString.append(NSAttributedString(attachment: attachment))
-        let fcOrCreatedOn = flashCardOrCreatedOn == 0 ? "\(topic.topicCount)" : "\(topic.createdOn.formatted(date: .abbreviated, time: .omitted))"
+        let fcOrCreatedOn = flashCardOrCreatedOn == 0 ? "\(topic.topicCount)" : "\(topic.createdOn.formatted(date:.abbreviated, time:.shortened))"
         attrString.append(NSAttributedString(string: " \(fcOrCreatedOn)"))
         
         return attrString
