@@ -11,38 +11,12 @@ import UIKit
 //enum Sec
 //
 enum sectionType{
-    
-    //case main
-//    case headers
     case topics
     case maps
 }
 
-struct topicHeaderItem: Hashable{
-    let sectionTitle : String
-    let data: [TopicViewModel]
-}
-
-struct mapHeaderItem: Hashable{
-    let sectionTitle: String
-    let data: [MapViewModel]
-}
-
-//struct headerItem:Hashable{
-//
-//    
-//    let title:String
-//    let section: Topic
-//    
-//}
 
 
-
-enum listItem: Hashable{
-    case topic(topicHeaderItem)
-    case map(mapHeaderItem)
-    
-}
 
 
 class TopicMapViewController: UIViewController {
@@ -52,6 +26,8 @@ class TopicMapViewController: UIViewController {
     let viewmodel : TopicMapViewModel
     let sectionTitles = ["topics", "maps"]
     var isRowSectionCollapsed = false
+    var dataSource: UICollectionViewDiffableDataSource<sectionType, AnyHashable>!
+    var snapshot = NSDiffableDataSourceSnapshot<sectionType, AnyHashable>()
     
     init(subjectID: UUID){
         self.viewmodel = TopicMapViewModel(subjectID: subjectID, sectionsCount: 2)
@@ -64,38 +40,54 @@ class TopicMapViewController: UIViewController {
     lazy var collectionView: UICollectionView = {
         var layoutConfig = UICollectionLayoutListConfiguration(appearance: .plain)
         layoutConfig.headerMode = .supplementary
+        layoutConfig.leadingSwipeActionsConfigurationProvider = { [unowned self] indexPath in
+            var snapshot = dataSource.snapshot()
+            let deleteAction = UIContextualAction(style: .destructive, title: "delete") { action, sourceView, actionPerformed in
+   
+                if indexPath.section == 0{
+                    self.deleteTopic(at: indexPath)
+                }else {
+                    self.deleteMap(at: indexPath)
+                }
+                actionPerformed(true)
+            }
+
+            let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
+            swipeConfiguration.performsFirstActionWithFullSwipe = true  // This makes the action execute fully on a full swipe
+            return .init(actions: [deleteAction])
+        }
         let listLayout = UICollectionViewCompositionalLayout.list(using: layoutConfig)
         let v = UICollectionView(frame: view.bounds, collectionViewLayout: listLayout)
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
    
-    var dataSource: UICollectionViewDiffableDataSource<sectionType, AnyHashable>!
-   
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "topics and maps"
          navigationController?.navigationBar.prefersLargeTitles = true
-         // Using a built-in system font with a different weight
          let attributes: [NSAttributedString.Key: Any] = [
              .font: UIFont.systemFont(ofSize: 12, weight: .bold), // You can adjust the size and weight
              .foregroundColor: UIColor.darkGray // Change the color as needed
          ]
 
         navigationController?.navigationBar.largeTitleTextAttributes = attributes
-        
         view.addSubview(collectionView)
         configureCollectionView()
         configureDataSource()
         setupConstraints()
+        viewmodel.getAllTopics()
+        viewmodel.getAllMaps()
+        reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewmodel.getAllTopics()
-        viewmodel.getAllMaps()
-        reloadData()
+         viewmodel.getAllTopics()
+         viewmodel.getAllMaps()
+//        reloadData()
     }
 }
 
@@ -172,15 +164,11 @@ extension TopicMapViewController{
         snapshot.appendSections([.maps])
         if !viewmodel.collapsedSections[1] {
             snapshot.appendItems(viewmodel.maps, toSection: .maps)
-            
             snapshot.reloadSections([.maps])
-
         }else {
             snapshot.deleteItems(viewmodel.maps)
             snapshot.reloadSections([.maps])
-
         }
-        
         dataSource.apply(snapshot, animatingDifferences: true)
         
     }
@@ -198,16 +186,12 @@ extension TopicMapViewController{
         }else{
             let vc = AddNewMapViewController(subjectID: viewmodel.subjectID)
             navigationController?.pushViewController(vc, animated: true)
-            
         }
-        
-        
     }
     @objc func handleCollapseButton(_ sender:UIButton){
         let section = sender.tag
 
         viewmodel.toggleSection(section)
-        //collectionView.reloadSections(IndexSet(integer: section))
         print(section)
         print(viewmodel.isSectionCollapsed(section))
         reloadData()
