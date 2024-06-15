@@ -9,14 +9,46 @@ import UIKit
 
 
 //enum Sec
-
+//
 enum sectionType{
+    
+    //case main
+//    case headers
     case topics
     case maps
 }
 
+struct topicHeaderItem: Hashable{
+    let sectionTitle : String
+    let data: [TopicViewModel]
+}
+
+struct mapHeaderItem: Hashable{
+    let sectionTitle: String
+    let data: [MapViewModel]
+}
+
+//struct headerItem:Hashable{
+//
+//    
+//    let title:String
+//    let section: Topic
+//    
+//}
+
+
+
+enum listItem: Hashable{
+    case topic(topicHeaderItem)
+    case map(mapHeaderItem)
+    
+}
+
 
 class TopicMapViewController: UIViewController {
+    
+    //MARK: this word begin
+
     let viewmodel : TopicMapViewModel
     let sectionTitles = ["topics", "maps"]
     var isRowSectionCollapsed = false
@@ -24,22 +56,17 @@ class TopicMapViewController: UIViewController {
     init(subjectID: UUID){
         self.viewmodel = TopicMapViewModel(subjectID: subjectID, sectionsCount: 2)
         super.init(nibName: nil, bundle: nil)
-        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     lazy var collectionView: UICollectionView = {
-
         var layoutConfig = UICollectionLayoutListConfiguration(appearance: .plain)
-            
         layoutConfig.headerMode = .supplementary
         let listLayout = UICollectionViewCompositionalLayout.list(using: layoutConfig)
         let v = UICollectionView(frame: view.bounds, collectionViewLayout: listLayout)
         v.translatesAutoresizingMaskIntoConstraints = false
-
-        
         return v
     }()
    
@@ -48,24 +75,20 @@ class TopicMapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-  
-      
         title = "topics and maps"
          navigationController?.navigationBar.prefersLargeTitles = true
-
          // Using a built-in system font with a different weight
          let attributes: [NSAttributedString.Key: Any] = [
-             .font: UIFont.systemFont(ofSize: 28, weight: .bold), // You can adjust the size and weight
+             .font: UIFont.systemFont(ofSize: 12, weight: .bold), // You can adjust the size and weight
              .foregroundColor: UIColor.darkGray // Change the color as needed
          ]
 
-         navigationController?.navigationBar.largeTitleTextAttributes = attributes
+        navigationController?.navigationBar.largeTitleTextAttributes = attributes
         
         view.addSubview(collectionView)
         configureCollectionView()
         configureDataSource()
         setupConstraints()
-        //reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,9 +96,6 @@ class TopicMapViewController: UIViewController {
         viewmodel.getAllTopics()
         viewmodel.getAllMaps()
         reloadData()
-
-
-
     }
 }
 
@@ -91,13 +111,12 @@ extension TopicMapViewController{
         
     }
     private func configureCollectionView() {
-        //collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(SubjectTopicViewCell.self, forCellWithReuseIdentifier: "topicCell")
         collectionView.register(SubjectMapViewCell.self, forCellWithReuseIdentifier: "mapCell")
         collectionView.register(TopicMapHeaderViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerCell")
-        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "defaultHeader")
-
+        //collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "defaultHeader")
+        
     }
     
     private func configureDataSource() {
@@ -115,53 +134,55 @@ extension TopicMapViewController{
         })
         
         dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
-             // Ensure headers or footers are deque
+            // Ensure headers or footers are deque
             guard let self = self, kind == UICollectionView.elementKindSectionHeader else {
-                    return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "defaultHeader", for: indexPath)
+                return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "defaultHeader", for: indexPath)
             }
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath) as? TopicMapHeaderViewCell else {
-                return nil
+                return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "defaultHeader", for: indexPath)
             }
-            
-            //let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath) as? TopicMapHeaderViewCell
-
             header.sectionTitle.text = sectionTitles[indexPath.section]
             header.addButton.tag = indexPath.section
             header.addButton.addTarget(self, action: #selector(handleAddButton(_:)), for: .touchUpInside)
             let isCollapsed = self.viewmodel.collapsedSections[indexPath.section]
-               let imageName = isCollapsed ? "arrow.up.arrow.down" : "arrow.left.arrow.right"
+            let imageName = isCollapsed ?  "arrow.left.arrow.right" : "arrow.up.arrow.down"
             header.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
-
-            //let imageName = viewmodel.isSectionCollapsed(indexPath.section) ?  "arrow.up.arrow.down" : "arrow.left.arrow.right"
             header.collapseButton.addTarget(self, action: #selector(handleCollapseButton(_:)), for: .touchUpInside)
             header.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
-
             header.collapseButton.tag = indexPath.section
-
             return header
-         }
+        }
     }
     
     func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<sectionType, AnyHashable>()
         snapshot.appendSections([.topics])
- 
+        
         if !viewmodel.collapsedSections[0] {
             snapshot.appendItems(viewmodel.topics, toSection: .topics)
+            snapshot.reloadSections([.topics])
+
         }else {
-
+            
             snapshot.deleteItems(viewmodel.topics)
-        }
+            snapshot.reloadSections([.topics])
 
+        }
+        
         snapshot.appendSections([.maps])
         if !viewmodel.collapsedSections[1] {
             snapshot.appendItems(viewmodel.maps, toSection: .maps)
+            
+            snapshot.reloadSections([.maps])
+
         }else {
             snapshot.deleteItems(viewmodel.maps)
+            snapshot.reloadSections([.maps])
+
         }
-
+        
         dataSource.apply(snapshot, animatingDifferences: true)
-
+        
     }
     
     func getAllData() {
@@ -177,7 +198,7 @@ extension TopicMapViewController{
         }else{
             let vc = AddNewMapViewController(subjectID: viewmodel.subjectID)
             navigationController?.pushViewController(vc, animated: true)
-
+            
         }
         
         
@@ -186,14 +207,17 @@ extension TopicMapViewController{
         let section = sender.tag
 
         viewmodel.toggleSection(section)
+        //collectionView.reloadSections(IndexSet(integer: section))
         print(section)
         print(viewmodel.isSectionCollapsed(section))
         reloadData()
-       // collectionView.reloadSections(IndexSet(integer: section))  // Ensures that the section headers are updated
-
-
+        
+        
     }
 }
+
+//MARK: this word end
+
 
 //class AnimatedDiffableDataSource: UICollectionViewDiffableDataSource<sectionType, AnyHashable> {
 //    override func apply(_ snapshot: NSDiffableDataSourceSnapshot<sectionType, AnyHashable>, animatingDifferences: Bool = true, completion: (() -> Void)? = nil) {

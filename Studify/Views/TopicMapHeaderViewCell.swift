@@ -146,8 +146,8 @@ extension TopicMapHeaderViewCell{
         ])
     }
     
-    func configureTopicHeader(topic: TopicViewModel){
-        sectionTitle.text = topic.title
+    func configureTopicHeader(title: String){
+        sectionTitle.text = title
         
     }
 }

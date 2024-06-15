@@ -10,6 +10,7 @@ class TopicMapViewModel{
 
     var subjectID: UUID
     var collapsedSections: [Bool]
+    let sectionTitles = ["topics", "maps"]
 
     var topics = [TopicViewModel]()
     var maps = [MapViewModel]()
