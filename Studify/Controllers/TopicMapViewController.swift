@@ -15,15 +15,7 @@ enum sectionType{
     case maps
 }
 
-
-
-
-
 class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate {
-  
-    
-  
-    
     
     //MARK: this word begin
 
@@ -43,6 +35,7 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
     
     lazy var collectionView: UICollectionView = {
         var layoutConfig = UICollectionLayoutListConfiguration(appearance: .plain)
+        layoutConfig.showsSeparators = false
         layoutConfig.headerMode = .supplementary
         layoutConfig.leadingSwipeActionsConfigurationProvider = { [unowned self] indexPath in
             var snapshot = dataSource.snapshot()
@@ -65,8 +58,6 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
-   
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,18 +75,16 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         setupConstraints()
         viewmodel.getAllTopics()
         viewmodel.getAllMaps()
-       reloadData()
-//        viewmodel.getAllTopics()
-//        viewmodel.getAllMaps()
-       // reloadData()
+        reloadData()
+
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//         viewmodel.getAllTopics()
-//         viewmodel.getAllMaps()
-//        reloadData()
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+////         viewmodel.getAllTopics()
+////         viewmodel.getAllMaps()
+////        reloadData()
+//    }
 }
 
 extension TopicMapViewController{
@@ -114,7 +103,6 @@ extension TopicMapViewController{
         collectionView.register(SubjectTopicViewCell.self, forCellWithReuseIdentifier: "topicCell")
         collectionView.register(SubjectMapViewCell.self, forCellWithReuseIdentifier: "mapCell")
         collectionView.register(TopicMapHeaderViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerCell")
-        //collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "defaultHeader")
         
     }
     
@@ -133,7 +121,7 @@ extension TopicMapViewController{
         })
         
         dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
-            // Ensure headers or footers are deque
+            // Ensure headers or footers are dequed
             guard let self = self, kind == UICollectionView.elementKindSectionHeader else {
                 return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "defaultHeader", for: indexPath)
             }
@@ -153,6 +141,7 @@ extension TopicMapViewController{
         }
     }
     
+    //MARK: this is a bad implementation, I know theres a better way to do it, but we'll save it for later.
     func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<sectionType, AnyHashable>()
         snapshot.appendSections([.topics])
@@ -202,6 +191,7 @@ extension TopicMapViewController{
     @objc func handleCollapseButton(_ sender:UIButton){
         let section = sender.tag
         viewmodel.toggleSection(section)
+        
         print(section)
         print(viewmodel.isSectionCollapsed(section))
         reloadData()
