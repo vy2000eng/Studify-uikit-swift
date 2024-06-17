@@ -7,9 +7,6 @@
 
 import UIKit
 
-
-//enum Sec
-//
 enum sectionType{
     case topics
     case maps
@@ -70,9 +67,11 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
 
         navigationController?.navigationBar.largeTitleTextAttributes = attributes
         view.addSubview(collectionView)
-        configureCollectionView()
-        configureDataSource()
         setupConstraints()
+
+        configureCollectionView()
+
+        configureDataSource()
         viewmodel.getAllTopics()
         viewmodel.getAllMaps()
         reloadData()
@@ -100,6 +99,7 @@ extension TopicMapViewController{
     }
     private func configureCollectionView() {
         collectionView.delegate = self
+      //  collectionView.dataSource = self
         collectionView.register(SubjectTopicViewCell.self, forCellWithReuseIdentifier: "topicCell")
         collectionView.register(SubjectMapViewCell.self, forCellWithReuseIdentifier: "mapCell")
         collectionView.register(TopicMapHeaderViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerCell")
@@ -143,20 +143,16 @@ extension TopicMapViewController{
     
     //MARK: this is a bad implementation, I know theres a better way to do it, but we'll save it for later.
     func reloadData() {
-        var snapshot = NSDiffableDataSourceSnapshot<sectionType, AnyHashable>()
+        snapshot = dataSource.snapshot()
         snapshot.appendSections([.topics])
         
         if !viewmodel.collapsedSections[0] {
             snapshot.appendItems(viewmodel.topics, toSection: .topics)
             snapshot.reloadSections([.topics])
-
         }else {
-            
             snapshot.deleteItems(viewmodel.topics)
             snapshot.reloadSections([.topics])
-
         }
-        
         snapshot.appendSections([.maps])
         if !viewmodel.collapsedSections[1] {
             snapshot.appendItems(viewmodel.maps, toSection: .maps)
@@ -191,16 +187,37 @@ extension TopicMapViewController{
     @objc func handleCollapseButton(_ sender:UIButton){
         let section = sender.tag
         viewmodel.toggleSection(section)
-        
-        print(section)
-        print(viewmodel.isSectionCollapsed(section))
-        
-        reloadData()
+        var snapshot = dataSource.snapshot()
+
+        switch section{
+        case 0: 
+            if viewmodel.isSectionCollapsed(section){
+                snapshot.deleteItems(viewmodel.topics)
+            }else{
+                snapshot.appendItems(viewmodel.topics, toSection: .topics)
+            }
+            break
+        case 1:
+            if viewmodel.isSectionCollapsed(section){
+                snapshot.deleteItems(viewmodel.maps)
+            }else{
+                snapshot.appendItems(viewmodel.maps, toSection: .maps)
+            }
+            break
+        default:
+            print("fatal error uh oh!")
+            break
+        }
+        snapshot.reloadSections([section == 0 ? .topics : .maps])
+
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
+    
     func updateTopicSection(){
         print("updateTopic called")
         viewmodel.getAllTopics()
         snapshot.appendItems([viewmodel.topic(by: viewmodel.numberOfTopics-1)], toSection: .topics)
+       // snapshot.reloadSections([.topics])
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     

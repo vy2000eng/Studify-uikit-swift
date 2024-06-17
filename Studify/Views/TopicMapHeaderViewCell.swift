@@ -18,12 +18,7 @@ class TopicMapHeaderViewCell: UICollectionViewCell{
 //
 //    let headerView = UIView()
 //    headerView.backgroundColor = UIColor.systemBackground  // Customize as needed
-    lazy var headerView: UIView = {
-       let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = .systemBackground
-        return v
-    }()
+
     
     
     
@@ -32,16 +27,8 @@ class TopicMapHeaderViewCell: UICollectionViewCell{
 //    label.text = sectionTitles[section]
 //    label.translatesAutoresizingMaskIntoConstraints = false
 //    headerView.addSubview(label)
-    lazy var sectionTitle: UILabel = {
-       let v = UILabel()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-    
 
     
-    lazy var collapseButton: UIButton = {
-        var cButton = UIButton()
         //var collapseImage = UIImage(named: TopicMapHeaderViewCell.whatImage ? "arrow.up.arrow.down.square" : "arrow.left.arrow.right.square")
 
        //cButton.setImage(UIImage(systemName : "arrow.up.arrow.down"), for: .normal)
@@ -58,19 +45,9 @@ class TopicMapHeaderViewCell: UICollectionViewCell{
 //       var collapseImage = UIImage(systemName: "ellipsis")
 //        cButton.setImage(collapseImage, for: .normal)
       //  cButton.setImage(collapseImage, for: .normal)
-        cButton.translatesAutoresizingMaskIntoConstraints = false
-        return cButton
-    }()
     
-    lazy var addButton: UIButton = {
-       let addButton = UIButton()
-       let plusImage = UIImage(systemName: "plus")  // Using system image
-        addButton.setImage(plusImage, for: .normal)
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-      //  addButton.addTarget(self, action: #selector(handleAddButton(_:)), for: .touchUpInside)
-        return addButton
-    }()
     
+
     
 //
 //   // button.setTitle("Add", for: .normal)  // Customize your button title here
@@ -105,6 +82,31 @@ class TopicMapHeaderViewCell: UICollectionViewCell{
 //        setup()
 //        
 //    }
+    lazy var headerView: UIView = {
+       let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = .systemBackground
+        return v
+    }()
+    lazy var sectionTitle: UILabel = {
+       let v = UILabel()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    
+    lazy var collapseButton: UIButton = {
+        var cButton = UIButton()
+        cButton.translatesAutoresizingMaskIntoConstraints = false
+        return cButton
+    }()
+    lazy var addButton: UIButton = {
+       let addButton = UIButton()
+       let plusImage = UIImage(systemName: "plus")  // Using system image
+        addButton.setImage(plusImage, for: .normal)
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+      //  addButton.addTarget(self, action: #selector(handleAddButton(_:)), for: .touchUpInside)
+        return addButton
+    }()
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -136,13 +138,19 @@ extension TopicMapHeaderViewCell{
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
+            sectionTitle.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 10),
             sectionTitle.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
-            sectionTitle.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            //sectionTitle.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -5)
+            //sectionTitle.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            sectionTitle.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -5),
+            collapseButton.topAnchor.constraint(equalTo: headerView.topAnchor),
             collapseButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
-            collapseButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+           // collapseButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            collapseButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor,constant: -5),
+            addButton.topAnchor.constraint(equalTo: headerView.topAnchor),
             addButton.trailingAnchor.constraint(equalTo: collapseButton.leadingAnchor,constant: -20),
-            addButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
+            //addButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            addButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor,constant: -5),
+
         ])
     }
     

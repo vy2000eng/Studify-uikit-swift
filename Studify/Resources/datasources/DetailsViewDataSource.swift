@@ -8,16 +8,28 @@
 import Foundation
 import UIKit
 
-
-
+//
+//
 //extension TopicMapViewController: UICollectionViewDataSource{
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        <#code#>
 //    }
 //    
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        if section == 0{
+//           return viewmodel.numberOfRowsForTopics()
+//
+//        }else{
+//            return viewmodel.numberOfRowsForMaps()
+//
+//        }
+//    }
+//    
+    
 //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //        
 //    }
+//}
     
     
     

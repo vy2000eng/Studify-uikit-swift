@@ -30,6 +30,7 @@ extension TopicMapViewController: UICollectionViewDelegate{
         
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
         return true
     }
