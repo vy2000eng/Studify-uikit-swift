@@ -32,8 +32,11 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
     
     lazy var collectionView: UICollectionView = {
         var layoutConfig = UICollectionLayoutListConfiguration(appearance: .plain)
+        layoutConfig.headerTopPadding = 10
         layoutConfig.showsSeparators = false
         layoutConfig.headerMode = .supplementary
+       // layoutConfig.estimatedItemSize = UICollectionViewFlowLayout.automaticSize  // If you use FlowLayout
+
         layoutConfig.leadingSwipeActionsConfigurationProvider = { [unowned self] indexPath in
             var snapshot = dataSource.snapshot()
             let deleteAction = UIContextualAction(style: .destructive, title: "delete") { action, sourceView, actionPerformed in
@@ -67,6 +70,8 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
 
         navigationController?.navigationBar.largeTitleTextAttributes = attributes
         view.addSubview(collectionView)
+        collectionView.selfSizingInvalidation = .disabled
+       // collectionView.bounces  = false
         setupConstraints()
 
         configureCollectionView()
@@ -188,19 +193,27 @@ extension TopicMapViewController{
         let section = sender.tag
         viewmodel.toggleSection(section)
         var snapshot = dataSource.snapshot()
+       // snapshot.reloadSections([section == 0 ? .topics : .maps])
+
+       // snapshot.
 
         switch section{
         case 0: 
             if viewmodel.isSectionCollapsed(section){
                 snapshot.deleteItems(viewmodel.topics)
+                //snapshot.deleteSections([.topics])
             }else{
+                //snapshot.appendSections([.topics])
                 snapshot.appendItems(viewmodel.topics, toSection: .topics)
             }
             break
         case 1:
             if viewmodel.isSectionCollapsed(section){
+                //snapshot.deleteSections([.maps])
                 snapshot.deleteItems(viewmodel.maps)
             }else{
+               // snapshot.appendSections([.maps])
+
                 snapshot.appendItems(viewmodel.maps, toSection: .maps)
             }
             break
@@ -208,9 +221,16 @@ extension TopicMapViewController{
             print("fatal error uh oh!")
             break
         }
-        snapshot.reloadSections([section == 0 ? .topics : .maps])
+       // snapshot.reloadSections([section == 0 ? .topics : .maps])
 
         dataSource.apply(snapshot, animatingDifferences: true)
+        snapshot = dataSource.snapshot()
+         snapshot.reloadSections([section == 0 ? .topics : .maps])
+        dataSource.apply(snapshot, animatingDifferences: true)
+
+
+        
+
     }
     
     func updateTopicSection(){

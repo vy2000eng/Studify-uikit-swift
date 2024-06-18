@@ -106,84 +106,65 @@ extension SubjectMapViewCell{
     private func setupMainConstraints(){
         NSLayoutConstraint.activate([
             //MARK: main content view
-//            mainContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),
-//            mainContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6),
-//            mainContentView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
-//            mainContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
-//            
-//            topContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
-//            topContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
-//            topContentView.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 4),
-//            
-//            subContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
-//            subContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
-//            subContentView.topAnchor.constraint(equalTo: topContentView.bottomAnchor,constant: 2),
-//            subContentView.bottomAnchor.constraint(lessThanOrEqualTo: mainContentView.bottomAnchor, constant: -4)
-    
-
+            //            mainContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),
+            //            mainContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6),
+            //            mainContentView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
+            //            mainContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
+            //
+            //            topContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
+            //            topContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
+            //            topContentView.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 4),
+            //
+            //            subContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
+            //            subContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
+            //            subContentView.topAnchor.constraint(equalTo: topContentView.bottomAnchor,constant: 2),
+            //            subContentView.bottomAnchor.constraint(lessThanOrEqualTo: mainContentView.bottomAnchor, constant: -4)
+            
+            
             mainContentView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 6),
             mainContentView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -6),
             mainContentView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 6),
-            mainContentView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -6),
-
+            mainContentView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -6),
+            
             topContentView.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 4),
             topContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
             topContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
-
-
             
-           // topContentView.bottomAnchor.constraint(lessThanOrEqualTo: topContentView.bottomAnchor, constant: -4),
+            
+            // topContentView.bottomAnchor.constraint(lessThanOrEqualTo: topContentView.bottomAnchor, constant: -4),
             
             subContentView.topAnchor.constraint(equalTo: topContentView.bottomAnchor,constant: 2),
             subContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
             subContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
             subContentView.bottomAnchor.constraint(lessThanOrEqualTo: mainContentView.bottomAnchor, constant: -4),// changed this
-
             
+            
+            mapsNameLabel.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor, constant: 8),
+            mapsNameLabel.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor, constant:-8),
+            mapsNameLabel.topAnchor.constraint(equalTo: topContentView.topAnchor, constant: 8),
+            mapsNameLabel.bottomAnchor.constraint(equalTo: topContentView.bottomAnchor, constant: -8),
             //
-            countLabel.topAnchor.constraint(equalTo: subContentView.topAnchor, constant: 4),
             countLabel.leadingAnchor.constraint(equalTo: subContentView.leadingAnchor, constant: 4),
-            countLabel.trailingAnchor.constraint(equalTo: subContentView.trailingAnchor, constant:  -4),
-          //  countLabel.bottomAnchor.constraint(equalTo: subContentView.bottomAnchor, constant: -4),
+            countLabel.topAnchor.constraint(equalTo: subContentView.topAnchor, constant: 12),
 
+            countLabel.trailingAnchor.constraint(equalTo: subContentView.trailingAnchor, constant:  -4),
+            //  countLabel.bottomAnchor.constraint(equalTo: subContentView.bottomAnchor, constant: -4),
             
-            mapsNameLabel.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor, constant: 2),
-            mapsNameLabel.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor, constant:-2),
-            mapsNameLabel.topAnchor.constraint(equalTo: topContentView.topAnchor, constant: 2),
-            mapsNameLabel.bottomAnchor.constraint(equalTo: topContentView.bottomAnchor, constant: -2),
+
             //topContentView.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor, constant: -4),
             
-           // createdOnLabel.topAnchor.
-            createdOnLabel.topAnchor.constraint(equalTo: countLabel.bottomAnchor, constant: 4),
+            // createdOnLabel.topAnchor.
+            createdOnLabel.topAnchor.constraint(equalTo: countLabel.bottomAnchor, constant: 8),
             createdOnLabel.leadingAnchor.constraint(equalTo: subContentView.leadingAnchor, constant:4),
             createdOnLabel.trailingAnchor.constraint(equalTo: subContentView.trailingAnchor, constant: -4),
-            createdOnLabel.bottomAnchor.constraint(lessThanOrEqualTo: subContentView.bottomAnchor, constant: -4),
+            createdOnLabel.bottomAnchor.constraint(equalTo: subContentView.bottomAnchor, constant: -6),
             
-
+            
         ])
         
-       // setupConstraints()
     }
     
-//    private func setupConstraints(){
-//        NSLayoutConstraint.activate(
-//            [
-//                mapsNameLabel.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor, constant: 8),
-//                mapsNameLabel.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor, constant:-8),
-//                mapsNameLabel.topAnchor.constraint(equalTo: topContentView.topAnchor, constant: 8),
-//                mapsNameLabel.bottomAnchor.constraint(equalTo: topContentView.bottomAnchor, constant: -8),
-//                
-//                countLabel.topAnchor.constraint(equalTo: subContentView.topAnchor, constant: 12),
-//                countLabel.leadingAnchor.constraint(equalTo: subContentView.leadingAnchor, constant: 4),
-//                countLabel.trailingAnchor.constraint(equalTo: subContentView.trailingAnchor, constant:  -4),
-//                
-//                createdOnLabel.topAnchor.constraint(equalTo: countLabel.bottomAnchor, constant: 8),
-//                createdOnLabel.leadingAnchor.constraint(equalTo: subContentView.leadingAnchor, constant:4),
-//                createdOnLabel.bottomAnchor.constraint(lessThanOrEqualTo: subContentView.bottomAnchor, constant: -4)
-//            ]
-//        )
-//        
-//    }
+
     
     func configure(with map: MapViewModel){
         mapsNameLabel.text = map.title
