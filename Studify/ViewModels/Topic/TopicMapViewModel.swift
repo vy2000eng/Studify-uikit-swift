@@ -5,15 +5,35 @@
 //  Created by VladyslavYatsuta on 6/5/24.
 //
 
+let sectionTitles = ["topics", "maps"]
+
+enum sectionData{
+    case topics([TopicViewModel])
+    case maps([MapViewModel])
+}
+
+class Sections{
+    let header: String
+    let data: sectionData
+    var isOpened: Bool = false
+    
+    init(header: String, data: sectionData, isOpened: Bool = false ) {
+        self.header = header
+        self.data = data
+        self.isOpened = isOpened
+    }
+}
+
 import Foundation
 class TopicMapViewModel{
 
     var subjectID: UUID
-    var collapsedSections: [Bool]
+   // var collapsedSections: [Bool]
     let sectionTitles = ["topics", "maps"]
 
     var topics = [TopicViewModel]()
     var maps = [MapViewModel]()
+    var sections = [Sections]()
     //var isRowSectionCollapsed = false
     
     
@@ -25,21 +45,24 @@ class TopicMapViewModel{
     }
     init(subjectID: UUID,sectionsCount: Int) {
         self.subjectID = subjectID
-        self.collapsedSections = Array(repeating: false, count: sectionsCount)
+      //  self.collapsedSections = Array(repeating: false, count: sectionsCount)
         getAllTopics()
         getAllMaps()
+        self.sections = [Sections(header: "topics", data: .topics(topics)), Sections(header: "maps", data: .maps(maps))]
+
     }
     
     func toggleSection(_ section: Int) {
      ///  collapsedSections = collapsedSections.first(where: {$0 == [section]})
         //var s = isSectionCollapsed(section)
+        sections[section].isOpened = !sections[section].isOpened
 
 
-        collapsedSections[section] = collapsedSections[section] ? false : true
+        //collapsedSections[section] = collapsedSections[section] ? false : true
     }
     
     func isSectionCollapsed(_ section: Int) -> Bool {
-           return collapsedSections[section]
+        return sections[section].isOpened
     }
     
     //MARK: TODO number of row topics
@@ -54,11 +77,11 @@ class TopicMapViewModel{
     
     func numberOfRows(by section: Int)->Int{
         if section == 0{
-            return collapsedSections[section] ?
+            return sections[section].isOpened ?
             0 : numberOfRowsForTopics()
         }else{
-            return collapsedSections[section] ?
-            0 : numberOfRowsForMaps() 
+            return sections[section].isOpened ?
+            0 : numberOfRowsForMaps()
            // return numberOfRowsForMaps()
         }
     }

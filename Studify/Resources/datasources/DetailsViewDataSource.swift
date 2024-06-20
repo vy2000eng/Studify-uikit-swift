@@ -10,7 +10,123 @@ import UIKit
 
 //
 //
-//extension TopicMapViewController: UICollectionViewDataSource{
+
+
+class sections{
+    let header: TopicMapHeaderViewCell
+    let topicData: SubjectTopicViewCell
+    let mapData: SubjectMapViewCell
+    
+    init(header: TopicMapHeaderViewCell, topicData: SubjectTopicViewCell, mapData: SubjectMapViewCell) {
+        self.header = header
+        self.topicData = topicData
+        self.mapData = mapData
+    }
+    
+}
+
+
+//    let topicData: TopicViewModel
+//    let mapData: MapViewModel
+//    
+//    init(header: String, topicData: TopicViewModel) {
+//        self.header = header
+//        self.topicData = topicData
+//        //self.mapData = mapData
+//    }
+//    
+//    init(header: String, mapData: MapViewModel){
+//        self.header = header
+//        self.mapData = mapData
+//        
+//    }
+//}
+extension TopicMapViewController: UICollectionViewDataSource{
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.section == 0{
+            guard let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "topicCell", for: indexPath) as? SubjectTopicViewCell
+            else{
+                return UICollectionViewCell()
+            }
+            let topic = viewmodel.topic(by: indexPath.row)
+            cell.configure(with: topic)
+            return cell
+            
+        }else{
+            guard let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "mapCell", for: indexPath) as? SubjectMapViewCell
+            else{
+                return UICollectionViewCell()
+            }
+            let map = viewmodel.map(by: indexPath.row)
+            cell.configure(with: map)
+            return cell
+            //return collectionView.dequeueReusableCell(withReuseIdentifier: "mapCell", for: indexPath)
+            
+        }
+        
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind:     kind, withReuseIdentifier: "headerCell", for: indexPath) as? TopicMapHeaderViewCell
+        else{
+            //return supple
+            
+            let fallbackView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "fallbackIdentifier", for: indexPath)
+            // Configure fallbackView or log an error if necessary
+            return fallbackView
+        }
+        cell.configureTopicHeader(title: viewmodel.sections[indexPath.section].header)
+        let imageName = viewmodel.sections[indexPath.section].isOpened ? "arrow.left.arrow.right" : "arrow.up.arrow.down"
+        cell.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
+        cell.collapseButton.addTarget(self, action: #selector(handleCollapseButton(_:)), for: .touchUpInside)
+        cell.collapseButton.tag = indexPath.section
+
+        
+        
+        
+        return cell
+    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return viewmodel.numberOfRows(by: section)
+        //        if section == 0{
+        //            return viewmodel.numberOfTopics
+        //        }else{
+        //            return viewmodel.numberOfMaps
+        //        }
+    }
+}
+extension TopicMapViewController{
+    @objc
+    func handleCollapseButton(_ sender:UIButton){
+       let section = sender.tag
+        viewmodel.toggleSection(section)
+        let indexSet = IndexSet(integer: section)
+
+        collectionView.reloadSections(indexSet)
+
+        
+        
+        
+        
+    }
+    
+}
+
+    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        if indexPath.section == 0{
+//            
+//        }
+//    }
+    
 //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //        <#code#>
 //    }
@@ -25,14 +141,14 @@ import UIKit
 //        }
 //    }
 //    
-    
+//    
 //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //        
 //    }
 //}
-    
-    
-    
+//    
+//    
+//    
 //    func numberOfSections(in tableView: UITableView) -> Int {
 //        return 2
 //    }
