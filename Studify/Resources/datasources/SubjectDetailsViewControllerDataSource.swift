@@ -16,8 +16,6 @@ extension SubjectListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.numberOfRows()
     }
-
-    //actually setting up view
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SubjectCell", for: indexPath) as? SubjectTableViewCell
@@ -30,12 +28,7 @@ extension SubjectListViewController: UITableViewDataSource {
         return cell
         
     }
-    
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        cell.contentView.layer.masksToBounds = true
-//       // let radius = cell.contentView.layer.cornerRadius
-//        //cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: radius).cgPath
-//    }
+
 
     
     

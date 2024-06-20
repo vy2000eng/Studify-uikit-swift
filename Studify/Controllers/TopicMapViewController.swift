@@ -12,14 +12,13 @@ import UIKit
 class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate {
     
     //MARK: this word begin
-
     let viewmodel : TopicMapViewModel
-  //  let sectionTitles = ["topics", "maps"]
+    var subjectTitle: String
     var isRowSectionCollapsed = false
-
     
-    init(subjectID: UUID){
+    init(subjectID: UUID, subjectTitle: String){
         self.viewmodel = TopicMapViewModel(subjectID: subjectID, sectionsCount: 2)
+        self.subjectTitle = subjectTitle
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {
@@ -28,38 +27,26 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
     
     lazy var collectionView: UICollectionView = {
 
-
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-              let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-              // Group
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(112))
-              // Directly creating a vertical group using an array of items
-              let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-
-              // Section
-              let section = NSCollectionLayoutSection(group: group)
-
-              // Header
-              let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50))
-              let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-              header.pinToVisibleBounds = true  // This makes the header sticky
-
-              section.boundarySupplementaryItems = [header]
-
-              return section
-            }
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+            let section = NSCollectionLayoutSection(group: group)
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50))
+            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+            header.pinToVisibleBounds = true  // This makes the header sticky
+            section.boundarySupplementaryItems = [header]
+            return section
+        }
             
-            let v = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
-
+        let v = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
+        v.delegate = self
+        v.dataSource = self
         v.register(SubjectTopicViewCell.self, forCellWithReuseIdentifier: "topicCell")
         v.register(SubjectMapViewCell.self, forCellWithReuseIdentifier: "mapCell")
         v.register(TopicMapHeaderViewCell.self, forSupplementaryViewOfKind:UICollectionView.elementKindSectionHeader , withReuseIdentifier: "headerCell")
         v.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "fallbackIdentifier")
-
-        v.delegate = self
-        v.dataSource = self
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -68,7 +55,7 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "topics and maps"
+        title = subjectTitle
          navigationController?.navigationBar.prefersLargeTitles = true
          let attributes: [NSAttributedString.Key: Any] = [
              .font: UIFont.systemFont(ofSize: 12, weight: .bold), // You can adjust the size and weight
@@ -77,21 +64,12 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
 
         navigationController?.navigationBar.largeTitleTextAttributes = attributes
         view.addSubview(collectionView)
-        collectionView.selfSizingInvalidation = .disabled
         setupConstraints()
-
-        configureCollectionView()
         viewmodel.getAllTopics()
         viewmodel.getAllMaps()
 
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-////         viewmodel.getAllTopics()
-////         viewmodel.getAllMaps()
-////        reloadData()
-//    }
+
 }
 
 extension TopicMapViewController{
@@ -103,28 +81,25 @@ extension TopicMapViewController{
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
     }
-    private func configureCollectionView() {
-        collectionView.delegate = self
-        collectionView.register(SubjectTopicViewCell.self, forCellWithReuseIdentifier: "topicCell")
-        collectionView.register(SubjectMapViewCell.self, forCellWithReuseIdentifier: "mapCell")
-        collectionView.register(TopicMapHeaderViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerCell")
-        
-    }
-    
     
     func updateTopicSection(){
         print("updateTopic called")
         viewmodel.getAllTopics()
-
+        let indexPath = IndexPath(row: viewmodel.numberOfTopics-1, section: 0)
+        DispatchQueue.main.async {
+            self.collectionView.insertItems(at: [indexPath])
+        }
     }
     
     func updateMapSection(){
         print("updateMap called")
         viewmodel.getAllMaps()
-       // snapshot.appendItems([viewmodel.map(by: viewmodel.numberOfMaps-1)], toSection: .maps)
-       // dataSource.apply(snapshot, animatingDifferences: true)
+        let indexPath = IndexPath(row: viewmodel.numberOfMaps-1, section: 1)
+        
+        DispatchQueue.main.async {
+            self.collectionView.insertItems(at: [indexPath])
+        }
     }
     
     func didUpdateTopic() {

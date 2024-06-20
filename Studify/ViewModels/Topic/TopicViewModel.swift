@@ -30,28 +30,7 @@ struct TopicViewModel:Hashable{
     var topicCount:Int{
         topic.flashcardset?.count ?? 0
     }
-  //  private var flashcardSet:[FlashCar]
-    
-//    private var flashCardSet: FlashCardSet
-//    
-//    init(flashCardSet: FlashCardSet) {
-//        self.flashCardSet = flashCardSet
-//    }
-//    
-//    var id: UUID{
-//        flashCardSet.id ?? UUID()
-//    }
-//    
-//    var name: String{
-//        flashCardSet.title ?? ""
-//    }
-//    
-//    var flashcardSets: [FlashCardSet]{
-//        [flashCardSet]
-//
-//        
-//        
-//    }
+
     
     
     

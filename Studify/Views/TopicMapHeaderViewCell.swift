@@ -86,11 +86,16 @@ class TopicMapHeaderViewCell: UICollectionViewCell{
        let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.backgroundColor = .systemBackground
+        
         return v
     }()
     lazy var sectionTitle: UILabel = {
        let v = UILabel()
         v.translatesAutoresizingMaskIntoConstraints = false
+        v.font = UIFont(name: "HelveticaNeue-Italic", size: 15)
+        v.textColor = UIColor.darkGray
+        
+
         return v
     }()
     
@@ -138,17 +143,19 @@ extension TopicMapHeaderViewCell{
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-            sectionTitle.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 10),
-            sectionTitle.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
-            //sectionTitle.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            sectionTitle.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 5),
+            sectionTitle.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 10),
+            sectionTitle.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             sectionTitle.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -5),
-            collapseButton.topAnchor.constraint(equalTo: headerView.topAnchor),
-            collapseButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
-           // collapseButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            
+            collapseButton.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 5),
+            collapseButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -10),
+            collapseButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             collapseButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor,constant: -5),
-            addButton.topAnchor.constraint(equalTo: headerView.topAnchor),
+            
+            addButton.topAnchor.constraint(equalTo: headerView.topAnchor,constant: 5),
             addButton.trailingAnchor.constraint(equalTo: collapseButton.leadingAnchor,constant: -20),
-            //addButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            addButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             addButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor,constant: -5),
 
         ])
@@ -160,19 +167,3 @@ extension TopicMapHeaderViewCell{
     }
 }
 
-extension TopicMapHeaderViewCell{
-    
-//    @objc func handleAddButton(_ sender: UIButton) {
-//        let section = sender.tag
-        
-//        if section == 0{
-//            let vc = AddNewTopicViewController(subjectID: viewmodel.subjectID)
-//            navigationController?.pushViewController(vc, animated: true)
-//        }else{
-//            let vc = AddNewMapViewController(subjectID: viewmodel.subjectID)
-//            navigationController?.pushViewController(vc, animated: true)
-//
-//        }
-    
-    
-}

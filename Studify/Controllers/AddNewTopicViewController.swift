@@ -44,27 +44,12 @@ class AddNewTopicViewController: UIViewController {
         return textField
         
     }()
-    
-    //let viewodel = AddNewTopicViewModel(subjectId: subjectID)
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
 
-        // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -133,10 +118,7 @@ extension AddNewTopicViewController{
             present(alert, animated: true)
             return
         }
-        //let createdOn = Date()
         viewModel.addTopic(title: topicName)
-        //viewmodel.addTopic(title: topicName)
-        //viewModel.addT(title: subjectName, createdOn: createdOn)
         updateSectionInTopicMapViewController()
         navigationController?.popViewController(animated: true)
         

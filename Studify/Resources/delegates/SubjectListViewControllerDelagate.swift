@@ -36,10 +36,7 @@ extension SubjectListViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let vc = TopicMapViewController(subjectID: viewModel.subject(by: indexPath.row).id)
+        let vc = TopicMapViewController(subjectID: viewModel.subject(by: indexPath.row).id,subjectTitle: viewModel.subject(by: indexPath.row).name)
         navigationController?.pushViewController(vc, animated:true)
     }
-    
-
-    
 }

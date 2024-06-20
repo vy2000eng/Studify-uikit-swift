@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class SubjectTopicViewCell: UICollectionViewCell {
+class SubjectTopicViewCell: SwipeCollectionViewCell {
 
  
     lazy var topicNameLabel: UILabel = {
@@ -48,7 +49,6 @@ class SubjectTopicViewCell: UICollectionViewCell {
         topContentView.translatesAutoresizingMaskIntoConstraints = false
         topContentView.layer.cornerRadius = 2
         topContentView.backgroundColor = warmClouds.darkPrimary
-        
         return topContentView
     }()
     
@@ -59,11 +59,11 @@ class SubjectTopicViewCell: UICollectionViewCell {
         subContentView.backgroundColor = warmClouds.lightTertiary
         return subContentView
     }()
-    
    
     
     lazy var mainContentView: UIView = {
-       let mainContentView = UIView()
+       let mainContentView = UIView(frame: CGRect(origin: .zero,
+                                                  size: CGSize(width: 400.0, height: 200.0)))
         mainContentView.translatesAutoresizingMaskIntoConstraints = false
         mainContentView.backgroundColor = UIColor.white
         mainContentView.layer.shadowOffset = CGSize(width: 5, height: 5);
@@ -74,9 +74,11 @@ class SubjectTopicViewCell: UICollectionViewCell {
         mainContentView.layer.cornerRadius = 2
         return mainContentView
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -87,10 +89,12 @@ class SubjectTopicViewCell: UICollectionViewCell {
 }
 
 extension SubjectTopicViewCell{
+    
     private func setup(){
-       // selectionStyle = .none
         backgroundColor = UIColor.white
         contentView.addSubview(mainContentView)
+
+
         mainContentView.addSubview(topContentView)
         mainContentView.addSubview(subContentView)
         topContentView.addSubview(topicNameLabel)
@@ -101,83 +105,40 @@ extension SubjectTopicViewCell{
     
     private func setupMainConstraints(){
         NSLayoutConstraint.activate([
+            //MARK: maincontent view
             mainContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),
             mainContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6),
             mainContentView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
             mainContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
             
+            //MARK: topContent view
             topContentView.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 4),
             topContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
             topContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
             
-            
-            // topContentView.bottomAnchor.constraint(lessThanOrEqualTo: topContentView.bottomAnchor, constant: -4),
-            
+            //MARK: subcontent view
             subContentView.topAnchor.constraint(equalTo: topContentView.bottomAnchor,constant: 2),
             subContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
             subContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
             subContentView.bottomAnchor.constraint(lessThanOrEqualTo: mainContentView.bottomAnchor, constant: -4),// changed this
             
-            
+            //MARK: topicname label
             topicNameLabel.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor, constant: 8),
             topicNameLabel.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor, constant:-8),
             topicNameLabel.topAnchor.constraint(equalTo: topContentView.topAnchor, constant: 8),
             topicNameLabel.bottomAnchor.constraint(equalTo: topContentView.bottomAnchor, constant: -8),
-            //
+            
+            //MARK: count  label
             countLabel.leadingAnchor.constraint(equalTo: subContentView.leadingAnchor, constant: 4),
             countLabel.topAnchor.constraint(equalTo: subContentView.topAnchor, constant: 12),
-
             countLabel.trailingAnchor.constraint(equalTo: subContentView.trailingAnchor, constant:  -4),
-            //  countLabel.bottomAnchor.constraint(equalTo: subContentView.bottomAnchor, constant: -4),
             
-
-            //topContentView.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor, constant: -4),
-            
-            // createdOnLabel.topAnchor.
+            //MARK: createOn label
             createdOnLabel.topAnchor.constraint(equalTo: countLabel.bottomAnchor, constant: 8),
             createdOnLabel.leadingAnchor.constraint(equalTo: subContentView.leadingAnchor, constant:4),
             createdOnLabel.trailingAnchor.constraint(equalTo: subContentView.trailingAnchor, constant: -4),
             createdOnLabel.bottomAnchor.constraint(equalTo: subContentView.bottomAnchor, constant: -6),
-            
-//            mainContentView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 6),
-//            mainContentView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -6),
-//            mainContentView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 6),
-//            mainContentView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -6),
-//
-//            topContentView.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 4),
-//            topContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
-//            topContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
-//
-//
-//            
-//           // topContentView.bottomAnchor.constraint(lessThanOrEqualTo: topContentView.bottomAnchor, constant: -4),
-//            
-//            subContentView.topAnchor.constraint(equalTo: topContentView.bottomAnchor,constant: 2),
-//            subContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
-//            subContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
-//            subContentView.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor, constant: -4),// changed this
-//            
-//            topicNameLabel.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor, constant: 2),
-//            topicNameLabel.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor, constant:-2),
-//            topicNameLabel.topAnchor.constraint(equalTo: topContentView.topAnchor, constant: 2),
-//            topicNameLabel.bottomAnchor.constraint(equalTo: topContentView.bottomAnchor, constant: -2),
-//            
-//            //
-//            countLabel.topAnchor.constraint(equalTo: subContentView.topAnchor, constant: 8),
-//            countLabel.leadingAnchor.constraint(equalTo: subContentView.leadingAnchor, constant: 4),
-//            countLabel.trailingAnchor.constraint(equalTo: subContentView.trailingAnchor, constant:  -4),
-//          //  countLabel.bottomAnchor.constraint(equalTo: subContentView.bottomAnchor, constant: -4),
-//
-//
-//            //topContentView.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor, constant: -4),
-//            
-//           // createdOnLabel.topAnchor.
-//            createdOnLabel.topAnchor.constraint(equalTo: countLabel.bottomAnchor, constant: 6),
-//            createdOnLabel.leadingAnchor.constraint(equalTo: subContentView.leadingAnchor, constant:4),
-//            createdOnLabel.trailingAnchor.constraint(equalTo: subContentView.trailingAnchor, constant: -4),
-//            createdOnLabel.bottomAnchor.constraint(equalTo: subContentView.bottomAnchor, constant: -4),
-//            
-
+                        
         ])
         
     }
@@ -186,7 +147,6 @@ extension SubjectTopicViewCell{
     
     func configure(with topic: TopicViewModel){
         topicNameLabel.text = topic.title
-        
         let fcAttrString = configureString(topic: topic, flashCardOrCreatedOn:  0)
         countLabel.attributedText = fcAttrString
         
@@ -194,6 +154,7 @@ extension SubjectTopicViewCell{
         createdOnLabel.attributedText = createdOnAttrString
     }
     
+    // which label are we configuring? createdOn(0) or flashcard count(1)
     func configureString(topic:TopicViewModel, flashCardOrCreatedOn: Int)  -> NSMutableAttributedString{
 
         let attrString = NSMutableAttributedString(string: "")
@@ -203,8 +164,7 @@ extension SubjectTopicViewCell{
         if let image = UIImage(systemName: cardOrClock)?.withTintColor(UIColor.black){
             attachment.image = image
         }
-        
-        
+
         attachment.bounds = flashCardOrCreatedOn == 0 ? CGRect(x: 0, y: -2, width: 15, height: 17) : CGRect(x: 0, y: -2, width: 15, height: 15)
         attrString.append(NSAttributedString(attachment: attachment))
         let fcOrCreatedOn = flashCardOrCreatedOn == 0 ? "\(topic.topicCount)" : "\(topic.createdOn.formatted(date:.abbreviated, time:.shortened))"
@@ -213,9 +173,4 @@ extension SubjectTopicViewCell{
         return attrString
     }
 }
-extension NSLayoutConstraint {
-    func withPriority(_ value: Float) -> NSLayoutConstraint {
-        self.priority = UILayoutPriority(value)
-        return self
-    }
-}
+

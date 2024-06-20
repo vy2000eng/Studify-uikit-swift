@@ -9,8 +9,6 @@ import UIKit
 
 class AddNewSubjectViewController: UIViewController {
     
-    
-    
     lazy var SubjectNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -32,12 +30,7 @@ class AddNewSubjectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-
-        // Do any additional setup after loading the view.
     }
-    
-
-
 }
 
 extension AddNewSubjectViewController{
@@ -55,8 +48,6 @@ extension AddNewSubjectViewController{
                 subViewToAdd in view.addSubview(subViewToAdd)
             }
         setupConstraints()
-        
-        
     }
     
     private func setupConstraints(){
@@ -105,6 +96,5 @@ extension AddNewSubjectViewController{
         let createdOn = Date()
         viewModel.addSubject(title: subjectName, createdOn: createdOn)
         navigationController?.popViewController(animated: true)
-        
     }
 }

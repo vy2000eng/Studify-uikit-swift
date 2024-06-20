@@ -4,9 +4,6 @@
 //
 //  Created by VladyslavYatsuta on 6/5/24.
 //
-
-let sectionTitles = ["topics", "maps"]
-
 enum sectionData{
     case topics([TopicViewModel])
     case maps([MapViewModel])
@@ -15,9 +12,9 @@ enum sectionData{
 class Sections{
     let header: String
     let data: sectionData
-    var isOpened: Bool = false
+    var isOpened: Bool = true
     
-    init(header: String, data: sectionData, isOpened: Bool = false ) {
+    init(header: String, data: sectionData, isOpened: Bool = true ) {
         self.header = header
         self.data = data
         self.isOpened = isOpened
@@ -28,13 +25,11 @@ import Foundation
 class TopicMapViewModel{
 
     var subjectID: UUID
-   // var collapsedSections: [Bool]
     let sectionTitles = ["topics", "maps"]
 
     var topics = [TopicViewModel]()
     var maps = [MapViewModel]()
     var sections = [Sections]()
-    //var isRowSectionCollapsed = false
     
     
     var numberOfTopics:Int{
@@ -45,7 +40,6 @@ class TopicMapViewModel{
     }
     init(subjectID: UUID,sectionsCount: Int) {
         self.subjectID = subjectID
-      //  self.collapsedSections = Array(repeating: false, count: sectionsCount)
         getAllTopics()
         getAllMaps()
         self.sections = [Sections(header: "topics", data: .topics(topics)), Sections(header: "maps", data: .maps(maps))]
@@ -53,24 +47,17 @@ class TopicMapViewModel{
     }
     
     func toggleSection(_ section: Int) {
-     ///  collapsedSections = collapsedSections.first(where: {$0 == [section]})
-        //var s = isSectionCollapsed(section)
         sections[section].isOpened = !sections[section].isOpened
-
-
-        //collapsedSections[section] = collapsedSections[section] ? false : true
     }
     
     func isSectionCollapsed(_ section: Int) -> Bool {
         return sections[section].isOpened
     }
     
-    //MARK: TODO number of row topics
 
     func numberOfRowsForTopics() -> Int{
         return numberOfTopics
     }
-    //MARK: TODO number of row maps
     func numberOfRowsForMaps()-> Int{
         return numberOfMaps
     }
@@ -78,11 +65,10 @@ class TopicMapViewModel{
     func numberOfRows(by section: Int)->Int{
         if section == 0{
             return sections[section].isOpened ?
-            0 : numberOfRowsForTopics()
+            numberOfRowsForTopics() : 0
         }else{
             return sections[section].isOpened ?
-            0 : numberOfRowsForMaps()
-           // return numberOfRowsForMaps()
+            numberOfRowsForMaps() : 0
         }
     }
     
@@ -95,16 +81,14 @@ class TopicMapViewModel{
     }
     
     
-    
+    //MARK: Create
     func insertTopic(title: String, id: UUID){
         CoreDataManager.shared.addTopicToSubject(title:title,subjectID: subjectID)
-        
     }
     
-    //MARK: read
+    //MARK: Read
     func getAllMaps(){
         maps = CoreDataManager.shared.getAllMapsForSubject(subjectid: subjectID).map(MapViewModel.init)
-            // print(maps.count)
     }
     
     

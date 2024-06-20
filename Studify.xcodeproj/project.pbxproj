@@ -12,6 +12,7 @@
 		394879802C1560B4002D3DEB /* FlashcardSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3948797F2C1560B4002D3DEB /* FlashcardSetViewModel.swift */; };
 		394879822C1560D4002D3DEB /* FlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394879812C1560D4002D3DEB /* FlashCardViewModel.swift */; };
 		394879842C15F09D002D3DEB /* TopicMapHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394879832C15F09D002D3DEB /* TopicMapHeaderViewCell.swift */; };
+		396D6CB52C2495F0000DD57C /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 396D6CB42C2495F0000DD57C /* SwipeCellKit */; };
 		39A4BC652C03924200F833D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC642C03924200F833D2 /* AppDelegate.swift */; };
 		39A4BC672C03924200F833D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC662C03924200F833D2 /* SceneDelegate.swift */; };
 		39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC682C03924200F833D2 /* SubjectListViewController.swift */; };
@@ -107,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				396D6CB52C2495F0000DD57C /* SwipeCellKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +303,9 @@
 			dependencies = (
 			);
 			name = Studify;
+			packageProductDependencies = (
+				396D6CB42C2495F0000DD57C /* SwipeCellKit */,
+			);
 			productName = Studify;
 			productReference = 39A4BC612C03924200F833D2 /* Studify.app */;
 			productType = "com.apple.product-type.application";
@@ -329,6 +334,9 @@
 				Base,
 			);
 			mainGroup = 39A4BC582C03924100F833D2;
+			packageReferences = (
+				396D6CB32C2495F0000DD57C /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
+			);
 			productRefGroup = 39A4BC622C03924200F833D2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -611,6 +619,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		396D6CB32C2495F0000DD57C /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwipeCellKit/SwipeCellKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		396D6CB42C2495F0000DD57C /* SwipeCellKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 396D6CB32C2495F0000DD57C /* XCRemoteSwiftPackageReference "SwipeCellKit" */;
+			productName = SwipeCellKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		399D38912C08D659008AFC5C /* Subjects.xcdatamodeld */ = {

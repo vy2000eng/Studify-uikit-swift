@@ -6,8 +6,15 @@
 //
 
 import UIKit
+// The reason were using swipeCellKit is because compisition layout doesnt support swipe actions.
+// Making them yourself with pangestures is like an ungodly amount of work.
+// If I was making swipeCellKit then I'd figure it out, but I just need good looking swipe gesture.
+//MARK: The reason were using compostional layout is because it's the only way i've tried that makes the header buttons look good and work correctly when adding, deleting
 
-class SubjectMapViewCell: UICollectionViewCell {
+
+import SwipeCellKit
+
+class SubjectMapViewCell: SwipeCollectionViewCell {
     
     lazy var mapsNameLabel: UILabel = {
        let label = UILabel()
@@ -75,24 +82,13 @@ class SubjectMapViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    //
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        setup()
-//    }
-//    
-//    
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+
     
 
 }
 
 extension SubjectMapViewCell{
     private func setup(){
-        //selectionStyle = .none
         backgroundColor = UIColor.white
         contentView.addSubview(mainContentView)
         mainContentView.addSubview(topContentView)
@@ -106,54 +102,36 @@ extension SubjectMapViewCell{
     private func setupMainConstraints(){
         NSLayoutConstraint.activate([
             //MARK: main content view
-            //            mainContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 6),
-            //            mainContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -6),
-            //            mainContentView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 6),
-            //            mainContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
-            //
-            //            topContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
-            //            topContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
-            //            topContentView.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 4),
-            //
-            //            subContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
-            //            subContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
-            //            subContentView.topAnchor.constraint(equalTo: topContentView.bottomAnchor,constant: 2),
-            //            subContentView.bottomAnchor.constraint(lessThanOrEqualTo: mainContentView.bottomAnchor, constant: -4)
-            
-            
             mainContentView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 6),
             mainContentView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -6),
             mainContentView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 6),
             mainContentView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -6),
             
+            //MARK: maintop view
             topContentView.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 4),
             topContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
             topContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
             
             
             // topContentView.bottomAnchor.constraint(lessThanOrEqualTo: topContentView.bottomAnchor, constant: -4),
-            
+            //MARK: subcontent view
             subContentView.topAnchor.constraint(equalTo: topContentView.bottomAnchor,constant: 2),
             subContentView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 4),
             subContentView.trailingAnchor.constraint(equalTo: mainContentView.trailingAnchor, constant: -4),
             subContentView.bottomAnchor.constraint(lessThanOrEqualTo: mainContentView.bottomAnchor, constant: -4),// changed this
             
-            
+            //MARK: mapsnamelabel
             mapsNameLabel.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor, constant: 8),
             mapsNameLabel.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor, constant:-8),
             mapsNameLabel.topAnchor.constraint(equalTo: topContentView.topAnchor, constant: 8),
             mapsNameLabel.bottomAnchor.constraint(equalTo: topContentView.bottomAnchor, constant: -8),
-            //
+            
+            //MARK: count  label
             countLabel.leadingAnchor.constraint(equalTo: subContentView.leadingAnchor, constant: 4),
             countLabel.topAnchor.constraint(equalTo: subContentView.topAnchor, constant: 12),
-
             countLabel.trailingAnchor.constraint(equalTo: subContentView.trailingAnchor, constant:  -4),
-            //  countLabel.bottomAnchor.constraint(equalTo: subContentView.bottomAnchor, constant: -4),
-            
-
-            //topContentView.bottomAnchor.constraint(equalTo: mainContentView.bottomAnchor, constant: -4),
-            
-            // createdOnLabel.topAnchor.
+ 
+            //MARK: createOn label
             createdOnLabel.topAnchor.constraint(equalTo: countLabel.bottomAnchor, constant: 8),
             createdOnLabel.leadingAnchor.constraint(equalTo: subContentView.leadingAnchor, constant:4),
             createdOnLabel.trailingAnchor.constraint(equalTo: subContentView.trailingAnchor, constant: -4),
@@ -178,6 +156,7 @@ extension SubjectMapViewCell{
         
     }
     
+    // which label are we configuring? createdOn(0) or flashcard count(1)
     func configureString(map:MapViewModel, mapOrCreatedOn: Int)  -> NSMutableAttributedString{
 
         let attrString = NSMutableAttributedString(string: "")

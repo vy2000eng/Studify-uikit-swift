@@ -10,7 +10,5 @@ import Foundation
 class AddNewSubjectViewModel{
     func addSubject(title:String, createdOn: Date){
         CoreDataManager.shared.addNewSubject(title: title, createdOn:createdOn)
-        
     }
-    
 }

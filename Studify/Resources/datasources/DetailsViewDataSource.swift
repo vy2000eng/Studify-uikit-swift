@@ -8,41 +8,7 @@
 import Foundation
 import UIKit
 
-//
-//
-
-
-class sections{
-    let header: TopicMapHeaderViewCell
-    let topicData: SubjectTopicViewCell
-    let mapData: SubjectMapViewCell
-    
-    init(header: TopicMapHeaderViewCell, topicData: SubjectTopicViewCell, mapData: SubjectMapViewCell) {
-        self.header = header
-        self.topicData = topicData
-        self.mapData = mapData
-    }
-    
-}
-
-
-//    let topicData: TopicViewModel
-//    let mapData: MapViewModel
-//    
-//    init(header: String, topicData: TopicViewModel) {
-//        self.header = header
-//        self.topicData = topicData
-//        //self.mapData = mapData
-//    }
-//    
-//    init(header: String, mapData: MapViewModel){
-//        self.header = header
-//        self.mapData = mapData
-//        
-//    }
-//}
 extension TopicMapViewController: UICollectionViewDataSource{
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0{
@@ -52,6 +18,7 @@ extension TopicMapViewController: UICollectionViewDataSource{
             }
             let topic = viewmodel.topic(by: indexPath.row)
             cell.configure(with: topic)
+            cell.delegate = self
             return cell
             
         }else{
@@ -61,21 +28,17 @@ extension TopicMapViewController: UICollectionViewDataSource{
             }
             let map = viewmodel.map(by: indexPath.row)
             cell.configure(with: map)
-            return cell
-            //return collectionView.dequeueReusableCell(withReuseIdentifier: "mapCell", for: indexPath)
+            cell.delegate = self
             
+            return cell
         }
-        
     }
     
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind:     kind, withReuseIdentifier: "headerCell", for: indexPath) as? TopicMapHeaderViewCell
         else{
-            //return supple
-            
             let fallbackView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "fallbackIdentifier", for: indexPath)
-            // Configure fallbackView or log an error if necessary
             return fallbackView
         }
         cell.configureTopicHeader(title: viewmodel.sections[indexPath.section].header)
@@ -83,9 +46,9 @@ extension TopicMapViewController: UICollectionViewDataSource{
         cell.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
         cell.collapseButton.addTarget(self, action: #selector(handleCollapseButton(_:)), for: .touchUpInside)
         cell.collapseButton.tag = indexPath.section
-
-        
-        
+        cell.addButton.isHidden = viewmodel.isSectionCollapsed(indexPath.section) ? false : true
+        cell.addButton.addTarget(self, action: #selector(handleAddButton(_:)), for: .touchUpInside)
+        cell.addButton.tag = indexPath.section
         
         return cell
     }
@@ -94,65 +57,56 @@ extension TopicMapViewController: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        // The logic for determining the number of rows is inside of the 'viewmodel.numberOfRows' method
         return viewmodel.numberOfRows(by: section)
-        //        if section == 0{
-        //            return viewmodel.numberOfTopics
-        //        }else{
-        //            return viewmodel.numberOfMaps
-        //        }
     }
 }
+
+// objc methods
 extension TopicMapViewController{
+    /*MARK: handlecollapseButton
+     How this works?
+     1.) 
+     There is a Sections class in TopicMapViewModel
+     Inside of that sections class there is a boolean property called isOpened
+     So, we toggle that property, and then we reload the sections
+     2.)
+     When the section is toggled and then reloaded this is called:
+     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+            MARK: determines the rows based the value of isOpened, i.e isOpened == false ? 0 : numberOfRowsFor...()
+            return viewmodel.numberOfRows(by: section)
+     */
+    
     @objc
     func handleCollapseButton(_ sender:UIButton){
-       let section = sender.tag
+        let section = sender.tag
         viewmodel.toggleSection(section)
         let indexSet = IndexSet(integer: section)
-
         collectionView.reloadSections(indexSet)
-
-        
-        
-        
-        
     }
-    
+    /*MARK: handleAddButton
+     There are seperate viewcontrollers for adding topics and adding maps.
+     Those viewcontrollers are AddNewTopicViewController and AddNewMapViewController respectively.
+     Both of those viewcontrols have protocols for delegating addition of a topic or map, implemented by the TopicMapViewController.
+     That is the reason for 'vc.delegate = self'
+     */
+    @objc 
+    func handleAddButton(_ sender: UIButton) {
+        let section = sender.tag
+        if section == 0{
+            let vc = AddNewTopicViewController(subjectID: viewmodel.subjectID)
+            vc.delegate = self
+            navigationController?.pushViewController(vc, animated: true)
+        }else{
+            let vc = AddNewMapViewController(subjectID: viewmodel.subjectID)
+            vc.delegate = self
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 
-    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        if indexPath.section == 0{
-//            
-//        }
-//    }
-    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        <#code#>
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        if section == 0{
-//           return viewmodel.numberOfRowsForTopics()
-//
-//        }else{
-//            return viewmodel.numberOfRowsForMaps()
-//
-//        }
-//    }
-//    
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        
-//    }
-//}
-//    
-//    
-//    
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 2
-//    }
-//    
+
+
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //       // viewModel.
 //       // let section = sections[section]
