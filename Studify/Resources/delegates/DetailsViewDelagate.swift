@@ -86,7 +86,7 @@ extension TopicMapViewController: UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0{
-            let vc = FlashCardSetViewController(topicID: viewmodel.topic(by: indexPath.row).id)
+            let vc = FlashCardTabViewController(topicID: viewmodel.topic(by: indexPath.row).id)
             navigationController?.pushViewController(vc, animated: true)
         }
     }    

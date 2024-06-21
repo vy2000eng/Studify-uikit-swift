@@ -13,6 +13,8 @@
 		394879822C1560D4002D3DEB /* FlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394879812C1560D4002D3DEB /* FlashCardViewModel.swift */; };
 		394879842C15F09D002D3DEB /* TopicMapHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394879832C15F09D002D3DEB /* TopicMapHeaderViewCell.swift */; };
 		396D6CB52C2495F0000DD57C /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 396D6CB42C2495F0000DD57C /* SwipeCellKit */; };
+		396D6CB72C2515F9000DD57C /* FlashCardTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CB62C2515F9000DD57C /* FlashCardTabViewController.swift */; };
+		396D6CB92C25165A000DD57C /* FlashCardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CB82C25165A000DD57C /* FlashCardListViewController.swift */; };
 		39A4BC652C03924200F833D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC642C03924200F833D2 /* AppDelegate.swift */; };
 		39A4BC672C03924200F833D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC662C03924200F833D2 /* SceneDelegate.swift */; };
 		39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC682C03924200F833D2 /* SubjectListViewController.swift */; };
@@ -60,6 +62,8 @@
 		3948797F2C1560B4002D3DEB /* FlashcardSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardSetViewModel.swift; sourceTree = "<group>"; };
 		394879812C1560D4002D3DEB /* FlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardViewModel.swift; sourceTree = "<group>"; };
 		394879832C15F09D002D3DEB /* TopicMapHeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicMapHeaderViewCell.swift; sourceTree = "<group>"; };
+		396D6CB62C2515F9000DD57C /* FlashCardTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardTabViewController.swift; sourceTree = "<group>"; };
+		396D6CB82C25165A000DD57C /* FlashCardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardListViewController.swift; sourceTree = "<group>"; };
 		399D38922C08D659008AFC5C /* Subjects.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Subjects.xcdatamodel; sourceTree = "<group>"; };
 		39A4BC612C03924200F833D2 /* Studify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39A4BC642C03924200F833D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +136,16 @@
 			path = FlashCard;
 			sourceTree = "<group>";
 		};
+		396D6CBA2C251968000DD57C /* flashcards */ = {
+			isa = PBXGroup;
+			children = (
+				3948797B2C155FA9002D3DEB /* FlashCardsViewController.swift */,
+				396D6CB62C2515F9000DD57C /* FlashCardTabViewController.swift */,
+				396D6CB82C25165A000DD57C /* FlashCardListViewController.swift */,
+			);
+			path = flashcards;
+			sourceTree = "<group>";
+		};
 		39A4BC582C03924100F833D2 = {
 			isa = PBXGroup;
 			children = (
@@ -164,12 +178,12 @@
 		39A4BC782C0399B600F833D2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				396D6CBA2C251968000DD57C /* flashcards */,
 				39A4BC682C03924200F833D2 /* SubjectListViewController.swift */,
 				39B817A52C0E7B6C00CB843B /* AddNewSubjectViewController.swift */,
 				39B817C32C0FA5C600CB843B /* TopicMapViewController.swift */,
 				39DEDE402C12C0FF00C725CE /* AddNewTopicViewController.swift */,
 				39DEDE442C134BBF00C725CE /* AddNewMapViewController.swift */,
-				3948797B2C155FA9002D3DEB /* FlashCardsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -364,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				394879842C15F09D002D3DEB /* TopicMapHeaderViewCell.swift in Sources */,
+				396D6CB72C2515F9000DD57C /* FlashCardTabViewController.swift in Sources */,
 				39DEDE0E2C114E8200C725CE /* Subjects.xcdatamodeld in Sources */,
 				39B817B22C0EBDDA00CB843B /* SubjectListViewControllerDelagate.swift in Sources */,
 				39B817AC2C0E8C3F00CB843B /* SubjectViewModel.swift in Sources */,
@@ -403,6 +418,7 @@
 				39DEDE392C1266B800C725CE /* MindMap+CoreDataClass.swift in Sources */,
 				39DEDE3A2C1266B800C725CE /* MindMap+CoreDataProperties.swift in Sources */,
 				39B817542C0D1F6600CB843B /* CoreDataManager.swift in Sources */,
+				396D6CB92C25165A000DD57C /* FlashCardListViewController.swift in Sources */,
 				39B817A62C0E7B6C00CB843B /* AddNewSubjectViewController.swift in Sources */,
 				39A4BC802C039B6A00F833D2 /* MindMapModel.swift in Sources */,
 			);

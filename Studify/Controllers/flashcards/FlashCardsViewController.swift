@@ -9,10 +9,10 @@ import UIKit
 
 class FlashCardSetViewController: UIViewController {
     
-    let viewModel:FlashcardSetViewModel
+    let viewmodel:FlashcardSetViewModel
     
-    init(topicID:UUID){
-        self.viewModel = FlashcardSetViewModel(topicID: topicID)
+    init(viewmodel: FlashcardSetViewModel){
+        self.viewmodel = viewmodel
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -25,7 +25,7 @@ class FlashCardSetViewController: UIViewController {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.text = "hello"
+        label.text = "flashcard set"
         label.backgroundColor = UIColor.systemBlue
         
         
