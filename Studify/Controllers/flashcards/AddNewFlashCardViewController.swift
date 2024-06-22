@@ -10,7 +10,20 @@ import UIKit
 
 class AddNewFlashCardViewController: UIViewController{
     
-    private let addFlashCardView = addNewFlashCardView()
+    private let addFlashCardView = AddNewFlashCardView()
+   // let topicID: UUID
+    let viewmodel: AddNewFlashCardViewModel
+    
+    init(topicID: UUID){
+        self.viewmodel = AddNewFlashCardViewModel(topicID: topicID)
+        super.init(nibName: nil, bundle: nil)
+
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +58,38 @@ extension AddNewFlashCardViewController{
 extension AddNewFlashCardViewController{
     @objc
     private func saveFlashCard(){
+        guard let frontString = addFlashCardView.frontStringTextField.text , !addFlashCardView.frontStringTextField.text.isEmpty
+        else{
+            let alert = UIAlertController(
+                title: "Error",
+                message: "front string can't be empty",
+                preferredStyle: .alert)
+            alert.addAction(
+                UIAlertAction(
+                    title: "Ok",
+                    style: .default))
+            present(alert, animated: true)
+            return
+        }
+        
+        guard let backString = addFlashCardView.backStringTextField.text , !addFlashCardView.backStringTextField.text.isEmpty
+        else{
+            let alert = UIAlertController(
+                title: "Error",
+                message: "back string can't be empty",
+                preferredStyle: .alert)
+            alert.addAction(
+                UIAlertAction(
+                    title: "Ok",
+                    style: .default))
+            present(alert, animated: true)
+            return
+        }
+        
+        viewmodel.addFlashcard(front: frontString, back: backString)
+        navigationController?.popViewController(animated: true)
+
+        //CoreDataManager.shared.addflashCardToTopic(front: addFlashCardView.frontStringTextField.text, back: addFlashCardView.backStringTextField.text, topicID: <#T##UUID#>)
         
     }
 }

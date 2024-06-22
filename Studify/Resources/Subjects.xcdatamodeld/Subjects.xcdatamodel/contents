@@ -29,7 +29,7 @@
         <attribute name="createdOn" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="topicTitle" optional="YES" attributeType="String"/>
-        <relationship name="flashcardset" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="FlashCard" inverseName="topic" inverseEntity="FlashCard"/>
+        <relationship name="flashcardset" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FlashCard" inverseName="topic" inverseEntity="FlashCard"/>
         <relationship name="subject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subject" inverseName="topics" inverseEntity="Subject"/>
     </entity>
 </model>

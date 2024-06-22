@@ -2,7 +2,7 @@
 //  Topic+CoreDataClass.swift
 //  Studify
 //
-//  Created by VladyslavYatsuta on 6/5/24.
+//  Created by VladyslavYatsuta on 6/22/24.
 //
 //
 

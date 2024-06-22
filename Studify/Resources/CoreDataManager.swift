@@ -95,24 +95,46 @@ class CoreDataManager{
     }
     
     func addflashCardToTopic(front: String, back:String, topicID:UUID){
-        let fetchRequest:NSFetchRequest<Topic> = Topic.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id=%@", topicID.uuidString)
-        let flashcard = FlashCard(context: context)
-        flashcard.id = UUID()
-        flashcard.front = front
-        flashcard.back = back
+        
+        let fetchRequest: NSFetchRequest<Topic> = Topic.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format:"id=%@", topicID.uuidString)
+        
+        let newflashCard = FlashCard(context: context)
+        newflashCard.id = UUID()
+        newflashCard.front = front
+        newflashCard.back = back
+       // newflashCard.topic
         
         do{
-            let topic = try context.fetch(fetchRequest)
-            topic.first?.flashcardset?.append(flashcard)
-            flashcard.topic = topic.first
+            let topic = try context.fetch(fetchRequest).first
+            topic?.addToFlashcardset(newflashCard)
+            newflashCard.topic = topic
             try context.save()
             
         }catch let error as NSError{
-            
-            print("Error add new flashcard: \(error.userInfo), \(error.localizedDescription)")
+            print("Error add new flashcard: \(error.userInfo) , \(error.localizedDescription)")
+
             
         }
+        
+//        let fetchRequest:NSFetchRequest<Topic> = Topic.fetchRequest()
+//        fetchRequest.predicate = NSPredicate(format: "id=%@", topicID.uuidString)
+//        let flashcard = FlashCard(context: context)
+//        flashcard.id = UUID()
+//        flashcard.front = front
+//        flashcard.back = back
+//        
+//        do{
+//            let topic = try context.fetch(fetchRequest)
+//            topic.first?.flashcardset?.append(flashcard)
+//            flashcard.topic = topic.first
+//            try context.save()
+//            
+//        }catch let error as NSError{
+//            
+//            print("Error add new flashcard: \(error.userInfo), \(error.localizedDescription)")
+//            
+//        }
         
     }
     

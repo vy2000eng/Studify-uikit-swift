@@ -29,6 +29,16 @@ class FlashCardTabViewController:UITabBarController {
             barButtonSystemItem: .add,
             target: self,
             action: #selector(addNewFlashCard))
+    
+        viewmodel.getAllFlashcards()
+        
+        for flashcard in viewmodel.flashcards{
+            print("front: \(flashcard.front)")
+            print("front: \(flashcard.back)")
+
+        }
+        
+        
         
         
         super.viewDidLoad()
@@ -69,7 +79,7 @@ extension FlashCardTabViewController{
     
     @objc
     private func addNewFlashCard(){
-        let vc = AddNewFlashCardViewController()
+        let vc = AddNewFlashCardViewController(topicID:viewmodel.topicID)
         navigationController?.pushViewController(vc, animated: true)
     }
     

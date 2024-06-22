@@ -7,7 +7,7 @@
 
 import UIKit
 
-class addNewFlashCardView: UIView {
+class AddNewFlashCardView: UIView {
     
     var activeTextField: UITextView?
 
@@ -45,7 +45,7 @@ class addNewFlashCardView: UIView {
     }
 }
 
-extension addNewFlashCardView{
+extension AddNewFlashCardView{
     private func setup(){
         addSubview(stackScrollView)
         verticalStack.addArrangedSubview(frontStringlabel)
@@ -73,7 +73,7 @@ extension addNewFlashCardView{
     }
 }
 
-extension addNewFlashCardView{
+extension AddNewFlashCardView{
     private func configureTextField(placeholder: String) -> UITextView{
         let textView = UITextView()
         textView.font = UIFont(name: "HelveticaNeue", size: 12)
@@ -106,7 +106,7 @@ extension addNewFlashCardView{
     }
 }
 
-extension addNewFlashCardView: UITextViewDelegate {
+extension AddNewFlashCardView: UITextViewDelegate {
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
               let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
