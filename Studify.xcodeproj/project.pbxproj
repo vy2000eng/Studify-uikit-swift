@@ -15,6 +15,9 @@
 		396D6CB52C2495F0000DD57C /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 396D6CB42C2495F0000DD57C /* SwipeCellKit */; };
 		396D6CB72C2515F9000DD57C /* FlashCardTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CB62C2515F9000DD57C /* FlashCardTabViewController.swift */; };
 		396D6CB92C25165A000DD57C /* FlashCardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CB82C25165A000DD57C /* FlashCardListViewController.swift */; };
+		396D6CBC2C251F7B000DD57C /* AddNewFlashCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CBB2C251F7B000DD57C /* AddNewFlashCardViewController.swift */; };
+		396D6CBE2C252010000DD57C /* AddNewFlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CBD2C252010000DD57C /* AddNewFlashCardViewModel.swift */; };
+		396D6CC02C252371000DD57C /* TableViewTextFieldCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CBF2C252371000DD57C /* TableViewTextFieldCellTableViewCell.swift */; };
 		39A4BC652C03924200F833D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC642C03924200F833D2 /* AppDelegate.swift */; };
 		39A4BC672C03924200F833D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC662C03924200F833D2 /* SceneDelegate.swift */; };
 		39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC682C03924200F833D2 /* SubjectListViewController.swift */; };
@@ -64,6 +67,9 @@
 		394879832C15F09D002D3DEB /* TopicMapHeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicMapHeaderViewCell.swift; sourceTree = "<group>"; };
 		396D6CB62C2515F9000DD57C /* FlashCardTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardTabViewController.swift; sourceTree = "<group>"; };
 		396D6CB82C25165A000DD57C /* FlashCardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardListViewController.swift; sourceTree = "<group>"; };
+		396D6CBB2C251F7B000DD57C /* AddNewFlashCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFlashCardViewController.swift; sourceTree = "<group>"; };
+		396D6CBD2C252010000DD57C /* AddNewFlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFlashCardViewModel.swift; sourceTree = "<group>"; };
+		396D6CBF2C252371000DD57C /* TableViewTextFieldCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewTextFieldCellTableViewCell.swift; sourceTree = "<group>"; };
 		399D38922C08D659008AFC5C /* Subjects.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Subjects.xcdatamodel; sourceTree = "<group>"; };
 		39A4BC612C03924200F833D2 /* Studify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39A4BC642C03924200F833D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +138,7 @@
 			children = (
 				3948797F2C1560B4002D3DEB /* FlashcardSetViewModel.swift */,
 				394879812C1560D4002D3DEB /* FlashCardViewModel.swift */,
+				396D6CBD2C252010000DD57C /* AddNewFlashCardViewModel.swift */,
 			);
 			path = FlashCard;
 			sourceTree = "<group>";
@@ -142,6 +149,7 @@
 				3948797B2C155FA9002D3DEB /* FlashCardsViewController.swift */,
 				396D6CB62C2515F9000DD57C /* FlashCardTabViewController.swift */,
 				396D6CB82C25165A000DD57C /* FlashCardListViewController.swift */,
+				396D6CBB2C251F7B000DD57C /* AddNewFlashCardViewController.swift */,
 			);
 			path = flashcards;
 			sourceTree = "<group>";
@@ -226,6 +234,7 @@
 				39DEDE232C12073900C725CE /* SubjectTopicViewCell.swift */,
 				39DEDE272C12148C00C725CE /* SubjectMapViewCell.swift */,
 				394879832C15F09D002D3DEB /* TopicMapHeaderViewCell.swift */,
+				396D6CBF2C252371000DD57C /* TableViewTextFieldCellTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -378,6 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				394879842C15F09D002D3DEB /* TopicMapHeaderViewCell.swift in Sources */,
+				396D6CBC2C251F7B000DD57C /* AddNewFlashCardViewController.swift in Sources */,
 				396D6CB72C2515F9000DD57C /* FlashCardTabViewController.swift in Sources */,
 				39DEDE0E2C114E8200C725CE /* Subjects.xcdatamodeld in Sources */,
 				39B817B22C0EBDDA00CB843B /* SubjectListViewControllerDelagate.swift in Sources */,
@@ -392,6 +402,7 @@
 				39DEDE412C12C0FF00C725CE /* AddNewTopicViewController.swift in Sources */,
 				39DEDE1C2C114F2300C725CE /* Topic+CoreDataProperties.swift in Sources */,
 				39B817AE2C0E903200CB843B /* SubjectTableViewCell.swift in Sources */,
+				396D6CBE2C252010000DD57C /* AddNewFlashCardViewModel.swift in Sources */,
 				39A4BC842C039B8D00F833D2 /* SubjectModel.swift in Sources */,
 				39B817AA2C0E835700CB843B /* SubjectListViewModel.swift in Sources */,
 				39DEDE282C12148C00C725CE /* SubjectMapViewCell.swift in Sources */,
@@ -415,6 +426,7 @@
 				39DEDE382C1266B800C725CE /* Maps+CoreDataProperties.swift in Sources */,
 				394879792C13FB0B002D3DEB /* Colors.swift in Sources */,
 				39DEDE432C12C12E00C725CE /* AddNewTopicViewModel.swift in Sources */,
+				396D6CC02C252371000DD57C /* TableViewTextFieldCellTableViewCell.swift in Sources */,
 				39DEDE392C1266B800C725CE /* MindMap+CoreDataClass.swift in Sources */,
 				39DEDE3A2C1266B800C725CE /* MindMap+CoreDataProperties.swift in Sources */,
 				39B817542C0D1F6600CB843B /* CoreDataManager.swift in Sources */,

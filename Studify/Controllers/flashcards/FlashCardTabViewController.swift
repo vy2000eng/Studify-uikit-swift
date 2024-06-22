@@ -23,6 +23,14 @@ class FlashCardTabViewController:UITabBarController {
 
     override func viewDidLoad() {
         view.backgroundColor = UIColor.systemBackground
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addNewFlashCard))
+        
+        
         super.viewDidLoad()
         setupTabs()
 
@@ -55,4 +63,14 @@ extension FlashCardTabViewController{
                  animated: true
              )
     }
+}
+
+extension FlashCardTabViewController{
+    
+    @objc
+    private func addNewFlashCard(){
+        let vc = AddNewFlashCardViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }

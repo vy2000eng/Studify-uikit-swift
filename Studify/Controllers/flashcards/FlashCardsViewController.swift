@@ -35,6 +35,7 @@ class FlashCardSetViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         view.addSubview(label)
         setupConstraints()
 
@@ -54,5 +55,14 @@ extension FlashCardSetViewController{
         ])
     }
     
+    
+}
+
+extension FlashCardSetViewController{
+    
+//    @objc
+//    private func addNewFlashCard(){
+//        navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
+//    }
     
 }
