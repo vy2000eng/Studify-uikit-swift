@@ -9,7 +9,12 @@ import UIKit
 
 
 
-class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate {
+class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate,FlashCardSetViewControllerDelegate {
+   
+    
+    
+   
+    
     
     //MARK: this word begin
     let viewmodel : TopicMapViewModel
@@ -43,7 +48,6 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         let v = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         v.delegate = self
         v.dataSource = self
-       // v.isScrollEnabled = false
         v.register(SubjectTopicViewCell.self, forCellWithReuseIdentifier: "topicCell")
         v.register(SubjectMapViewCell.self, forCellWithReuseIdentifier: "mapCell")
         v.register(TopicMapHeaderViewCell.self, forSupplementaryViewOfKind:UICollectionView.elementKindSectionHeader , withReuseIdentifier: "headerCell")
@@ -71,6 +75,7 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
 
     }
 
+
 }
 
 extension TopicMapViewController{
@@ -92,6 +97,14 @@ extension TopicMapViewController{
             self.collectionView.insertItems(at: [indexPath])
         }
     }
+    func updateNumberOfFlashcardsInTopicSection(indexPath:IndexPath){
+        viewmodel.getAllTopics()
+    
+        DispatchQueue.main.async {
+            self.collectionView.reloadItems(at: [indexPath])
+        }
+        
+    }
     
     func updateMapSection(){
         print("updateMap called")
@@ -111,6 +124,10 @@ extension TopicMapViewController{
     func didUpdateMap(){
         print("updateSection called")
         updateMapSection()
+    }
+    func didUpdateNumberOfFlashcards(indexPath: IndexPath) {
+        updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
+
     }
   
 }

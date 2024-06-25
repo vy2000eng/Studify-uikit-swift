@@ -11,7 +11,7 @@ import SwipeCellKit
 
 
 extension TopicMapViewController: UICollectionViewDelegate{
-
+    
     func deleteTopic(at indexPath: IndexPath){
         let alert = UIAlertController(
             title: "Are you sure you want to delete topic?",
@@ -36,7 +36,7 @@ extension TopicMapViewController: UICollectionViewDelegate{
                     }
                     self?.viewmodel.deleteTopic(topic: topic)
                     DispatchQueue.main.async {
-                            self?.collectionView.deleteItems(at: [indexPath])
+                        self?.collectionView.deleteItems(at: [indexPath])
                     }
                 }
                 
@@ -79,17 +79,40 @@ extension TopicMapViewController: UICollectionViewDelegate{
         present(alert, animated: true)
     }
     
+    func setupTabsForTabViewController(indexPathForTopicUpdate: IndexPath) -> FlashCardTabViewController{
+        let vc = FlashCardTabViewController(topicID: viewmodel.topic(by: indexPathForTopicUpdate.row).id, topicIndexPath: indexPathForTopicUpdate)
+        let flashcardSetViewController = FlashCardSetViewController(viewmodel: vc.viewmodel, topicIndexPath: indexPathForTopicUpdate)
+        
+        flashcardSetViewController.delegate = self
+        let flashcardListViewController = FlashCardListViewController(viewmodel: vc.viewmodel)
+        
+        let nav1 = UINavigationController(rootViewController: flashcardSetViewController)
+        let nav2 = UINavigationController(rootViewController: flashcardListViewController)
+        
+        nav1.navigationBar.prefersLargeTitles = false
+        nav2.navigationBar.prefersLargeTitles = false
+        
+        nav1.tabBarItem = UITabBarItem(title: "set",image: UIImage(systemName: "menucard"), tag: 1)
+        nav2.tabBarItem = UITabBarItem(title: "list", image:UIImage(systemName: "list.bullet"), tag: 2)
+        
+        vc.setViewControllers(
+            [nav1, nav2],
+            animated: true
+        )
+        return vc
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
         return true
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0{
-            let vc = FlashCardTabViewController(topicID: viewmodel.topic(by: indexPath.row).id)
-             vc.modalPresentationStyle = .fullScreen
-             present(vc, animated: true)
-             //navigationController?.pushViewController(vc, animated: true)
+            let vc = setupTabsForTabViewController(indexPathForTopicUpdate: indexPath)
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
         }
     }    
 }

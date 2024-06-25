@@ -6,29 +6,27 @@
 //
 
 import UIKit
-//        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
-//            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-//            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(112))
-//            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-//            let section = NSCollectionLayoutSection(group: group)
-//            //let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50))
-//           // let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-//           // header.pinToVisibleBounds = true  // This makes the header sticky
-//            //section.boundarySupplementaryItems = [header]
-//            section.orthogonalScrollingBehavior = .paging
-//            return section
-//        }
 
+protocol FlashCardSetViewControllerDelegate:AnyObject{
+    /*MARK: This protocol is specifically for updating the number of flashcards when we pop the flashcardcardTabViewController.
+            It is called inside of closeViewController.
+     */
+    func didUpdateNumberOfFlashcards(indexPath: IndexPath)
+}
 final class FlashCardSetViewController: UIViewController, AddNewFlashCardViewControllerDelegate {
   
     
+    weak var delegate: FlashCardSetViewControllerDelegate?
     
     let viewmodel:FlashcardSetViewModel
     
+    let topicIndexPath: IndexPath
+    
     //MARK: init
-    init(viewmodel: FlashcardSetViewModel){
+    init(viewmodel: FlashcardSetViewModel, topicIndexPath: IndexPath){
         self.viewmodel = viewmodel
+        self.topicIndexPath = topicIndexPath
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -80,6 +78,7 @@ extension FlashCardSetViewController{
         setupConstraints()
         setupCloseButton()
         setupAddButton()
+        
 
         
     }
@@ -147,10 +146,17 @@ extension FlashCardSetViewController{
     
     @objc
     private func closeViewController() {
+        delegate?.didUpdateNumberOfFlashcards(indexPath: topicIndexPath)
         dismiss(animated: true, completion: nil)
     }
+    
     func didAddFlashcard() {
-        print("updateTopic called")
+        print("didAddFlashcardCalled")
+        updateFlashCard()
+
+    }
+    func updateFlashCard(){
+        print("updateFlashcard called")
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
         let indexPathSmallSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 1)
@@ -167,7 +173,7 @@ extension FlashCardSetViewController{
                  }
              })
          }
-
+            
     }
     
 }
