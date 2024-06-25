@@ -10,6 +10,11 @@ import UIKit
 class AddNewFlashCardView: UIView {
     
     var activeTextField: UITextView?
+    
+    let defaultTFFront = "Enter Term"
+    
+    let defaultTFBack = "Enter Definition"
+
 
     lazy var verticalStack: UIStackView = {
         let stack = UIStackView()
@@ -75,6 +80,7 @@ extension AddNewFlashCardView{
 
 extension AddNewFlashCardView{
     private func configureTextField(placeholder: String) -> UITextView{
+        //let defaultText = placeholder
         let textView = UITextView()
         textView.font = UIFont(name: "HelveticaNeue", size: 12)
         textView.translatesAutoresizingMaskIntoConstraints = false

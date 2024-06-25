@@ -20,7 +20,9 @@ import UIKit
 //            return section
 //        }
 
-final class FlashCardSetViewController: UIViewController {
+final class FlashCardSetViewController: UIViewController, AddNewFlashCardViewControllerDelegate {
+  
+    
     
     let viewmodel:FlashcardSetViewModel
     
@@ -139,12 +141,33 @@ extension FlashCardSetViewController{
     @objc
     private func addNewFlashCard(){
         let vc = AddNewFlashCardViewController(topicID:viewmodel.topicID)
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc
     private func closeViewController() {
         dismiss(animated: true, completion: nil)
+    }
+    func didAddFlashcard() {
+        print("updateTopic called")
+        viewmodel.getAllFlashcards()
+        let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
+        let indexPathSmallSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 1)
+        
+        DispatchQueue.main.async {
+             self.collectionView.performBatchUpdates({
+                 self.collectionView.insertItems(at: [indexPathSetCell, indexPathSmallSetCell])
+
+             }, completion: { finished in
+                 if finished {
+                     self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
+                    self.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: true)
+             
+                 }
+             })
+         }
+
     }
     
 }

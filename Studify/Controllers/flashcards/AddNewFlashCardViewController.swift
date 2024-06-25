@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol AddNewFlashCardViewControllerDelegate: AnyObject{
+    func didAddFlashcard()
+}
+
 
 class AddNewFlashCardViewController: UIViewController{
     
     private let addFlashCardView = AddNewFlashCardView()
    // let topicID: UUID
     let viewmodel: AddNewFlashCardViewModel
+    weak var delegate: AddNewFlashCardViewControllerDelegate?
     
     init(topicID: UUID){
         self.viewmodel = AddNewFlashCardViewModel(topicID: topicID)
@@ -87,9 +92,14 @@ extension AddNewFlashCardViewController{
         }
         
         viewmodel.addFlashcard(front: frontString, back: backString)
+        updateSectionInFlashCardSetViewController()
         navigationController?.popViewController(animated: true)
 
         //CoreDataManager.shared.addflashCardToTopic(front: addFlashCardView.frontStringTextField.text, back: addFlashCardView.backStringTextField.text, topicID: <#T##UUID#>)
         
     }
+    private func updateSectionInFlashCardSetViewController(){
+        delegate?.didAddFlashcard()
+    }
+
 }
