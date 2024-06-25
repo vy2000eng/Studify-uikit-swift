@@ -43,6 +43,7 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         let v = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         v.delegate = self
         v.dataSource = self
+       // v.isScrollEnabled = false
         v.register(SubjectTopicViewCell.self, forCellWithReuseIdentifier: "topicCell")
         v.register(SubjectMapViewCell.self, forCellWithReuseIdentifier: "mapCell")
         v.register(TopicMapHeaderViewCell.self, forSupplementaryViewOfKind:UICollectionView.elementKindSectionHeader , withReuseIdentifier: "headerCell")

@@ -36,11 +36,11 @@ extension TopicMapViewController: UICollectionViewDataSource{
     
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind:     kind, withReuseIdentifier: "headerCell", for: indexPath) as? TopicMapHeaderViewCell
-        else{
-            let fallbackView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "fallbackIdentifier", for: indexPath)
-            return fallbackView
-        }
+        let cell = collectionView.dequeueReusableSupplementaryView(ofKind:     kind, withReuseIdentifier: "headerCell", for: indexPath) as! TopicMapHeaderViewCell
+//        else{
+//            let fallbackView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "fallbackIdentifier", for: indexPath)
+//            return fallbackView
+//        }
         cell.configureTopicHeader(title: viewmodel.sections[indexPath.section].header)
         let imageName = viewmodel.sections[indexPath.section].isOpened ? "arrow.left.arrow.right" : "arrow.up.arrow.down"
         cell.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)

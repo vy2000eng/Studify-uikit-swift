@@ -7,13 +7,12 @@
 
 import UIKit
 
-class FlashCardTabViewController:UITabBarController {
+final class FlashCardTabViewController:UITabBarController {
     let viewmodel:FlashcardSetViewModel
     
     init(topicID:UUID){
         self.viewmodel = FlashcardSetViewModel(topicID: topicID)
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     required init?(coder: NSCoder) {
@@ -22,65 +21,30 @@ class FlashCardTabViewController:UITabBarController {
 
 
     override func viewDidLoad() {
-        view.backgroundColor = UIColor.systemBackground
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .add,
-            target: self,
-            action: #selector(addNewFlashCard))
-    
-        viewmodel.getAllFlashcards()
-        
-        for flashcard in viewmodel.flashcards{
-            print("front: \(flashcard.front)")
-            print("front: \(flashcard.back)")
-
-        }
-        
-        
-        
-        
         super.viewDidLoad()
+        view.backgroundColor = UIColor.systemBackground
         setupTabs()
-
     }
-
-
 }
 
 extension FlashCardTabViewController{
-    
     
     private func setupTabs(){
         let flashcardSetViewController = FlashCardSetViewController(viewmodel: viewmodel)
         let flashcardListViewController = FlashCardListViewController(viewmodel: viewmodel)
-        flashcardSetViewController.navigationItem.largeTitleDisplayMode = .automatic
-        flashcardListViewController.navigationItem.largeTitleDisplayMode = .automatic
         
         let nav1 = UINavigationController(rootViewController: flashcardSetViewController)
         let nav2 = UINavigationController(rootViewController: flashcardListViewController)
         
+        nav1.navigationBar.prefersLargeTitles = false
+        nav2.navigationBar.prefersLargeTitles = false
+        
         nav1.tabBarItem = UITabBarItem(title: "set",image: UIImage(systemName: "menucard"), tag: 1)
         nav2.tabBarItem = UITabBarItem(title: "list", image:UIImage(systemName: "list.bullet"), tag: 2)
         
-        for nav in [nav1, nav2] {
-                   nav.navigationBar.prefersLargeTitles = true
-               }
-        
         setViewControllers(
-                 [nav1, nav2],
-                 animated: true
-             )
+            [nav1, nav2],
+            animated: true
+        )
     }
-}
-
-extension FlashCardTabViewController{
-    
-    @objc
-    private func addNewFlashCard(){
-        let vc = AddNewFlashCardViewController(topicID:viewmodel.topicID)
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
 }

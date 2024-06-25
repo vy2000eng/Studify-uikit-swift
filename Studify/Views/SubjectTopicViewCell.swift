@@ -62,8 +62,7 @@ class SubjectTopicViewCell: SwipeCollectionViewCell {
    
     
     lazy var mainContentView: UIView = {
-       let mainContentView = UIView(frame: CGRect(origin: .zero,
-                                                  size: CGSize(width: 400.0, height: 200.0)))
+       let mainContentView = UIView()
         mainContentView.translatesAutoresizingMaskIntoConstraints = false
         mainContentView.backgroundColor = UIColor.white
         mainContentView.layer.shadowOffset = CGSize(width: 5, height: 5);
