@@ -23,6 +23,9 @@
 		396D6CC82C274C2E000DD57C /* FlashCardSetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CC72C274C2E000DD57C /* FlashCardSetCollectionViewCell.swift */; };
 		396D6CCA2C277E73000DD57C /* FlashCardSetViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CC92C277E73000DD57C /* FlashCardSetViewControllerDelegate.swift */; };
 		396D6CCC2C277EBE000DD57C /* FlashCardSetViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CCB2C277EBE000DD57C /* FlashCardSetViewControllerDataSource.swift */; };
+		396D6CD02C2B1593000DD57C /* FlashCardListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CCF2C2B1593000DD57C /* FlashCardListCollectionViewCell.swift */; };
+		396D6CD22C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CD12C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift */; };
+		396D6CD42C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CD32C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift */; };
 		39A4BC652C03924200F833D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC642C03924200F833D2 /* AppDelegate.swift */; };
 		39A4BC672C03924200F833D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC662C03924200F833D2 /* SceneDelegate.swift */; };
 		39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC682C03924200F833D2 /* SubjectListViewController.swift */; };
@@ -78,6 +81,9 @@
 		396D6CC72C274C2E000DD57C /* FlashCardSetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardSetCollectionViewCell.swift; sourceTree = "<group>"; };
 		396D6CC92C277E73000DD57C /* FlashCardSetViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardSetViewControllerDelegate.swift; sourceTree = "<group>"; };
 		396D6CCB2C277EBE000DD57C /* FlashCardSetViewControllerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardSetViewControllerDataSource.swift; sourceTree = "<group>"; };
+		396D6CCF2C2B1593000DD57C /* FlashCardListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardListCollectionViewCell.swift; sourceTree = "<group>"; };
+		396D6CD12C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardListViewControllerDataSource.swift; sourceTree = "<group>"; };
+		396D6CD32C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardListViewControllerDelegate.swift; sourceTree = "<group>"; };
 		399D38922C08D659008AFC5C /* Subjects.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Subjects.xcdatamodel; sourceTree = "<group>"; };
 		39A4BC612C03924200F833D2 /* Studify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39A4BC642C03924200F833D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -242,6 +248,7 @@
 				394879832C15F09D002D3DEB /* TopicMapHeaderViewCell.swift */,
 				396D6CBF2C252371000DD57C /* AddNewFlashCardView.swift */,
 				396D6CC72C274C2E000DD57C /* FlashCardSetCollectionViewCell.swift */,
+				396D6CCF2C2B1593000DD57C /* FlashCardListCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -276,6 +283,7 @@
 				39DEDE1F2C12032100C725CE /* DetailsViewDelagate.swift */,
 				39B817B12C0EBDDA00CB843B /* SubjectListViewControllerDelagate.swift */,
 				396D6CC92C277E73000DD57C /* FlashCardSetViewControllerDelegate.swift */,
+				396D6CD32C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift */,
 			);
 			path = delegates;
 			sourceTree = "<group>";
@@ -286,6 +294,7 @@
 				39DEDE212C12033300C725CE /* DetailsViewDataSource.swift */,
 				39B817AF2C0EBD2E00CB843B /* SubjectDetailsViewControllerDataSource.swift */,
 				396D6CCB2C277EBE000DD57C /* FlashCardSetViewControllerDataSource.swift */,
+				396D6CD12C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift */,
 			);
 			path = datasources;
 			sourceTree = "<group>";
@@ -399,6 +408,7 @@
 				396D6CCA2C277E73000DD57C /* FlashCardSetViewControllerDelegate.swift in Sources */,
 				396D6CBC2C251F7B000DD57C /* AddNewFlashCardViewController.swift in Sources */,
 				396D6CCC2C277EBE000DD57C /* FlashCardSetViewControllerDataSource.swift in Sources */,
+				396D6CD22C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift in Sources */,
 				396D6CB72C2515F9000DD57C /* FlashCardTabViewController.swift in Sources */,
 				39DEDE0E2C114E8200C725CE /* Subjects.xcdatamodeld in Sources */,
 				39B817B22C0EBDDA00CB843B /* SubjectListViewControllerDelagate.swift in Sources */,
@@ -432,6 +442,8 @@
 				39B817A82C0E7E9500CB843B /* AddNewSubjectViewModel.swift in Sources */,
 				39A4BC652C03924200F833D2 /* AppDelegate.swift in Sources */,
 				39A4BC672C03924200F833D2 /* SceneDelegate.swift in Sources */,
+				396D6CD42C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift in Sources */,
+				396D6CD02C2B1593000DD57C /* FlashCardListCollectionViewCell.swift in Sources */,
 				39DEDE362C1266B800C725CE /* Subject+CoreDataProperties.swift in Sources */,
 				39DEDE372C1266B800C725CE /* Maps+CoreDataClass.swift in Sources */,
 				39DEDE382C1266B800C725CE /* Maps+CoreDataProperties.swift in Sources */,

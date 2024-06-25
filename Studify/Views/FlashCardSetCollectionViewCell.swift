@@ -37,6 +37,7 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
         vstack.translatesAutoresizingMaskIntoConstraints = false
         vstack.alignment = .leading
         vstack.distribution = .fill
+        vstack.spacing = 10
         return vstack
     }()
     
@@ -88,8 +89,11 @@ extension FlashCardSetCollectionViewCell{
     }
     
     func configure(flashcard: FlashcardViewModel){
-        termLabel.text = "term"
-        termText.text = flashcard.front
+       // if cellType == 0{
+            termLabel.text = "term"
+            termText.text = flashcard.front
+  
+
 
     }
 }

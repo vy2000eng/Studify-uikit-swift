@@ -1,0 +1,34 @@
+//
+//  FlashCardListViewControllerDataSource.swift
+//  Studify
+//
+//  Created by VladyslavYatsuta on 6/25/24.
+//
+
+import Foundation
+
+import UIKit
+
+extension FlashCardListViewController: UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewmodel.numberOfFlashCards
+
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as! FlashCardListCollectionViewCell
+        let flashcard = viewmodel.flashcard(by: indexPath.row)
+        cell.configure(flashCard: flashcard)
+        return cell
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    
+    
+    
+    
+    
+}
