@@ -11,7 +11,7 @@ protocol FlashCardSetViewControllerDelegate:AnyObject{
     /*MARK: This protocol is specifically for updating the number of flashcards when we pop the flashcardcardTabViewController.
             It is called inside of closeViewController.
      */
-    func didUpdateNumberOfFlashcards(indexPath: IndexPath)
+    func didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: IndexPath)
 }
 final class FlashCardSetViewController: UIViewController, AddNewFlashCardViewControllerDelegate {
   
@@ -109,8 +109,10 @@ extension FlashCardSetViewController{
     func smallFlashcardSet() -> NSCollectionLayoutSection{
         let fcSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
         let fc = NSCollectionLayoutItem(layoutSize: fcSize)
+        
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.33), heightDimension: .absolute(100))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [fc])
+        
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
 
@@ -146,7 +148,7 @@ extension FlashCardSetViewController{
     
     @objc
     private func closeViewController() {
-        delegate?.didUpdateNumberOfFlashcards(indexPath: topicIndexPath)
+        delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath)
         dismiss(animated: true, completion: nil)
     }
     

@@ -41,7 +41,7 @@ class FlashCardListCollectionViewCell: UICollectionViewCell {
     }()
     lazy var mainView: UIView = {
        let mainView = UIView()
-        mainView.backgroundColor = warmTreeTones.darkPrimary
+    //    mainView.backgroundColor = warmTreeTones.darkPrimary
         mainView.translatesAutoresizingMaskIntoConstraints = false
         return mainView
     }()
@@ -75,33 +75,33 @@ extension FlashCardListCollectionViewCell{
 //            topContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10),
 //            topContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -10),
 //            
-            mainView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 10),
-            mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
-            mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10),
-            mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -10),
+            mainView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 2),
+            mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 5),
+            mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -5),
+            mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             
-           topContentView.topAnchor.constraint(equalTo: mainView.topAnchor,constant: 10),
-           topContentView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor,constant: 10),
-           topContentView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor,constant: -10),
+           topContentView.topAnchor.constraint(equalTo: mainView.topAnchor,constant: 5),
+           topContentView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor,constant: 5),
+           topContentView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor,constant: -5),
            //topContentView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor),
            
             
-           bottomContentView.topAnchor.constraint(equalTo: topContentView.bottomAnchor,constant: 10),
-            bottomContentView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 10),
-           bottomContentView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor,constant: -10),
+           bottomContentView.topAnchor.constraint(equalTo: topContentView.bottomAnchor),
+            bottomContentView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 5),
+           bottomContentView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor,constant: -5),
             bottomContentView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -10),
            
             
             termLabel.topAnchor.constraint(equalTo: topContentView.topAnchor,constant: 10),
-            termLabel.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor, constant: 10),
-            termLabel.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor, constant: -10),
-            termLabel.bottomAnchor.constraint(equalTo: topContentView.bottomAnchor,constant: -10),
+            termLabel.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor, constant: 5),
+            termLabel.trailingAnchor.constraint(equalTo: topContentView.trailingAnchor, constant: -5),
+            termLabel.bottomAnchor.constraint(equalTo: topContentView.bottomAnchor,constant: -5),
             
             
             defLabel.topAnchor.constraint(equalTo: bottomContentView.topAnchor,constant: 10),
-            defLabel.leadingAnchor.constraint(equalTo: bottomContentView.leadingAnchor,constant:10),
-            defLabel.trailingAnchor.constraint(equalTo: bottomContentView.trailingAnchor, constant: -10),
+            defLabel.leadingAnchor.constraint(equalTo: bottomContentView.leadingAnchor,constant:5),
+            defLabel.trailingAnchor.constraint(equalTo: bottomContentView.trailingAnchor, constant: -5),
             defLabel.bottomAnchor.constraint(equalTo: bottomContentView.bottomAnchor,constant: -10),
             
         ])

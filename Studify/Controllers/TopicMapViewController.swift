@@ -9,7 +9,9 @@ import UIKit
 
 
 
-class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate,FlashCardSetViewControllerDelegate {
+class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate,FlashCardSetViewControllerDelegate,FlashCardListViewControllerDelegate {
+  
+    
    
     
     
@@ -125,7 +127,11 @@ extension TopicMapViewController{
         print("updateSection called")
         updateMapSection()
     }
-    func didUpdateNumberOfFlashcards(indexPath: IndexPath) {
+    func didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: IndexPath) {
+        updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
+
+    }
+    func didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: IndexPath) {
         updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
 
     }

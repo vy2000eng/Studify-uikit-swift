@@ -82,9 +82,11 @@ extension TopicMapViewController: UICollectionViewDelegate{
     func setupTabsForTabViewController(indexPathForTopicUpdate: IndexPath) -> FlashCardTabViewController{
         let vc = FlashCardTabViewController(topicID: viewmodel.topic(by: indexPathForTopicUpdate.row).id, topicIndexPath: indexPathForTopicUpdate)
         let flashcardSetViewController = FlashCardSetViewController(viewmodel: vc.viewmodel, topicIndexPath: indexPathForTopicUpdate)
+        let flashcardListViewController = FlashCardListViewController(viewmodel: vc.viewmodel, topicIndexPath: indexPathForTopicUpdate)
         
         flashcardSetViewController.delegate = self
-        let flashcardListViewController = FlashCardListViewController(viewmodel: vc.viewmodel)
+        flashcardListViewController.delegate = self
+
         
         let nav1 = UINavigationController(rootViewController: flashcardSetViewController)
         let nav2 = UINavigationController(rootViewController: flashcardListViewController)
@@ -133,3 +135,21 @@ extension TopicMapViewController: SwipeCollectionViewCellDelegate{
         return [deleteAction]
     }
 }
+
+//extension FlashCardTabViewController{
+//    private func setupCloseButton() {
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(
+//            barButtonSystemItem: .close,
+//            target: self,
+//            action: #selector(closeViewController))
+//    }
+//    @objc
+//    private func closeViewController() {
+//        //delegate?.didUpdateNumberOfFlashcards(indexPath: topicIndexPath)
+//        dismiss(animated: true, completion: nil)
+//    }
+    
+    
+    
+    
+//}

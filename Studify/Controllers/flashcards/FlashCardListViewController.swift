@@ -7,11 +7,21 @@
 
 import UIKit
 
-class FlashCardListViewController: UIViewController{
+
+protocol FlashCardListViewControllerDelegate: AnyObject{
+    func didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: IndexPath)
+
+}
+class FlashCardListViewController: UIViewController, AddNewFlashCardViewControllerDelegate{
+  
     let viewmodel: FlashcardSetViewModel
+    let topicIndexPath: IndexPath
+    weak var delegate: FlashCardListViewControllerDelegate?
     
-    init(viewmodel: FlashcardSetViewModel) {
+    
+    init(viewmodel: FlashcardSetViewModel,topicIndexPath: IndexPath) {
         self.viewmodel = viewmodel
+        self.topicIndexPath = topicIndexPath
         super.init(nibName: nil, bundle: nil)
 
     }
@@ -27,28 +37,22 @@ class FlashCardListViewController: UIViewController{
         
         let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
         v.translatesAutoresizingMaskIntoConstraints = false
-        
         v.register(FlashCardListCollectionViewCell.self, forCellWithReuseIdentifier: "listCell")
-       // v.register(FlashCardSetCollectionViewCell.self, forCellWithReuseIdentifier: "smallSetCell")
-        
         v.isScrollEnabled = true
         v.delegate = self
         v.dataSource = self
         return v
-        
-        
     }()
-
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
-       
+        setupAddButton()
+        setupCloseButton()
         
 
+        setup()
         // Do any additional setup after loading the view.
     }
-
 }
 
 extension FlashCardListViewController{
@@ -79,17 +83,65 @@ extension FlashCardListViewController{
     func flashcardSet() -> NSCollectionLayoutSection{
         let fcSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
         let fc = NSCollectionLayoutItem(layoutSize: fcSize)
-//        let fcSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.5))
-//        let fc2 = NSCollectionLayoutItem(layoutSize: fcSize2)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
-
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [fc])
+       
         let section = NSCollectionLayoutSection(group: group)
-
         return section
         
         
+    }
+}
+
+extension FlashCardListViewController{
+    private func setupAddButton(){
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(addNewFlashCard))
+    }
+    private func setupCloseButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(closeViewController))
+    }
+
+    @objc
+    private func addNewFlashCard(){
+        let vc = AddNewFlashCardViewController(topicID:viewmodel.topicID)
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc
+    private func closeViewController() {
+        delegate?.didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: topicIndexPath)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func didAddFlashcard() {
+        updateFlashCard()
+    }
+    
+    func updateFlashCard(){
+        print("updateFlashcard called")
+        viewmodel.getAllFlashcards()
+        let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
+        //let indexPathSmallSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 1)
+        
+        DispatchQueue.main.async {
+             self.collectionView.performBatchUpdates({
+                 self.collectionView.insertItems(at: [indexPathSetCell])
+
+             }, completion: { finished in
+                 if finished {
+                     self.collectionView.scrollToItem(at: indexPathSetCell, at: .bottom, animated: true)
+             
+                 }
+             })
+         }
+            
     }
 }
 

@@ -14,6 +14,8 @@ class FlashcardSetViewModel{
     
     var flashcards = [FlashcardViewModel]()
     
+    
+    
     var numberOfFlashCards:Int{
         flashcards.count
     }
