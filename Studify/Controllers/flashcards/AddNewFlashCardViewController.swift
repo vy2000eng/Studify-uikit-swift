@@ -17,10 +17,12 @@ class AddNewFlashCardViewController: UIViewController{
     private let addFlashCardView = AddNewFlashCardView()
    // let topicID: UUID
     let viewmodel: AddNewFlashCardViewModel
-    weak var delegate: AddNewFlashCardViewControllerDelegate?
+    let flashcardSetViewModel: FlashcardSetViewModel
+    //weak var delegate: AddNewFlashCardViewControllerDelegate?
     
-    init(topicID: UUID){
-        self.viewmodel = AddNewFlashCardViewModel(topicID: topicID)
+    init(flashcardSetViewModel: FlashcardSetViewModel){
+        self.flashcardSetViewModel = flashcardSetViewModel
+        self.viewmodel = AddNewFlashCardViewModel(topicID: flashcardSetViewModel.topicID)
         super.init(nibName: nil, bundle: nil)
 
     }
@@ -99,7 +101,10 @@ extension AddNewFlashCardViewController{
         
     }
     private func updateSectionInFlashCardSetViewController(){
-        delegate?.didAddFlashcard()
+        flashcardSetViewModel.flashCardSetViewControllerDelegate?.didAddFlashcard()
+        flashcardSetViewModel.flashCardListViewControllerDelegate?.didAddFlashcard()
+
+        //delegate?.didAddFlashcard()
     }
 
 }

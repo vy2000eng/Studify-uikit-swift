@@ -14,7 +14,8 @@ class FlashcardSetViewModel{
     
     var flashcards = [FlashcardViewModel]()
     
-    
+    weak var flashCardSetViewControllerDelegate: AddNewFlashCardViewControllerDelegate?
+    weak var flashCardListViewControllerDelegate: AddNewFlashCardViewControllerDelegate?
     
     var numberOfFlashCards:Int{
         flashcards.count

@@ -110,8 +110,10 @@ extension FlashCardListViewController{
 
     @objc
     private func addNewFlashCard(){
-        let vc = AddNewFlashCardViewController(topicID:viewmodel.topicID)
-        vc.delegate = self
+        let vc = AddNewFlashCardViewController(flashcardSetViewModel: viewmodel)
+        viewmodel.flashCardListViewControllerDelegate = self
+        //vc.delegate = self
+        viewmodel.flashCardListViewControllerDelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     @objc
