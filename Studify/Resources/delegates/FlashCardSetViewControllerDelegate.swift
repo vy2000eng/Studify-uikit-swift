@@ -16,11 +16,7 @@ extension FlashCardSetViewController: UICollectionViewDelegate{
                 self.collectionView.performBatchUpdates {
                     self.collectionView.scrollToItem(at: newIndexPath, at: .centeredHorizontally, animated: true)
                 }
-                
             }
-            
         }
     }
-    
-    
 }
