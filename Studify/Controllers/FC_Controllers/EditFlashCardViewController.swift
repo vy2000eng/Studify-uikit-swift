@@ -112,8 +112,39 @@ extension EditFlashCardViewController{
     @objc
     private func deleteFlashCard(){
         print("delete called")
-        viewmodel.deleteFlashCard()
-        dismiss(animated: true)
+        let alert = UIAlertController(
+            title: "Are you sure you want to delete this flash card?",
+            message: "This action cannot be undone",
+            preferredStyle: .alert)
+        alert.addAction(
+            UIAlertAction(
+                title: "Cancel",
+                style: .default,
+                handler: nil
+                    //{[weak self] UIAlertAction in
+                    //self?.dismiss(animated: true)
+                //}
+            ))
+        alert.addAction(
+            UIAlertAction(
+                title: "Delete Flashcard",
+                style: .destructive,
+                handler: {[weak self] UIAlertAction in
+                    
+                    self?.viewmodel.deleteFlashCard()
+                    self?.dismiss(animated: true)
+
+                    
+                }
+                
+            ))
+        
+        present(alert, animated: true)
+        
+        
+        
+        //viewmodel.deleteFlashCard()
+        //dismiss(animated: true)
         
     }
 }
