@@ -194,7 +194,7 @@ class CoreDataManager{
     //Update Functions
     func updateFlashcard(flashcardID: UUID, front: String, back:String){
         let fetchRequest: NSFetchRequest<FlashCard> = FlashCard.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "flashcard.id == %@", flashcardID.uuidString)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", flashcardID.uuidString)
         do{
             var flashcard = try context.fetch(fetchRequest).first
             flashcard?.front = front

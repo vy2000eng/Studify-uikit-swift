@@ -17,22 +17,29 @@ protocol FlashCardListViewControllerDelegate: AnyObject{
 // This is important for updating the collectionView inside of FlashCardSetViewController
 // Meaning this class is NOT THE  FlashCardSetViewController.
 // THIS IS CLASS IS IN FACT THE FlashCardListViewController!
-protocol UpdateFlashCardInSetViewControllerDelegate: AnyObject{
+protocol AddFlashCardToSetViewCollectionDelegate: AnyObject{
     // MARK: updateFlashCardInSetViewControllerFromListViewController()
     // "updateFlashCardInSetViewControllerFromListViewController()" is called right after updates are made to the UI inside of "didAddFlashcardToList()"
     // The delegate i.e. "updateFlashCardInSetViewControllerDelegate" is set inside of "FlashCardTabViewController"
     // "updateFlashCardInSetViewControllerDelegate" is set inside of "FlashCardTabViewController" because "FlashCardTabViewController" has access to both "FlashCardSetViewController" and "FlashCardListViewController"
     // "updateFlashCardInSetViewControllerFromListViewController()" updates the collectionView inside of "FlashCardListViewController" so that they are the same
-    func updateFlashCardInSetViewControllerFromListViewController()
+    func didAddFlashCardToSetViewControllerFromListViewController()
 }
 
-class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewControllerDelegate{
+protocol UpdateFlashCardInSetViewCollectionDelegate:AnyObject{
+    func didUpdateFlashCardInSetViewControllerFromListViewController(indexPath:IndexPath)
+}
+
+class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewControllerDelegate, UpdateFlashCardInListViewControllerDelegate{
+   
+    
     
   
     let viewmodel: FlashcardSetViewModel
     let topicIndexPath: IndexPath
     weak var delegate: FlashCardListViewControllerDelegate?
-    weak var updateFlashCardInSetViewControllerDelegate: UpdateFlashCardInSetViewControllerDelegate?
+    weak var addFlashCardInSetViewControllerDelegate: AddFlashCardToSetViewCollectionDelegate?
+    weak var updateFlashCardInSetViewControllerDelegate: UpdateFlashCardInSetViewCollectionDelegate?
     
     
     init(viewmodel: FlashcardSetViewModel,topicIndexPath: IndexPath) {
@@ -125,8 +132,9 @@ extension FlashCardListViewController{
             if let indexPath = self.collectionView.indexPathForItem(at: point) {
                     print("Long pressed item at \(indexPath.row)")
                     let flashcard = viewmodel.flashcard(by: indexPath.row)
-                    let vc = EditFlashCardViewController(flashCardViewModel: flashcard)
-                    present(vc,animated:true)
+                    let vc = EditFlashCardViewController(flashCardViewModel: flashcard,whichControllerPresented: 1,indexPath: indexPath)
+                vc.flashcardListViewControllerDelegate = self
+                present(vc,animated:true)
             }
         }
     }
@@ -169,7 +177,25 @@ extension FlashCardListViewController{
         //MARK: Tada what did I say!?
         //MARK: I said: " "updateFlashCardInSetViewControllerFromListViewController()" is called right after updates are made to the UI inside of "didAddFlashcardToList()" "
         //MARK: if you dont get it read the comment at the top of this file: "MARK: updateFlashCardInSetViewControllerFromListViewController()".
-        updateFlashCardInSetViewControllerDelegate?.updateFlashCardInSetViewControllerFromListViewController()
+        addFlashCardInSetViewControllerDelegate?.didAddFlashCardToSetViewControllerFromListViewController()
+    }
+    
+    
+    func didUpdateFlashCardInList(indexPath: IndexPath) {
+        print("updateFlashcard called in list vc")
+        viewmodel.getAllFlashcards()
+        let indexPathListCell = IndexPath(row: indexPath.row, section: 0)
+        DispatchQueue.main.async {
+            self.collectionView.performBatchUpdates({
+                self.collectionView.reloadItems(at: [indexPathListCell])
+            }
+            ,completion: { finished in
+                if finished {
+                    self.collectionView.scrollToItem(at: indexPathListCell, at: .bottom, animated: true)
+                }
+            })
+        }
+        updateFlashCardInSetViewControllerDelegate?.didUpdateFlashCardInSetViewControllerFromListViewController(indexPath: indexPath)
     }
 }
 

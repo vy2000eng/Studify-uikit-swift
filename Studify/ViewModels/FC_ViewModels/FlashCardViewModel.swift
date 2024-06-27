@@ -29,5 +29,12 @@ class FlashcardViewModel{
         flashcard.back
     }
     
+    func setFrontString(front: String){
+        flashcard.front = front
+    }
+    
+    func setBackString(back: String){
+        flashcard.back = back
+    }
     
 }

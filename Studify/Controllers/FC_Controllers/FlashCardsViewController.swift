@@ -14,16 +14,26 @@ protocol FlashCardSetViewControllerDelegate:AnyObject{
     func didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: IndexPath)
 }
 
-protocol UpdateFlashCardInListViewDelegate: AnyObject{
-    func updateFlashCardInListViewControllerFromSetViewController()
+protocol AddFlashCardToListViewCollectionDelegate: AnyObject{
+    func didAddFlashCardInListViewControllerFromSetViewController()
 }
 
-final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetViewControllerDelegate {
+protocol UpdateFlashCardInListViewCollectionDelegate:AnyObject{
+    func didUpdateFlashCardInViewListViewControllerFromSetViewController(indexPath: IndexPath)
+}
+
+
+
+final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetViewControllerDelegate, UpdateFlashCardInSetViewControllerDelegate {
+   
+    
     
     
     weak var delegate: FlashCardSetViewControllerDelegate?
     
-    weak var updateFlashCardInListViewControllerDelegate: UpdateFlashCardInListViewDelegate?
+    weak var addFlashCardInListViewControllerDelegate: AddFlashCardToListViewCollectionDelegate?
+    
+    weak var updateFlashCardInListViewControllerDelegate: UpdateFlashCardInListViewCollectionDelegate?
     
     let viewmodel:FlashcardSetViewModel
     
@@ -154,7 +164,9 @@ extension FlashCardSetViewController{
                 if indexPath.section == 1{
                     print("Long pressed item at \(indexPath.row)")
                     let flashcard = viewmodel.flashcard(by: indexPath.row)
-                    let vc = EditFlashCardViewController(flashCardViewModel: flashcard)
+                    
+                    let vc = EditFlashCardViewController(flashCardViewModel: flashcard,whichControllerPresented: 0,indexPath: indexPath)
+                    vc.flashcardSetViewControllerDelegate = self
                     present(vc,animated:true)
                 }
             }
@@ -162,7 +174,7 @@ extension FlashCardSetViewController{
     }
     
     func didAddFlashcardToSet() {
-        print("updateFlashcard called in set vc")
+        print("didAddFlashcard called in set vc")
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: viewmodel.flashcards.count-1, section: 0)
         let indexPathSmallSetCell = IndexPath(row: viewmodel.flashcards.count-1, section: 1)
@@ -177,6 +189,26 @@ extension FlashCardSetViewController{
                 }
             })
         }
-        updateFlashCardInListViewControllerDelegate?.updateFlashCardInListViewControllerFromSetViewController()
+        addFlashCardInListViewControllerDelegate?.didAddFlashCardInListViewControllerFromSetViewController()
+    }
+    
+    func didUpdateFlashCardInSet(indexPath: IndexPath) {
+        print("didUpdateFlashcard called in set vc")
+        viewmodel.getAllFlashcards()
+        let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
+        let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
+        DispatchQueue.main.async {
+            self.collectionView.performBatchUpdates({
+                self.collectionView.reloadItems(at: [indexPathSetCell])
+                self.collectionView.reloadItems(at: [indexPathSmallSetCell])
+            } ,completion: { finished in
+                if finished {
+                    self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
+                    self.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: true)
+                }
+            })
+        }
+        updateFlashCardInListViewControllerDelegate?.didUpdateFlashCardInViewListViewControllerFromSetViewController(indexPath: indexPath)
+        
     }
 }
