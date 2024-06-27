@@ -11,6 +11,8 @@ class FlashcardViewModel{
     
     private var flashcard : FlashCard
     
+    var isShowingFront = true
+    
     init(flashcard: FlashCard) {
         self.flashcard = flashcard
     }

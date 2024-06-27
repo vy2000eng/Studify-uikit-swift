@@ -20,6 +20,7 @@ class FlashcardSetViewModel{
     var topicID: UUID
     
     var flashcards = [FlashcardViewModel]()
+    
 
     
     var numberOfFlashCards:Int{
@@ -48,6 +49,14 @@ class FlashcardSetViewModel{
     func deleteFlashcard(flashcard:FlashcardViewModel){
         CoreDataManager.shared.deleteFlashCard(flashCardID: flashcard.id)
         getAllFlashcards()
+        
+    }
+    
+    func flashcardDisplayMode(by index: Int){
+        var fc = flashcard(by: index)
+        fc.isShowingFront = !fc.isShowingFront
+        
+        
         
     }
     

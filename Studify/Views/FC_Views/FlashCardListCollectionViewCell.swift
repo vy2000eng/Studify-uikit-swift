@@ -28,6 +28,8 @@ class FlashCardListCollectionViewCell: UICollectionViewCell {
         let topContentView = UIView()
         topContentView.translatesAutoresizingMaskIntoConstraints = false
         topContentView.layer.cornerRadius = 2
+        topContentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]  // Top left and top right
+
         topContentView.backgroundColor = warmTreeTones.lightPrimary
 
         return topContentView
@@ -37,6 +39,9 @@ class FlashCardListCollectionViewCell: UICollectionViewCell {
         bottomContentView.translatesAutoresizingMaskIntoConstraints = false
         bottomContentView.backgroundColor = warmTreeTones.lightSecondary
         bottomContentView.layer.cornerRadius = 2
+        bottomContentView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]   // Top left and top right
+
+        
         return bottomContentView
     }()
     lazy var mainView: UIView = {
@@ -70,28 +75,25 @@ extension FlashCardListCollectionViewCell{
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-//            topContentView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 10),
-//            topContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
-//            topContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10),
-//            topContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -10),
-//            
+            
+            
             mainView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 2),
             mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 5),
             mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -5),
             mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             
-           topContentView.topAnchor.constraint(equalTo: mainView.topAnchor,constant: 5),
-           topContentView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor,constant: 5),
-           topContentView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor,constant: -5),
-           //topContentView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor),
-           
+            topContentView.topAnchor.constraint(equalTo: mainView.topAnchor,constant: 5),
+            topContentView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor,constant: 5),
+            topContentView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor,constant: -5),
+            //topContentView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor),
             
-           bottomContentView.topAnchor.constraint(equalTo: topContentView.bottomAnchor),
+            
+            bottomContentView.topAnchor.constraint(equalTo: topContentView.bottomAnchor),
             bottomContentView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 5),
-           bottomContentView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor,constant: -5),
+            bottomContentView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor,constant: -5),
             bottomContentView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -10),
-           
+            
             
             termLabel.topAnchor.constraint(equalTo: topContentView.topAnchor,constant: 10),
             termLabel.leadingAnchor.constraint(equalTo: topContentView.leadingAnchor, constant: 5),
@@ -107,6 +109,7 @@ extension FlashCardListCollectionViewCell{
         ])
         
     }
+    
     func configure(flashCard: FlashcardViewModel){
         termLabel.text = flashCard.front
         termLabel.font = UIFont(name: "Helvetica-Bold", size: 15)

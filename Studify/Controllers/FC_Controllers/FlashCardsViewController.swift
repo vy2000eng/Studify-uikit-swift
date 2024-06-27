@@ -50,6 +50,7 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
         
         let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
         v.translatesAutoresizingMaskIntoConstraints = false
+        //v.backgroundColor = .red
         
         v.register(FlashCardSetCollectionViewCell.self, forCellWithReuseIdentifier: "setCell")
         v.register(FlashCardSetCollectionViewCell.self, forCellWithReuseIdentifier: "smallSetCell")
@@ -69,16 +70,16 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
 
 
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        viewmodel.getAllFlashcards()
-        for flashcard in viewmodel.flashcards{
-            print("front: \(flashcard.front)")
-            print("front: \(flashcard.back)")
-            
-        }
-        
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        viewmodel.getAllFlashcards()
+//        for flashcard in viewmodel.flashcards{
+//            print("front: \(flashcard.front)")
+//            print("front: \(flashcard.back)")
+//            
+//        }
+//        
+//    }
     
 }
 
@@ -93,10 +94,10 @@ extension FlashCardSetViewController{
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor,constant: 50),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 65),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 }
@@ -117,7 +118,7 @@ extension FlashCardSetViewController{
         let fcSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
         let fc = NSCollectionLayoutItem(layoutSize: fcSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.33), heightDimension: .absolute(100))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.33), heightDimension: .absolute(150))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [fc])
         
         let section = NSCollectionLayoutSection(group: group)
