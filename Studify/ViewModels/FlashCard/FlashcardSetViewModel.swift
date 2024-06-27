@@ -6,7 +6,21 @@
 //
 
 import Foundation
+//protocol AddNewFlashCardToSetViewControllerDelegate: AnyObject{
+//    func didAddFlashcardToSet()
+//}
+//
+//protocol AddNewFlashCardToListViewControllerDelegate: AnyObject{
+//    func didAddFlashcardToList()
+//}
 
+protocol didAddFlashCardToListViewControllerDelegate{
+    func didAddFlashCardToListView()
+}
+
+protocol didAddFlashCardToSetViewControllerDelegate{
+    func didAddFlashCardToSetView()
+}
 
 class FlashcardSetViewModel{
     
@@ -14,8 +28,8 @@ class FlashcardSetViewModel{
     
     var flashcards = [FlashcardViewModel]()
     
-    weak var flashCardSetViewControllerDelegate: AddNewFlashCardViewControllerDelegate?
-    weak var flashCardListViewControllerDelegate: AddNewFlashCardViewControllerDelegate?
+   // weak var flashCardSetViewControllerDelegate: AddNewFlashCardToSetViewControllerDelegate?
+   // weak var flashCardListViewControllerDelegate: AddNewFlashCardToListViewControllerDelegate?
     
     var numberOfFlashCards:Int{
         flashcards.count

@@ -24,7 +24,7 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
     lazy var mainView: UIView = {
         let mainView = UIView()
         mainView.translatesAutoresizingMaskIntoConstraints = false
-        mainView.backgroundColor = OceanSandTheme.darkPrimary
+        mainView.backgroundColor = warmTreeTones.lightTertiary
         mainView.layer.cornerRadius = 2
         
         return mainView
@@ -58,13 +58,9 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
 extension FlashCardSetCollectionViewCell{
     private func setup(){
         contentView.addSubview(mainView)
-       // contentView.addSubview(vstack)
-        
         mainView.addSubview(termLabel)
         mainView.addSubview(vstack)
         vstack.addArrangedSubview(termText)
-        
-        //mainView.addSubview(termText)
         setupConstraints()
 
     }
@@ -82,19 +78,15 @@ extension FlashCardSetCollectionViewCell{
             vstack.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 10),
             vstack.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -10),
             vstack.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -10),
-
         ])
-
-        
     }
     
     func configure(flashcard: FlashcardViewModel){
-       // if cellType == 0{
-            termLabel.text = "term"
-            termText.text = flashcard.front
-  
-
-
+        termLabel.font = UIFont(name: "Helvetica-Bold", size: 15)
+        termText.font = UIFont(name:"Helvetica", size:12)
+        
+        termLabel.text = "term"
+        termText.text = flashcard.front
     }
 }
 
