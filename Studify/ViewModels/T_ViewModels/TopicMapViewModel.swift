@@ -104,6 +104,7 @@ class TopicMapViewModel{
         getAllTopics()
         print("delete Topic called \(topics.count)")
     }
+    //func deleteTopic(subject)
     
     func deleteMap(map: MapViewModel){
         CoreDataManager.shared.deleteMap(mapID:map.id)

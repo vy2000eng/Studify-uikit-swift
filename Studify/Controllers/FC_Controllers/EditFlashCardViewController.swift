@@ -112,6 +112,8 @@ extension EditFlashCardViewController{
     @objc
     private func deleteFlashCard(){
         print("delete called")
+        viewmodel.deleteFlashCard()
+        dismiss(animated: true)
         
     }
 }
