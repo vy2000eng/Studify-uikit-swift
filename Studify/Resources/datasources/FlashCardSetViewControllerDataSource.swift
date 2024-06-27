@@ -26,7 +26,7 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
             else{
                 return UICollectionViewCell()
             }
-            var flashcard = viewmodel.flashcard(by: indexPath.row)
+            let flashcard = viewmodel.flashcard(by: indexPath.row)
             //var flashcardString = viewmodel.flashcardDisplayMode(by: indexPath.row, isShowingFront: flashcard.isShowingFront)
           //  let flashcard = viewmodel.flashcard(by: indexPath.row)
           //  let flashcardString = viewmodel.flashcardDisplayMode(by: indexPath.row, isShowingFront: flashcard.isShowingFront)
@@ -40,7 +40,7 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
             else{
                 return UICollectionViewCell()
             }
-            var flashcard = viewmodel.flashcard(by: indexPath.row)
+            let flashcard = viewmodel.flashcard(by: indexPath.row)
             //var flashcardString = viewmodel.flashcardDisplayMode(by: indexPath.row, isShowingFront: flashcard.isShowingFront)
            // let flashcard = viewmodel.flashcard(by: indexPath.row)
             cell.configure(flashcard: flashcard,bottomTopStyle: 1)

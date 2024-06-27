@@ -53,7 +53,7 @@ class FlashcardSetViewModel{
     }
     
     func flashcardDisplayMode(by index: Int){
-        var fc = flashcard(by: index)
+        let fc = flashcard(by: index)
         fc.isShowingFront = !fc.isShowingFront
         
         

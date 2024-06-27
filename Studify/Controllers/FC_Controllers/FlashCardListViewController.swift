@@ -26,7 +26,7 @@ protocol AddFlashCardToSetViewCollectionDelegate: AnyObject{
     func didAddFlashCardToSetViewControllerFromListViewController()
 }
 
-protocol UpdateFlashCardInSetViewCollectionDelegate:AnyObject{
+protocol UpdateFlashCardInFlashCardSetViewControllerCollectionViewDelegate:AnyObject{
     func didUpdateFlashCardInSetViewControllerFromListViewController(indexPath:IndexPath)
 }
 
@@ -39,7 +39,7 @@ class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewCo
     let topicIndexPath: IndexPath
     weak var delegate: FlashCardListViewControllerDelegate?
     weak var addFlashCardInSetViewControllerDelegate: AddFlashCardToSetViewCollectionDelegate?
-    weak var updateFlashCardInSetViewControllerDelegate: UpdateFlashCardInSetViewCollectionDelegate?
+    weak var updateFlashCardInSetViewControllerDelegate: UpdateFlashCardInFlashCardSetViewControllerCollectionViewDelegate?
     
     
     init(viewmodel: FlashcardSetViewModel,topicIndexPath: IndexPath) {

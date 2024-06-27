@@ -18,8 +18,8 @@ protocol AddFlashCardToListViewCollectionDelegate: AnyObject{
     func didAddFlashCardInListViewControllerFromSetViewController()
 }
 
-protocol UpdateFlashCardInListViewCollectionDelegate:AnyObject{
-    func didUpdateFlashCardInViewListViewControllerFromSetViewController(indexPath: IndexPath)
+protocol UpdateFlashCardInFlashCardListViewControllerCollectionViewDelegate:AnyObject{
+    func didUpdateFlashCardInListViewControllerFromSetViewController(indexPath: IndexPath)
 }
 
 
@@ -33,7 +33,7 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
     
     weak var addFlashCardInListViewControllerDelegate: AddFlashCardToListViewCollectionDelegate?
     
-    weak var updateFlashCardInListViewControllerDelegate: UpdateFlashCardInListViewCollectionDelegate?
+    weak var updateFlashCardInListViewControllerDelegate: UpdateFlashCardInFlashCardListViewControllerCollectionViewDelegate?
     
     let viewmodel:FlashcardSetViewModel
     
@@ -208,7 +208,7 @@ extension FlashCardSetViewController{
                 }
             })
         }
-        updateFlashCardInListViewControllerDelegate?.didUpdateFlashCardInViewListViewControllerFromSetViewController(indexPath: indexPath)
+        updateFlashCardInListViewControllerDelegate?.didUpdateFlashCardInListViewControllerFromSetViewController(indexPath: indexPath)
         
     }
 }

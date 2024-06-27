@@ -196,13 +196,14 @@ class CoreDataManager{
         let fetchRequest: NSFetchRequest<FlashCard> = FlashCard.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", flashcardID.uuidString)
         do{
-            var flashcard = try context.fetch(fetchRequest).first
+            let flashcard = try context.fetch(fetchRequest).first
             flashcard?.front = front
             flashcard?.back = back
             try context.save()
             
-        }catch let err as NSError{
-            
+        }catch let error as NSError{
+            print("Error updating FlashCard: \(error.userInfo), \(error.localizedDescription)")
+
         }
         
 

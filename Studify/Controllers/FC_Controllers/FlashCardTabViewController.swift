@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FlashCardTabViewController:UITabBarController, AddFlashCardToListViewCollectionDelegate, AddFlashCardToSetViewCollectionDelegate, UpdateFlashCardInListViewCollectionDelegate, UpdateFlashCardInSetViewCollectionDelegate{
+final class FlashCardTabViewController:UITabBarController, AddFlashCardToListViewCollectionDelegate, AddFlashCardToSetViewCollectionDelegate, UpdateFlashCardInFlashCardListViewControllerCollectionViewDelegate, UpdateFlashCardInFlashCardSetViewControllerCollectionViewDelegate{
 
  
     
@@ -101,7 +101,7 @@ extension FlashCardTabViewController{
         }
     }
     
-    func didUpdateFlashCardInViewListViewControllerFromSetViewController(indexPath:IndexPath) {
+    func didUpdateFlashCardInListViewControllerFromSetViewController(indexPath:IndexPath) {
         if flashcardListViewController.isViewLoaded{
             didUpdateFlashCardInList(indexPath: indexPath)
 
