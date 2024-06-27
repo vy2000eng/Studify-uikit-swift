@@ -20,11 +20,14 @@ protocol AddFlashCardToListViewCollectionDelegate: AnyObject{
 
 protocol UpdateFlashCardInFlashCardListViewControllerCollectionViewDelegate:AnyObject{
     func didUpdateFlashCardInListViewControllerFromSetViewController(indexPath: IndexPath)
+    func didDeleteFlashCardInListViewControllerFromSetViewController(indexPath:IndexPath)
 }
 
 
 
 final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetViewControllerDelegate, UpdateFlashCardInSetViewControllerDelegate {
+   
+    
    
     
     
@@ -167,6 +170,7 @@ extension FlashCardSetViewController{
                     
                     let vc = EditFlashCardViewController(flashCardViewModel: flashcard,whichControllerPresented: 0,indexPath: indexPath)
                     vc.flashcardSetViewControllerDelegate = self
+                    
                     present(vc,animated:true)
                 }
             }
@@ -211,4 +215,20 @@ extension FlashCardSetViewController{
         updateFlashCardInListViewControllerDelegate?.didUpdateFlashCardInListViewControllerFromSetViewController(indexPath: indexPath)
         
     }
+    func didDeleteFlashCardInSet(indexPath: IndexPath) {
+        print("didUpdateFlashcard called in set vc")
+        viewmodel.getAllFlashcards()
+        let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
+        let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
+        DispatchQueue.main.async {
+            self.collectionView.performBatchUpdates({
+                self.collectionView.deleteItems(at: [indexPathSetCell])
+                self.collectionView.deleteItems(at: [indexPathSmallSetCell])
+            })
+        }
+        updateFlashCardInListViewControllerDelegate?.didDeleteFlashCardInListViewControllerFromSetViewController(indexPath: indexPath)
+    }
+
+    
+    
 }

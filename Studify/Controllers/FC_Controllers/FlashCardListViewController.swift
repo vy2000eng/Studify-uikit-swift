@@ -28,9 +28,12 @@ protocol AddFlashCardToSetViewCollectionDelegate: AnyObject{
 
 protocol UpdateFlashCardInFlashCardSetViewControllerCollectionViewDelegate:AnyObject{
     func didUpdateFlashCardInSetViewControllerFromListViewController(indexPath:IndexPath)
+    func didDeleteFlashCardInSetViewControllerFromListViewController(indexPath:IndexPath)
 }
 
 class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewControllerDelegate, UpdateFlashCardInListViewControllerDelegate{
+    
+    
    
     
     
@@ -196,6 +199,18 @@ extension FlashCardListViewController{
             })
         }
         updateFlashCardInSetViewControllerDelegate?.didUpdateFlashCardInSetViewControllerFromListViewController(indexPath: indexPath)
+    }
+    
+    func didDeleteFlashCardInList(indexPath: IndexPath) {
+        print("updateFlashcard called in list vc")
+        viewmodel.getAllFlashcards()
+        let indexPathListCell = IndexPath(row: indexPath.row, section: 0)
+        DispatchQueue.main.async {
+            self.collectionView.performBatchUpdates({
+                self.collectionView.deleteItems(at: [indexPathListCell])
+            })
+        }
+        updateFlashCardInSetViewControllerDelegate?.didDeleteFlashCardInSetViewControllerFromListViewController(indexPath: indexPath)
     }
 }
 

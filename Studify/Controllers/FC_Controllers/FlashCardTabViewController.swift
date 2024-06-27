@@ -8,6 +8,8 @@
 import UIKit
 
 final class FlashCardTabViewController:UITabBarController, AddFlashCardToListViewCollectionDelegate, AddFlashCardToSetViewCollectionDelegate, UpdateFlashCardInFlashCardListViewControllerCollectionViewDelegate, UpdateFlashCardInFlashCardSetViewControllerCollectionViewDelegate{
+   
+    
 
  
     
@@ -110,7 +112,48 @@ extension FlashCardTabViewController{
         
     }
     
+    func didDeleteFlashCardInSetViewControllerFromListViewController(indexPath: IndexPath) {
+        if flashcardSetViewController.isViewLoaded{
+            didDeleteFlashCardInSet(indexPath: indexPath)
+        }
+    }
     
+    func didDeleteFlashCardInListViewControllerFromSetViewController(indexPath: IndexPath) {
+        if flashcardListViewController.isViewLoaded{
+            didDeleteFlashCardInList(indexPath: indexPath)
+        }
+    }
+    
+  
+    
+    
+    func didDeleteFlashCardInList(indexPath:IndexPath){
+        print("delete Flashcard called in list vc")
+        viewmodel.getAllFlashcards()
+        let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
+        
+        DispatchQueue.main.async {
+            self.flashcardListViewController.collectionView.performBatchUpdates({
+                self.flashcardListViewController.collectionView.deleteItems(at: [indexPathSetCell])
+            })
+        }
+        
+        
+    }
+    func didDeleteFlashCardInSet(indexPath:IndexPath){
+        print("delete Flashcard called in set vc")
+        viewmodel.getAllFlashcards()
+        let indexPathSetCell = IndexPath(row:indexPath.row, section: 0)
+        let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
+        
+        DispatchQueue.main.async {
+            self.flashcardSetViewController.collectionView.performBatchUpdates({
+                self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSetCell])
+                self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSmallSetCell])
+            })
+        }
+        
+    }
     
     func didUpdateFlashCardInList(indexPath:IndexPath){
         print("updateFlashcard called in list vc")

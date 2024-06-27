@@ -10,10 +10,23 @@ import UIKit
 
 protocol UpdateFlashCardInSetViewControllerDelegate:AnyObject{
     func didUpdateFlashCardInSet(indexPath: IndexPath)
+    func didDeleteFlashCardInSet(indexPath:IndexPath)
+
 }
 protocol UpdateFlashCardInListViewControllerDelegate:AnyObject{
     func didUpdateFlashCardInList(indexPath:IndexPath)
+    func didDeleteFlashCardInList(indexPath:IndexPath)
+
 }
+//
+//protocol DeleteFlashCardInSetViewControllerDelegate:AnyObject{
+//    func didDeleteFlashCardInSet(indexPath:IndexPath)
+//}
+//
+//protocol DeleteFlashCardInListViewControllerDelegate:AnyObject{
+//    func didDeleteFlashCardInList(indexPath:IndexPath)
+//}
+
 
 final class EditFlashCardViewController: UIViewController{
     let viewmodel: EditFlashCardViewModel
@@ -24,6 +37,9 @@ final class EditFlashCardViewController: UIViewController{
     
     weak var flashcardSetViewControllerDelegate: UpdateFlashCardInSetViewControllerDelegate?
     weak var flashcardListViewControllerDelegate: UpdateFlashCardInListViewControllerDelegate?
+    //weak var flashCardSetViewControllerDelegate:DeleteFlashCardInSetViewControllerDelegate?
+   // weak var flashCardListViewControllerDelegate:DeleteFlashCardInListViewControllerDelegate?
+    
     
     let navBar: UINavigationBar = {
         let navBar = UINavigationBar()
@@ -108,7 +124,9 @@ extension EditFlashCardViewController{
         whichControllerPresented == 0 ? flashcardSetViewControllerDelegate?.didUpdateFlashCardInSet(indexPath: indexPath) : flashcardListViewControllerDelegate?.didUpdateFlashCardInList(indexPath: indexPath)
         
     }
-    
+    func deleteSectionsInCollection(){
+        whichControllerPresented == 0 ? flashcardSetViewControllerDelegate?.didDeleteFlashCardInSet(indexPath: indexPath) : flashcardListViewControllerDelegate?.didDeleteFlashCardInList(indexPath: indexPath)
+    }
     @objc
     private func deleteFlashCard(){
         print("delete called")
@@ -121,9 +139,7 @@ extension EditFlashCardViewController{
                 title: "Cancel",
                 style: .default,
                 handler: nil
-                    //{[weak self] UIAlertAction in
-                    //self?.dismiss(animated: true)
-                //}
+             
             ))
         alert.addAction(
             UIAlertAction(
@@ -132,6 +148,7 @@ extension EditFlashCardViewController{
                 handler: {[weak self] UIAlertAction in
                     
                     self?.viewmodel.deleteFlashCard()
+                    self?.deleteSectionsInCollection()
                     self?.dismiss(animated: true)
 
                     
@@ -140,11 +157,7 @@ extension EditFlashCardViewController{
             ))
         
         present(alert, animated: true)
-        
-        
-        
-        //viewmodel.deleteFlashCard()
-        //dismiss(animated: true)
+    
         
     }
 }
