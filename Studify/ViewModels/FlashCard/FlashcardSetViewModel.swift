@@ -6,13 +6,6 @@
 //
 
 import Foundation
-//protocol AddNewFlashCardToSetViewControllerDelegate: AnyObject{
-//    func didAddFlashcardToSet()
-//}
-//
-//protocol AddNewFlashCardToListViewControllerDelegate: AnyObject{
-//    func didAddFlashcardToList()
-//}
 
 protocol didAddFlashCardToListViewControllerDelegate{
     func didAddFlashCardToListView()
@@ -27,9 +20,7 @@ class FlashcardSetViewModel{
     var topicID: UUID
     
     var flashcards = [FlashcardViewModel]()
-    
-   // weak var flashCardSetViewControllerDelegate: AddNewFlashCardToSetViewControllerDelegate?
-   // weak var flashCardListViewControllerDelegate: AddNewFlashCardToListViewControllerDelegate?
+
     
     var numberOfFlashCards:Int{
         flashcards.count

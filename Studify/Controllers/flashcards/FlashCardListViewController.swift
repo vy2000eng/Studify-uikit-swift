@@ -13,11 +13,18 @@ protocol FlashCardListViewControllerDelegate: AnyObject{
 
 }
 
+// MARK: EXPLANATION of UpdateFlashCardInSetViewControllerDelegate:
+// This is important for updating the collectionView inside of FlashCardSetViewController
+// Meaning this class is NOT THE  FlashCardSetViewController.
+// THIS IS CLASS IS IN FACT THE FlashCardListViewController!
 protocol UpdateFlashCardInSetViewControllerDelegate: AnyObject{
+    // MARK: updateFlashCardInSetViewControllerFromListViewController()
+    // "updateFlashCardInSetViewControllerFromListViewController()" is called right after updates are made to the UI inside of "didAddFlashcardToList()"
+    // The delegate i.e. "updateFlashCardInSetViewControllerDelegate" is set inside of "FlashCardTabViewController"
+    // "updateFlashCardInSetViewControllerDelegate" is set inside of "FlashCardTabViewController" because "FlashCardTabViewController" has access to both "FlashCardSetViewController" and "FlashCardListViewController"
+    // "updateFlashCardInSetViewControllerFromListViewController()" updates the collectionView inside of "FlashCardListViewController" so that they are the same
     func updateFlashCardInSetViewControllerFromListViewController()
 }
-
-
 
 class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewControllerDelegate{
     
@@ -58,21 +65,7 @@ class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewCo
         print("list view loaded")
         setupAddButton()
         setupCloseButton()
-        
-
         setup()
-        // Do any additional setup after loading the view.
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("viewAppeared")
-
-        viewmodel.getAllFlashcards()
-        for flashcard in viewmodel.flashcards{
-            print("front: \(flashcard.front)")
-            print("front: \(flashcard.back)")
-            
-        }
     }
 }
 
@@ -81,9 +74,7 @@ extension FlashCardListViewController{
     private func setup(){
         view.addSubview(collectionView)
         setupConstraints()
-        
     }
-    
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
@@ -92,11 +83,7 @@ extension FlashCardListViewController{
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
     }
-    
-    
-    
 }
 
 extension FlashCardListViewController{
@@ -132,12 +119,11 @@ extension FlashCardListViewController{
     @objc
     private func addNewFlashCard(){
         let vc = AddNewFlashCardViewController(flashcardSetViewModel: viewmodel, whichControllerPushed: 1)
+        // MARK: This delegate is for adding a flashcard to only the collection view defined in this viewcontroller.
+        // The protocol for this delegate is defined in AddNewFlashCardViewController.
+        // That is a fact. I know it might seem obvious, but I hope this help future you.
+        // MARK: "flashCardListViewControllerDelegate" is defined in "AddNewFlashCardViewController"
         vc.flashCardListViewControllerDelegate = self
-       // viewmodel.flashCardSetViewControllerDelegate = self
-        //vc.delegate = self
-        //viewmodel.flashCardListViewControllerDelegate = self
-       // viewmodel.flashCardSetViewControllerDelegate = self
-
         navigationController?.pushViewController(vc, animated: true)
     }
     @objc
@@ -145,61 +131,29 @@ extension FlashCardListViewController{
         delegate?.didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: topicIndexPath)
         dismiss(animated: true, completion: nil)
     }
-    
+    // MARK: As you may notice this function is not being called in this file.
+    // MARK: That is because it is part of a protocol defined inside of "AddNewFlashCardViewController"
+
     func didAddFlashcardToList() {
         print("updateFlashcard called in list vc")
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
-        let indexPathSmallSetCell = IndexPath(row: viewmodel.flashcards.count-1, section: 1)
-        
-        //let indexPathSmallSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 1)
-        // self.flashcardListViewController.collectionView.reloadData()
-        
-        
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
                 self.collectionView.insertItems(at: [indexPathSetCell])
-                
             }
-                                                                                ,completion: { finished in
+            ,completion: { finished in
                 if finished {
                     self.collectionView.scrollToItem(at: indexPathSetCell, at: .bottom, animated: true)
-                    
                 }
-            }
-            )
+            })
         }
-        updateFlashCardInSetViewControllerDelegate?.updateFlashCardInSetViewControllerFromListViewController()
-   
         
+        //MARK: Tada what did I say!?
+        //MARK: I said: " "updateFlashCardInSetViewControllerFromListViewController()" is called right after updates are made to the UI inside of "didAddFlashcardToList()" "
+        //MARK: if you dont get it read the comment at the top of this file: "MARK: updateFlashCardInSetViewControllerFromListViewController()".
+        updateFlashCardInSetViewControllerDelegate?.updateFlashCardInSetViewControllerFromListViewController()
     }
-    
-    
-//    func didAddFlashcard() {
-//        print("didAddFlashcardCalled in list vc")
-//
-//        updateFlashCard()
-//    }
-//    
-//    func updateFlashCard(){
-//        print("updateFlashcard called in list vc")
-//        viewmodel.getAllFlashcards()
-//        let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
-//        //let indexPathSmallSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 1)
-//        
-//        DispatchQueue.main.async {
-//             self.collectionView.performBatchUpdates({
-//                 self.collectionView.insertItems(at: [indexPathSetCell])
-//
-//             }, completion: { finished in
-//                 if finished {
-//                     self.collectionView.scrollToItem(at: indexPathSetCell, at: .bottom, animated: true)
-//             
-//                 }
-//             })
-//         }
-//            
-//    }
 }
 
 

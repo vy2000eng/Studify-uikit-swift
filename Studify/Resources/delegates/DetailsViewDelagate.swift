@@ -78,33 +78,6 @@ extension TopicMapViewController: UICollectionViewDelegate{
         
         present(alert, animated: true)
     }
-    
-//    func setupTabsForTabViewController(indexPathForTopicUpdate: IndexPath) -> FlashCardTabViewController{
-//        let vc = FlashCardTabViewController(topicID: viewmodel.topic(by: indexPathForTopicUpdate.row).id, topicIndexPath: indexPathForTopicUpdate)
-//        let flashcardSetViewController = FlashCardSetViewController(viewmodel: vc.viewmodel, topicIndexPath: indexPathForTopicUpdate)
-//        let flashcardListViewController = FlashCardListViewController(viewmodel: vc.viewmodel, topicIndexPath: indexPathForTopicUpdate)
-//        
-//        flashcardSetViewController.delegate = self
-//        flashcardListViewController.delegate = self
-//
-//        
-//        let nav1 = UINavigationController(rootViewController: flashcardSetViewController)
-//        let nav2 = UINavigationController(rootViewController: flashcardListViewController)
-//        
-//        nav1.navigationBar.prefersLargeTitles = false
-//        nav2.navigationBar.prefersLargeTitles = false
-//        
-//        nav1.tabBarItem = UITabBarItem(title: "set",image: UIImage(systemName: "menucard"), tag: 1)
-//        nav2.tabBarItem = UITabBarItem(title: "list", image:UIImage(systemName: "list.bullet"), tag: 2)
-//        
-//        vc.setViewControllers(
-//            [nav1, nav2],
-//            animated: true
-//        )
-//        return vc
-//    }
-    
-    
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -115,8 +88,6 @@ extension TopicMapViewController: UICollectionViewDelegate{
             let vc = FlashCardTabViewController(topicID: viewmodel.topic(by: indexPath.row).id, topicIndexPath: indexPath)
             vc.flashcardSetViewController.delegate = self
             vc.flashcardListViewController.delegate = self
-            
-           // let vc = setupTabsForTabViewController(indexPathForTopicUpdate: indexPath)
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true)
         }
@@ -139,21 +110,3 @@ extension TopicMapViewController: SwipeCollectionViewCellDelegate{
         return [deleteAction]
     }
 }
-
-//extension FlashCardTabViewController{
-//    private func setupCloseButton() {
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(
-//            barButtonSystemItem: .close,
-//            target: self,
-//            action: #selector(closeViewController))
-//    }
-//    @objc
-//    private func closeViewController() {
-//        //delegate?.didUpdateNumberOfFlashcards(indexPath: topicIndexPath)
-//        dismiss(animated: true, completion: nil)
-//    }
-    
-    
-    
-    
-//}

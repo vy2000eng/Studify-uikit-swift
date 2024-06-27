@@ -7,10 +7,10 @@
 
 import UIKit
 
+//MARK: This protocol is specifically for updating the number of flashcards when we pop the flashcardcardTabViewController.
+//        It is called inside of closeViewController.
+
 protocol FlashCardSetViewControllerDelegate:AnyObject{
-    /*MARK: This protocol is specifically for updating the number of flashcards when we pop the flashcardcardTabViewController.
-            It is called inside of closeViewController.
-     */
     func didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: IndexPath)
 }
 
@@ -18,11 +18,7 @@ protocol UpdateFlashCardInListViewDelegate: AnyObject{
     func updateFlashCardInListViewControllerFromSetViewController()
 }
 
-
 final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetViewControllerDelegate {
-  
-    
-
   
     
     weak var delegate: FlashCardSetViewControllerDelegate?
@@ -49,7 +45,6 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
     lazy var collectionView: UICollectionView = {
         
         let layout = UICollectionViewCompositionalLayout {  sectionIndex, enviroment in
-            
            return  sectionIndex == 0 ?  self.flashcardSet() : self.smallFlashcardSet()
         }
         
@@ -63,18 +58,12 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
         v.delegate = self
         v.dataSource = self
         return v
-        
-        
     }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("set view loaded")
-        
-       // viewmodel.getAllFlashcards()
-        
-        
         setupView()
     }
 
@@ -100,12 +89,7 @@ extension FlashCardSetViewController{
         setupConstraints()
         setupCloseButton()
         setupAddButton()
-   
-        
-
-        
     }
-    
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
@@ -166,8 +150,6 @@ extension FlashCardSetViewController{
     private func addNewFlashCard(){
         let vc = AddNewFlashCardViewController(flashcardSetViewModel: viewmodel, whichControllerPushed: 0)
         vc.flashCardSetViewControllerDelegate = self
-        //viewmodel.flashCardSetViewControllerDelegate = self
-       // viewmodel.flashCardListViewControllerDelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -176,6 +158,7 @@ extension FlashCardSetViewController{
         delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath)
         dismiss(animated: true, completion: nil)
     }
+    
     func didAddFlashcardToSet() {
         print("updateFlashcard called in set vc")
         viewmodel.getAllFlashcards()
@@ -183,66 +166,15 @@ extension FlashCardSetViewController{
         let indexPathSmallSetCell = IndexPath(row: viewmodel.flashcards.count-1, section: 1)
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
-          //  self.flashcardListViewController.collectionView.insertItems(at: [indexPathListCell])
-
-              self.collectionView.insertItems(at: [indexPathSetCell])
-              self.collectionView.insertItems(at: [indexPathSmallSetCell])
-
-
-                // self.flashcardListViewController.collectionView.scrollToItem(at: indexPathListCell, at: .bottom, animated: true)
-
-                
-            }
-                ,completion: { finished in
+                self.collectionView.insertItems(at: [indexPathSetCell])
+                self.collectionView.insertItems(at: [indexPathSmallSetCell])
+            } ,completion: { finished in
                 if finished {
                     self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
                     self.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: true)
-                    //self.flashcardListViewController.collectionView.insertItems(at: [indexPathSetCell])
-
-                    //self.flashcardListViewController.collectionView.inse(at: indexPathSetCell, at: .bottom, animated: true)
-
                 }
-                
-            }
-            )
+            })
         }
         updateFlashCardInListViewControllerDelegate?.updateFlashCardInListViewControllerFromSetViewController()
-       // let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
-        //let indexPathSmallSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 1)
-       // self.flashcardListViewController.collectionView.reloadData()
-        
-        
-
-        //didAddFlashcardToList()
-        
-
     }
 }
-    
-//    func didAddFlashcard() {
-//        print("didAddFlashcardCalled in set vc")
-//        updateFlashCard()
-//
-//    }
-//    func updateFlashCard(){
-//        print("updateFlashcard called in set vc")
-//        viewmodel.getAllFlashcards()
-//        let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
-//        let indexPathSmallSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 1)
-//        
-//        DispatchQueue.main.async {
-//             self.collectionView.performBatchUpdates({
-//                 self.collectionView.insertItems(at: [indexPathSetCell, indexPathSmallSetCell])
-//
-//             }, completion: { finished in
-//                 if finished {
-//                     self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
-//                     self.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: true)
-//             
-//                 }
-//             })
-//         }
-//            
-//    }
-    
-//}

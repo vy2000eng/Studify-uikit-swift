@@ -6,15 +6,12 @@
 //
 
 import UIKit
-
-//protocol AddNewFlashCardViewControllerDelegate: AnyObject{
-//    func didAddFlashcard()
-//}
-//
+//TODO: Add commments for the love of god!
 protocol AddNewFlashCardToSetViewControllerDelegate: AnyObject{
     func didAddFlashcardToSet()
 }
 
+//TODO: Add commments for the love of god!
 protocol AddNewFlashCardToListViewControllerDelegate: AnyObject{
     func didAddFlashcardToList()
 }
@@ -22,27 +19,24 @@ protocol AddNewFlashCardToListViewControllerDelegate: AnyObject{
 class AddNewFlashCardViewController: UIViewController{
     
     private let addFlashCardView = AddNewFlashCardView()
-   // let topicID: UUID
     let viewmodel: AddNewFlashCardViewModel
     let flashcardSetViewModel: FlashcardSetViewModel
     let whichControllerPushed: Int
     
-     weak var flashCardSetViewControllerDelegate: AddNewFlashCardToSetViewControllerDelegate?
-     weak var flashCardListViewControllerDelegate: AddNewFlashCardToListViewControllerDelegate?
-    //weak var delegate: AddNewFlashCardViewControllerDelegate?
+    weak var flashCardSetViewControllerDelegate: AddNewFlashCardToSetViewControllerDelegate?
+    weak var flashCardListViewControllerDelegate: AddNewFlashCardToListViewControllerDelegate?
     
     init(flashcardSetViewModel: FlashcardSetViewModel, whichControllerPushed: Int){
         self.whichControllerPushed = whichControllerPushed
         self.flashcardSetViewModel = flashcardSetViewModel
         self.viewmodel = AddNewFlashCardViewModel(topicID: flashcardSetViewModel.topicID)
         super.init(nibName: nil, bundle: nil)
-
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,48 +98,12 @@ extension AddNewFlashCardViewController{
             present(alert, animated: true)
             return
         }
-        
         viewmodel.addFlashcard(front: frontString, back: backString)
-        updateSectionInFlashCardSetViewController(whichController: whichControllerPushed)
+        updateSectionInFlashCardSetViewController()
         navigationController?.popViewController(animated: true)
-
-        //CoreDataManager.shared.addflashCardToTopic(front: addFlashCardView.frontStringTextField.text, back: addFlashCardView.backStringTextField.text, topicID: <#T##UUID#>)
-        
+                
     }
-    private func updateSectionInFlashCardSetViewController(whichController: Int){
-        if whichController == 0{
-          flashCardSetViewControllerDelegate?.didAddFlashcardToSet()
-            //flashcardSetViewModel.flashCardListViewControllerDelegate?.didAddFlashcardToList()
-
-            
-        }else{
-            flashCardListViewControllerDelegate?.didAddFlashcardToList()
-           // flashcardSetViewModel.flashCardSetViewControllerDelegate?.didAddFlashcardToSet()
-
-        }
-
-            //flashcardSetViewModel.flashCardListViewControllerDelegate?.didAddFlashcardToList()
-
-
-            
-        
-      
-        
-//        if whichControllerPushed == 0{
-//            flashcardSetViewModel.flashCardSetViewControllerDelegate?.didAddFlashcard()
-//            flashcardSetViewModel.flashCardListViewControllerDelegate?.didAddFlashcard()
-//            
-//        }else{
-//            flashcardSetViewModel.flashCardListViewControllerDelegate?.didAddFlashcard()
-//            flashcardSetViewModel.flashCardSetViewControllerDelegate?.didAddFlashcard()
-//
-//            
-//        }
-
-
-        //delegate?.didAddFlashcard()
+    private func updateSectionInFlashCardSetViewController(){
+        whichControllerPushed == 0 ? flashCardSetViewControllerDelegate?.didAddFlashcardToSet() : flashCardListViewControllerDelegate?.didAddFlashcardToList()
     }
-    
-  
-
 }
