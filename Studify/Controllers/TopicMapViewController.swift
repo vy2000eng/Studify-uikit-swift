@@ -50,8 +50,8 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         let v = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         v.delegate = self
         v.dataSource = self
-        v.register(SubjectTopicViewCell.self, forCellWithReuseIdentifier: "topicCell")
-        v.register(SubjectMapViewCell.self, forCellWithReuseIdentifier: "mapCell")
+        v.register(TopicViewCell.self, forCellWithReuseIdentifier: "topicCell")
+        v.register(MapViewCell.self, forCellWithReuseIdentifier: "mapCell")
         v.register(TopicMapHeaderViewCell.self, forSupplementaryViewOfKind:UICollectionView.elementKindSectionHeader , withReuseIdentifier: "headerCell")
         v.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "fallbackIdentifier")
         v.translatesAutoresizingMaskIntoConstraints = false

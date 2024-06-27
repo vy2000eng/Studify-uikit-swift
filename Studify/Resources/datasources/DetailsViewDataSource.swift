@@ -12,7 +12,7 @@ extension TopicMapViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0{
-            guard let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "topicCell", for: indexPath) as? SubjectTopicViewCell
+            guard let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "topicCell", for: indexPath) as? TopicViewCell
             else{
                 return UICollectionViewCell()
             }
@@ -22,7 +22,7 @@ extension TopicMapViewController: UICollectionViewDataSource{
             return cell
             
         }else{
-            guard let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "mapCell", for: indexPath) as? SubjectMapViewCell
+            guard let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "mapCell", for: indexPath) as? MapViewCell
             else{
                 return UICollectionViewCell()
             }

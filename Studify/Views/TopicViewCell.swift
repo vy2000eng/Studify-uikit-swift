@@ -8,7 +8,7 @@
 import UIKit
 import SwipeCellKit
 
-class SubjectTopicViewCell: SwipeCollectionViewCell {
+class TopicViewCell: SwipeCollectionViewCell {
 
  
     lazy var topicNameLabel: UILabel = {
@@ -87,7 +87,7 @@ class SubjectTopicViewCell: SwipeCollectionViewCell {
 
 }
 
-extension SubjectTopicViewCell{
+extension TopicViewCell{
     
     private func setup(){
         backgroundColor = UIColor.white

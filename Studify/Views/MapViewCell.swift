@@ -14,7 +14,7 @@ import UIKit
 
 import SwipeCellKit
 
-class SubjectMapViewCell: SwipeCollectionViewCell {
+class MapViewCell: SwipeCollectionViewCell {
     
     lazy var mapsNameLabel: UILabel = {
        let label = UILabel()
@@ -87,7 +87,7 @@ class SubjectMapViewCell: SwipeCollectionViewCell {
 
 }
 
-extension SubjectMapViewCell{
+extension MapViewCell{
     private func setup(){
         backgroundColor = UIColor.white
         contentView.addSubview(mainContentView)
