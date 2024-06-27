@@ -45,10 +45,8 @@ class CoreDataManager{
         newSubject.title = title
         newSubject.id = UUID()
         newSubject.createdOn = createdOn
-        
         do{
             try context.save()
-            
         }catch let error as NSError{
             print("Error adding a new subject: \(error.userInfo), \(error.localizedDescription)")
         }
@@ -57,12 +55,10 @@ class CoreDataManager{
     func addTopicToSubject(title:String, subjectID:UUID){
         let fetchRequest : NSFetchRequest<Subject> = Subject.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id=%@", subjectID.uuidString)
-        
         let newTopic = Topic(context: context)
         newTopic.topicTitle = title
         newTopic.id = UUID()
         newTopic.createdOn = Date()
-        
         do{
             let subject = try context.fetch(fetchRequest).first
             subject?.addToTopics(newTopic)
@@ -71,7 +67,6 @@ class CoreDataManager{
         }catch let error as NSError{
             print("Error deleting subject: \(error.userInfo), \(error.localizedDescription)")
         }
-        
     }
     
     func addMapToSubject(title: String, subjectID:UUID){
@@ -103,18 +98,13 @@ class CoreDataManager{
         newflashCard.id = UUID()
         newflashCard.front = front
         newflashCard.back = back
-       // newflashCard.topic
-        
         do{
             let topic = try context.fetch(fetchRequest).first
             topic?.addToFlashcardset(newflashCard)
             newflashCard.topic = topic
             try context.save()
-            
         }catch let error as NSError{
             print("Error add new flashcard: \(error.userInfo) , \(error.localizedDescription)")
-
-            
         }
         
 //        let fetchRequest:NSFetchRequest<Topic> = Topic.fetchRequest()
@@ -174,7 +164,6 @@ class CoreDataManager{
             print("Error fetching maps for subject ID \(subjectid): \(error)")
             return []  // Return an empty array if the fetch fails
         }
-        
     }
     
     func getAllFlashCardsForTopic(topicID: UUID) -> [FlashCard]{
@@ -183,15 +172,12 @@ class CoreDataManager{
         do{
             let flashcards = try context.fetch(fetchRequest)
             return flashcards
-            
         }catch{
             print("Error fetching maps for subject ID \(topicID): \(error)")
             return []
-            
         }
-        
     }
-    //Update Functions
+    //MARK: - Update Functions
     func updateFlashcard(flashcardID: UUID, front: String, back:String){
         let fetchRequest: NSFetchRequest<FlashCard> = FlashCard.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", flashcardID.uuidString)
@@ -200,13 +186,9 @@ class CoreDataManager{
             flashcard?.front = front
             flashcard?.back = back
             try context.save()
-            
         }catch let error as NSError{
             print("Error updating FlashCard: \(error.userInfo), \(error.localizedDescription)")
-
         }
-        
-
     }
     
 
@@ -233,13 +215,9 @@ class CoreDataManager{
             let topic = try context.fetch(fetchRequest)
             context.delete((topic.first)!)
             try context.save()
-    
-            
         }catch let error as NSError{
             print("Error deleting topic: \(error.userInfo), \(error.localizedDescription)")
         }
-        
-        
     }
     
     func deleteMap(mapID: UUID){
@@ -249,27 +227,18 @@ class CoreDataManager{
             let map = try context.fetch(fetchRequest)
             context.delete(map.first!)
             try context.save()
-            
         }catch let error as NSError{
             print("Error deleting map: \(error.userInfo), \(error.localizedDescription)")
-
-            
         }
-        
-        
     }
     
     func deleteFlashCard(flashCardID: UUID){
         let fetchRequest:NSFetchRequest<FlashCard> = FlashCard.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id=%@", flashCardID.uuidString)
-        
         do{
-            
             let flashcard = try context.fetch(fetchRequest)
             context.delete(flashcard.first!)
             try context.save()
-            
-            
         }catch let error as NSError{
             print("Error deleting flashcard: \(error.userInfo), \(error.localizedDescription)")
         }
