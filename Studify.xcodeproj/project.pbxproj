@@ -137,14 +137,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		393EE58E2C2CF77700277FAF /* ViewsFlashCards */ = {
+		393EE58E2C2CF77700277FAF /* FC_Views */ = {
 			isa = PBXGroup;
 			children = (
 				396D6CBF2C252371000DD57C /* AddNewFlashCardView.swift */,
 				396D6CC72C274C2E000DD57C /* FlashCardSetCollectionViewCell.swift */,
 				396D6CCF2C2B1593000DD57C /* FlashCardListCollectionViewCell.swift */,
 			);
-			path = ViewsFlashCards;
+			path = FC_Views;
 			sourceTree = "<group>";
 		};
 		3948797A2C14D047002D3DEB /* themes */ = {
@@ -252,7 +252,7 @@
 		39A4BC7B2C0399E400F833D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				393EE58E2C2CF77700277FAF /* ViewsFlashCards */,
+				393EE58E2C2CF77700277FAF /* FC_Views */,
 				39B817AD2C0E903200CB843B /* SubjectTableViewCell.swift */,
 				39DEDE232C12073900C725CE /* TopicViewCell.swift */,
 				39DEDE272C12148C00C725CE /* MapViewCell.swift */,
