@@ -12,6 +12,7 @@ extension FlashCardSetViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let bottomIndexPath = IndexPath(row: indexPath.row, section: 1)
         if indexPath.section == 0{

@@ -54,6 +54,9 @@ class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewCo
         let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
         v.translatesAutoresizingMaskIntoConstraints = false
         v.register(FlashCardListCollectionViewCell.self, forCellWithReuseIdentifier: "listCell")
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector( handleLongPress(gesture:)))
+        v.addGestureRecognizer(longPress)
+
         v.isScrollEnabled = true
         v.delegate = self
         v.dataSource = self
@@ -115,6 +118,20 @@ extension FlashCardListViewController{
             target: self,
             action: #selector(closeViewController))
     }
+    
+    @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            let point = gesture.location(in: self.collectionView)
+            if let indexPath = self.collectionView.indexPathForItem(at: point) {
+                    print("Long pressed item at \(indexPath.row)")
+                    let flashcard = viewmodel.flashcard(by: indexPath.row)
+                    let vc = EditFlashCardViewController(flashCardViewModel: flashcard)
+                    present(vc,animated:true)
+            }
+        }
+    }
+    
+    
 
     @objc
     private func addNewFlashCard(){

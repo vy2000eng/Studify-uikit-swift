@@ -19,7 +19,7 @@ protocol UpdateFlashCardInListViewDelegate: AnyObject{
 }
 
 final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetViewControllerDelegate {
-  
+    
     
     weak var delegate: FlashCardSetViewControllerDelegate?
     
@@ -45,16 +45,16 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
     lazy var collectionView: UICollectionView = {
         
         let layout = UICollectionViewCompositionalLayout {  sectionIndex, enviroment in
-           return  sectionIndex == 0 ?  self.flashcardSet() : self.smallFlashcardSet()
+            return  sectionIndex == 0 ?  self.flashcardSet() : self.smallFlashcardSet()
         }
         
         let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
         v.translatesAutoresizingMaskIntoConstraints = false
-        //v.backgroundColor = .red
         
         v.register(FlashCardSetCollectionViewCell.self, forCellWithReuseIdentifier: "setCell")
         v.register(FlashCardSetCollectionViewCell.self, forCellWithReuseIdentifier: "smallSetCell")
-        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector( handleLongPress(gesture:)))
+        v.addGestureRecognizer(longPress)
         v.isScrollEnabled = false
         v.delegate = self
         v.dataSource = self
@@ -67,19 +67,6 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
         print("set view loaded")
         setupView()
     }
-
-
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        viewmodel.getAllFlashcards()
-//        for flashcard in viewmodel.flashcards{
-//            print("front: \(flashcard.front)")
-//            print("front: \(flashcard.back)")
-//            
-//        }
-//        
-//    }
     
 }
 
@@ -158,6 +145,20 @@ extension FlashCardSetViewController{
     private func closeViewController() {
         delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath)
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            let point = gesture.location(in: self.collectionView)
+            if let indexPath = self.collectionView.indexPathForItem(at: point) {
+                if indexPath.section == 1{
+                    print("Long pressed item at \(indexPath.row)")
+                    let flashcard = viewmodel.flashcard(by: indexPath.row)
+                    let vc = EditFlashCardViewController(flashCardViewModel: flashcard)
+                    present(vc,animated:true)
+                }
+            }
+        }
     }
     
     func didAddFlashcardToSet() {

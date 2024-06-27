@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		393EE5902C2DB42B00277FAF /* EditFlashCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */; };
+		393EE5922C2DB45F00277FAF /* EditFlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE5912C2DB45F00277FAF /* EditFlashCardViewModel.swift */; };
+		393EE5942C2DB91800277FAF /* EditFlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE5932C2DB91800277FAF /* EditFlashCardView.swift */; };
 		394879792C13FB0B002D3DEB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394879782C13FB0B002D3DEB /* Colors.swift */; };
 		3948797C2C155FA9002D3DEB /* FlashCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3948797B2C155FA9002D3DEB /* FlashCardsViewController.swift */; };
 		394879802C1560B4002D3DEB /* FlashcardSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3948797F2C1560B4002D3DEB /* FlashcardSetViewModel.swift */; };
@@ -66,6 +69,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardViewController.swift; sourceTree = "<group>"; };
+		393EE5912C2DB45F00277FAF /* EditFlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardViewModel.swift; sourceTree = "<group>"; };
+		393EE5932C2DB91800277FAF /* EditFlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardView.swift; sourceTree = "<group>"; };
 		394879782C13FB0B002D3DEB /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3948797B2C155FA9002D3DEB /* FlashCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsViewController.swift; sourceTree = "<group>"; };
 		3948797F2C1560B4002D3DEB /* FlashcardSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardSetViewModel.swift; sourceTree = "<group>"; };
@@ -143,6 +149,7 @@
 				396D6CBF2C252371000DD57C /* AddNewFlashCardView.swift */,
 				396D6CC72C274C2E000DD57C /* FlashCardSetCollectionViewCell.swift */,
 				396D6CCF2C2B1593000DD57C /* FlashCardListCollectionViewCell.swift */,
+				393EE5932C2DB91800277FAF /* EditFlashCardView.swift */,
 			);
 			path = FC_Views;
 			sourceTree = "<group>";
@@ -161,6 +168,7 @@
 				3948797F2C1560B4002D3DEB /* FlashcardSetViewModel.swift */,
 				394879812C1560D4002D3DEB /* FlashCardViewModel.swift */,
 				396D6CBD2C252010000DD57C /* AddNewFlashCardViewModel.swift */,
+				393EE5912C2DB45F00277FAF /* EditFlashCardViewModel.swift */,
 			);
 			path = FC_ViewModels;
 			sourceTree = "<group>";
@@ -172,6 +180,7 @@
 				396D6CB62C2515F9000DD57C /* FlashCardTabViewController.swift */,
 				396D6CB82C25165A000DD57C /* FlashCardListViewController.swift */,
 				396D6CBB2C251F7B000DD57C /* AddNewFlashCardViewController.swift */,
+				393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */,
 			);
 			path = FC_Controllers;
 			sourceTree = "<group>";
@@ -415,6 +424,7 @@
 				394879842C15F09D002D3DEB /* TopicMapHeaderViewCell.swift in Sources */,
 				396D6CCA2C277E73000DD57C /* FlashCardSetViewControllerDelegate.swift in Sources */,
 				396D6CBC2C251F7B000DD57C /* AddNewFlashCardViewController.swift in Sources */,
+				393EE5942C2DB91800277FAF /* EditFlashCardView.swift in Sources */,
 				396D6CCC2C277EBE000DD57C /* FlashCardSetViewControllerDataSource.swift in Sources */,
 				396D6CD22C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift in Sources */,
 				396D6CB72C2515F9000DD57C /* FlashCardTabViewController.swift in Sources */,
@@ -431,6 +441,7 @@
 				39DEDE242C12073900C725CE /* TopicViewCell.swift in Sources */,
 				39DEDE412C12C0FF00C725CE /* AddNewTopicViewController.swift in Sources */,
 				39B817AE2C0E903200CB843B /* SubjectTableViewCell.swift in Sources */,
+				393EE5902C2DB42B00277FAF /* EditFlashCardViewController.swift in Sources */,
 				396D6CBE2C252010000DD57C /* AddNewFlashCardViewModel.swift in Sources */,
 				39A4BC842C039B8D00F833D2 /* SubjectModel.swift in Sources */,
 				39B817AA2C0E835700CB843B /* SubjectListViewModel.swift in Sources */,
@@ -446,6 +457,7 @@
 				394879822C1560D4002D3DEB /* FlashCardViewModel.swift in Sources */,
 				39DEDE202C12032100C725CE /* DetailsViewDelagate.swift in Sources */,
 				39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */,
+				393EE5922C2DB45F00277FAF /* EditFlashCardViewModel.swift in Sources */,
 				39B817B02C0EBD2E00CB843B /* SubjectDetailsViewControllerDataSource.swift in Sources */,
 				39B817A82C0E7E9500CB843B /* AddNewSubjectViewModel.swift in Sources */,
 				39A4BC652C03924200F833D2 /* AppDelegate.swift in Sources */,
