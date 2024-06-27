@@ -8,12 +8,6 @@
 import UIKit
 
 final class FlashCardTabViewController:UITabBarController, AddFlashCardToListViewCollectionDelegate, AddFlashCardToSetViewCollectionDelegate, UpdateFlashCardInFlashCardListViewControllerCollectionViewDelegate, UpdateFlashCardInFlashCardSetViewControllerCollectionViewDelegate{
-   
-    
-
- 
-    
-   
 
     let viewmodel:FlashcardSetViewModel
     let topicIndexPath: IndexPath
@@ -22,7 +16,6 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
     let flashcardListViewController: FlashCardListViewController
     let nav1: UINavigationController
     let nav2: UINavigationController
-    
 
     init(topicID:UUID, topicIndexPath: IndexPath){
         self.viewmodel = FlashcardSetViewModel(topicID: topicID)
@@ -50,16 +43,12 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
 
 extension FlashCardTabViewController{
     private func setup(){
-
-        
         nav1.navigationBar.prefersLargeTitles = false
         nav2.navigationBar.prefersLargeTitles = false
         flashcardSetViewController.addFlashCardInListViewControllerDelegate = self
         flashcardListViewController.addFlashCardInSetViewControllerDelegate = self
         flashcardSetViewController.updateFlashCardInListViewControllerDelegate = self
         flashcardListViewController.updateFlashCardInSetViewControllerDelegate = self
-       // flashcardSetViewController.addFlashCardInSetViewControllerDelegate = self
-       // flashcardListViewController.addFlashCardInListViewControllerDelegate = self
         
         nav1.tabBarItem = UITabBarItem(title: "set",image: UIImage(systemName: "menucard"), tag: 1)
         nav2.tabBarItem = UITabBarItem(title: "list", image:UIImage(systemName: "list.bullet"), tag: 2)
@@ -70,48 +59,46 @@ extension FlashCardTabViewController{
         )
     }
 }
-extension FlashCardTabViewController{
 
+
+extension FlashCardTabViewController{
+    //MARK: EXPLANATION
+    //MARK: The "if flashcardListViewController.isViewLoaded" is because of the way TabViewControllers work when you have tabs.
+    //      1. "FlashCardTabViewController" is loaded into memory.
+    //      2. "FlashCardSetViewController" is loaded into memory, because it is the first ViewController added to "FlashCardTabViewController"
+    //MARK: 3. "FlashCardListViewController" is loaded into memory, ONLY AFTER IT IS CLICKED ON.
+    //      4.  None of the other viewControllers ever get reloaded after they load once.
+    //MARK: This presents a problem:
+    // 1.) If you decide to make UIChanges in "FlashCardSetViewController" and you HAVE NOT clicked on "FlashCardListViewController", then all of the changed you made in
+    //     "FlashCardSetViewController" will load beautifully into "FlashCardListViewController" without you needing to do anything at all, except for updating changes you made
+    //      in "FlashCardSetViewController" but ONLY ONE TIME!
+    //MARK ADD
     func didAddFlashCardToSetViewControllerFromListViewController() {
-        //MARK: EXPLANATION
-        //MARK: The "if flashcardListViewController.isViewLoaded" is because of the way TabViewControllers work when you have tabs.
-        //      1. "FlashCardTabViewController" is loaded into memory.
-        //      2. "FlashCardSetViewController" is loaded into memory, because it is the first ViewController added to "FlashCardTabViewController"
-        //MARK: 3. "FlashCardListViewController" is loaded into memory, ONLY AFTER IT IS CLICKED ON.
-        //      4.  None of the other viewControllers ever get reloaded after they load once.
-        //MARK: This presents a problem:
-        // 1.) If you decide to make UIChanges in "FlashCardSetViewController" and you HAVE NOT clicked on "FlashCardListViewController", then all of the changed you made in
-        //     "FlashCardSetViewController" will load beautifully into "FlashCardListViewController" without you needing to do anything at all, except for updating changes you made
-        //      in "FlashCardSetViewController" but ONLY ONE TIME!
         if flashcardSetViewController.isViewLoaded{
             didAddFlashcardToSet()
-            
         }
     }
     
     func didAddFlashCardInListViewControllerFromSetViewController() {
         if flashcardListViewController.isViewLoaded{
             didAddFlashcardToList()
-            
         }
         
     }
+    //MARK: UPADTE
     func didUpdateFlashCardInSetViewControllerFromListViewController(indexPath:IndexPath) {
         if flashcardSetViewController.isViewLoaded{
             didUpdateFlashCardInSet(indexPath: indexPath)
-
         }
     }
     
     func didUpdateFlashCardInListViewControllerFromSetViewController(indexPath:IndexPath) {
         if flashcardListViewController.isViewLoaded{
             didUpdateFlashCardInList(indexPath: indexPath)
-
-            
         }
         
     }
-    
+    //MARK: DELETE
     func didDeleteFlashCardInSetViewControllerFromListViewController(indexPath: IndexPath) {
         if flashcardSetViewController.isViewLoaded{
             didDeleteFlashCardInSet(indexPath: indexPath)
@@ -123,10 +110,11 @@ extension FlashCardTabViewController{
             didDeleteFlashCardInList(indexPath: indexPath)
         }
     }
-    
-  
-    
-    
+}
+
+
+extension FlashCardTabViewController{
+    //MARK: DELETE
     func didDeleteFlashCardInList(indexPath:IndexPath){
         print("delete Flashcard called in list vc")
         viewmodel.getAllFlashcards()
@@ -137,9 +125,8 @@ extension FlashCardTabViewController{
                 self.flashcardListViewController.collectionView.deleteItems(at: [indexPathSetCell])
             })
         }
-        
-        
     }
+    
     func didDeleteFlashCardInSet(indexPath:IndexPath){
         print("delete Flashcard called in set vc")
         viewmodel.getAllFlashcards()
@@ -152,9 +139,8 @@ extension FlashCardTabViewController{
                 self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSmallSetCell])
             })
         }
-        
     }
-    
+    //MARK: UPDATE
     func didUpdateFlashCardInList(indexPath:IndexPath){
         print("updateFlashcard called in list vc")
         viewmodel.getAllFlashcards()
@@ -165,7 +151,6 @@ extension FlashCardTabViewController{
                 self.flashcardListViewController.collectionView.reloadItems(at: [indexPathSetCell])
             })
         }
-        
     }
     
     func didUpdateFlashCardInSet(indexPath:IndexPath){
@@ -180,10 +165,9 @@ extension FlashCardTabViewController{
                 self.flashcardSetViewController.collectionView.reloadItems(at: [indexPathSmallSetCell])
             })
         }
-        
     }
-   
     
+    //MARK: ADD
     func didAddFlashcardToList() {
         print("add Flashcard called in list vc")
         viewmodel.getAllFlashcards()
@@ -210,8 +194,6 @@ extension FlashCardTabViewController{
         }
     }
 }
-
-
 
 
 

@@ -27,11 +27,11 @@ class AddNewFlashCardViewController: UIViewController{
     weak var flashCardListViewControllerDelegate: AddNewFlashCardToListViewControllerDelegate?
     
     init(flashcardSetViewModel: FlashcardSetViewModel, whichControllerPushed: Int){
+       
         self.whichControllerPushed = whichControllerPushed
         self.flashcardSetViewModel = flashcardSetViewModel
         self.viewmodel = AddNewFlashCardViewModel(topicID: flashcardSetViewModel.topicID)
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     required init?(coder: NSCoder) {

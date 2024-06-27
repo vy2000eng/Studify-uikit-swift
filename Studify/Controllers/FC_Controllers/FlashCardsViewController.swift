@@ -23,37 +23,25 @@ protocol UpdateFlashCardInFlashCardListViewControllerCollectionViewDelegate:AnyO
     func didDeleteFlashCardInListViewControllerFromSetViewController(indexPath:IndexPath)
 }
 
-
-
 final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetViewControllerDelegate, UpdateFlashCardInSetViewControllerDelegate {
-   
-    
-   
-    
-    
-    
+
     weak var delegate: FlashCardSetViewControllerDelegate?
-    
     weak var addFlashCardInListViewControllerDelegate: AddFlashCardToListViewCollectionDelegate?
-    
     weak var updateFlashCardInListViewControllerDelegate: UpdateFlashCardInFlashCardListViewControllerCollectionViewDelegate?
-    
     let viewmodel:FlashcardSetViewModel
-    
     let topicIndexPath: IndexPath
+    
     
     //MARK: init
     init(viewmodel: FlashcardSetViewModel, topicIndexPath: IndexPath){
         self.viewmodel = viewmodel
         self.topicIndexPath = topicIndexPath
-        
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     lazy var collectionView: UICollectionView = {
         
@@ -127,7 +115,6 @@ extension FlashCardSetViewController{
         return section
     }
     
-
 }
 
 
@@ -176,7 +163,10 @@ extension FlashCardSetViewController{
             }
         }
     }
-    
+}
+
+//MARK: - delegate functions
+extension FlashCardSetViewController{
     func didAddFlashcardToSet() {
         print("didAddFlashcard called in set vc")
         viewmodel.getAllFlashcards()

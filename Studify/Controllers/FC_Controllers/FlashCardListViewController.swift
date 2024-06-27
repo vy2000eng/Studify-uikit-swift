@@ -33,10 +33,6 @@ protocol UpdateFlashCardInFlashCardSetViewControllerCollectionViewDelegate:AnyOb
 
 class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewControllerDelegate, UpdateFlashCardInListViewControllerDelegate{
     
-    
-   
-    
-    
   
     let viewmodel: FlashcardSetViewModel
     let topicIndexPath: IndexPath

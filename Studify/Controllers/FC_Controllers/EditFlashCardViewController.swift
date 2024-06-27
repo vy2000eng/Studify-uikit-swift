@@ -9,23 +9,15 @@ import Foundation
 import UIKit
 
 protocol UpdateFlashCardInSetViewControllerDelegate:AnyObject{
+   
     func didUpdateFlashCardInSet(indexPath: IndexPath)
     func didDeleteFlashCardInSet(indexPath:IndexPath)
-
 }
 protocol UpdateFlashCardInListViewControllerDelegate:AnyObject{
+    
     func didUpdateFlashCardInList(indexPath:IndexPath)
     func didDeleteFlashCardInList(indexPath:IndexPath)
-
 }
-//
-//protocol DeleteFlashCardInSetViewControllerDelegate:AnyObject{
-//    func didDeleteFlashCardInSet(indexPath:IndexPath)
-//}
-//
-//protocol DeleteFlashCardInListViewControllerDelegate:AnyObject{
-//    func didDeleteFlashCardInList(indexPath:IndexPath)
-//}
 
 
 final class EditFlashCardViewController: UIViewController{
@@ -37,43 +29,39 @@ final class EditFlashCardViewController: UIViewController{
     
     weak var flashcardSetViewControllerDelegate: UpdateFlashCardInSetViewControllerDelegate?
     weak var flashcardListViewControllerDelegate: UpdateFlashCardInListViewControllerDelegate?
-    //weak var flashCardSetViewControllerDelegate:DeleteFlashCardInSetViewControllerDelegate?
-   // weak var flashCardListViewControllerDelegate:DeleteFlashCardInListViewControllerDelegate?
-    
+
     
     let navBar: UINavigationBar = {
+        
         let navBar = UINavigationBar()
         navBar.translatesAutoresizingMaskIntoConstraints = false
         return navBar
     }()
     
     init(flashCardViewModel: FlashcardViewModel, whichControllerPresented: Int, indexPath:IndexPath) {
+        
         self.whichControllerPresented = whichControllerPresented
         self.flashCardViewModel = flashCardViewModel
         self.viewmodel = EditFlashCardViewModel(flashcardId: flashCardViewModel.id)
         self.editFlashCardView = EditFlashCardView(frame: .zero, flashcardViewModel: flashCardViewModel)
         self.indexPath = indexPath
         super.init(nibName: nil, bundle: nil)
-
     }
     
     required init?(coder: NSCoder) {
+        
         fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-      
-
         setupView()
     }
-  
-    
-    
-    
 }
 
 extension EditFlashCardViewController{
+    
     private func setupView(){
         view.backgroundColor = UIColor.systemBackground
         title = "add new flashcard"
@@ -82,18 +70,13 @@ extension EditFlashCardViewController{
         navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveFlashCard))
         navItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteFlashCard))
         navBar.setItems([navItem], animated: false)
-
         view.addSubview(editFlashCardView)
-
         editFlashCardView.translatesAutoresizingMaskIntoConstraints = false
         setupConstraints()
-        
-        
     }
+    
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-            
-            
             navBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             navBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -114,15 +97,12 @@ extension EditFlashCardViewController{
         flashCardViewModel.setFrontString(front: editFlashCardView.frontStringTextField.text)
         flashCardViewModel.setBackString(back: editFlashCardView.backStringTextField.text)
         viewmodel.editFlashCard(front: flashCardViewModel.front, back: flashCardViewModel.back)
-        updateSectionsInCollection(whichControllerPresented: whichControllerPresented)
+        updateSectionsInCollection()
         dismiss(animated: true)
-        //flashcardSetViewControllerDelegate?.didUpdateFlashCardInSet()
-        
     }
     
-    func updateSectionsInCollection(whichControllerPresented: Int){
+    func updateSectionsInCollection(){
         whichControllerPresented == 0 ? flashcardSetViewControllerDelegate?.didUpdateFlashCardInSet(indexPath: indexPath) : flashcardListViewControllerDelegate?.didUpdateFlashCardInList(indexPath: indexPath)
-        
     }
     func deleteSectionsInCollection(){
         whichControllerPresented == 0 ? flashcardSetViewControllerDelegate?.didDeleteFlashCardInSet(indexPath: indexPath) : flashcardListViewControllerDelegate?.didDeleteFlashCardInList(indexPath: indexPath)
@@ -139,7 +119,7 @@ extension EditFlashCardViewController{
                 title: "Cancel",
                 style: .default,
                 handler: nil
-             
+                
             ))
         alert.addAction(
             UIAlertAction(
@@ -150,14 +130,8 @@ extension EditFlashCardViewController{
                     self?.viewmodel.deleteFlashCard()
                     self?.deleteSectionsInCollection()
                     self?.dismiss(animated: true)
-
-                    
                 }
-                
             ))
-        
         present(alert, animated: true)
-    
-        
     }
 }
