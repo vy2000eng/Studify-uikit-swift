@@ -18,6 +18,8 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
        let termText = UILabel()
         termText.translatesAutoresizingMaskIntoConstraints = false
         termText.numberOfLines = 0
+        termText.adjustsFontSizeToFitWidth = true
+        termText.minimumScaleFactor = 0.5
         return termText
     }()
     
@@ -82,14 +84,17 @@ extension FlashCardSetCollectionViewCell{
     }
     
     func configure(flashcard: FlashcardViewModel, bottomTopStyle:Int){
-       // let flashcardString = viewmodel.flashcardDisplayMode(flashcard:flashcard, isShowingFront: flashcard.isShowingFront)
+        let text = flashcard.isShowingFront ? flashcard.front : flashcard.back
+        termText.text = text
+        
+        let fontSize = determineFontSize(for: text)
+        termText.font = UIFont(name: "Helvetica", size: fontSize)
 
         
         if bottomTopStyle == 0{
             termLabel.font = UIFont(name: "Helvetica-Bold", size: 12)
-            termText.font = UIFont(name:"Helvetica", size:15)
             termLabel.text = flashcard.isShowingFront ? "term" : "def"
-        
+            termText.font = UIFont(name:"Helvetica", size: fontSize)
             termText.text = flashcard.isShowingFront ? flashcard.front : flashcard.back
             
         }
@@ -103,14 +108,7 @@ extension FlashCardSetCollectionViewCell{
             termLabel.font = UIFont(name: "Helvetica-Bold", size: 10)
             termText.font = UIFont(name:"Helvetica", size:12)
 
-            //termLabel.text = "term"
-           // termLabel.text = "term"
             termLabel.text = flashcard.isShowingFront ? "term" : "def"
-
-
-
-            
-           // termText.text = flashcard.front
             termText.text = flashcard.isShowingFront ? flashcard.front : flashcard.back
 
 
@@ -119,6 +117,16 @@ extension FlashCardSetCollectionViewCell{
             
         }
        
+    }
+    private func determineFontSize(for text: String) -> CGFloat {
+        let length = text.count
+        if length > 50 {
+            return 12  // Smaller text for longer content
+        } else if length > 20 {
+            return 15  // Medium text for medium-length content
+        } else {
+            return 18  // Larger text for shorter content
+        }
     }
 }
 
