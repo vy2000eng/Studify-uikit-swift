@@ -201,6 +201,8 @@ extension FlashCardListViewController{
         print("updateFlashcard called in list vc")
         viewmodel.getAllFlashcards()
         let indexPathListCell = IndexPath(row: indexPath.row, section: 0)
+        self.viewmodel.currentIndex = indexPathListCell.row - 1
+
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
                 self.collectionView.deleteItems(at: [indexPathListCell])

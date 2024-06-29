@@ -15,13 +15,20 @@ protocol didAddFlashCardToSetViewControllerDelegate{
     func didAddFlashCardToSetView()
 }
 
+
+
 class FlashcardSetViewModel{
     
     var topicID: UUID
+
     
     var flashcards = [FlashcardViewModel]()
     
+    var currentIndex:Int
+    
 
+
+    
     
     var numberOfFlashCards:Int{
         flashcards.count
@@ -29,6 +36,7 @@ class FlashcardSetViewModel{
     
     init(topicID: UUID) {
         self.topicID = topicID
+        self.currentIndex = 0
         getAllFlashcards()
     }
     

@@ -10,13 +10,16 @@ import Foundation
 import UIKit
 
 extension FlashCardListViewController: UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewmodel.numberOfFlashCards
-
-    }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+       
+        return viewmodel.numberOfFlashCards
+    }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as! FlashCardListCollectionViewCell
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as? FlashCardListCollectionViewCell else{
+            return UICollectionViewCell()
+        }
         let flashcard = viewmodel.flashcard(by: indexPath.row)
         cell.configure(flashCard: flashcard)
         return cell
@@ -25,10 +28,4 @@ extension FlashCardListViewController: UICollectionViewDataSource{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
-    
-    
-    
-    
-    
 }

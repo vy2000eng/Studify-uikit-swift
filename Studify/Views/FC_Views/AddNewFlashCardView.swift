@@ -63,17 +63,29 @@ extension AddNewFlashCardView{
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-            
             stackScrollView.topAnchor.constraint(equalTo: topAnchor),
-            stackScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stackScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-           
-            verticalStack.topAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.topAnchor),
-            verticalStack.leadingAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.leadingAnchor, constant: 10),
-            verticalStack.trailingAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.trailingAnchor, constant: -10),
-            verticalStack.bottomAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.bottomAnchor, constant: -10),
-            verticalStack.widthAnchor.constraint(equalTo: stackScrollView.frameLayoutGuide.widthAnchor, constant: -20)
+                  stackScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                  stackScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                  stackScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+                 
+                  verticalStack.topAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.topAnchor),
+                  verticalStack.leadingAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.leadingAnchor, constant: 10),
+                  verticalStack.trailingAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.trailingAnchor, constant: -10),
+                  // Ensure the vertical stack stretches sufficiently to determine the scroll view's content height
+                  verticalStack.bottomAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.bottomAnchor, constant: -10),
+                  // Width of verticalStack should match the width of the scrollView frame, minus the constant adjustments
+                  verticalStack.widthAnchor.constraint(equalTo: stackScrollView.frameLayoutGuide.widthAnchor, constant: -20)
+//
+//            stackScrollView.topAnchor.constraint(equalTo: topAnchor),
+//            stackScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            stackScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            stackScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+//           
+//            verticalStack.topAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.topAnchor),
+//            verticalStack.leadingAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.leadingAnchor, constant: 10),
+//            verticalStack.trailingAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.trailingAnchor, constant: -10),
+//            verticalStack.bottomAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.bottomAnchor, constant: -10),
+//            verticalStack.widthAnchor.constraint(equalTo: stackScrollView.frameLayoutGuide.widthAnchor, constant: -20)
         ])
     }
 }

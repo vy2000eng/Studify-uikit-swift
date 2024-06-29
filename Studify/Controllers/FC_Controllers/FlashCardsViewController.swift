@@ -31,7 +31,6 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
     let viewmodel:FlashcardSetViewModel
     let topicIndexPath: IndexPath
     
-    
     //MARK: init
     init(viewmodel: FlashcardSetViewModel, topicIndexPath: IndexPath){
         self.viewmodel = viewmodel
@@ -46,8 +45,10 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
     lazy var collectionView: UICollectionView = {
         
         let layout = UICollectionViewCompositionalLayout {  sectionIndex, enviroment in
+            
             return  sectionIndex == 0 ?  self.flashcardSet() : self.smallFlashcardSet()
         }
+        
         
         let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -108,7 +109,6 @@ extension FlashCardSetViewController{
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.33), heightDimension: .absolute(150))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [fc])
-        
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
 
@@ -129,7 +129,7 @@ extension FlashCardSetViewController{
 
     private func setupAddButton(){
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .add,
+            barButtonSystemItem: .compose,
             target: self,
             action: #selector(addNewFlashCard))
     }
@@ -212,13 +212,41 @@ extension FlashCardSetViewController{
         let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
-                self.collectionView.deleteItems(at: [indexPathSetCell])
-                self.collectionView.deleteItems(at: [indexPathSmallSetCell])
+                self.collectionView.deleteItems(at: [indexPathSetCell, indexPathSmallSetCell])
+            }, completion: { _ in
+                var newPosition = indexPath.row - 1  // Default to one less than the deleted item
+                
+                
+                // Check bounds and adjust if necessary
+                if newPosition < 0 && self.viewmodel.numberOfFlashCards > 0 {
+                    newPosition = 0 // Set to the first item if we deleted the first item
+                } else if newPosition >= self.viewmodel.numberOfFlashCards {
+                    newPosition = max(0, self.viewmodel.numberOfFlashCards - 1)  // Set to the last item if out of bounds
+                    print("it is being update in here")
+                    
+                }
+                if self.viewmodel.numberOfFlashCards > 0 {
+                    let indexPathSetCell = IndexPath(row: newPosition, section: 0)
+                    let indexPathSmallSetCell = IndexPath(row: newPosition, section: 1)
+                    self.viewmodel.currentIndex = indexPathSmallSetCell.row
+                    switch newPosition {
+                    case 0:
+                        self.collectionView.reloadItems(at: [indexPathSmallSetCell])
+                        self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
+                        break
+                    case self.viewmodel.numberOfFlashCards-1 :
+                        self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: false)
+                        
+                        break
+                    default:
+                       // self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
+                        self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
+                        break
+                        
+                    }
+                }
             })
         }
         updateFlashCardInListViewControllerDelegate?.didDeleteFlashCardInListViewControllerFromSetViewController(indexPath: indexPath)
     }
-
-    
-    
 }

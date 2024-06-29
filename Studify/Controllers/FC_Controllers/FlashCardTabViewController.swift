@@ -135,8 +135,10 @@ extension FlashCardTabViewController{
         
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
+                let updatedIndexPath = IndexPath(row: self.viewmodel.currentIndex, section: 0)
                 self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSetCell])
                 self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSmallSetCell])
+                self.flashcardSetViewController.collectionView.scrollToItem(at: updatedIndexPath, at: .centeredHorizontally, animated: false)
             })
         }
     }
