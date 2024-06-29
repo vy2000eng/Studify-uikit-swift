@@ -75,17 +75,6 @@ extension AddNewFlashCardView{
                   verticalStack.bottomAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.bottomAnchor, constant: -10),
                   // Width of verticalStack should match the width of the scrollView frame, minus the constant adjustments
                   verticalStack.widthAnchor.constraint(equalTo: stackScrollView.frameLayoutGuide.widthAnchor, constant: -20)
-//
-//            stackScrollView.topAnchor.constraint(equalTo: topAnchor),
-//            stackScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            stackScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            stackScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-//           
-//            verticalStack.topAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.topAnchor),
-//            verticalStack.leadingAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.leadingAnchor, constant: 10),
-//            verticalStack.trailingAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.trailingAnchor, constant: -10),
-//            verticalStack.bottomAnchor.constraint(equalTo: stackScrollView.contentLayoutGuide.bottomAnchor, constant: -10),
-//            verticalStack.widthAnchor.constraint(equalTo: stackScrollView.frameLayoutGuide.widthAnchor, constant: -20)
         ])
     }
 }
@@ -106,10 +95,14 @@ extension AddNewFlashCardView{
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
         textView.textAlignment = .left
         textView.delegate = self
-        let toolbar = UIToolbar()
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))  // Example height
+
+        toolbar.translatesAutoresizingMaskIntoConstraints = false // Disable autoresizing mask
+
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissKeyboard))
+
         toolbar.setItems([flexSpace, doneButton], animated: false)
         textView.inputAccessoryView = toolbar  // Set the toolbar as input accessory view
         return textView
