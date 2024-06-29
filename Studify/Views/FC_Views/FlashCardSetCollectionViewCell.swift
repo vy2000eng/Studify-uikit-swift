@@ -52,6 +52,9 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
         return vstack
     }()
     
+    var tightConstraints: [NSLayoutConstraint] = []
+      var relaxedConstraints: [NSLayoutConstraint] = []
+    
     override func prepareForReuse() {
         
         super.prepareForReuse()
@@ -62,6 +65,8 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
         
         super.init(frame: frame)
         setup()
+        setupConstraints()
+        configureConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -88,67 +93,62 @@ extension FlashCardSetCollectionViewCell{
             mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             
-            termLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 10),
             termLabel.centerXAnchor.constraint(equalTo: mainView.centerXAnchor),
 
+          
+        ])
+        relaxedConstraints = [
+            termLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 10),
             vstack.topAnchor.constraint(equalTo: termLabel.bottomAnchor, constant: 5),
             vstack.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 8),
             vstack.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -8),
             vstack.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -8),
-        ])
+        ]
+        
+        tightConstraints = [
+            termLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 5),
+            vstack.topAnchor.constraint(equalTo: termLabel.bottomAnchor, constant: 5),
+            vstack.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 5),
+            vstack.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -5),
+            vstack.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant:  -5),
+        ]
     }
     
+    func configureConstraints() {
+        // Start with all constraints deactivated
+        NSLayoutConstraint.deactivate(relaxedConstraints + tightConstraints)
+
+        // Activate the initial constraint set based on some initial condition
+        NSLayoutConstraint.activate(relaxedConstraints)
+    }
+
+    
     func configure(flashcard: FlashcardViewModel, bottomTopStyle:Int ){
-       
+        let termLabelFontSize : CGFloat = bottomTopStyle == 0 ? 12 : 8
+        
         let text = flashcard.isShowingFront ? flashcard.front : flashcard.back
         termText.text = text
         
-        let fontSize = determineFontSize(for: text)
+        let fontSize = determineFontSize(for: text, topBottomStyle:  bottomTopStyle)
         termText.font = UIFont(name: "Helvetica", size: fontSize)
+        termLabel.font = UIFont(name: "Helvetica-Bold", size: termLabelFontSize)
+        termLabel.text = flashcard.isShowingFront ? "term" : "def"
+        termText.font = UIFont(name:"Helvetica", size: fontSize)
+        termText.text = flashcard.isShowingFront ? flashcard.front : flashcard.back
         
-        if bottomTopStyle == 0{
-            termLabel.font = UIFont(name: "Helvetica-Bold", size: 12)
-            termLabel.text = flashcard.isShowingFront ? "term" : "def"
-            termText.font = UIFont(name:"Helvetica", size: fontSize)
-            termText.text = flashcard.isShowingFront ? flashcard.front : flashcard.back
-            
-        }
-        else{
-            NSLayoutConstraint.deactivate([
-                termLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 10),
-                vstack.topAnchor.constraint(equalTo: termLabel.bottomAnchor, constant: 5),
-                vstack.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 8),
-                vstack.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -8),
-                vstack.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -8),
-            
-            ])
-            
-            NSLayoutConstraint.activate([
-                termLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 5),
-                vstack.topAnchor.constraint(equalTo: termLabel.bottomAnchor, constant: 5),
-                vstack.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 5),
-                vstack.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -5),
-                vstack.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant:  -5),
-            
-            
-            ])
-
-            termLabel.font = UIFont(name: "Helvetica-Bold", size: 8)
-            termText.font = UIFont(name:"Helvetica", size:12)
-
-            termLabel.text = flashcard.isShowingFront ? "term" : "def"
-            termText.text = flashcard.isShowingFront ? flashcard.front : flashcard.back
-        }
+        NSLayoutConstraint.deactivate(bottomTopStyle == 0 ? tightConstraints : relaxedConstraints)
+        NSLayoutConstraint.activate(bottomTopStyle == 0 ? relaxedConstraints : tightConstraints)
+        
     }
-    private func determineFontSize(for text: String) -> CGFloat {
+    private func determineFontSize(for text: String, topBottomStyle:Int) -> CGFloat {
        
         let length = text.count
         if length > 50 {
-            return 12  // Smaller text for longer content
+            return 12 // Smaller text for longer content
         } else if length > 20 {
-            return 15  // Medium text for medium-length content
+            return topBottomStyle == 0 ? 15 : 12 // Medium text for medium-length content
         } else {
-            return 18  // Larger text for shorter content
+            return topBottomStyle == 0 ? 18: 15 // Larger text for shorter content
         }
     }
 }
