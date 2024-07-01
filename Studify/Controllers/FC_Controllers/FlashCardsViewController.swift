@@ -167,44 +167,50 @@ extension FlashCardSetViewController{
 
 //MARK: - delegate functions
 extension FlashCardSetViewController{
+    
     func didAddFlashcardToSet() {
+       
         print("didAddFlashcard called in set vc")
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: viewmodel.flashcards.count-1, section: 0)
         let indexPathSmallSetCell = IndexPath(row: viewmodel.flashcards.count-1, section: 1)
+      
+        self.viewmodel.currentIndex = indexPathSetCell.row
+
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
                 self.collectionView.insertItems(at: [indexPathSetCell])
                 self.collectionView.insertItems(at: [indexPathSmallSetCell])
-            } ,completion: { finished in
-                if finished {
-                    self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
-                    self.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: true)
-                }
+            } ,completion: {_ in
+               // self.viewmodel.currentIndex = indexPathSmallSetCell.row
+                self.collectionView.reloadItems(at: [indexPathSmallSetCell])
+
+                self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
+                self.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: true)
             })
         }
         addFlashCardInListViewControllerDelegate?.didAddFlashCardInListViewControllerFromSetViewController()
     }
     
     func didUpdateFlashCardInSet(indexPath: IndexPath) {
-        print("didUpdateFlashcard called in set vc")
+       // print("update in fc set")
+        
+       // print("didUpdateFlashcard called in set vc")
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
         let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
+        self.viewmodel.currentIndex = indexPath.row
+
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
-                self.collectionView.reloadItems(at: [indexPathSetCell])
                 self.collectionView.reloadItems(at: [indexPathSmallSetCell])
-            } ,completion: { finished in
-                if finished {
-                    self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
-                    self.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: true)
-                }
+            } ,completion: { _ in
+               self.configureScrollBehavior(indexPath: indexPath, updateDelete: 1)
             })
         }
         updateFlashCardInListViewControllerDelegate?.didUpdateFlashCardInListViewControllerFromSetViewController(indexPath: indexPath)
-        
     }
+    
     func didDeleteFlashCardInSet(indexPath: IndexPath) {
         print("didUpdateFlashcard called in set vc")
         viewmodel.getAllFlashcards()
@@ -214,39 +220,39 @@ extension FlashCardSetViewController{
             self.collectionView.performBatchUpdates({
                 self.collectionView.deleteItems(at: [indexPathSetCell, indexPathSmallSetCell])
             }, completion: { _ in
-                var newPosition = indexPath.row - 1  // Default to one less than the deleted item
-                
-                
-                // Check bounds and adjust if necessary
-                if newPosition < 0 && self.viewmodel.numberOfFlashCards > 0 {
-                    newPosition = 0 // Set to the first item if we deleted the first item
-                } else if newPosition >= self.viewmodel.numberOfFlashCards {
-                    newPosition = max(0, self.viewmodel.numberOfFlashCards - 1)  // Set to the last item if out of bounds
-                    print("it is being update in here")
-                    
-                }
-                if self.viewmodel.numberOfFlashCards > 0 {
-                    let indexPathSetCell = IndexPath(row: newPosition, section: 0)
-                    let indexPathSmallSetCell = IndexPath(row: newPosition, section: 1)
-                    self.viewmodel.currentIndex = indexPathSmallSetCell.row
-                    switch newPosition {
-                    case 0:
-                        self.collectionView.reloadItems(at: [indexPathSmallSetCell])
-                        self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
-                        break
-                    case self.viewmodel.numberOfFlashCards-1 :
-                        self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: false)
-                        
-                        break
-                    default:
-                       // self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
-                        self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
-                        break
-                        
-                    }
-                }
+                self.configureScrollBehavior(indexPath: indexPath, updateDelete: 0)
             })
         }
         updateFlashCardInListViewControllerDelegate?.didDeleteFlashCardInListViewControllerFromSetViewController(indexPath: indexPath)
+    }
+    
+    
+    func configureScrollBehavior(indexPath: IndexPath, updateDelete:Int){
+        
+        var newPosition = updateDelete == 0 ? indexPath.row - 1 :  indexPath.row// Default to one less than the deleted item
+        // Check bounds and adjust if necessary
+        if newPosition < 0 && self.viewmodel.numberOfFlashCards > 0 {
+            newPosition = 0 // Set to the first item if we deleted the first item
+        } else if newPosition >= self.viewmodel.numberOfFlashCards {
+            newPosition = max(0, self.viewmodel.numberOfFlashCards - 1)  // Set to the last item if out of bounds
+            
+        }
+        if self.viewmodel.numberOfFlashCards > 0 {
+            let indexPathSetCell = IndexPath(row: newPosition, section: 0)
+            let indexPathSmallSetCell = IndexPath(row: newPosition, section: 1)
+            self.viewmodel.currentIndex = indexPathSmallSetCell.row
+            switch newPosition {
+            case 0:
+                self.collectionView.reloadItems(at: [indexPathSmallSetCell])
+                self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
+                break
+            case self.viewmodel.numberOfFlashCards-1 :
+                self.collectionView.scrollToItem(at: indexPathSetCell , at: .centeredHorizontally, animated: false)
+                break
+            default:
+                self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
+                break
+            }
+        }
     }
 }

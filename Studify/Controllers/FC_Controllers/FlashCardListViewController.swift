@@ -129,9 +129,9 @@ extension FlashCardListViewController{
         if gesture.state == .began {
             let point = gesture.location(in: self.collectionView)
             if let indexPath = self.collectionView.indexPathForItem(at: point) {
-                    print("Long pressed item at \(indexPath.row)")
-                    let flashcard = viewmodel.flashcard(by: indexPath.row)
-                    let vc = EditFlashCardViewController(flashCardViewModel: flashcard,whichControllerPresented: 1,indexPath: indexPath)
+                print("Long pressed item at \(indexPath.row)")
+                let flashcard = viewmodel.flashcard(by: indexPath.row)
+                let vc = EditFlashCardViewController(flashCardViewModel: flashcard,whichControllerPresented: 1,indexPath: indexPath)
                 vc.flashcardListViewControllerDelegate = self
                 present(vc,animated:true)
             }
@@ -139,7 +139,7 @@ extension FlashCardListViewController{
     }
     
     
-
+    
     @objc
     private func addNewFlashCard(){
         let vc = AddNewFlashCardViewController(flashcardSetViewModel: viewmodel, whichControllerPushed: 1)
@@ -157,16 +157,18 @@ extension FlashCardListViewController{
     }
     // MARK: As you may notice this function is not being called in this file.
     // MARK: That is because it is part of a protocol defined inside of "AddNewFlashCardViewController"
-
+    
     func didAddFlashcardToList() {
         print("updateFlashcard called in list vc")
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
+        self.viewmodel.currentIndex = indexPathSetCell.row
+        
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
                 self.collectionView.insertItems(at: [indexPathSetCell])
             }
-            ,completion: { finished in
+                                                    ,completion: { finished in
                 if finished {
                     self.collectionView.scrollToItem(at: indexPathSetCell, at: .bottom, animated: true)
                 }
@@ -184,11 +186,12 @@ extension FlashCardListViewController{
         print("updateFlashcard called in list vc")
         viewmodel.getAllFlashcards()
         let indexPathListCell = IndexPath(row: indexPath.row, section: 0)
+        self.viewmodel.currentIndex = indexPathListCell.row
+        
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
                 self.collectionView.reloadItems(at: [indexPathListCell])
-            }
-            ,completion: { finished in
+            } ,completion: { finished in
                 if finished {
                     self.collectionView.scrollToItem(at: indexPathListCell, at: .bottom, animated: true)
                 }
@@ -201,12 +204,28 @@ extension FlashCardListViewController{
         print("updateFlashcard called in list vc")
         viewmodel.getAllFlashcards()
         let indexPathListCell = IndexPath(row: indexPath.row, section: 0)
-        self.viewmodel.currentIndex = indexPathListCell.row - 1
 
+        if indexPath.row == 0{
+            self.viewmodel.currentIndex = 0
+        }else{
+            self.viewmodel.currentIndex = max(0, indexPath.row - 1)
+        }
+        
+        print("viewmodel.currentIndex: \(viewmodel.currentIndex)")
+        
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
                 self.collectionView.deleteItems(at: [indexPathListCell])
-            })
+            }  , completion: { finished in
+                if finished {
+                    // Scroll to the new current index if needed
+                    if self.viewmodel.numberOfFlashCards > 0 {
+                        let newIndexPath = IndexPath(row: self.viewmodel.currentIndex, section: 0)
+                        self.collectionView.scrollToItem(at: newIndexPath, at: .top, animated: true)
+                    }
+                }
+            }
+            )
         }
         updateFlashCardInSetViewControllerDelegate?.didDeleteFlashCardInSetViewControllerFromListViewController(indexPath: indexPath)
     }

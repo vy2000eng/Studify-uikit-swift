@@ -87,6 +87,7 @@ extension FlashCardTabViewController{
     }
     //MARK: UPADTE
     func didUpdateFlashCardInSetViewControllerFromListViewController(indexPath:IndexPath) {
+        print("SHOULD NOT BE CALLED HERE 2")
         if flashcardSetViewController.isViewLoaded{
             didUpdateFlashCardInSet(indexPath: indexPath)
         }
@@ -130,15 +131,32 @@ extension FlashCardTabViewController{
     func didDeleteFlashCardInSet(indexPath:IndexPath){
         print("delete Flashcard called in set vc")
         viewmodel.getAllFlashcards()
+        //were using this to delete the item, that is in fact deleted, but still in the list via the ui
         let indexPathSetCell = IndexPath(row:indexPath.row, section: 0)
         let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
         
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
-                let updatedIndexPath = IndexPath(row: self.viewmodel.currentIndex, section: 0)
-                self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSetCell])
-                self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSmallSetCell])
-                self.flashcardSetViewController.collectionView.scrollToItem(at: updatedIndexPath, at: .centeredHorizontally, animated: false)
+                self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSetCell,indexPathSmallSetCell])
+
+            },completion: { finished in
+                if finished{
+
+                    self.flashcardSetViewController.collectionView.layoutIfNeeded()
+                    
+                    DispatchQueue.main.async {
+                        if self.viewmodel.numberOfFlashCards > 0 {
+                            // were using this to delete scroll to the new item that was determined in
+                            let updatedIndexPathSetCell = IndexPath(row: self.viewmodel.currentIndex, section: 0)
+                            let updatedIndexPathSmallSetCell = IndexPath(row: self.viewmodel.currentIndex, section: 1)
+                            // Scroll both sections
+                            self.flashcardSetViewController.collectionView.scrollToItem(at: updatedIndexPathSetCell, at: .centeredHorizontally, animated: false)
+                            self.flashcardSetViewController.collectionView.scrollToItem(at: updatedIndexPathSmallSetCell, at: .centeredHorizontally, animated: false)
+                            // Optionally, select the item in the small set
+                            self.flashcardSetViewController.collectionView.selectItem(at: updatedIndexPathSmallSetCell, animated: false, scrollPosition: .centeredHorizontally)
+                        }
+                    }
+                }
             })
         }
     }
@@ -158,13 +176,23 @@ extension FlashCardTabViewController{
     func didUpdateFlashCardInSet(indexPath:IndexPath){
         print("add Flashcard called in set vc")
         viewmodel.getAllFlashcards()
-        let indexPathSetCell = IndexPath(row:indexPath.row, section: 0)
-        let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
+        let indexPathSetCell = IndexPath(row:self.viewmodel.currentIndex, section: 0)
+        let indexPathSmallSetCell = IndexPath(row: self.viewmodel.currentIndex, section: 1)
+        
         
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
-                self.flashcardSetViewController.collectionView.reloadItems(at: [indexPathSetCell])
-                self.flashcardSetViewController.collectionView.reloadItems(at: [indexPathSmallSetCell])
+                self.flashcardSetViewController.collectionView.reloadItems(at: [indexPathSetCell,indexPathSmallSetCell])
+            },completion: { finished in
+                if finished{
+                    self.flashcardSetViewController.collectionView.layoutIfNeeded()
+                    DispatchQueue.main.async {
+                        
+                        self.flashcardSetViewController.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: false)
+                        self.flashcardSetViewController.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: false)
+                    }
+                }
+                
             })
         }
     }
@@ -185,13 +213,20 @@ extension FlashCardTabViewController{
     func didAddFlashcardToSet() {
         print("add Flashcard called in set vc")
         viewmodel.getAllFlashcards()
-        let indexPathSetCell = IndexPath(row: viewmodel.flashcards.count-1, section: 0)
-        let indexPathSmallSetCell = IndexPath(row: viewmodel.flashcards.count-1, section: 1)
-        
+        let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
+        let indexPathSmallSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 1)
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
-                self.flashcardSetViewController.collectionView.insertItems(at: [indexPathSetCell])
-                self.flashcardSetViewController.collectionView.insertItems(at: [indexPathSmallSetCell])
+                self.flashcardSetViewController.collectionView.insertItems(at: [indexPathSetCell,indexPathSmallSetCell])
+              
+            },completion: { finished in
+                if finished{
+                    self.flashcardSetViewController.collectionView.layoutIfNeeded()
+                    DispatchQueue.main.async {
+                        self.flashcardSetViewController.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: false)
+                        self.flashcardSetViewController.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: false)
+                    }
+                }
             })
         }
     }

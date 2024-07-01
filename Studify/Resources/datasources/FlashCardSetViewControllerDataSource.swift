@@ -39,9 +39,11 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
             else{
                 return UICollectionViewCell()
             }
+            
             let flashcard = viewmodel.flashcard(by: indexPath.row)
             cell.configure(flashcard: flashcard,bottomTopStyle: 1)
             if indexPath.row == viewmodel.currentIndex{
+                print("should be called here")
                 cell.mainView.backgroundColor = warmTreeTones.lightPrimary
             }
             return cell
