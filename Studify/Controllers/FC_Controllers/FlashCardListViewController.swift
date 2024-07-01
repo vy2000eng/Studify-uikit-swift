@@ -167,8 +167,7 @@ extension FlashCardListViewController{
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
                 self.collectionView.insertItems(at: [indexPathSetCell])
-            }
-                                                    ,completion: { finished in
+            },completion: { finished in
                 if finished {
                     self.collectionView.scrollToItem(at: indexPathSetCell, at: .bottom, animated: true)
                 }

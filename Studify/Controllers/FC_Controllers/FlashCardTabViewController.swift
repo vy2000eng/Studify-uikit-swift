@@ -8,6 +8,7 @@
 import UIKit
 
 final class FlashCardTabViewController:UITabBarController, AddFlashCardToListViewCollectionDelegate, AddFlashCardToSetViewCollectionDelegate, UpdateFlashCardInFlashCardListViewControllerCollectionViewDelegate, UpdateFlashCardInFlashCardSetViewControllerCollectionViewDelegate{
+  
 
     let viewmodel:FlashcardSetViewModel
     let topicIndexPath: IndexPath
@@ -106,17 +107,25 @@ extension FlashCardTabViewController{
         }
     }
     
-    func didDeleteFlashCardInListViewControllerFromSetViewController(indexPath: IndexPath) {
+    func didDeleteFlashCardInListViewControllerFromSetViewController(indexPath: IndexPath, newIndexPathForList: IndexPath) {
         if flashcardListViewController.isViewLoaded{
-            didDeleteFlashCardInList(indexPath: indexPath)
+            didDeleteFlashCardInList(indexPath: indexPath, newIndexPathForList: newIndexPathForList)
         }
     }
+    
+    
+//    func didDeleteFlashCardInListViewControllerFromSetViewController(indexPath: IndexPath) {
+//        if flashcardListViewController.isViewLoaded{
+//            didDeleteFlashCardInList(indexPath: indexPath)
+//        }
+//    }
 }
 
 
 extension FlashCardTabViewController{
     //MARK: DELETE
-    func didDeleteFlashCardInList(indexPath:IndexPath){
+    func didDeleteFlashCardInList(indexPath: IndexPath, newIndexPathForList: IndexPath){
+
         print("delete Flashcard called in list vc")
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
@@ -124,6 +133,13 @@ extension FlashCardTabViewController{
         DispatchQueue.main.async {
             self.flashcardListViewController.collectionView.performBatchUpdates({
                 self.flashcardListViewController.collectionView.deleteItems(at: [indexPathSetCell])
+            },completion: { finished in
+                if finished{
+                    DispatchQueue.main.async{
+                        self.flashcardListViewController.collectionView.scrollToItem(at: newIndexPathForList, at: .bottom, animated: false)
+                    }
+                }
+                
             })
         }
     }
@@ -169,6 +185,11 @@ extension FlashCardTabViewController{
         DispatchQueue.main.async {
             self.flashcardListViewController.collectionView.performBatchUpdates({
                 self.flashcardListViewController.collectionView.reloadItems(at: [indexPathSetCell])
+            },completion: {finished in
+                if finished{
+                    self.flashcardListViewController.collectionView.scrollToItem(at: indexPathSetCell, at: .bottom, animated: false)
+                }
+                
             })
         }
     }
@@ -206,6 +227,12 @@ extension FlashCardTabViewController{
         DispatchQueue.main.async {
             self.flashcardListViewController.collectionView.performBatchUpdates({
                 self.flashcardListViewController.collectionView.insertItems(at: [indexPathSetCell])
+            },completion: { finished in
+                self.flashcardListViewController.collectionView.layoutIfNeeded()
+                DispatchQueue.main.async{
+                    self.flashcardListViewController.collectionView.scrollToItem(at: indexPathSetCell, at: .bottom, animated: false)
+                }
+                
             })
         }
     }

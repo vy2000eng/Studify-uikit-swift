@@ -20,7 +20,7 @@ protocol AddFlashCardToListViewCollectionDelegate: AnyObject{
 
 protocol UpdateFlashCardInFlashCardListViewControllerCollectionViewDelegate:AnyObject{
     func didUpdateFlashCardInListViewControllerFromSetViewController(indexPath: IndexPath)
-    func didDeleteFlashCardInListViewControllerFromSetViewController(indexPath:IndexPath)
+    func didDeleteFlashCardInListViewControllerFromSetViewController(indexPath:IndexPath, newIndexPathForList: IndexPath)
 }
 
 final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetViewControllerDelegate, UpdateFlashCardInSetViewControllerDelegate {
@@ -182,9 +182,7 @@ extension FlashCardSetViewController{
                 self.collectionView.insertItems(at: [indexPathSetCell])
                 self.collectionView.insertItems(at: [indexPathSmallSetCell])
             } ,completion: {_ in
-               // self.viewmodel.currentIndex = indexPathSmallSetCell.row
                 self.collectionView.reloadItems(at: [indexPathSmallSetCell])
-
                 self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
                 self.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: true)
             })
@@ -193,9 +191,6 @@ extension FlashCardSetViewController{
     }
     
     func didUpdateFlashCardInSet(indexPath: IndexPath) {
-       // print("update in fc set")
-        
-       // print("didUpdateFlashcard called in set vc")
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
         let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
@@ -216,6 +211,13 @@ extension FlashCardSetViewController{
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
         let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
+        let newIndexPathForList : IndexPath
+        if indexPath.row == 0{
+            newIndexPathForList = IndexPath(row: 0, section: 0)
+        }else{
+            newIndexPathForList = IndexPath(row: max(0, indexPath.row - 1), section: 0)
+        }
+        
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
                 self.collectionView.deleteItems(at: [indexPathSetCell, indexPathSmallSetCell])
@@ -223,7 +225,7 @@ extension FlashCardSetViewController{
                 self.configureScrollBehavior(indexPath: indexPath, updateDelete: 0)
             })
         }
-        updateFlashCardInListViewControllerDelegate?.didDeleteFlashCardInListViewControllerFromSetViewController(indexPath: indexPath)
+        updateFlashCardInListViewControllerDelegate?.didDeleteFlashCardInListViewControllerFromSetViewController(indexPath: indexPath, newIndexPathForList: newIndexPathForList)
     }
     
     
