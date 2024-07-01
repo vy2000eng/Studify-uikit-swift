@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol AddNewSubjectToSubjectListViewControllerDelegate:AnyObject{
+    func didAddSubjectToList()
+}
+
 class AddNewSubjectViewController: UIViewController {
     
     lazy var SubjectNameLabel: UILabel = {
@@ -24,6 +28,7 @@ class AddNewSubjectViewController: UIViewController {
         return textField
         
     }()
+    weak var addNewSubjectToSubjectListViewControllerDelegate : AddNewSubjectToSubjectListViewControllerDelegate?
     
     let viewModel = AddNewSubjectViewModel()
 
@@ -95,6 +100,8 @@ extension AddNewSubjectViewController{
         }
         let createdOn = Date()
         viewModel.addSubject(title: subjectName, createdOn: createdOn)
+        addNewSubjectToSubjectListViewControllerDelegate?.didAddSubjectToList()
+        
         navigationController?.popViewController(animated: true)
     }
 }
