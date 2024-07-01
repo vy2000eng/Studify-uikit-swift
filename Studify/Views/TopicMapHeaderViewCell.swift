@@ -33,14 +33,7 @@ class TopicMapHeaderViewCell: UICollectionViewCell{
         cButton.translatesAutoresizingMaskIntoConstraints = false
         return cButton
     }()
-    lazy var addButton: UIButton = {
-       let addButton = UIButton()
-       let plusImage = UIImage(systemName: "plus")  // Using system image
-        addButton.setImage(plusImage, for: .normal)
-        addButton.translatesAutoresizingMaskIntoConstraints = false
-      //  addButton.addTarget(self, action: #selector(handleAddButton(_:)), for: .touchUpInside)
-        return addButton
-    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -56,7 +49,6 @@ extension TopicMapHeaderViewCell{
         contentView.addSubview(headerView)
         headerView.addSubview(sectionTitle)
         headerView.addSubview(collapseButton)
-        headerView.addSubview(addButton)
         setupMainConstraints()
     }
     
@@ -82,11 +74,6 @@ extension TopicMapHeaderViewCell{
             collapseButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             collapseButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor,constant: -5),
             
-            addButton.topAnchor.constraint(equalTo: headerView.topAnchor,constant: 5),
-            addButton.trailingAnchor.constraint(equalTo: collapseButton.leadingAnchor,constant: -20),
-            addButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            addButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor,constant: -5),
-
         ])
     }
     

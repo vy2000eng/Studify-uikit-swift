@@ -10,13 +10,6 @@ import UIKit
 
 
 class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate,FlashCardSetViewControllerDelegate,FlashCardListViewControllerDelegate {
-  
-    
-   
-    
-    
-   
-    
     
     //MARK: this word begin
     let viewmodel : TopicMapViewModel
@@ -40,10 +33,15 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(112))
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = 10 // This adds vertical spacing between cells
+            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
             header.pinToVisibleBounds = true  // This makes the header sticky
             section.boundarySupplementaryItems = [header]
+
+
+            
             return section
         }
             
@@ -64,6 +62,7 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         super.viewDidLoad()
         title = subjectTitle
          navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
          let attributes: [NSAttributedString.Key: Any] = [
              .font: UIFont.systemFont(ofSize: 12, weight: .bold), // You can adjust the size and weight
              .foregroundColor: UIColor.darkGray // Change the color as needed
@@ -89,6 +88,26 @@ extension TopicMapViewController{
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+    
+    func createOptionsBarButtonItem() -> UIBarButtonItem {
+        let addATopicAction = UIAction(title: "add topic", image: UIImage(systemName: "doc")) { _ in
+            let vc = AddNewTopicViewController(subjectID: self.viewmodel.subjectID)
+            vc.delegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+            print("add Topic")
+        }
+        
+        let addMapAction = UIAction(title: "add map", image: UIImage(systemName: "map")) { _ in
+            let vc = AddNewMapViewController(subjectID: self.viewmodel.subjectID)
+            vc.delegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+            print("add map")
+        }
+        
+        let menu = UIMenu(title: "add options", children: [addATopicAction, addMapAction])
+        
+        return UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), menu: menu)
     }
     
     func updateTopicSection(){
