@@ -12,9 +12,6 @@ import UIKit
 
 extension FlashCardSetViewController: UICollectionViewDataSource{
     
-
-    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return viewmodel.numberOfFlashCards

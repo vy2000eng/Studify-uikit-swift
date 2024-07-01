@@ -20,7 +20,7 @@ extension FlashCardSetViewController: UICollectionViewDelegate{
                 return
             }
             cell.mainView.backgroundColor = warmTreeTones.lightTertiary
-            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -33,7 +33,6 @@ extension FlashCardSetViewController: UICollectionViewDelegate{
             }
             viewmodel.currentIndex = indexPath.row
             cell.mainView.backgroundColor = warmTreeTones.lightPrimary
-            
         }
     }
     
@@ -43,9 +42,6 @@ extension FlashCardSetViewController: UICollectionViewDelegate{
         if indexPath.section == 0{
 
             let cell = collectionView.cellForItem(at: indexPath) as! FlashCardSetCollectionViewCell
-     
-            
-            
             let options: UIView.AnimationOptions = [.transitionFlipFromRight, .showHideTransitionViews]
             let duration = 0.5
             
@@ -55,7 +51,6 @@ extension FlashCardSetViewController: UICollectionViewDelegate{
                 
                 cell.configure(flashcard: flashcard, bottomTopStyle: 0)
             }, completion: {_ in
-                
                 DispatchQueue.main.async{
                     self.collectionView.performBatchUpdates {
                         self.collectionView.reloadItems(at: [bottomIndexPath])
@@ -63,7 +58,9 @@ extension FlashCardSetViewController: UICollectionViewDelegate{
                 }
             })
         }
+        
         else{
+            
             let topIndexPath = IndexPath(item: indexPath.row, section: 0)
             DispatchQueue.main.async{
                 self.collectionView.performBatchUpdates {

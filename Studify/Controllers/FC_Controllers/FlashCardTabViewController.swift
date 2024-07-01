@@ -34,7 +34,6 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
     }
 
     override func viewDidLoad() {
-        print("tabview loaded")
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.systemBackground
@@ -88,7 +87,6 @@ extension FlashCardTabViewController{
     }
     //MARK: UPADTE
     func didUpdateFlashCardInSetViewControllerFromListViewController(indexPath:IndexPath) {
-        print("SHOULD NOT BE CALLED HERE 2")
         if flashcardSetViewController.isViewLoaded{
             didUpdateFlashCardInSet(indexPath: indexPath)
         }
@@ -112,13 +110,7 @@ extension FlashCardTabViewController{
             didDeleteFlashCardInList(indexPath: indexPath, newIndexPathForList: newIndexPathForList)
         }
     }
-    
-    
-//    func didDeleteFlashCardInListViewControllerFromSetViewController(indexPath: IndexPath) {
-//        if flashcardListViewController.isViewLoaded{
-//            didDeleteFlashCardInList(indexPath: indexPath)
-//        }
-//    }
+
 }
 
 
@@ -126,7 +118,6 @@ extension FlashCardTabViewController{
     //MARK: DELETE
     func didDeleteFlashCardInList(indexPath: IndexPath, newIndexPathForList: IndexPath){
 
-        print("delete Flashcard called in list vc")
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
         
@@ -145,7 +136,7 @@ extension FlashCardTabViewController{
     }
     
     func didDeleteFlashCardInSet(indexPath:IndexPath){
-        print("delete Flashcard called in set vc")
+        
         viewmodel.getAllFlashcards()
         //were using this to delete the item, that is in fact deleted, but still in the list via the ui
         let indexPathSetCell = IndexPath(row:indexPath.row, section: 0)
@@ -178,7 +169,7 @@ extension FlashCardTabViewController{
     }
     //MARK: UPDATE
     func didUpdateFlashCardInList(indexPath:IndexPath){
-        print("updateFlashcard called in list vc")
+
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
         
@@ -195,12 +186,12 @@ extension FlashCardTabViewController{
     }
     
     func didUpdateFlashCardInSet(indexPath:IndexPath){
-        print("add Flashcard called in set vc")
+        
         viewmodel.getAllFlashcards()
+        
         let indexPathSetCell = IndexPath(row:self.viewmodel.currentIndex, section: 0)
         let indexPathSmallSetCell = IndexPath(row: self.viewmodel.currentIndex, section: 1)
-        
-        
+       
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
                 self.flashcardSetViewController.collectionView.reloadItems(at: [indexPathSetCell,indexPathSmallSetCell])
@@ -220,10 +211,10 @@ extension FlashCardTabViewController{
     
     //MARK: ADD
     func didAddFlashcardToList() {
-        print("add Flashcard called in list vc")
+        
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
-        
+       
         DispatchQueue.main.async {
             self.flashcardListViewController.collectionView.performBatchUpdates({
                 self.flashcardListViewController.collectionView.insertItems(at: [indexPathSetCell])
@@ -238,10 +229,11 @@ extension FlashCardTabViewController{
     }
     
     func didAddFlashcardToSet() {
-        print("add Flashcard called in set vc")
+       
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
         let indexPathSmallSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 1)
+       
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
                 self.flashcardSetViewController.collectionView.insertItems(at: [indexPathSetCell,indexPathSmallSetCell])

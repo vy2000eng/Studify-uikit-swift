@@ -170,11 +170,9 @@ extension FlashCardSetViewController{
     
     func didAddFlashcardToSet() {
        
-        print("didAddFlashcard called in set vc")
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: viewmodel.flashcards.count-1, section: 0)
         let indexPathSmallSetCell = IndexPath(row: viewmodel.flashcards.count-1, section: 1)
-      
         self.viewmodel.currentIndex = indexPathSetCell.row
 
         DispatchQueue.main.async {
@@ -191,6 +189,7 @@ extension FlashCardSetViewController{
     }
     
     func didUpdateFlashCardInSet(indexPath: IndexPath) {
+       
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
         let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
@@ -211,12 +210,7 @@ extension FlashCardSetViewController{
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
         let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
-        let newIndexPathForList : IndexPath
-        if indexPath.row == 0{
-            newIndexPathForList = IndexPath(row: 0, section: 0)
-        }else{
-            newIndexPathForList = IndexPath(row: max(0, indexPath.row - 1), section: 0)
-        }
+        let newIndexPathForList = indexPath.row == 0 ? IndexPath(row: 0, section: 0) : IndexPath(row: max(0, indexPath.row - 1), section: 0)
         
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
