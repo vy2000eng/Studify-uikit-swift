@@ -16,15 +16,15 @@ struct TopicViewModel:Hashable{
     }
     
     var id: UUID{
-        topic.id ?? UUID()
+        topic.id
         
     }
     var title: String{
-        topic.topicTitle ?? ""
+        topic.topicTitle
         
     }
     var createdOn:Date{
-        topic.createdOn ?? Date()
+        topic.createdOn
     }
     
     var topicCount:Int{

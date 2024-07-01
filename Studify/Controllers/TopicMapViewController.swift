@@ -34,7 +34,7 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 10 // This adds vertical spacing between cells
-            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+          //  section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
             header.pinToVisibleBounds = true  // This makes the header sticky
@@ -63,12 +63,8 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         title = subjectTitle
          navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
-         let attributes: [NSAttributedString.Key: Any] = [
-             .font: UIFont.systemFont(ofSize: 12, weight: .bold), // You can adjust the size and weight
-             .foregroundColor: UIColor.darkGray // Change the color as needed
-         ]
 
-        navigationController?.navigationBar.largeTitleTextAttributes = attributes
+
         view.addSubview(collectionView)
         setupConstraints()
         viewmodel.getAllTopics()
@@ -104,6 +100,8 @@ extension TopicMapViewController{
             self.navigationController?.pushViewController(vc, animated: true)
             print("add map")
         }
+        
+        
         
         let menu = UIMenu(title: "add options", children: [addATopicAction, addMapAction])
         
