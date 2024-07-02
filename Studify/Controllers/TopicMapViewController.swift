@@ -111,22 +111,45 @@ extension TopicMapViewController{
     func updateTopicSection(){
         print("updateTopic called")
         viewmodel.getAllTopics()
-        
         let topicsWasEmpty = viewmodel.numberOfTopics == 1
         let mapsIsEmpty = viewmodel.numberOfMaps == 0
-
-        
         if topicsWasEmpty && mapsIsEmpty{
             viewmodel.setOpenedFirst(subjectID: viewmodel.subjectID, openedFirst: 0)
             viewmodel.sections.append(Sections(header: "topics", data: .topics(viewmodel.topics)))
+            DispatchQueue.main.async{
+                self.collectionView.performBatchUpdates({
+                    self.collectionView.insertSections(IndexSet(integer: 0))
+                })
+            }
+            print("first")
+            return
         }
-
         
-//      
-//        let indexPath = IndexPath(row: viewmodel.numberOfTopics-1, section: 0)
-//        DispatchQueue.main.async {
-//            self.collectionView.insertItems(at: [indexPath])
-//        }
+        if viewmodel.topicMapPrecedence == 1{
+            let indexPath = IndexPath(row: viewmodel.numberOfTopics-1, section: 1)
+            DispatchQueue.main.async {
+                self.collectionView.performBatchUpdates({
+                    if topicsWasEmpty{
+                        self.viewmodel.sections.append(Sections(header: "topics", data: .topics(self.viewmodel.topics)))
+                        self.collectionView.insertSections(IndexSet(integer: indexPath.section))
+                    }else{
+                        self.collectionView.insertItems(at: [indexPath])
+                    }
+                })
+            }
+            print("second")
+            return
+        }
+        if viewmodel.topicMapPrecedence == 0{
+            let indexPath = IndexPath(row: viewmodel.numberOfTopics-1, section:0)
+            DispatchQueue.main.async{
+                self.collectionView.performBatchUpdates({
+                    self.collectionView.insertItems(at: [indexPath])
+                })
+            }
+            print("third")
+            return
+        }
     }
     
     func updateMapSection(){
@@ -135,21 +158,48 @@ extension TopicMapViewController{
         
         let mapsWasEmpty = viewmodel.numberOfMaps == 1
         let topicsIsEmpty = viewmodel.numberOfTopics == 0
+        //var indexPath:IndexPath
         
         if mapsWasEmpty && topicsIsEmpty{
             viewmodel.setOpenedFirst(subjectID: viewmodel.subjectID, openedFirst: 1)
             viewmodel.sections.append(Sections(header: "maps", data: .maps(viewmodel.maps)))
+            DispatchQueue.main.async {
+                self.collectionView.performBatchUpdates({
+                    self.collectionView.insertSections(IndexSet(integer: 0))
+                })
+            }
+            print("first")
+            return
         }
-
         
-//        
-//
-//        let indexPath = IndexPath(row: viewmodel.numberOfMaps-1, section:viewmodel.sectionsCount == 0 ? 0 :  1)
-//        
-//        DispatchQueue.main.async {
-//            self.collectionView.insertItems(at: [indexPath])
-//        }
+        if viewmodel.topicMapPrecedence == 1 {
+            let indexPath = IndexPath(row: viewmodel.numberOfMaps-1, section:0)
+            DispatchQueue.main.async{
+                self.collectionView.performBatchUpdates({
+                    self.collectionView.insertItems(at: [indexPath])
+                })
+            }
+            print("second")
+            return
+        }
+        
+        if viewmodel.topicMapPrecedence == 0{
+            let indexPath = IndexPath(row: viewmodel.numberOfMaps-1, section:1)
+            DispatchQueue.main.async{
+                self.collectionView.performBatchUpdates({
+                    if mapsWasEmpty{
+                        self.viewmodel.sections.append(Sections(header: "maps", data: .maps(self.viewmodel.maps)))
+                        self.collectionView.insertSections(IndexSet(integer: indexPath.section))
+                    }else{
+                        self.collectionView.insertItems(at: [indexPath])
+                    }
+                })
+            }
+            print("third")
+            return
+        }
     }
+
     func updateNumberOfFlashcardsInTopicSection(indexPath:IndexPath){
         viewmodel.getAllTopics()
     

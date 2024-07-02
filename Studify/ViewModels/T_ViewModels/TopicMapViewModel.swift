@@ -23,25 +23,25 @@ class Sections{
 
 import Foundation
 class TopicMapViewModel{
-
+    
     var subjectID: UUID
     let sectionTitles = ["topics", "maps"]
-
+    
     
     var topics = [TopicViewModel]()
     var maps = [MapViewModel]()
     var sections = [Sections]()
     var topicMapPrecedence:Int16 = -1
-   
-//    let topicSection =  Sections(header: "topics", data: .topics(topics))
-//    let mapSection =    Sections(header: "maps", data: .maps(maps))
+    
+    //    let topicSection =  Sections(header: "topics", data: .topics(topics))
+    //    let mapSection =    Sections(header: "maps", data: .maps(maps))
     //var sectionsCount:Int
     
     init(subjectID: UUID) {
         self.subjectID = subjectID
-       // setOpenedFirst(subjectID: subjectID, openedFirst: 0)
-      
-
+        // setOpenedFirst(subjectID: subjectID, openedFirst: 0)
+        
+        
         getAllTopics()
         getAllMaps()
         
@@ -53,7 +53,7 @@ class TopicMapViewModel{
         }
         else if mapsIsEmpty && !topicsIsEmpty {
             topicMapPrecedence = 2
-              
+            
         }
         else if topicsIsEmpty && !mapsIsEmpty{
             topicMapPrecedence = 3
@@ -64,7 +64,7 @@ class TopicMapViewModel{
             setOpenedFirst(subjectID: subjectID, openedFirst: -1)
         }
         
-
+        
         
         switch(topicMapPrecedence){
         case 0:
@@ -80,28 +80,28 @@ class TopicMapViewModel{
         default:
             self.sections = []
         }
-//        if topicMapPrecedence != -1{
-//            self.sections = topicMapPrecedence == 0 ? [topicSection,mapSection] : [mapSection,topicSection]
-//
-//            
-//        }else{
-//            self.sections = []
-//            
-//        }
-//      
+        //        if topicMapPrecedence != -1{
+        //            self.sections = topicMapPrecedence == 0 ? [topicSection,mapSection] : [mapSection,topicSection]
+        //
+        //
+        //        }else{
+        //            self.sections = []
+        //
+        //        }
+        //
         //self.sections = [Sections(header: "topics", data: .topics(topics)), Sections(header: "maps", data: .maps(maps))]
-
-//        if bothSectionEmpty {
-//            setOpenedFirst(subjectID: subjectID, openedFirst: -1)
-//        }
-     
+        
+        //        if bothSectionEmpty {
+        //            setOpenedFirst(subjectID: subjectID, openedFirst: -1)
+        //        }
         
         
-       // if getOpenedFirst(subjectID: subjectID) != -1{
-
-       // }
+        
+        // if getOpenedFirst(subjectID: subjectID) != -1{
+        
+        // }
         //self.sections = [Sections(header: "topics", data: .topics(topics)), Sections(header: "maps", data: .maps(maps))]
-
+        
     }
     var bothSectionEmpty:Bool{
         return (numberOfTopics == 0 && numberOfMaps == 0) ? true: false
@@ -123,9 +123,9 @@ class TopicMapViewModel{
         maps.count
     }
     var sectionsCount:Int{
-       return (numberOfMaps > 0 ? 1 : 0) + (numberOfTopics > 0 ? 1 : 0)
+        return (numberOfMaps > 0 ? 1 : 0) + (numberOfTopics > 0 ? 1 : 0)
     }
-  
+    
     
     func toggleSection(_ section: Int) {
         sections[section].isOpened = !sections[section].isOpened
@@ -135,7 +135,7 @@ class TopicMapViewModel{
         return sections[section].isOpened
     }
     
-
+    
     func numberOfRowsForTopics() -> Int{
         return numberOfTopics
     }
@@ -149,24 +149,26 @@ class TopicMapViewModel{
             return section == 0 ?
             (sections[section].isOpened ? numberOfRowsForTopics() : 0)  :
             (sections[section].isOpened ? numberOfRowsForMaps()   : 0)
-        }else{
+        }
+        if topicMapPrecedence == 1 {
             print("precendence = 1")
             return section == 0 ?
             (sections[section].isOpened ? numberOfRowsForMaps()   : 0)  :
             (sections[section].isOpened ? numberOfRowsForTopics() : 0)
-                
-            }
-           
+            
         }
+        return 0
+        
+    }
     
-
+    
     
     func topic(by index:Int) ->TopicViewModel{
         topics[index]
     }
     
     func map(by index:Int) ->MapViewModel{
-         maps[index]
+        maps[index]
     }
     
     
@@ -177,6 +179,7 @@ class TopicMapViewModel{
     
     func setOpenedFirst(subjectID:UUID, openedFirst: Int16 ){
         CoreDataManager.shared.setOpenedFirst(subjectID: subjectID, addedFirst: openedFirst)
+        topicMapPrecedence = openedFirst
     }
     
     
@@ -211,3 +214,4 @@ class TopicMapViewModel{
         print("delete map called \(maps.count)")
     }
 }
+
