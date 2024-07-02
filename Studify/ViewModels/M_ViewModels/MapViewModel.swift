@@ -33,4 +33,6 @@ struct MapViewModel:Hashable{
     
     
     
+    
+    
 }

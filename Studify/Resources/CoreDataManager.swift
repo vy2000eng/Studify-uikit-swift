@@ -45,12 +45,17 @@ class CoreDataManager{
         newSubject.title = title
         newSubject.id = UUID()
         newSubject.createdOn = createdOn
+        newSubject.addedFirst = -1
         do{
             try context.save()
         }catch let error as NSError{
             print("Error adding a new subject: \(error.userInfo), \(error.localizedDescription)")
         }
     }
+    
+   
+    
+    
     
     func addTopicToSubject(title:String, subjectID:UUID){
         let fetchRequest : NSFetchRequest<Subject> = Subject.fetchRequest()
@@ -130,6 +135,22 @@ class CoreDataManager{
     
     // MARK: - read  functions
 
+    func getOpenedFirst(subjectID: UUID)->Int16{
+        let fetchRequest: NSFetchRequest<Subject> = Subject.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id=%@", subjectID.uuidString)
+        
+        do{
+             let subject =  try context.fetch(fetchRequest)
+              return  subject.first!.addedFirst          //  context.delete((subject.first)!)
+            
+        }catch let error as NSError{
+            print("Error retrieving openedFirst subject: \(error.userInfo), \(error.localizedDescription)")
+            return -2
+        }
+        
+        
+    }
+    
     func getAllSubjects() -> [Subject]?{
         do{
             return try  context.fetch(Subject.fetchRequest())
@@ -189,6 +210,22 @@ class CoreDataManager{
         }catch let error as NSError{
             print("Error updating FlashCard: \(error.userInfo), \(error.localizedDescription)")
         }
+    }
+    
+    func setOpenedFirst(subjectID:UUID, addedFirst:Int16){
+        let fetchRequest : NSFetchRequest<Subject> = Subject.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id=%@", subjectID.uuidString)
+        do{
+            let subject =  try context.fetch(fetchRequest)
+            subject.first?.addedFirst = addedFirst
+            try context.save()
+            
+        }catch let error as NSError{
+            print("Error updating openedFirst in subject: \(error.userInfo), \(error.localizedDescription)")
+        }
+        
+        
+        
     }
     
 

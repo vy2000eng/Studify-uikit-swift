@@ -32,4 +32,7 @@ struct SubjectViewModel{
         subject.maps?.count ?? 0
         
     }
+    var addedFirst:Int16{
+        subject.addedFirst
+    }
 }

@@ -2,7 +2,7 @@
 //  Subject+CoreDataProperties.swift
 //  Studify
 //
-//  Created by VladyslavYatsuta on 6/6/24.
+//  Created by VladyslavYatsuta on 7/1/24.
 //
 //
 
@@ -19,25 +19,9 @@ extension Subject {
     @NSManaged public var createdOn: Date?
     @NSManaged public var id: UUID?
     @NSManaged public var title: String?
-    @NSManaged public var topics: Set<Topic>?
+    @NSManaged public var addedFirst: Int16
     @NSManaged public var maps: Set<Maps>?
-
-}
-
-// MARK: Generated accessors for topics
-extension Subject {
-
-    @objc(addTopicsObject:)
-    @NSManaged public func addToTopics(_ value: Topic)
-
-    @objc(removeTopicsObject:)
-    @NSManaged public func removeFromTopics(_ value: Topic)
-
-    @objc(addTopics:)
-    @NSManaged public func addToTopics(_ values: NSSet)
-
-    @objc(removeTopics:)
-    @NSManaged public func removeFromTopics(_ values: NSSet)
+    @NSManaged public var topics: Set<Topic>?
 
 }
 
@@ -55,6 +39,23 @@ extension Subject {
 
     @objc(removeMaps:)
     @NSManaged public func removeFromMaps(_ values: NSSet)
+
+}
+
+// MARK: Generated accessors for topics
+extension Subject {
+
+    @objc(addTopicsObject:)
+    @NSManaged public func addToTopics(_ value: Topic)
+
+    @objc(removeTopicsObject:)
+    @NSManaged public func removeFromTopics(_ value: Topic)
+
+    @objc(addTopics:)
+    @NSManaged public func addToTopics(_ values: NSSet)
+
+    @objc(removeTopics:)
+    @NSManaged public func removeFromTopics(_ values: NSSet)
 
 }
 

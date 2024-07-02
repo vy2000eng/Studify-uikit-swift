@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		393DF68C2C336BC7000F1D41 /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DF68B2C336BC7000F1D41 /* Subject+CoreDataProperties.swift */; };
 		393EE5902C2DB42B00277FAF /* EditFlashCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */; };
 		393EE5922C2DB45F00277FAF /* EditFlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE5912C2DB45F00277FAF /* EditFlashCardViewModel.swift */; };
 		393EE5942C2DB91800277FAF /* EditFlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE5932C2DB91800277FAF /* EditFlashCardView.swift */; };
@@ -56,7 +57,6 @@
 		39DEDE222C12033300C725CE /* DetailsViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE212C12033300C725CE /* DetailsViewDataSource.swift */; };
 		39DEDE242C12073900C725CE /* TopicViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE232C12073900C725CE /* TopicViewCell.swift */; };
 		39DEDE282C12148C00C725CE /* MapViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE272C12148C00C725CE /* MapViewCell.swift */; };
-		39DEDE362C1266B800C725CE /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE312C1266B800C725CE /* Subject+CoreDataProperties.swift */; };
 		39DEDE372C1266B800C725CE /* Maps+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE322C1266B800C725CE /* Maps+CoreDataClass.swift */; };
 		39DEDE382C1266B800C725CE /* Maps+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE332C1266B800C725CE /* Maps+CoreDataProperties.swift */; };
 		39DEDE392C1266B800C725CE /* MindMap+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE342C1266B800C725CE /* MindMap+CoreDataClass.swift */; };
@@ -69,6 +69,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		393DF68B2C336BC7000F1D41 /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Subject+CoreDataProperties.swift"; path = "../../Subject+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardViewController.swift; sourceTree = "<group>"; };
 		393EE5912C2DB45F00277FAF /* EditFlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardViewModel.swift; sourceTree = "<group>"; };
 		393EE5932C2DB91800277FAF /* EditFlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardView.swift; sourceTree = "<group>"; };
@@ -119,7 +120,6 @@
 		39DEDE212C12033300C725CE /* DetailsViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewDataSource.swift; sourceTree = "<group>"; };
 		39DEDE232C12073900C725CE /* TopicViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewCell.swift; sourceTree = "<group>"; };
 		39DEDE272C12148C00C725CE /* MapViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewCell.swift; sourceTree = "<group>"; };
-		39DEDE312C1266B800C725CE /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Subject+CoreDataProperties.swift"; path = "../../Subject+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		39DEDE322C1266B800C725CE /* Maps+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Maps+CoreDataClass.swift"; sourceTree = "<group>"; };
 		39DEDE332C1266B800C725CE /* Maps+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Maps+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		39DEDE342C1266B800C725CE /* MindMap+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MindMap+CoreDataClass.swift"; path = "../../MindMap+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 			children = (
 				396D6CC22C274551000DD57C /* Topic+CoreDataProperties.swift */,
 				396D6CC12C274551000DD57C /* Topic+CoreDataClass.swift */,
-				39DEDE312C1266B800C725CE /* Subject+CoreDataProperties.swift */,
+				393DF68B2C336BC7000F1D41 /* Subject+CoreDataProperties.swift */,
 				39DEDE112C114F2300C725CE /* Subject+CoreDataClass.swift */,
 				39DEDE322C1266B800C725CE /* Maps+CoreDataClass.swift */,
 				39DEDE332C1266B800C725CE /* Maps+CoreDataProperties.swift */,
@@ -457,6 +457,7 @@
 				394879822C1560D4002D3DEB /* FlashCardViewModel.swift in Sources */,
 				39DEDE202C12032100C725CE /* DetailsViewDelagate.swift in Sources */,
 				39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */,
+				393DF68C2C336BC7000F1D41 /* Subject+CoreDataProperties.swift in Sources */,
 				393EE5922C2DB45F00277FAF /* EditFlashCardViewModel.swift in Sources */,
 				39B817B02C0EBD2E00CB843B /* SubjectDetailsViewControllerDataSource.swift in Sources */,
 				39B817A82C0E7E9500CB843B /* AddNewSubjectViewModel.swift in Sources */,
@@ -464,7 +465,6 @@
 				39A4BC672C03924200F833D2 /* SceneDelegate.swift in Sources */,
 				396D6CD42C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift in Sources */,
 				396D6CD02C2B1593000DD57C /* FlashCardListCollectionViewCell.swift in Sources */,
-				39DEDE362C1266B800C725CE /* Subject+CoreDataProperties.swift in Sources */,
 				39DEDE372C1266B800C725CE /* Maps+CoreDataClass.swift in Sources */,
 				39DEDE382C1266B800C725CE /* Maps+CoreDataProperties.swift in Sources */,
 				394879792C13FB0B002D3DEB /* Colors.swift in Sources */,
