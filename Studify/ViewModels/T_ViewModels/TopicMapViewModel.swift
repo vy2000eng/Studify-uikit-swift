@@ -45,6 +45,7 @@ class TopicMapViewModel{
         
         if !bothSectionEmpty{
             topicMapPrecedence = getOpenedFirst(subjectID: subjectID)
+            print("both sections are not empty")
         }
    
         else{
@@ -53,10 +54,11 @@ class TopicMapViewModel{
         
         switch(topicMapPrecedence){
         case 0:
-            self.sections = [topicSection,mapSection]
+//    
+            self.sections = mapsIsEmpty ? [topicSection] : [topicSection,mapSection]
             break
         case 1:
-            self.sections =  [mapSection,topicSection]
+            self.sections = topicsIsEmpty ?   [mapSection] : [mapSection, topicSection]
 
             break
     

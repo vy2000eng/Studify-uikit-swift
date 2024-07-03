@@ -87,22 +87,22 @@ extension TopicMapViewController: UICollectionViewDelegate{
                     print(indexPath.section)
                     if self.viewmodel.topicMapPrecedence == 0 && self.viewmodel.numberOfTopics == 0{
                         self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: 1)
+                        self.viewmodel.sections.remove(at:  indexPath.section)
+
                     }
+                    print("sections count in dtfcv: \(self.viewmodel.sections.count)")
                     let indexSet = IndexSet(integer:indexPath.section)
                     self.collectionView.deleteSections(indexSet)
 
                 }
-                
             },completion: { finished in
                 if finished{
                     if (self.viewmodel.mapsIsEmpty && self.viewmodel.topicMapPrecedence == 1){
                         self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: -1)
                     }
                 }
-                
             })
         }
-        
     }
     
     func deleteMapFromCollectionView(indexPath:IndexPath){
@@ -115,24 +115,21 @@ extension TopicMapViewController: UICollectionViewDelegate{
                     print(indexPath.section)
                     if self.viewmodel.topicMapPrecedence == 1 && self.viewmodel.numberOfMaps == 0{
                         self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: 0)
+                        self.viewmodel.sections.remove(at:  indexPath.section)
+                        
                     }
-                    
                     let indexSet = IndexSet(integer:  indexPath.section)
                     self.collectionView.deleteSections(indexSet)
-
                 }
                 
             },completion: { finished in
                 if finished{
                     if self.viewmodel.topicsIsEmpty && self.viewmodel.topicMapPrecedence == 0 {
-                        print("this shouldnt get executed")
                         self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: -1)
                     }
                 }
-                
             })
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
@@ -149,7 +146,6 @@ extension TopicMapViewController: UICollectionViewDelegate{
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true)
         }
-        
     }
 }
 

@@ -53,6 +53,7 @@ extension TopicMapViewController{
     }
     
     private func handleSubsequentInsertion(for type: SectionType, wasEmpty: Bool) {
+        print("handle subsequent insertion")
         let sectionIndex = viewmodel.topicMapPrecedence == type.rawValue ? 0 : 1
         let itemIndex = type == .topics ? viewmodel.numberOfTopics - 1 : viewmodel.numberOfMaps - 1
         let indexPath = IndexPath(row: itemIndex, section: sectionIndex)
@@ -62,7 +63,15 @@ extension TopicMapViewController{
                 if wasEmpty && self.viewmodel.topicMapPrecedence != type.rawValue {
                     let newSection = Sections(header: type == .topics ? "topics" : "maps",
                                               data: type == .topics ? .topics(self.viewmodel.topics) : .maps(self.viewmodel.maps))
+                    
                     self.viewmodel.sections.append(newSection)
+                    print("new section header: \(newSection.header)")
+                    print("sections count: \(self.viewmodel.sections.count)")
+                    print("header titles:")
+                    for section in self.viewmodel.sections{
+                        print(section.header)
+                        
+                    }
                     self.collectionView.insertSections(IndexSet(integer: indexPath.section))
                 } else {
                     self.collectionView.insertItems(at: [indexPath])

@@ -43,6 +43,7 @@ extension TopicMapViewController: UICollectionViewDataSource{
         
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        print("reloaded section")
         let cell = collectionView.dequeueReusableSupplementaryView(ofKind:     kind, withReuseIdentifier: "headerCell", for: indexPath) as! TopicMapHeaderViewCell
         cell.configureTopicHeader(title: viewmodel.sections[indexPath.section].header)
         let imageName = viewmodel.sections[indexPath.section].isOpened ? "arrow.left.arrow.right" : "arrow.up.arrow.down"
