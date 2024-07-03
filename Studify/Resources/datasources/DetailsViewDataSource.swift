@@ -36,60 +36,12 @@ extension TopicMapViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return viewmodel.topicMapPrecedence == 0 ?
-        
         (indexPath.section == 0 ? topicCell(indexPath: indexPath) : mapCell(indexPath: indexPath)) :
         (indexPath.section == 0 ?  mapCell(indexPath: indexPath) : topicCell(indexPath: indexPath))
+     
+        
         
     }
-       // }else{
-           //(indexPath.section == 0 ?
-           // topicCell(indexPath: indexPath) : mapCell(indexPath: indexPath))
-//          //  if indexPath.section == 0 {
-//                return mapCell(indexPath: indexPath)
-//
-//                
-//            }else{
-//                return topicCell(indexPath: indexPath)
-//            }
-
-      //  }
-        
-        //
-//        if indexPath.section == 0 && viewmodel.topicMapPrecedence == 0{
-//            return topicCell(indexPath: indexPath)
-//        }else if indexPath.section == 0 && viewmodel.topicMapPrecedence == 1{
-//            return mapCell(indexPath: indexPath)
-//        }else if indexPath.section == 1 && viewmodel.topicMapPrecedence == 0{
-//            return mapCell(indexPath: indexPath)
-//        }else if indexPath.section == 1 && viewmodel.topicMapPrecedence == 1{
-//            return topicCell(indexPath: indexPath)
-//
-//        }
-      //  fatalError("failed to return a cell")
-        //        if indexPath.section == 0 {
-//            guard let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "topicCell", for: indexPath) as? TopicViewCell
-//            else{
-//                return UICollectionViewCell()
-//            }
-//            let topic = viewmodel.topic(by: indexPath.row)
-//            cell.configure(with: topic)
-//            cell.delegate = self
-//            return cell
-//            
-//        }else{
-//            guard let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "mapCell", for: indexPath) as? MapViewCell
-//            else{
-//                return UICollectionViewCell()
-//            }
-//            let map = viewmodel.map(by: indexPath.row)
-//            cell.configure(with: map)
-//            cell.delegate = self
-//            
-//            return cell
-//        }
-   // }
-    
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let cell = collectionView.dequeueReusableSupplementaryView(ofKind:     kind, withReuseIdentifier: "headerCell", for: indexPath) as! TopicMapHeaderViewCell
         cell.configureTopicHeader(title: viewmodel.sections[indexPath.section].header)
@@ -101,7 +53,6 @@ extension TopicMapViewController: UICollectionViewDataSource{
         return cell
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print("section count: \(viewmodel.sectionsCount)")
         return viewmodel.sectionsCount
         //return 2
     }
@@ -109,9 +60,6 @@ extension TopicMapViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // The logic for determining the number of rows is inside of the 'viewmodel.numberOfRows' method
         let rows = viewmodel.numberOfRows(by: section)
-        print("section: \(section)")
-
-        print("rows: \(rows)")
         return rows
 
     }

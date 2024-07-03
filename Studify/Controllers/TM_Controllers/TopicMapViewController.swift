@@ -26,7 +26,7 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
     }
     
     lazy var collectionView: UICollectionView = {
-
+        
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -34,17 +34,14 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 10 // This adds vertical spacing between cells
-          //  section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+            //  section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
             header.pinToVisibleBounds = true  // This makes the header sticky
             section.boundarySupplementaryItems = [header]
-
-
-            
             return section
         }
-            
+        
         let v = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         v.delegate = self
         v.dataSource = self
@@ -56,23 +53,18 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         return v
     }()
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = subjectTitle
-         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
-
-
         view.addSubview(collectionView)
         setupConstraints()
         viewmodel.getAllTopics()
         viewmodel.getAllMaps()
-
     }
-
-
 }
 
 extension TopicMapViewController{
@@ -101,104 +93,12 @@ extension TopicMapViewController{
             print("add map")
         }
         
-        
-        
         let menu = UIMenu(title: "add options", children: [addATopicAction, addMapAction])
         
         return UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), menu: menu)
     }
     
-    func updateTopicSection(){
-        print("updateTopic called")
-        viewmodel.getAllTopics()
-        let topicsWasEmpty = viewmodel.numberOfTopics == 1
-        let mapsIsEmpty = viewmodel.numberOfMaps == 0
-        if topicsWasEmpty && mapsIsEmpty{
-            viewmodel.setOpenedFirst(subjectID: viewmodel.subjectID, openedFirst: 0)
-            viewmodel.sections.append(Sections(header: "topics", data: .topics(viewmodel.topics)))
-            DispatchQueue.main.async{
-                self.collectionView.performBatchUpdates({
-                    self.collectionView.insertSections(IndexSet(integer: 0))
-                })
-            }
-            print("first")
-            return
-        }
-        
-        if viewmodel.topicMapPrecedence == 1{
-            let indexPath = IndexPath(row: viewmodel.numberOfTopics-1, section: 1)
-            DispatchQueue.main.async {
-                self.collectionView.performBatchUpdates({
-                    if topicsWasEmpty{
-                        self.viewmodel.sections.append(Sections(header: "topics", data: .topics(self.viewmodel.topics)))
-                        self.collectionView.insertSections(IndexSet(integer: indexPath.section))
-                    }else{
-                        self.collectionView.insertItems(at: [indexPath])
-                    }
-                })
-            }
-            print("second")
-            return
-        }
-        if viewmodel.topicMapPrecedence == 0{
-            let indexPath = IndexPath(row: viewmodel.numberOfTopics-1, section:0)
-            DispatchQueue.main.async{
-                self.collectionView.performBatchUpdates({
-                    self.collectionView.insertItems(at: [indexPath])
-                })
-            }
-            print("third")
-            return
-        }
-    }
-    
-    func updateMapSection(){
-        print("updateMap called")
-        viewmodel.getAllMaps()
-        
-        let mapsWasEmpty = viewmodel.numberOfMaps == 1
-        let topicsIsEmpty = viewmodel.numberOfTopics == 0
-        //var indexPath:IndexPath
-        
-        if mapsWasEmpty && topicsIsEmpty{
-            viewmodel.setOpenedFirst(subjectID: viewmodel.subjectID, openedFirst: 1)
-            viewmodel.sections.append(Sections(header: "maps", data: .maps(viewmodel.maps)))
-            DispatchQueue.main.async {
-                self.collectionView.performBatchUpdates({
-                    self.collectionView.insertSections(IndexSet(integer: 0))
-                })
-            }
-            print("first")
-            return
-        }
-        
-        if viewmodel.topicMapPrecedence == 1 {
-            let indexPath = IndexPath(row: viewmodel.numberOfMaps-1, section:0)
-            DispatchQueue.main.async{
-                self.collectionView.performBatchUpdates({
-                    self.collectionView.insertItems(at: [indexPath])
-                })
-            }
-            print("second")
-            return
-        }
-        
-        if viewmodel.topicMapPrecedence == 0{
-            let indexPath = IndexPath(row: viewmodel.numberOfMaps-1, section:1)
-            DispatchQueue.main.async{
-                self.collectionView.performBatchUpdates({
-                    if mapsWasEmpty{
-                        self.viewmodel.sections.append(Sections(header: "maps", data: .maps(self.viewmodel.maps)))
-                        self.collectionView.insertSections(IndexSet(integer: indexPath.section))
-                    }else{
-                        self.collectionView.insertItems(at: [indexPath])
-                    }
-                })
-            }
-            print("third")
-            return
-        }
-    }
+
 
     func updateNumberOfFlashcardsInTopicSection(indexPath:IndexPath){
         viewmodel.getAllTopics()
@@ -209,17 +109,18 @@ extension TopicMapViewController{
         
     }
     
-   
-    
     func didUpdateTopic() {
         print("updateTopic called")
-        updateTopicSection()
+        updateSection(type: .topics)
+
     }
     
     func didUpdateMap(){
         print("updateSection called")
-        updateMapSection()
+        updateSection(type: .maps)
+
     }
+    
     func didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: IndexPath) {
         updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		393DF68C2C336BC7000F1D41 /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DF68B2C336BC7000F1D41 /* Subject+CoreDataProperties.swift */; };
+		393DF68E2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DF68D2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift */; };
 		393EE5902C2DB42B00277FAF /* EditFlashCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */; };
 		393EE5922C2DB45F00277FAF /* EditFlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE5912C2DB45F00277FAF /* EditFlashCardViewModel.swift */; };
 		393EE5942C2DB91800277FAF /* EditFlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE5932C2DB91800277FAF /* EditFlashCardView.swift */; };
@@ -70,6 +71,7 @@
 
 /* Begin PBXFileReference section */
 		393DF68B2C336BC7000F1D41 /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Subject+CoreDataProperties.swift"; path = "../../Subject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		393DF68D2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicMapViewControllerUpdatingTopicsMapsManager.swift; sourceTree = "<group>"; };
 		393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardViewController.swift; sourceTree = "<group>"; };
 		393EE5912C2DB45F00277FAF /* EditFlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardViewModel.swift; sourceTree = "<group>"; };
 		393EE5932C2DB91800277FAF /* EditFlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardView.swift; sourceTree = "<group>"; };
@@ -143,6 +145,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		393DF68F2C3470D6000F1D41 /* TM_Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				39B817C32C0FA5C600CB843B /* TopicMapViewController.swift */,
+				393DF68D2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift */,
+				39DEDE402C12C0FF00C725CE /* AddNewTopicViewController.swift */,
+				39DEDE442C134BBF00C725CE /* AddNewMapViewController.swift */,
+			);
+			path = TM_Controllers;
+			sourceTree = "<group>";
+		};
 		393EE58E2C2CF77700277FAF /* FC_Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,12 +230,10 @@
 		39A4BC782C0399B600F833D2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				393DF68F2C3470D6000F1D41 /* TM_Controllers */,
 				396D6CBA2C251968000DD57C /* FC_Controllers */,
 				39A4BC682C03924200F833D2 /* SubjectListViewController.swift */,
 				39B817A52C0E7B6C00CB843B /* AddNewSubjectViewController.swift */,
-				39B817C32C0FA5C600CB843B /* TopicMapViewController.swift */,
-				39DEDE402C12C0FF00C725CE /* AddNewTopicViewController.swift */,
-				39DEDE442C134BBF00C725CE /* AddNewMapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -452,6 +463,7 @@
 				39B817C62C109F2100CB843B /* TopicMapViewModel.swift in Sources */,
 				39DEDE472C134C0C00C725CE /* AddNewMapViewModel.swift in Sources */,
 				39DEDE3C2C1267E400C725CE /* MapViewModel.swift in Sources */,
+				393DF68E2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift in Sources */,
 				394879802C1560B4002D3DEB /* FlashcardSetViewModel.swift in Sources */,
 				39B817C82C10D56100CB843B /* TopicViewModel.swift in Sources */,
 				394879822C1560D4002D3DEB /* FlashCardViewModel.swift in Sources */,
