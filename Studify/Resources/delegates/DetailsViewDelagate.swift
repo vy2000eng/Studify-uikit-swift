@@ -84,15 +84,19 @@ extension TopicMapViewController: UICollectionViewDelegate{
                     self.collectionView.deleteItems(at: [indexPath])
 
                 }else{
-                    print(indexPath.section)
+                    print("index path in delete topic:\(indexPath.section)")
                     if self.viewmodel.topicMapPrecedence == 0 && self.viewmodel.numberOfTopics == 0{
                         self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: 1)
                         self.viewmodel.sections.remove(at:  indexPath.section)
+                        
+                        self.collectionView.reloadSections(IndexSet(integer: indexPath.section == 0 ? 1 : 0))
 
                     }
                     print("sections count in dtfcv: \(self.viewmodel.sections.count)")
                     let indexSet = IndexSet(integer:indexPath.section)
+
                     self.collectionView.deleteSections(indexSet)
+
 
                 }
             },completion: { finished in
@@ -112,11 +116,12 @@ extension TopicMapViewController: UICollectionViewDelegate{
                     self.collectionView.deleteItems(at: [indexPath])
 
                 }else{
-                    print(indexPath.section)
+                    print("index path in delete map:\(indexPath.section)")
                     if self.viewmodel.topicMapPrecedence == 1 && self.viewmodel.numberOfMaps == 0{
                         self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: 0)
                         self.viewmodel.sections.remove(at:  indexPath.section)
-                        
+                        self.collectionView.reloadSections(IndexSet(integer: indexPath.section == 0 ? 1 : 0))
+
                     }
                     let indexSet = IndexSet(integer:  indexPath.section)
                     self.collectionView.deleteSections(indexSet)

@@ -25,50 +25,43 @@ import Foundation
 class TopicMapViewModel{
     
     var subjectID: UUID
-    let sectionTitles = ["topics", "maps"]
-    
-    
     var topics = [TopicViewModel]()
     var maps = [MapViewModel]()
     var sections = [Sections]()
     var topicMapPrecedence:Int16 = -1
 
     init(subjectID: UUID) {
-        self.subjectID = subjectID
- 
         
+        self.subjectID = subjectID
         getAllTopics()
         getAllMaps()
         
         let topicSection =  Sections(header: "topics", data: .topics(topics))
-        let mapSection =    Sections(header: "maps", data: .maps(maps))
+        let mapSection = Sections(header: "maps", data: .maps(maps))
         
         if !bothSectionEmpty{
             topicMapPrecedence = getOpenedFirst(subjectID: subjectID)
-            print("both sections are not empty")
+      
         }
-   
         else{
             setOpenedFirst(subjectID: subjectID, openedFirst: -1)
         }
         
         switch(topicMapPrecedence){
+            
         case 0:
-//    
+           
             self.sections = mapsIsEmpty ? [topicSection] : [topicSection,mapSection]
             break
         case 1:
+            
             self.sections = topicsIsEmpty ?   [mapSection] : [mapSection, topicSection]
-
             break
-    
         default:
+            
             self.sections = []
             break
         }
-        print("init:")
-        print("sections count: \(sections.count)")
-
     }
     
     var bothSectionEmpty:Bool{
@@ -120,10 +113,8 @@ class TopicMapViewModel{
             return section == 0 ?
             (sections[section].isOpened ? numberOfRowsForMaps()   : 0)  :
             (sections[section].isOpened ? numberOfRowsForTopics() : 0)
-            
         }
         return 0
-        
     }
     
     
