@@ -104,7 +104,9 @@ extension TopicMapViewController{
         viewmodel.getAllTopics()
     
         DispatchQueue.main.async {
-            self.collectionView.reloadItems(at: [indexPath])
+            self.collectionView.performBatchUpdates({
+                self.collectionView.reloadItems(at: [indexPath])
+            })
         }
         
     }

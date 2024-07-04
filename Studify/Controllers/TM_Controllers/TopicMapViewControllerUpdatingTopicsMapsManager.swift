@@ -45,9 +45,9 @@ extension TopicMapViewController{
         viewmodel.sections.append(newSection)
         
         DispatchQueue.main.async {
-            self.collectionView.performBatchUpdates {
+            self.collectionView.performBatchUpdates({
                 self.collectionView.insertSections(IndexSet(integer: 0))
-            }
+            })
         }
         print("first")
     }
@@ -59,7 +59,7 @@ extension TopicMapViewController{
         let indexPath = IndexPath(row: itemIndex, section: sectionIndex)
         
         DispatchQueue.main.async {
-            self.collectionView.performBatchUpdates {
+            self.collectionView.performBatchUpdates( {
                 if wasEmpty && self.viewmodel.topicMapPrecedence != type.rawValue {
                     let newSection = Sections(header: type == .topics ? "topics" : "maps",
                                               data: type == .topics ? .topics(self.viewmodel.topics) : .maps(self.viewmodel.maps))
@@ -76,7 +76,16 @@ extension TopicMapViewController{
                 } else {
                     self.collectionView.insertItems(at: [indexPath])
                 }
-            }
+            },completion: {finished in
+                if finished{
+                    DispatchQueue.main.async{
+                        self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+
+                        
+                    }
+                }
+                
+            })
         }
         print(sectionIndex == 0 ? "second" : "third")
     }
