@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		393DF68C2C336BC7000F1D41 /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DF68B2C336BC7000F1D41 /* Subject+CoreDataProperties.swift */; };
 		393DF68E2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DF68D2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift */; };
+		393DF6912C371222000F1D41 /* FlashcardSmallSetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DF6902C371221000F1D41 /* FlashcardSmallSetHeader.swift */; };
 		393EE5902C2DB42B00277FAF /* EditFlashCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */; };
 		393EE5922C2DB45F00277FAF /* EditFlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE5912C2DB45F00277FAF /* EditFlashCardViewModel.swift */; };
 		393EE5942C2DB91800277FAF /* EditFlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE5932C2DB91800277FAF /* EditFlashCardView.swift */; };
@@ -72,6 +73,7 @@
 /* Begin PBXFileReference section */
 		393DF68B2C336BC7000F1D41 /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Subject+CoreDataProperties.swift"; path = "../../Subject+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		393DF68D2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicMapViewControllerUpdatingTopicsMapsManager.swift; sourceTree = "<group>"; };
+		393DF6902C371221000F1D41 /* FlashcardSmallSetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardSmallSetHeader.swift; sourceTree = "<group>"; };
 		393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardViewController.swift; sourceTree = "<group>"; };
 		393EE5912C2DB45F00277FAF /* EditFlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardViewModel.swift; sourceTree = "<group>"; };
 		393EE5932C2DB91800277FAF /* EditFlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardView.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				396D6CC72C274C2E000DD57C /* FlashCardSetCollectionViewCell.swift */,
 				396D6CCF2C2B1593000DD57C /* FlashCardListCollectionViewCell.swift */,
 				393EE5932C2DB91800277FAF /* EditFlashCardView.swift */,
+				393DF6902C371221000F1D41 /* FlashcardSmallSetHeader.swift */,
 			);
 			path = FC_Views;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				394879802C1560B4002D3DEB /* FlashcardSetViewModel.swift in Sources */,
 				39B817C82C10D56100CB843B /* TopicViewModel.swift in Sources */,
 				394879822C1560D4002D3DEB /* FlashCardViewModel.swift in Sources */,
+				393DF6912C371222000F1D41 /* FlashcardSmallSetHeader.swift in Sources */,
 				39DEDE202C12032100C725CE /* DetailsViewDelagate.swift in Sources */,
 				39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */,
 				393DF68C2C336BC7000F1D41 /* Subject+CoreDataProperties.swift in Sources */,

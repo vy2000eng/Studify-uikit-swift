@@ -15,6 +15,15 @@ protocol didAddFlashCardToSetViewControllerDelegate{
     func didAddFlashCardToSetView()
 }
 
+class SmallSetSection{
+    let data:[FlashcardViewModel]
+    var isOpened:Bool = true
+    init(data: [FlashcardViewModel], isOpened: Bool = true) {
+        self.data = data
+        self.isOpened = isOpened
+    }
+}
+
 
 
 class FlashcardSetViewModel{
@@ -25,6 +34,8 @@ class FlashcardSetViewModel{
     var flashcards = [FlashcardViewModel]()
     
     var currentIndex:Int
+    
+    var smallSetSection: SmallSetSection
     
 
 
@@ -37,6 +48,8 @@ class FlashcardSetViewModel{
     init(topicID: UUID) {
         self.topicID = topicID
         self.currentIndex = 0
+        self.smallSetSection = SmallSetSection(data: flashcards)
+
         getAllFlashcards()
     }
     
@@ -66,6 +79,20 @@ class FlashcardSetViewModel{
         
         
         
+    }
+    
+    func initSmallSetSection(){
+        getAllFlashcards()
+        smallSetSection = SmallSetSection(data: flashcards)
+        
+    }
+    
+    func toggleSection(){
+        smallSetSection.isOpened = !smallSetSection.isOpened
+    }
+    
+    func isSectionCollapsed() -> Bool{
+        return smallSetSection.isOpened
     }
     
 }

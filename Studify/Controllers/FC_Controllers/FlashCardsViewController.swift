@@ -55,6 +55,7 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
         
         v.register(FlashCardSetCollectionViewCell.self, forCellWithReuseIdentifier: "setCell")
         v.register(FlashCardSetCollectionViewCell.self, forCellWithReuseIdentifier: "smallSetCell")
+        v.register(FlashcardSmallSetViewControllerHeader.self,  forSupplementaryViewOfKind:UICollectionView.elementKindSectionHeader , withReuseIdentifier: "headerCell")
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector( handleLongPress(gesture:)))
         v.addGestureRecognizer(longPress)
         v.isScrollEnabled = false
@@ -110,7 +111,13 @@ extension FlashCardSetViewController{
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.33), heightDimension: .absolute(150))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [fc])
         let section = NSCollectionLayoutSection(group: group)
+        
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment:.top)
         section.orthogonalScrollingBehavior = .continuous
+        section.boundarySupplementaryItems = [header]
+
+        
 
         return section
     }

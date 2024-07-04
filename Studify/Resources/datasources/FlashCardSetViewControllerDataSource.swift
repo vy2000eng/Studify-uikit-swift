@@ -13,8 +13,17 @@ import UIKit
 extension FlashCardSetViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return viewmodel.numberOfFlashCards
+
+        if section == 0{
+            return viewmodel.numberOfFlashCards
+        }else{
+            if viewmodel.smallSetSection.isOpened{
+                return viewmodel.numberOfFlashCards
+            }
+            else{
+                return 0
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -48,8 +57,32 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
         }
         
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if indexPath.section == 1{
+            let cell = collectionView.dequeueReusableSupplementaryView(ofKind:     kind, withReuseIdentifier: "headerCell", for: indexPath) as! FlashcardSmallSetViewControllerHeader
+            let imageName = viewmodel.smallSetSection.isOpened ? "chevron.down.circle" : "chevron.up.circle"
+            cell.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
+            cell.collapseButton.addTarget(self, action: #selector(handleCollapseButton(_:)), for: .touchUpInside)
+
+            
+            return cell
+            
+            
+        }
+        return UICollectionReusableView()
+    }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         2
     }
     
+}
+
+extension FlashCardSetViewController{
+    @objc
+    func handleCollapseButton(_ sender:UIButton){
+        viewmodel.toggleSection()
+        collectionView.reloadSections(IndexSet(integer: 1))
+        
+    }
 }
