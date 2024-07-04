@@ -65,15 +65,14 @@ extension TopicMapViewController{
                                               data: type == .topics ? .topics(self.viewmodel.topics) : .maps(self.viewmodel.maps))
                     
                     self.viewmodel.sections.append(newSection)
-                    print("new section header: \(newSection.header)")
-                    print("sections count: \(self.viewmodel.sections.count)")
-                    print("header titles:")
-                    for section in self.viewmodel.sections{
-                        print(section.header)
-                        
-                    }
+              
                     self.collectionView.insertSections(IndexSet(integer: indexPath.section))
                 } else {
+
+                    if !self.viewmodel.isSectionCollapsed(indexPath.section) {
+                        self.viewmodel.toggleSection(sectionIndex)
+                        self.collectionView.reloadSections(IndexSet(integer: sectionIndex))
+                    }
                     self.collectionView.insertItems(at: [indexPath])
                 }
             },completion: {finished in
