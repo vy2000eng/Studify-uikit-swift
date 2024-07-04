@@ -61,12 +61,15 @@ extension AddNewTopicViewController{
     private func setupView(){
         view.backgroundColor = UIColor.systemBackground
         title = "Add new topic"
-        navigationItem.rightBarButtonItem =
-        UIBarButtonItem(
-            barButtonSystemItem: .save,
-            target: self,
-            action: #selector(saveTopic))
         
+//        navigationItem.rightBarButtonItem =
+//        UIBarButtonItem(
+//            barButtonSystemItem: .save,
+//            target: self,
+//            action: #selector(saveTopic))
+        
+        setupAddButton()
+        setupCloseButton()
         [TopicNameLabel, textField]
             .forEach{
                 subViewToAdd in view.addSubview(subViewToAdd)
@@ -75,6 +78,20 @@ extension AddNewTopicViewController{
         
         
     }
+    
+       private func setupCloseButton() {
+           navigationItem.leftBarButtonItem = UIBarButtonItem(
+               barButtonSystemItem: .close,
+               target: self,
+               action: #selector(closeViewController))
+       }
+
+       private func setupAddButton(){
+           navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .save,
+               target: self,
+               action: #selector(saveTopic))
+       }
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
@@ -121,8 +138,16 @@ extension AddNewTopicViewController{
         }
         viewModel.addTopic(title: topicName)
         updateSectionInTopicMapViewController()
-        navigationController?.popViewController(animated: true)
+       // navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+
         
+    }
+    
+    @objc
+    private func closeViewController() {
+        //delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath)
+        dismiss(animated: true, completion: nil)
     }
     
     func updateSectionInTopicMapViewController(){

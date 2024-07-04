@@ -57,10 +57,13 @@ extension AddNewMapViewController{
     private func setup(){
         view.backgroundColor = UIColor.systemBackground
         title = "Add new map"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .save,
-            target: self,
-            action: #selector(saveMap))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(
+//            barButtonSystemItem: .save,
+//            target: self,
+//            action: #selector(saveMap))
+//        
+        setupAddButton()
+        setupCloseButton()
         
         [MapNameLabel, textField].forEach{subviewToAdd in view.addSubview(subviewToAdd)}
         setupConstraints()
@@ -95,10 +98,27 @@ extension AddNewMapViewController{
                 constant: -16),
         ])
     }
-    
-    
+    private func setupCloseButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(closeViewController))
+    }
+
+    private func setupAddButton(){
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+         barButtonSystemItem: .save,
+            target: self,
+            action: #selector(saveMap))
+    }
     
     @objc
+    private func closeViewController() {
+        //delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath)
+        dismiss(animated: true, completion: nil)
+    }
+    @objc
+    
     private func saveMap(){
         guard let mapTitle = textField.text, !mapTitle.isEmpty
         else{
@@ -109,7 +129,9 @@ extension AddNewMapViewController{
         }
         viewModel.addMap(title: mapTitle)
         updateSectionInTopicMapViewController()
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+
+        //navigationController?.popViewController(animated: true)
     }
     
     func updateSectionInTopicMapViewController(){

@@ -82,8 +82,25 @@ extension TopicMapViewController: UICollectionViewDelegate{
             self.collectionView.performBatchUpdates({
                 if self.viewmodel.numberOfTopics > 0 {
                     self.collectionView.deleteItems(at: [indexPath])
+                  
 
-                }else{
+                }
+                else if self.viewmodel.numberOfTopics == 0 && self.viewmodel.numberOfMaps == 0{
+                    print("executed when there are about to be no flashcards or topics")
+                    let indexSet = IndexSet(integer:indexPath.section)
+                    self.viewmodel.sections.remove(at:  0)
+                   // self.viewmodel.sections.remove(at:  1)
+
+                    
+
+
+                    self.collectionView.deleteSections(indexSet)
+                    
+                    
+                }
+                
+                
+                else{
                     print("index path in delete topic:\(indexPath.section)")
                     if self.viewmodel.topicMapPrecedence == 0 && self.viewmodel.numberOfTopics == 0{
                         self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: 1)
@@ -115,7 +132,14 @@ extension TopicMapViewController: UICollectionViewDelegate{
                 if self.viewmodel.numberOfMaps > 0 {
                     self.collectionView.deleteItems(at: [indexPath])
 
-                }else{
+                }
+                else if self.viewmodel.numberOfTopics == 0 && self.viewmodel.numberOfMaps == 0{
+                    print("executed when there are about to be no flashcards or topics")
+                    let indexSet = IndexSet(integer:indexPath.section)
+                    self.viewmodel.sections.remove(at:  0)
+                    self.collectionView.deleteSections(indexSet)
+                }
+                else{
                     print("index path in delete map:\(indexPath.section)")
                     if self.viewmodel.topicMapPrecedence == 1 && self.viewmodel.numberOfMaps == 0{
                         self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: 0)
@@ -123,6 +147,7 @@ extension TopicMapViewController: UICollectionViewDelegate{
                         self.collectionView.reloadSections(IndexSet(integer: indexPath.section == 0 ? 1 : 0))
 
                     }
+                    print("section to remove: \(indexPath.section)")
                     let indexSet = IndexSet(integer:  indexPath.section)
                     self.collectionView.deleteSections(indexSet)
                 }
@@ -156,9 +181,14 @@ extension TopicMapViewController: UICollectionViewDelegate{
 
 extension TopicMapViewController: SwipeCollectionViewCellDelegate{
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
-        guard orientation == .left else { return nil }
+
         
-        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+   
+        
+        
+                guard orientation == .left else { return nil }
+
+        let deleteAction = SwipeAction(style: .destructive, title: nil) { action, indexPath in
             if self.viewmodel.sectionType(for: indexPath.section ) == .topics{
                 self.deleteTopic(at: indexPath)
                 
@@ -166,7 +196,24 @@ extension TopicMapViewController: SwipeCollectionViewCellDelegate{
                 self.deleteMap(at: indexPath)
             }
         }
-        deleteAction.image = UIImage(named: "delete_icon")
-        return [deleteAction]
+        deleteAction.image = UIImage(systemName: "trash")
+        
+        
+        let favoriteAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+                print("fave tapped")
+        }
+        
+        favoriteAction.image = UIImage(systemName: "star")
+        favoriteAction.backgroundColor = .orange
+        
+        return [deleteAction,favoriteAction]
     }
+    func collectionView(_ collectionView: UICollectionView, editActionsOptionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+           var options = SwipeOptions()
+        options.expansionStyle = .none
+        options.transitionStyle = .drag
+           return options
+       }
+  
 }
+
