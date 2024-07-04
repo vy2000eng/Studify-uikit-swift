@@ -16,6 +16,7 @@ extension TopicMapViewModel {
     func sectionType(for section: Int) -> SectionType {
         return topicMapPrecedence == 0 ? SectionType(rawValue: section)! : SectionType(rawValue: 1 - section)!
     }
+
 }
 extension TopicMapViewController{
     func updateSection(type: SectionType) {
@@ -50,6 +51,7 @@ extension TopicMapViewController{
             })
         }
         print("first")
+        updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
     }
     
     private func handleSubsequentInsertion(for type: SectionType, wasEmpty: Bool) {
@@ -87,5 +89,7 @@ extension TopicMapViewController{
             })
         }
         print(sectionIndex == 0 ? "second" : "third")
+        updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
+
     }
 }

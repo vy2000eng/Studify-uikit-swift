@@ -100,7 +100,7 @@ class SubejctListViewCell: SwipeCollectionViewCell {
 
     func configure(with subject: SubjectViewModel) {
         subjectNameLabel.text = subject.name
-        topicsCountLabel.text = "📄 \(subject.topicsCount) flashcards"
+        topicsCountLabel.text = "📄 \(subject.topicsCount) sets"
         mapsCountLabel.text = "📍 \(subject.mapsCount) maps"
         createdOnLabel.text = "🕒 Created \(subject.createdOn.formatted(date: .abbreviated, time: .shortened))"
     }

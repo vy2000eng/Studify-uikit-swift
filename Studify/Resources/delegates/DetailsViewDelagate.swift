@@ -10,6 +10,8 @@ import UIKit
 import SwipeCellKit
 
 
+
+
 extension TopicMapViewController: UICollectionViewDelegate{
     
     func deleteTopic(at indexPath: IndexPath){
@@ -40,7 +42,6 @@ extension TopicMapViewController: UICollectionViewDelegate{
                 }
                 
             ))
-        
         present(alert, animated: true)
         
     }
@@ -89,14 +90,7 @@ extension TopicMapViewController: UICollectionViewDelegate{
                     print("executed when there are about to be no flashcards or topics")
                     let indexSet = IndexSet(integer:indexPath.section)
                     self.viewmodel.sections.remove(at:  0)
-                   // self.viewmodel.sections.remove(at:  1)
-
-                    
-
-
                     self.collectionView.deleteSections(indexSet)
-                    
-                    
                 }
                 
                 
@@ -124,6 +118,8 @@ extension TopicMapViewController: UICollectionViewDelegate{
                 }
             })
         }
+        updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
+
     }
     
     func deleteMapFromCollectionView(indexPath:IndexPath){
@@ -160,6 +156,8 @@ extension TopicMapViewController: UICollectionViewDelegate{
                 }
             })
         }
+        updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
+
     }
     
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
@@ -182,9 +180,7 @@ extension TopicMapViewController: UICollectionViewDelegate{
 extension TopicMapViewController: SwipeCollectionViewCellDelegate{
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
 
-        
-                //guard orientation == .left else { return nil }
-        switch(orientation){
+                switch(orientation){
         case .left:
             let deleteAction = SwipeAction(style: .destructive, title: nil) { action, indexPath in
                 if self.viewmodel.sectionType(for: indexPath.section ) == .topics{

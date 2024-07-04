@@ -10,8 +10,12 @@ import UIKit
 import SwipeCellKit
 
 extension SubjectListViewController: UICollectionViewDelegate{
+   
+  
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = TopicMapViewController(subjectID: viewModel.subject(by: indexPath.row).id,subjectTitle: viewModel.subject(by: indexPath.row).name)
+        let vc = TopicMapViewController(subject: viewModel.subject(by: indexPath.row), subjectIndexPath:indexPath)
+        vc.updateTopicAndMapCountInSubjectCollectionViewDelegate = self
         navigationController?.pushViewController(vc, animated:true)
     }
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {

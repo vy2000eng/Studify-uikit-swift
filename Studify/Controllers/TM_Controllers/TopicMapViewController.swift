@@ -8,17 +8,23 @@
 import UIKit
 
 
+protocol UpdateTopicAndMapCountInSubjectCollectionViewDelegate:AnyObject{
+    func didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: IndexPath)
+}
 
 class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate,FlashCardSetViewControllerDelegate,FlashCardListViewControllerDelegate {
     
     //MARK: this word begin
     let viewmodel : TopicMapViewModel
+    let subjectIndexPath: IndexPath
     var subjectTitle: String
     var isRowSectionCollapsed = false
+    weak var updateTopicAndMapCountInSubjectCollectionViewDelegate: UpdateTopicAndMapCountInSubjectCollectionViewDelegate?
     
-    init(subjectID: UUID, subjectTitle: String){
-        self.viewmodel = TopicMapViewModel(subjectID: subjectID)
-        self.subjectTitle = subjectTitle
+    init( subject: SubjectViewModel, subjectIndexPath:IndexPath){
+        self.viewmodel = TopicMapViewModel(subjectID: subject.id)
+        self.subjectTitle = subject.name
+        self.subjectIndexPath = subjectIndexPath
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {

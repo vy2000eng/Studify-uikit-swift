@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class SubjectListViewController: UIViewController, AddNewSubjectToSubjectListViewControllerDelegate {
+class SubjectListViewController: UIViewController, AddNewSubjectToSubjectListViewControllerDelegate, UpdateTopicAndMapCountInSubjectCollectionViewDelegate {
   
     
     
@@ -102,6 +102,15 @@ extension SubjectListViewController{
         }
         
     }
+    func didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath:IndexPath) {
+
+        DispatchQueue.main.async{
+            self.collectionView.performBatchUpdates({
+                self.collectionView.reloadItems(at: [subjectIndexPath])
+            })
+        }
+    }
+    
     
     
 }

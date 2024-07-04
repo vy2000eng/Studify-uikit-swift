@@ -31,6 +31,7 @@ class SubjectListViewModel{
     func subject(by index:Int) -> SubjectViewModel{
         subjects[index]
     }
+ 
     
     func deleteSubject(subject: SubjectViewModel){
         CoreDataManager.shared.deleteSubject(id: subject.id)
