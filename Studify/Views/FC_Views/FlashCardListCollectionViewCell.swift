@@ -50,6 +50,9 @@ class FlashCardListCollectionViewCell: UICollectionViewCell {
        let mainView = UIView()
     //    mainView.backgroundColor = warmTreeTones.darkPrimary
         mainView.translatesAutoresizingMaskIntoConstraints = false
+     
+        
+
         return mainView
     }()
     

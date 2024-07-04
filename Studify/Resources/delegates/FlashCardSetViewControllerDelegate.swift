@@ -19,7 +19,7 @@ extension FlashCardSetViewController: UICollectionViewDelegate{
             guard let cell = collectionView.cellForItem(at: bottomIndexPath) as? FlashCardSetCollectionViewCell else {
                 return
             }
-            cell.mainView.backgroundColor = warmTreeTones.lightTertiary
+            cell.mainView.backgroundColor = warmTreeTones.lightTertiary!.withAlphaComponent(0.5)
         }
     }
     

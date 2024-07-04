@@ -37,14 +37,14 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
        
         let mainView = UIView()
         mainView.translatesAutoresizingMaskIntoConstraints = false
-        mainView.backgroundColor = warmTreeTones.lightTertiary
+        mainView.backgroundColor = warmTreeTones.lightTertiary!.withAlphaComponent(0.5)
         mainView.layer.cornerRadius = 2
         mainView.layer.shadowColor = UIColor.black.cgColor
         mainView.layer.shadowOffset = CGSize(width: 0, height: 2)
         mainView.layer.shadowRadius = 4
         mainView.layer.shadowOpacity = 0.1
         mainView.layer.borderWidth = 1
-        mainView.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
+        mainView.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
         return mainView
     }()
     
@@ -64,7 +64,7 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         
         super.prepareForReuse()
-        return mainView.backgroundColor = warmTreeTones.lightTertiary
+        return mainView.backgroundColor = warmTreeTones.lightTertiary!.withAlphaComponent(0.5)
     }
     
     override init(frame: CGRect) {
