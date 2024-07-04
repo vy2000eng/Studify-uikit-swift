@@ -32,13 +32,19 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
         countLabel.font = UIFont(name: "helvetica", size: 8)
         return countLabel
     }()
-    
+
     lazy var mainView: UIView = {
        
         let mainView = UIView()
         mainView.translatesAutoresizingMaskIntoConstraints = false
         mainView.backgroundColor = warmTreeTones.lightTertiary
         mainView.layer.cornerRadius = 2
+        mainView.layer.shadowColor = UIColor.black.cgColor
+        mainView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        mainView.layer.shadowRadius = 4
+        mainView.layer.shadowOpacity = 0.1
+        mainView.layer.borderWidth = 1
+        mainView.layer.borderColor = UIColor.black.withAlphaComponent(0.2).cgColor
         return mainView
     }()
     

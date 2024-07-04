@@ -44,6 +44,8 @@ class FlashCardListCollectionViewCell: UICollectionViewCell {
         
         return bottomContentView
     }()
+ 
+
     lazy var mainView: UIView = {
        let mainView = UIView()
     //    mainView.backgroundColor = warmTreeTones.darkPrimary
@@ -68,6 +70,7 @@ extension FlashCardListCollectionViewCell{
         contentView.addSubview(mainView)
         mainView.addSubview(topContentView)
         mainView.addSubview(bottomContentView)
+        
         topContentView.addSubview(termLabel)
         bottomContentView.addSubview(defLabel)
         setupConstraints()
