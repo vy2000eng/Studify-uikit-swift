@@ -144,7 +144,10 @@ extension FlashCardTabViewController{
         
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
-                self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSetCell,indexPathSmallSetCell])
+                self.viewmodel.isSectionCollapsed() ?
+                self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSetCell,indexPathSmallSetCell]):
+                self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSetCell])
+
 
             },completion: { finished in
                 if finished{
@@ -158,9 +161,9 @@ extension FlashCardTabViewController{
                             let updatedIndexPathSmallSetCell = IndexPath(row: self.viewmodel.currentIndex, section: 1)
                             // Scroll both sections
                             self.flashcardSetViewController.collectionView.scrollToItem(at: updatedIndexPathSetCell, at: .centeredHorizontally, animated: false)
-                            self.flashcardSetViewController.collectionView.scrollToItem(at: updatedIndexPathSmallSetCell, at: .centeredHorizontally, animated: false)
+                           // self.flashcardSetViewController.collectionView.scrollToItem(at: updatedIndexPathSmallSetCell, at: .centeredHorizontally, animated: false)
                             // Optionally, select the item in the small set
-                            self.flashcardSetViewController.collectionView.selectItem(at: updatedIndexPathSmallSetCell, animated: false, scrollPosition: .centeredHorizontally)
+                            //self.flashcardSetViewController.collectionView.selectItem(at: updatedIndexPathSmallSetCell, animated: false, scrollPosition: .centeredHorizontally)
                         }
                     }
                 }
@@ -178,7 +181,7 @@ extension FlashCardTabViewController{
                 self.flashcardListViewController.collectionView.reloadItems(at: [indexPathSetCell])
             },completion: {finished in
                 if finished{
-                    self.flashcardListViewController.collectionView.scrollToItem(at: indexPathSetCell, at: .bottom, animated: false)
+                    self.flashcardListViewController.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredVertically, animated: false)
                 }
                 
             })
@@ -194,14 +197,16 @@ extension FlashCardTabViewController{
        
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
-                self.flashcardSetViewController.collectionView.reloadItems(at: [indexPathSetCell,indexPathSmallSetCell])
+                self.viewmodel.isSectionCollapsed() ?
+                self.flashcardSetViewController.collectionView.reloadItems(at: [indexPathSetCell,indexPathSmallSetCell]):
+                self.flashcardSetViewController.collectionView.reloadItems(at: [indexPathSetCell])
             },completion: { finished in
                 if finished{
                     self.flashcardSetViewController.collectionView.layoutIfNeeded()
                     DispatchQueue.main.async {
                         
                         self.flashcardSetViewController.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: false)
-                        self.flashcardSetViewController.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: false)
+                       // self.flashcardSetViewController.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: false)
                     }
                 }
                 
@@ -236,14 +241,16 @@ extension FlashCardTabViewController{
        
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
-                self.flashcardSetViewController.collectionView.insertItems(at: [indexPathSetCell,indexPathSmallSetCell])
+                self.viewmodel.isSectionCollapsed() ?
+                self.flashcardSetViewController.collectionView.insertItems(at: [indexPathSetCell,indexPathSmallSetCell]):
+                self.flashcardSetViewController.collectionView.insertItems(at: [indexPathSetCell])
+
               
             },completion: { finished in
                 if finished{
                     self.flashcardSetViewController.collectionView.layoutIfNeeded()
                     DispatchQueue.main.async {
                         self.flashcardSetViewController.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: false)
-                        self.flashcardSetViewController.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: false)
                     }
                 }
             })

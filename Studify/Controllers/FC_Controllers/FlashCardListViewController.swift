@@ -192,7 +192,7 @@ extension FlashCardListViewController{
                 self.collectionView.reloadItems(at: [indexPathListCell])
             } ,completion: { finished in
                 if finished {
-                    self.collectionView.scrollToItem(at: indexPathListCell, at: .bottom, animated: true)
+                    self.collectionView.scrollToItem(at: indexPathListCell, at: .centeredVertically, animated: true)
                 }
             })
         }
@@ -213,7 +213,7 @@ extension FlashCardListViewController{
                     // Scroll to the new current index if needed
                     if self.viewmodel.numberOfFlashCards > 0 {
                         let newIndexPath = IndexPath(row: self.viewmodel.currentIndex, section: 0)
-                        self.collectionView.scrollToItem(at: newIndexPath, at: .top, animated: true)
+                        self.collectionView.scrollToItem(at: newIndexPath, at: .centeredVertically, animated: true)
                     }
                 }
             })
