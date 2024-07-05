@@ -170,6 +170,10 @@ extension FlashCardListViewController{
             },completion: { finished in
                 if finished {
                     self.collectionView.scrollToItem(at: indexPathSetCell, at: .bottom, animated: true)
+                
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                      self.highlightCell(at: indexPathSetCell)
+                                  }
                 }
             })
         }
@@ -193,6 +197,10 @@ extension FlashCardListViewController{
             } ,completion: { finished in
                 if finished {
                     self.collectionView.scrollToItem(at: indexPathListCell, at: .centeredVertically, animated: true)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self.highlightCell(at: indexPathListCell)
+                    }
                 }
             })
         }
@@ -214,11 +222,32 @@ extension FlashCardListViewController{
                     if self.viewmodel.numberOfFlashCards > 0 {
                         let newIndexPath = IndexPath(row: self.viewmodel.currentIndex, section: 0)
                         self.collectionView.scrollToItem(at: newIndexPath, at: .centeredVertically, animated: true)
+                       
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            self.highlightCell(at: newIndexPath)
+                        }
                     }
                 }
             })
         }
         updateFlashCardInSetViewControllerDelegate?.didDeleteFlashCardInSetViewControllerFromListViewController(indexPath: indexPath)
+    }
+}
+
+extension FlashCardListViewController{
+    func highlightCell(at indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FlashCardListCollectionViewCell else { return }
+        
+        let originalColor = cell.backgroundColor
+        UIView.animate(withDuration: 0.3, animations: {
+            cell.backgroundColor = UIColor.yellow.withAlphaComponent(0.3)
+            cell.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+        }) { _ in
+            UIView.animate(withDuration: 0.3, delay: 1.0, options: [], animations: {
+                cell.backgroundColor = originalColor
+                cell.transform = .identity
+            }, completion: nil)
+        }
     }
 }
 
