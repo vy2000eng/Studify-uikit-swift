@@ -155,7 +155,7 @@ extension FlashCardSetViewController{
         if gesture.state == .began {
             let point = gesture.location(in: self.collectionView)
             if let indexPath = self.collectionView.indexPathForItem(at: point) {
-                if indexPath.section == 1{
+               // if indexPath.section == 1{
                     print("Long pressed item at \(indexPath.row)")
                     let flashcard = viewmodel.flashcard(by: indexPath.row)
                     
@@ -163,7 +163,7 @@ extension FlashCardSetViewController{
                     vc.flashcardSetViewControllerDelegate = self
                     
                     present(vc,animated:true)
-                }
+                //}
             }
         }
     }
@@ -181,7 +181,11 @@ extension FlashCardSetViewController{
 
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
-                self.collectionView.insertItems(at: [indexPathSetCell,indexPathSmallSetCell])
+                self.viewmodel.isSectionCollapsed() ?
+                self.collectionView.insertItems(at: [indexPathSetCell,indexPathSmallSetCell]) :
+                self.collectionView.insertItems(at: [indexPathSetCell])
+
+
             } ,completion: {finished in
                 if finished{
                  
@@ -204,7 +208,11 @@ extension FlashCardSetViewController{
 
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
-                self.collectionView.reconfigureItems(at: [indexPathSetCell, indexPathSmallSetCell])
+                self.viewmodel.isSectionCollapsed() ?
+                self.collectionView.reconfigureItems(at: [indexPathSetCell, indexPathSmallSetCell]):
+                self.collectionView.reconfigureItems(at: [indexPathSetCell])
+
+                
             } ,completion: { finished  in
                 if finished{
                     self.configureScrollBehavior(indexPath: indexPath, updateDelete: 1)
@@ -224,7 +232,10 @@ extension FlashCardSetViewController{
         
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
-                self.collectionView.deleteItems(at: [indexPathSetCell, indexPathSmallSetCell])
+                self.viewmodel.isSectionCollapsed() ?
+                self.collectionView.deleteItems(at: [indexPathSetCell, indexPathSmallSetCell]) :
+                self.collectionView.deleteItems(at: [indexPathSetCell])
+
             }, completion: { finished in
                 if finished{
                     self.configureScrollBehavior(indexPath: indexPath, updateDelete: 0)
