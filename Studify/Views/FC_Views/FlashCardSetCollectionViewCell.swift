@@ -62,6 +62,7 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
       var relaxedConstraints: [NSLayoutConstraint] = []
     
     override func prepareForReuse() {
+        print("prepare for reuse")
         
         super.prepareForReuse()
         return mainView.backgroundColor = warmTreeTones.lightTertiary!.withAlphaComponent(0.5)

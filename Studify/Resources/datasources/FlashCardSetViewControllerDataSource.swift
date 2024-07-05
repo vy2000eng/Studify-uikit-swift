@@ -13,7 +13,7 @@ import UIKit
 extension FlashCardSetViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
+        
         if section == 0{
             return viewmodel.numberOfFlashCards
         }else{
@@ -27,8 +27,8 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-     
+        
+        
         
         if indexPath.section == 0{
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "setCell", for: indexPath) as? FlashCardSetCollectionViewCell
@@ -37,7 +37,7 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
             }
             let flashcard = viewmodel.flashcard(by: indexPath.row)
             cell.configure(flashcard: flashcard, bottomTopStyle: 0)
-         
+            
             return cell
             
         }
@@ -49,6 +49,7 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
             
             let flashcard = viewmodel.flashcard(by: indexPath.row)
             cell.configure(flashcard: flashcard,bottomTopStyle: 1)
+            
             if indexPath.row == viewmodel.currentIndex{
                 print("should be called here")
                 cell.mainView.backgroundColor = warmTreeTones.lightPrimary
@@ -65,11 +66,7 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
             let imageName = viewmodel.smallSetSection.isOpened ? "chevron.down.circle" : "chevron.up.circle"
             cell.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
             cell.collapseButton.addTarget(self, action: #selector(handleCollapseButton(_:)), for: .touchUpInside)
-
-            
             return cell
-            
-            
         }
         return UICollectionReusableView()
     }
@@ -83,34 +80,26 @@ extension FlashCardSetViewController{
     @objc
     func handleCollapseButton(_ sender:UIButton){
         viewmodel.toggleSection()
-        print("current index: \(viewmodel.currentIndex)")
         DispatchQueue.main.async{
+            
             self.collectionView.performBatchUpdates({
+                
                 self.collectionView.reloadSections(IndexSet(integer: 1))
                 if self.viewmodel.isSectionCollapsed(){
-                    print("sectionCollapsed")
-                    //let bottomIndexPath = IndexPath(row: self.viewmodel.currentIndex, section: 1)
+                   
                     self.collectionView.reloadItems(at: [IndexPath(row: self.viewmodel.currentIndex, section: 1)])
                 }
-                
-
             },completion: { finished in
                 if finished {
+                    
                     DispatchQueue.main.async{
+                       
                         if self.viewmodel.isSectionCollapsed(){
-                            print("should scroll")
                             self.collectionView.scrollToItem(at: IndexPath(row: self.viewmodel.currentIndex, section: 1), at: .centeredHorizontally, animated: true)
-
-
                         }
-                        
                     }
                 }
-                
             })
-            
         }
-        
-        
     }
 }

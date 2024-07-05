@@ -26,21 +26,20 @@ extension FlashCardSetViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         if indexPath.section == 0{
+            viewmodel.currentIndex = indexPath.row
+            
             let bottomIndexPath = IndexPath(row: indexPath.row, section: 1)
             print(bottomIndexPath.row)
             if viewmodel.isSectionCollapsed(){
+                DispatchQueue.main.async{
+                    self.collectionView.scrollToItem(at: bottomIndexPath, at: .centeredHorizontally, animated: true)
+                }
+                
                 guard let cell = collectionView.cellForItem(at: bottomIndexPath) as? FlashCardSetCollectionViewCell else {
                     return
                 }
                 cell.mainView.backgroundColor = warmTreeTones.lightPrimary
-                DispatchQueue.main.async{
-                    self.collectionView.scrollToItem(at: bottomIndexPath, at: .centeredHorizontally, animated: true)
-                }
-
-                
             }
-          
-            viewmodel.currentIndex = indexPath.row
         }
     }
     
@@ -66,7 +65,6 @@ extension FlashCardSetViewController: UICollectionViewDelegate{
                 }
             })
         }
-        
         else{
             
             let topIndexPath = IndexPath(item: indexPath.row, section: 0)

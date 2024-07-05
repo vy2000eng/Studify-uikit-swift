@@ -45,11 +45,8 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
     lazy var collectionView: UICollectionView = {
         
         let layout = UICollectionViewCompositionalLayout {  sectionIndex, enviroment in
-            
             return  sectionIndex == 0 ?  self.flashcardSet() : self.smallFlashcardSet()
         }
-        
-        
         let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
         v.translatesAutoresizingMaskIntoConstraints = false
         
@@ -184,29 +181,35 @@ extension FlashCardSetViewController{
 
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
-                self.collectionView.insertItems(at: [indexPathSetCell])
-                self.collectionView.insertItems(at: [indexPathSmallSetCell])
-            } ,completion: {_ in
-                self.collectionView.reloadItems(at: [indexPathSmallSetCell])
-                self.collectionView.scrollToItem(at: indexPathSetCell, at: .centeredHorizontally, animated: true)
-                self.collectionView.scrollToItem(at: indexPathSmallSetCell, at: .centeredHorizontally, animated: true)
+                self.collectionView.insertItems(at: [indexPathSetCell,indexPathSmallSetCell])
+            } ,completion: {finished in
+                if finished{
+                 
+                    self.collectionView.scrollToItem(at: indexPathSetCell, at: .right, animated: true)
+
+
+                }
             })
         }
         addFlashCardInListViewControllerDelegate?.didAddFlashCardInListViewControllerFromSetViewController()
     }
     
     func didUpdateFlashCardInSet(indexPath: IndexPath) {
-       
+       print("did update in set called")
         viewmodel.getAllFlashcards()
         let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
         let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
         self.viewmodel.currentIndex = indexPath.row
+        
 
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
-                self.collectionView.reloadItems(at: [indexPathSmallSetCell])
-            } ,completion: { _ in
-               self.configureScrollBehavior(indexPath: indexPath, updateDelete: 1)
+                self.collectionView.reconfigureItems(at: [indexPathSetCell, indexPathSmallSetCell])
+            } ,completion: { finished  in
+                if finished{
+                    self.configureScrollBehavior(indexPath: indexPath, updateDelete: 1)
+
+                }
             })
         }
         updateFlashCardInListViewControllerDelegate?.didUpdateFlashCardInListViewControllerFromSetViewController(indexPath: indexPath)
@@ -222,8 +225,11 @@ extension FlashCardSetViewController{
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
                 self.collectionView.deleteItems(at: [indexPathSetCell, indexPathSmallSetCell])
-            }, completion: { _ in
-                self.configureScrollBehavior(indexPath: indexPath, updateDelete: 0)
+            }, completion: { finished in
+                if finished{
+                    self.configureScrollBehavior(indexPath: indexPath, updateDelete: 0)
+                    
+                }
             })
         }
         updateFlashCardInListViewControllerDelegate?.didDeleteFlashCardInListViewControllerFromSetViewController(indexPath: indexPath, newIndexPathForList: newIndexPathForList)
