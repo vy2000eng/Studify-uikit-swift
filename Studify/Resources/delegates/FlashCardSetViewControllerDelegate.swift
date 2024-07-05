@@ -28,11 +28,19 @@ extension FlashCardSetViewController: UICollectionViewDelegate{
         if indexPath.section == 0{
             let bottomIndexPath = IndexPath(row: indexPath.row, section: 1)
             print(bottomIndexPath.row)
-            guard let cell = collectionView.cellForItem(at: bottomIndexPath) as? FlashCardSetCollectionViewCell else {
-                return
+            if viewmodel.isSectionCollapsed(){
+                guard let cell = collectionView.cellForItem(at: bottomIndexPath) as? FlashCardSetCollectionViewCell else {
+                    return
+                }
+                cell.mainView.backgroundColor = warmTreeTones.lightPrimary
+                DispatchQueue.main.async{
+                    self.collectionView.scrollToItem(at: bottomIndexPath, at: .centeredHorizontally, animated: true)
+                }
+
+                
             }
+          
             viewmodel.currentIndex = indexPath.row
-            cell.mainView.backgroundColor = warmTreeTones.lightPrimary
         }
     }
     

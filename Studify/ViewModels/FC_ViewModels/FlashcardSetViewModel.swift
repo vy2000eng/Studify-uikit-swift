@@ -46,6 +46,7 @@ class FlashcardSetViewModel{
     }
     
     init(topicID: UUID) {
+        print("init")
         self.topicID = topicID
         self.currentIndex = 0
         self.smallSetSection = SmallSetSection(data: flashcards)

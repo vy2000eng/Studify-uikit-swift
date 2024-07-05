@@ -37,6 +37,7 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
             }
             let flashcard = viewmodel.flashcard(by: indexPath.row)
             cell.configure(flashcard: flashcard, bottomTopStyle: 0)
+         
             return cell
             
         }
@@ -82,7 +83,34 @@ extension FlashCardSetViewController{
     @objc
     func handleCollapseButton(_ sender:UIButton){
         viewmodel.toggleSection()
-        collectionView.reloadSections(IndexSet(integer: 1))
+        print("current index: \(viewmodel.currentIndex)")
+        DispatchQueue.main.async{
+            self.collectionView.performBatchUpdates({
+                self.collectionView.reloadSections(IndexSet(integer: 1))
+                if self.viewmodel.isSectionCollapsed(){
+                    print("sectionCollapsed")
+                    //let bottomIndexPath = IndexPath(row: self.viewmodel.currentIndex, section: 1)
+                    self.collectionView.reloadItems(at: [IndexPath(row: self.viewmodel.currentIndex, section: 1)])
+                }
+                
+
+            },completion: { finished in
+                if finished {
+                    DispatchQueue.main.async{
+                        if self.viewmodel.isSectionCollapsed(){
+                            print("should scroll")
+                            self.collectionView.scrollToItem(at: IndexPath(row: self.viewmodel.currentIndex, section: 1), at: .centeredHorizontally, animated: true)
+
+
+                        }
+                        
+                    }
+                }
+                
+            })
+            
+        }
+        
         
     }
 }
