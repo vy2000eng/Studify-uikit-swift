@@ -17,7 +17,6 @@ class EditFlashCardViewModel{
         CoreDataManager.shared.updateFlashcard(flashcardID: flashcardId, front: front, back: back)
         
     } 
-    
     func deleteFlashCard(){
         CoreDataManager.shared.deleteFlashCard(flashCardID: flashcardId)
         

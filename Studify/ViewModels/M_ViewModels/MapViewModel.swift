@@ -30,9 +30,4 @@ struct MapViewModel:Hashable{
     var mindMapCount:Int{
         map.mapSet?.count ?? 0
     }
-    
-    
-    
-    
-    
 }

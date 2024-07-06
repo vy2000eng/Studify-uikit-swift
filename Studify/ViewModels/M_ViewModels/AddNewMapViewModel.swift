@@ -15,7 +15,6 @@ class AddNewMapViewModel{
     }
     
     func addMap(title:String){
-        
         CoreDataManager.shared.addMapToSubject(title: title, subjectID: subjectID)
     }
     

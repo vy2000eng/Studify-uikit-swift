@@ -95,7 +95,6 @@ extension FlashCardSetCollectionViewCell{
     private func setupConstraints(){
         
         NSLayoutConstraint.activate([
-        //    mainView.topAnchor.constraint(equalTo: topAnchor,constant: 40),
             mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),

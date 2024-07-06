@@ -14,7 +14,6 @@ class AddNewTopicViewModel{
         self.subjectId = subjectId
     }
     
-    
     func addTopic(title: String ){
         CoreDataManager.shared.addTopicToSubject(title: title, subjectID: subjectId)
     }

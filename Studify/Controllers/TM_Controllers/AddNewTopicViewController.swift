@@ -21,8 +21,6 @@ class AddNewTopicViewController: UIViewController {
         self.subjectID = subjectID
         self.viewModel = AddNewTopicViewModel(subjectId: subjectID)
         super.init(nibName: nil, bundle: nil)
-
-
     }
     
     required init?(coder: NSCoder) {
@@ -50,23 +48,13 @@ class AddNewTopicViewController: UIViewController {
         setupView()
 
     }
-  
-
 }
-
-
 
 extension AddNewTopicViewController{
     
     private func setupView(){
         view.backgroundColor = UIColor.systemBackground
         title = "Add new topic"
-        
-//        navigationItem.rightBarButtonItem =
-//        UIBarButtonItem(
-//            barButtonSystemItem: .save,
-//            target: self,
-//            action: #selector(saveTopic))
         
         setupAddButton()
         setupCloseButton()
@@ -138,7 +126,6 @@ extension AddNewTopicViewController{
         }
         viewModel.addTopic(title: topicName)
         updateSectionInTopicMapViewController()
-       // navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
 
         
@@ -146,7 +133,6 @@ extension AddNewTopicViewController{
     
     @objc
     private func closeViewController() {
-        //delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath)
         dismiss(animated: true, completion: nil)
     }
     

@@ -31,7 +31,7 @@ class SmallSetSection{
 class FlashcardSetViewModel{
     
     var topicID: UUID
-
+    
     
     var flashcards = [FlashcardViewModel]()
     
@@ -40,13 +40,6 @@ class FlashcardSetViewModel{
     var smallSetSection: SmallSetSection
     
     var viewControllerCurrentlyAppearing:Int
-    
-    
-    
-    
-
-
-    
     
     var numberOfFlashCards:Int{
         flashcards.count
@@ -58,7 +51,7 @@ class FlashcardSetViewModel{
         self.currentIndex = 0
         self.smallSetSection = SmallSetSection(data: flashcards)
         self.viewControllerCurrentlyAppearing = 0
-
+        
         getAllFlashcards()
     }
     
@@ -89,15 +82,11 @@ class FlashcardSetViewModel{
     func flashcardDisplayMode(by index: Int){
         let fc = flashcard(by: index)
         fc.isShowingFront = !fc.isShowingFront
-        
-        
-        
     }
     
     func initSmallSetSection(){
         getAllFlashcards()
         smallSetSection = SmallSetSection(data: flashcards)
-        
     }
     
     func toggleSection(){

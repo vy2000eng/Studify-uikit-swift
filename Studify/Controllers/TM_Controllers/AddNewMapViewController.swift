@@ -56,12 +56,7 @@ class AddNewMapViewController: UIViewController{
 extension AddNewMapViewController{
     private func setup(){
         view.backgroundColor = UIColor.systemBackground
-        title = "Add new map"
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(
-//            barButtonSystemItem: .save,
-//            target: self,
-//            action: #selector(saveMap))
-//        
+        title = "Add new map"       
         setupAddButton()
         setupCloseButton()
         
@@ -114,7 +109,6 @@ extension AddNewMapViewController{
     
     @objc
     private func closeViewController() {
-        //delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath)
         dismiss(animated: true, completion: nil)
     }
     @objc
@@ -130,8 +124,6 @@ extension AddNewMapViewController{
         viewModel.addMap(title: mapTitle)
         updateSectionInTopicMapViewController()
         dismiss(animated: true, completion: nil)
-
-        //navigationController?.popViewController(animated: true)
     }
     
     func updateSectionInTopicMapViewController(){

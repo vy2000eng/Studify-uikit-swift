@@ -38,28 +38,5 @@ class SubjectListViewModel{
         getAllSubjects()
         
     }
-    
-    
-    
-    
-    
 }
 
-
-
-//this works
-//class SubjectViewViewModel{
-//    var subjects = [Subject]()
-//    
-//    init(){
-//        getAllSubjects()
-//    }
-//    
-//    
-//    func getAllSubjects(){
-//        subjects = CoreDataManager.shared.getAllSubjects() ?? []
-//        
-//    }
-//    
-//    
-//}

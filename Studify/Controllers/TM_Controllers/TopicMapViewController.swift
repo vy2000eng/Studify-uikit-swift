@@ -87,12 +87,10 @@ extension TopicMapViewController{
     func createOptionsBarButtonItem() -> UIBarButtonItem {
         let addATopicAction = UIAction(title: "add topic", image: UIImage(systemName: "doc")) { _ in
             let vc = AddNewTopicViewController(subjectID: self.viewmodel.subjectID)
-            //vc.modalPresentationStyle = .fullScreen
             vc.delegate = self
             let navController = UINavigationController(rootViewController: vc)
 
             self.present(navController,animated: true)
-           // self.navigationController?.pushViewController(vc, animated: true)
             print("add Topic")
         }
         

@@ -48,10 +48,10 @@ class SubejctListViewCell: SwipeCollectionViewCell {
     }()
 
     lazy var mainContentView: UIView = {
+       
         let mainContentView = UIView()
         mainContentView.translatesAutoresizingMaskIntoConstraints = false
         mainContentView.backgroundColor = OceanSandTheme.lightPrimary
-
         mainContentView.layer.shadowOffset = CGSize(width: 0, height: 1)
         mainContentView.layer.shadowOpacity = 0.2
         mainContentView.layer.shadowRadius = 1.0
@@ -63,6 +63,7 @@ class SubejctListViewCell: SwipeCollectionViewCell {
 
     
     override init(frame: CGRect) {
+       
         super.init(frame: frame)
         setup()
     }
@@ -72,15 +73,12 @@ class SubejctListViewCell: SwipeCollectionViewCell {
     }
 
     private func setup() {
-   
 
         contentView.addSubview(mainContentView)
         mainContentView.addSubview(stackView)
-        
         stackView.addArrangedSubview(subjectNameLabel)
         stackView.addArrangedSubview(topicsCountLabel)
         stackView.addArrangedSubview(mapsCountLabel)
-
         stackView.addArrangedSubview(createdOnLabel)
         
         NSLayoutConstraint.activate([
@@ -88,8 +86,6 @@ class SubejctListViewCell: SwipeCollectionViewCell {
             mainContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             mainContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             mainContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
-            
             
             stackView.topAnchor.constraint(equalTo: mainContentView.topAnchor, constant: 12),
             stackView.leadingAnchor.constraint(equalTo: mainContentView.leadingAnchor, constant: 12),

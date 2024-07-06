@@ -48,7 +48,6 @@ class FlashCardListCollectionViewCell: UICollectionViewCell {
 
     lazy var mainView: UIView = {
        let mainView = UIView()
-    //    mainView.backgroundColor = warmTreeTones.darkPrimary
         mainView.translatesAutoresizingMaskIntoConstraints = false
      
         
@@ -91,9 +90,7 @@ extension FlashCardListCollectionViewCell{
             
             topContentView.topAnchor.constraint(equalTo: mainView.topAnchor,constant: 5),
             topContentView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor,constant: 5),
-            topContentView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor,constant: -5),
-            //topContentView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor),
-            
+            topContentView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor,constant: -5),            
             
             bottomContentView.topAnchor.constraint(equalTo: topContentView.bottomAnchor),
             bottomContentView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 5),

@@ -64,6 +64,7 @@ extension AddNewFlashCardViewController{
     }
 
     private func setupConstraints(){
+        
         NSLayoutConstraint.activate([
             addFlashCardView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             addFlashCardView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -71,10 +72,23 @@ extension AddNewFlashCardViewController{
             addFlashCardView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor) // ensure it's constrained to the bottom if you want it to fill the screen
         ])
     }
+    
+    private func closeBarButtonItem() -> UIBarButtonItem{
+        
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle"))
+        barButtonItem.target = self
+        barButtonItem.action = #selector(closeViewController)
+        return barButtonItem
+        
+    }
+    
+    private func updateSectionInFlashCardSetViewController(){
+        
+        whichControllerPushed == 0 ? flashCardSetViewControllerDelegate?.didAddFlashcardToSet() : flashCardListViewControllerDelegate?.didAddFlashcardToList()
+    }
 }
 
 extension AddNewFlashCardViewController{
-
     
     @objc
     private func saveFlashCard(){
@@ -108,27 +122,10 @@ extension AddNewFlashCardViewController{
         viewmodel.addFlashcard(front: frontString, back: backString)
         updateSectionInFlashCardSetViewController()
         dismiss(animated: true)
-       // navigationController?.popViewController(animated: true)
-                
-    }
-    
-    private func closeBarButtonItem() -> UIBarButtonItem{
-        
-        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle"))
-        barButtonItem.target = self
-        barButtonItem.action = #selector(closeViewController)
-     
-        return barButtonItem
-        
     }
     
     @objc
     private func closeViewController(){
         dismiss(animated: true)
-    }
-    
-    
-    private func updateSectionInFlashCardSetViewController(){
-        whichControllerPushed == 0 ? flashCardSetViewControllerDelegate?.didAddFlashcardToSet() : flashCardListViewControllerDelegate?.didAddFlashcardToList()
     }
 }

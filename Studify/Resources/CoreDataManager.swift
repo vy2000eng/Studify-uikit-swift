@@ -53,7 +53,7 @@ class CoreDataManager{
         }
     }
     
-   
+    
     
     
     
@@ -112,36 +112,17 @@ class CoreDataManager{
             print("Error add new flashcard: \(error.userInfo) , \(error.localizedDescription)")
         }
         
-//        let fetchRequest:NSFetchRequest<Topic> = Topic.fetchRequest()
-//        fetchRequest.predicate = NSPredicate(format: "id=%@", topicID.uuidString)
-//        let flashcard = FlashCard(context: context)
-//        flashcard.id = UUID()
-//        flashcard.front = front
-//        flashcard.back = back
-//        
-//        do{
-//            let topic = try context.fetch(fetchRequest)
-//            topic.first?.flashcardset?.append(flashcard)
-//            flashcard.topic = topic.first
-//            try context.save()
-//            
-//        }catch let error as NSError{
-//            
-//            print("Error add new flashcard: \(error.userInfo), \(error.localizedDescription)")
-//            
-//        }
-        
     }
     
     // MARK: - read  functions
-
+    
     func getOpenedFirst(subjectID: UUID)->Int16{
         let fetchRequest: NSFetchRequest<Subject> = Subject.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id=%@", subjectID.uuidString)
         
         do{
-             let subject =  try context.fetch(fetchRequest)
-              return  subject.first!.addedFirst          //  context.delete((subject.first)!)
+            let subject =  try context.fetch(fetchRequest)
+            return  subject.first!.addedFirst          //  context.delete((subject.first)!)
             
         }catch let error as NSError{
             print("Error retrieving openedFirst subject: \(error.userInfo), \(error.localizedDescription)")
@@ -161,17 +142,17 @@ class CoreDataManager{
     }
     
     func getAllTopicsForSubject(subjectid: UUID) ->[Topic]{
-
+        
         let fetchRequest: NSFetchRequest<Topic> = Topic.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "subject.id == %@", subjectid.uuidString )
-
-         do {
-             let topics = try context.fetch(fetchRequest)
-             return topics
-         } catch {
-             print("Error fetching topics for subject ID \(subjectid): \(error)")
-             return []  // Return an empty array if the fetch fails
-         }
+        
+        do {
+            let topics = try context.fetch(fetchRequest)
+            return topics
+        } catch {
+            print("Error fetching topics for subject ID \(subjectid): \(error)")
+            return []  // Return an empty array if the fetch fails
+        }
     }
     
     func getAllMapsForSubject(subjectid: UUID) -> [Maps]{
@@ -223,19 +204,16 @@ class CoreDataManager{
         }catch let error as NSError{
             print("Error updating openedFirst in subject: \(error.userInfo), \(error.localizedDescription)")
         }
-        
-        
-        
     }
     
-
+    
     // MARK: - delete  functions
-
+    
     func deleteSubject(id: UUID){
         let fetchRequest : NSFetchRequest<Subject> = Subject.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id=%@", id.uuidString)
         do{
-             let subject =  try context.fetch(fetchRequest)
+            let subject =  try context.fetch(fetchRequest)
             context.delete((subject.first)!)
             try context.save()
             
@@ -279,18 +257,7 @@ class CoreDataManager{
         }catch let error as NSError{
             print("Error deleting flashcard: \(error.userInfo), \(error.localizedDescription)")
         }
-        
-        
-        
     }
-    
-    
-    
-    
-    
-
-    
-    
 }
 //
 //    // create functions

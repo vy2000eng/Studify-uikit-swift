@@ -17,7 +17,4 @@ class AddNewFlashCardViewModel{
     func addFlashcard(front:String, back:String){
         CoreDataManager.shared.addflashCardToTopic(front: front, back: back, topicID: topicID)
     }
-    
-    
-    
 }

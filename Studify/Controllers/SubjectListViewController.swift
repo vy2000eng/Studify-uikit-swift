@@ -34,16 +34,12 @@ class SubjectListViewController: UIViewController, AddNewSubjectToSubjectListVie
         title = "Subjects"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
-
-            //action: #selector(addNewSubject))
-        
         view.addSubview(collectionView)
         setupConstraints()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.getAllSubjects()
-        //tableView.reloadData()
     }
     
 }

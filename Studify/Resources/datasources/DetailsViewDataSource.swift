@@ -84,31 +84,11 @@ extension TopicMapViewController{
     func handleCollapseButton(_ sender:UIButton){
         let section = sender.tag
         print("section: \(section)")
-        
-        
         viewmodel.toggleSection(section)
         let indexSet = IndexSet(integer: section)
         collectionView.reloadSections(indexSet)
     }
-    /*MARK: handleAddButton
-     There are seperate viewcontrollers for adding topics and adding maps.
-     Those viewcontrollers are AddNewTopicViewController and AddNewMapViewController respectively.
-     Both of those viewcontrols have protocols for delegating addition of a topic or map, implemented by the TopicMapViewController.
-     That is the reason for 'vc.delegate = self'
-     */
-//    @objc 
-//    func handleAddButton(_ sender: UIButton) {
-//        let section = sender.tag
-//        if section == 0{
-//            let vc = AddNewTopicViewController(subjectID: viewmodel.subjectID)
-//            vc.delegate = self
-//            navigationController?.pushViewController(vc, animated: true)
-//        }else{
-//            let vc = AddNewMapViewController(subjectID: viewmodel.subjectID)
-//            vc.delegate = self
-//            navigationController?.pushViewController(vc, animated: true)
-//        }
-//    }
+
 }
 
 
