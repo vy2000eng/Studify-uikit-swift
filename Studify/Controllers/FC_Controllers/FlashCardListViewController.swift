@@ -71,11 +71,7 @@ class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewCo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("list view loaded")
-        //navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
-
-        //setupAddButton()
-       // setupCloseButton()
+        navigationItem.title = "List View"
         setup()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -99,6 +95,25 @@ extension FlashCardListViewController{
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
+    
+    private func setupCloseButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self,action: #selector(closeViewController))
+    }
+    
+    func highlightCell(at indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FlashCardListCollectionViewCell else { return }
+        
+        let originalColor = cell.backgroundColor
+        UIView.animate(withDuration: 0.3, animations: {
+            cell.backgroundColor = UIColor.yellow.withAlphaComponent(0.3)
+            cell.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+        }) { _ in
+            UIView.animate(withDuration: 0.3, delay: 1.0, options: [], animations: {
+                cell.backgroundColor = originalColor
+                cell.transform = .identity
+            }, completion: nil)
+        }
+    }
 }
 
 extension FlashCardListViewController{
@@ -118,56 +133,13 @@ extension FlashCardListViewController{
 }
 
 extension FlashCardListViewController{
-   // private func setupAddButton() -> UIBarButtonItem{
-        
-   // navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
-        
-//        UIBarButtonItem(
-//            barButtonSystemItem: .compose,
-//            target: self,
-//            action: #selector(addNewFlashCard))
-   // }
-    private func setupCloseButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .close,
-            target: self,
-            action: #selector(closeViewController))
-    }
-//    func createOptionsBarButtonItem() -> UIBarButtonItem{
-//        let addFlashCardAction = UIAction(title: "add flashcard"){ _ in
-//            let vc = AddNewFlashCardViewController(flashcardSetViewModel: self.viewmodel, whichControllerPushed: 1)
-//            // MARK: This delegate is for adding a flashcard to only the collection view defined in this viewcontroller.
-//            // The protocol for this delegate is defined in AddNewFlashCardViewController.
-//            // That is a fact. I know it might seem obvious, but I hope this help future you.
-//            // MARK: "flashCardListViewControllerDelegate" is defined in "AddNewFlashCardViewController"
-//            vc.flashCardListViewControllerDelegate = self
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            
-//            
-//        }
-//        let filterLearnedAction = UIAction(title: "learned flashcards"){ _ in
-//            
-//        }
-//        
-//        let filterUnlearnedAction = UIAction(title: "unlearned flashcards"){ _ in
-//            
-//        }
-//        
-//        let filterAllAction = UIAction(title: "all flashcards"){ _ in
-//            
-//        }
-//
-//        let menu = UIMenu(title: "options", children: [addFlashCardAction, filterLearnedAction, filterUnlearnedAction, filterAllAction])
-//        
-//        return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: menu)
-//        
-//        
-//    }
-    
     @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
+            
             let point = gesture.location(in: self.collectionView)
+           
             if let indexPath = self.collectionView.indexPathForItem(at: point) {
+                
                 print("Long pressed item at \(indexPath.row)")
                 let flashcard = viewmodel.flashcard(by: indexPath.row)
                 let vc = EditFlashCardViewController(flashCardViewModel: flashcard,whichControllerPresented: 1,indexPath: indexPath)
@@ -176,9 +148,6 @@ extension FlashCardListViewController{
             }
         }
     }
-    
-    
-    
     @objc
     private func addNewFlashCard(){
         let vc = AddNewFlashCardViewController(flashcardSetViewModel: viewmodel, whichControllerPushed: 1)
@@ -194,100 +163,8 @@ extension FlashCardListViewController{
         delegate?.didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: topicIndexPath)
         dismiss(animated: true, completion: nil)
     }
+}
     // MARK: As you may notice this function is not being called in this file.
     // MARK: That is because it is part of a protocol defined inside of "AddNewFlashCardViewController"
     
-    func didAddFlashcardToList() {
-        
-        viewmodel.getAllFlashcards()
-        let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
-        self.viewmodel.currentIndex = indexPathSetCell.row
-        
-        DispatchQueue.main.async {
-            self.collectionView.performBatchUpdates({
-                self.collectionView.insertItems(at: [indexPathSetCell])
-            },completion: { finished in
-                if finished {
-                    self.collectionView.scrollToItem(at: indexPathSetCell, at: .bottom, animated: true)
-                
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                      self.highlightCell(at: indexPathSetCell)
-                                  }
-                }
-            })
-        }
-        
-        //MARK: Tada what did I say!?
-        //MARK: I said: " "updateFlashCardInSetViewControllerFromListViewController()" is called right after updates are made to the UI inside of "didAddFlashcardToList()" "
-        //MARK: if you dont get it read the comment at the top of this file: "MARK: updateFlashCardInSetViewControllerFromListViewController()".
-        addFlashCardInSetViewControllerDelegate?.didAddFlashCardToSetViewControllerFromListViewController()
-    }
-    
-    
-    func didUpdateFlashCardInList(indexPath: IndexPath) {
-      
-        viewmodel.getAllFlashcards()
-        let indexPathListCell = IndexPath(row: indexPath.row, section: 0)
-        self.viewmodel.currentIndex = indexPathListCell.row
-        
-        DispatchQueue.main.async {
-            self.collectionView.performBatchUpdates({
-                self.collectionView.reloadItems(at: [indexPathListCell])
-            } ,completion: { finished in
-                if finished {
-                    self.collectionView.scrollToItem(at: indexPathListCell, at: .centeredVertically, animated: true)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        self.highlightCell(at: indexPathListCell)
-                    }
-                }
-            })
-        }
-        updateFlashCardInSetViewControllerDelegate?.didUpdateFlashCardInSetViewControllerFromListViewController(indexPath: indexPath)
-    }
-    
-    func didDeleteFlashCardInList(indexPath: IndexPath) {
-        
-        viewmodel.getAllFlashcards()
-        let indexPathListCell = IndexPath(row: indexPath.row, section: 0)
-        self.viewmodel.currentIndex = indexPath.row == 0 ? 0 : max(0, indexPath.row - 1)
-                
-        DispatchQueue.main.async {
-            self.collectionView.performBatchUpdates({
-                self.collectionView.deleteItems(at: [indexPathListCell])
-            }, completion: { finished in
-                if finished {
-                    // Scroll to the new current index if needed
-                    if self.viewmodel.numberOfFlashCards > 0 {
-                        let newIndexPath = IndexPath(row: self.viewmodel.currentIndex, section: 0)
-                        self.collectionView.scrollToItem(at: newIndexPath, at: .centeredVertically, animated: true)
-                       
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            self.highlightCell(at: newIndexPath)
-                        }
-                    }
-                }
-            })
-        }
-        updateFlashCardInSetViewControllerDelegate?.didDeleteFlashCardInSetViewControllerFromListViewController(indexPath: indexPath)
-    }
-}
-
-extension FlashCardListViewController{
-    func highlightCell(at indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? FlashCardListCollectionViewCell else { return }
-        
-        let originalColor = cell.backgroundColor
-        UIView.animate(withDuration: 0.3, animations: {
-            cell.backgroundColor = UIColor.yellow.withAlphaComponent(0.3)
-            cell.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-        }) { _ in
-            UIView.animate(withDuration: 0.3, delay: 1.0, options: [], animations: {
-                cell.backgroundColor = originalColor
-                cell.transform = .identity
-            }, completion: nil)
-        }
-    }
-}
-
 

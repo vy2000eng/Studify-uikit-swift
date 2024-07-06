@@ -68,6 +68,9 @@
 		39DEDE432C12C12E00C725CE /* AddNewTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE422C12C12E00C725CE /* AddNewTopicViewModel.swift */; };
 		39DEDE452C134BBF00C725CE /* AddNewMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE442C134BBF00C725CE /* AddNewMapViewController.swift */; };
 		39DEDE472C134C0C00C725CE /* AddNewMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE462C134C0C00C725CE /* AddNewMapViewModel.swift */; };
+		39E3C7AB2C39AEE1007E8A88 /* TabViewCollectionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E3C7AA2C39AEE1007E8A88 /* TabViewCollectionsManager.swift */; };
+		39E3C7AE2C39B127007E8A88 /* SetViewCollectionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E3C7AD2C39B127007E8A88 /* SetViewCollectionsManager.swift */; };
+		39E3C7B02C39B137007E8A88 /* ListViewCollectionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E3C7AF2C39B137007E8A88 /* ListViewCollectionsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,6 +136,9 @@
 		39DEDE422C12C12E00C725CE /* AddNewTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTopicViewModel.swift; sourceTree = "<group>"; };
 		39DEDE442C134BBF00C725CE /* AddNewMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewMapViewController.swift; sourceTree = "<group>"; };
 		39DEDE462C134C0C00C725CE /* AddNewMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewMapViewModel.swift; sourceTree = "<group>"; };
+		39E3C7AA2C39AEE1007E8A88 /* TabViewCollectionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewCollectionsManager.swift; sourceTree = "<group>"; };
+		39E3C7AD2C39B127007E8A88 /* SetViewCollectionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewCollectionsManager.swift; sourceTree = "<group>"; };
+		39E3C7AF2C39B137007E8A88 /* ListViewCollectionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewCollectionsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +198,7 @@
 		396D6CBA2C251968000DD57C /* FC_Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				39E3C7AC2C39B0ED007E8A88 /* Managers */,
 				3948797B2C155FA9002D3DEB /* FlashCardsViewController.swift */,
 				396D6CB62C2515F9000DD57C /* FlashCardTabViewController.swift */,
 				396D6CB82C25165A000DD57C /* FlashCardListViewController.swift */,
@@ -359,6 +366,16 @@
 			path = M_ViewModels;
 			sourceTree = "<group>";
 		};
+		39E3C7AC2C39B0ED007E8A88 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				39E3C7AA2C39AEE1007E8A88 /* TabViewCollectionsManager.swift */,
+				39E3C7AD2C39B127007E8A88 /* SetViewCollectionsManager.swift */,
+				39E3C7AF2C39B137007E8A88 /* ListViewCollectionsManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -458,6 +475,8 @@
 				393EE5902C2DB42B00277FAF /* EditFlashCardViewController.swift in Sources */,
 				396D6CBE2C252010000DD57C /* AddNewFlashCardViewModel.swift in Sources */,
 				39A4BC842C039B8D00F833D2 /* SubjectModel.swift in Sources */,
+				39E3C7B02C39B137007E8A88 /* ListViewCollectionsManager.swift in Sources */,
+				39E3C7AE2C39B127007E8A88 /* SetViewCollectionsManager.swift in Sources */,
 				39B817AA2C0E835700CB843B /* SubjectListViewModel.swift in Sources */,
 				39DEDE282C12148C00C725CE /* MapViewCell.swift in Sources */,
 				3948797C2C155FA9002D3DEB /* FlashCardsViewController.swift in Sources */,
@@ -468,6 +487,7 @@
 				39DEDE3C2C1267E400C725CE /* MapViewModel.swift in Sources */,
 				393DF68E2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift in Sources */,
 				394879802C1560B4002D3DEB /* FlashcardSetViewModel.swift in Sources */,
+				39E3C7AB2C39AEE1007E8A88 /* TabViewCollectionsManager.swift in Sources */,
 				39B817C82C10D56100CB843B /* TopicViewModel.swift in Sources */,
 				394879822C1560D4002D3DEB /* FlashCardViewModel.swift in Sources */,
 				393DF6912C371222000F1D41 /* FlashcardSmallSetHeader.swift in Sources */,
