@@ -64,6 +64,8 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
+
         print("set view loaded")
         setupView()
     }
@@ -76,7 +78,9 @@ extension FlashCardSetViewController{
         view.addSubview(collectionView)
         setupConstraints()
         setupCloseButton()
-        setupAddButton()
+        navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
+
+       // setupAddButton()
     }
     
     private func setupConstraints(){
@@ -105,7 +109,7 @@ extension FlashCardSetViewController{
         let fcSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1))
         let fc = NSCollectionLayoutItem(layoutSize: fcSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.33), heightDimension: .absolute(150))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.33), heightDimension: .absolute(120))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [fc])
         let section = NSCollectionLayoutSection(group: group)
         
@@ -131,12 +135,44 @@ extension FlashCardSetViewController{
             action: #selector(closeViewController))
     }
 
-    private func setupAddButton(){
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .compose,
-            target: self,
-            action: #selector(addNewFlashCard))
+//    private func setupAddButton(){
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(
+//            barButtonSystemItem: .compose,
+//            target: self,
+//            action: #selector(addNewFlashCard))
+//    }
+    
+    func createOptionsBarButtonItem() -> UIBarButtonItem{
+        let addFlashCardAction = UIAction(title: "add flashcard"){ _ in
+            let vc = AddNewFlashCardViewController(flashcardSetViewModel: self.viewmodel, whichControllerPushed: 0)
+            // MARK: This delegate is for adding a flashcard to only the collection view defined in this viewcontroller.
+            // The protocol for this delegate is defined in AddNewFlashCardViewController.
+            // That is a fact. I know it might seem obvious, but I hope this help future you.
+            // MARK: "flashCardListViewControllerDelegate" is defined in "AddNewFlashCardViewController"
+            vc.flashCardSetViewControllerDelegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+            
+        }
+        let filterLearnedAction = UIAction(title: "learned flashcards"){ _ in
+            
+        }
+        
+        let filterUnlearnedAction = UIAction(title: "unlearned flashcards"){ _ in
+            
+        }
+        
+        let filterAllAction = UIAction(title: "all flashcards"){ _ in
+            
+        }
+
+        let menu = UIMenu(title: "options", children: [addFlashCardAction, filterLearnedAction, filterUnlearnedAction, filterAllAction])
+        
+        return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: menu)
+        
+        
     }
+
     
     @objc
     private func addNewFlashCard(){

@@ -95,7 +95,7 @@ extension FlashCardSetCollectionViewCell{
     private func setupConstraints(){
         
         NSLayoutConstraint.activate([
-            mainView.topAnchor.constraint(equalTo: topAnchor,constant: 40),
+        //    mainView.topAnchor.constraint(equalTo: topAnchor,constant: 40),
             mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
@@ -105,6 +105,8 @@ extension FlashCardSetCollectionViewCell{
           
         ])
         relaxedConstraints = [
+            mainView.topAnchor.constraint(equalTo: topAnchor, constant: 40),
+
             termLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 10),
             vstack.topAnchor.constraint(equalTo: termLabel.bottomAnchor, constant: 5),
             vstack.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 8),
@@ -113,6 +115,8 @@ extension FlashCardSetCollectionViewCell{
         ]
         
         tightConstraints = [
+            mainView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            
             termLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 5),
             vstack.topAnchor.constraint(equalTo: termLabel.bottomAnchor, constant: 5),
             vstack.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 5),

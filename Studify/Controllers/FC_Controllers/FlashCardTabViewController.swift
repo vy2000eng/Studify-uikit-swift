@@ -158,7 +158,7 @@ extension FlashCardTabViewController{
                         if self.viewmodel.numberOfFlashCards > 0 {
                             // were using this to delete scroll to the new item that was determined in
                             let updatedIndexPathSetCell = IndexPath(row: self.viewmodel.currentIndex, section: 0)
-                            let updatedIndexPathSmallSetCell = IndexPath(row: self.viewmodel.currentIndex, section: 1)
+                           // let updatedIndexPathSmallSetCell = IndexPath(row: self.viewmodel.currentIndex, section: 1)
                             // Scroll both sections
                             self.flashcardSetViewController.collectionView.scrollToItem(at: updatedIndexPathSetCell, at: .centeredHorizontally, animated: false)
                            // self.flashcardSetViewController.collectionView.scrollToItem(at: updatedIndexPathSmallSetCell, at: .centeredHorizontally, animated: false)
