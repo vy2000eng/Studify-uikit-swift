@@ -64,10 +64,14 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
+      //  navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
 
         print("set view loaded")
         setupView()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        viewmodel.viewControllerCurrentlyAppearing = 0
+        super.viewDidAppear(animated)
     }
     
 }
@@ -77,8 +81,8 @@ extension FlashCardSetViewController{
     private func setupView(){
         view.addSubview(collectionView)
         setupConstraints()
-        setupCloseButton()
-        navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
+       // setupCloseButton()
+       // navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
 
        // setupAddButton()
     }
@@ -142,36 +146,36 @@ extension FlashCardSetViewController{
 //            action: #selector(addNewFlashCard))
 //    }
     
-    func createOptionsBarButtonItem() -> UIBarButtonItem{
-        let addFlashCardAction = UIAction(title: "add flashcard"){ _ in
-            let vc = AddNewFlashCardViewController(flashcardSetViewModel: self.viewmodel, whichControllerPushed: 0)
-            // MARK: This delegate is for adding a flashcard to only the collection view defined in this viewcontroller.
-            // The protocol for this delegate is defined in AddNewFlashCardViewController.
-            // That is a fact. I know it might seem obvious, but I hope this help future you.
-            // MARK: "flashCardListViewControllerDelegate" is defined in "AddNewFlashCardViewController"
-            vc.flashCardSetViewControllerDelegate = self
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-            
-        }
-        let filterLearnedAction = UIAction(title: "learned flashcards"){ _ in
-            
-        }
-        
-        let filterUnlearnedAction = UIAction(title: "unlearned flashcards"){ _ in
-            
-        }
-        
-        let filterAllAction = UIAction(title: "all flashcards"){ _ in
-            
-        }
-
-        let menu = UIMenu(title: "options", children: [addFlashCardAction, filterLearnedAction, filterUnlearnedAction, filterAllAction])
-        
-        return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: menu)
-        
-        
-    }
+//    func createOptionsBarButtonItem() -> UIBarButtonItem{
+//        let addFlashCardAction = UIAction(title: "add flashcard"){ _ in
+//            let vc = AddNewFlashCardViewController(flashcardSetViewModel: self.viewmodel, whichControllerPushed: 0)
+//            // MARK: This delegate is for adding a flashcard to only the collection view defined in this viewcontroller.
+//            // The protocol for this delegate is defined in AddNewFlashCardViewController.
+//            // That is a fact. I know it might seem obvious, but I hope this help future you.
+//            // MARK: "flashCardListViewControllerDelegate" is defined in "AddNewFlashCardViewController"
+//            vc.flashCardSetViewControllerDelegate = self
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            
+//            
+//        }
+//        let filterLearnedAction = UIAction(title: "learned flashcards"){ _ in
+//            
+//        }
+//        
+//        let filterUnlearnedAction = UIAction(title: "unlearned flashcards"){ _ in
+//            
+//        }
+//        
+//        let filterAllAction = UIAction(title: "all flashcards"){ _ in
+//            
+//        }
+//
+//        let menu = UIMenu(title: "options", children: [addFlashCardAction, filterLearnedAction, filterUnlearnedAction, filterAllAction])
+//        
+//        return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: menu)
+//        
+//        
+//    }
 
     
     @objc
@@ -217,14 +221,22 @@ extension FlashCardSetViewController{
 
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
-                self.viewmodel.isSectionCollapsed() ?
-                self.collectionView.insertItems(at: [indexPathSetCell,indexPathSmallSetCell]) :
-                self.collectionView.insertItems(at: [indexPathSetCell])
+                if self.viewmodel.numberOfFlashCards == 1{
+                    self.collectionView.insertSections(IndexSet(integer: 0))
+                    self.collectionView.insertSections(IndexSet(integer: 1))
+                }else{
+                    self.viewmodel.isSectionCollapsed() ?
+                    self.collectionView.insertItems(at: [indexPathSetCell,indexPathSmallSetCell]) :
+                    self.collectionView.insertItems(at: [indexPathSetCell])
+                    
+                }
+                
+          
 
 
             } ,completion: {finished in
                 if finished{
-                 
+                    
                     self.collectionView.scrollToItem(at: indexPathSetCell, at: .right, animated: true)
 
 
@@ -268,10 +280,18 @@ extension FlashCardSetViewController{
         
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
-                self.viewmodel.isSectionCollapsed() ?
-                self.collectionView.deleteItems(at: [indexPathSetCell, indexPathSmallSetCell]) :
-                self.collectionView.deleteItems(at: [indexPathSetCell])
+                if self.viewmodel.numberOfFlashCards == 0{
+                    self.collectionView.deleteSections(IndexSet(integer: 0))
+                    self.collectionView.deleteSections(IndexSet(integer: 1))
+                }else{
+                    self.viewmodel.isSectionCollapsed() ?
+                    self.collectionView.deleteItems(at: [indexPathSetCell, indexPathSmallSetCell]) :
+                    self.collectionView.deleteItems(at: [indexPathSetCell])
 
+                    
+                }
+                
+     
             }, completion: { finished in
                 if finished{
                     self.configureScrollBehavior(indexPath: indexPath, updateDelete: 0)

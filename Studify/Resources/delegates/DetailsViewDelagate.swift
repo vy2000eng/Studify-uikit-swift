@@ -171,8 +171,10 @@ extension TopicMapViewController: UICollectionViewDelegate{
             let vc = FlashCardTabViewController(topicID: viewmodel.topic(by: indexPath.row).id, topicIndexPath: indexPath)
             vc.flashcardSetViewController.delegate = self
             vc.flashcardListViewController.delegate = self
-            vc.modalPresentationStyle = .fullScreen
-            present(vc, animated: true)
+            let navigationController = UINavigationController(rootViewController: vc)
+ 
+            navigationController.modalPresentationStyle = .fullScreen
+            present(navigationController, animated: true)
         }
     }
 }

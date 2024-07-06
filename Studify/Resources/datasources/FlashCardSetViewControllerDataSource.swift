@@ -61,17 +61,25 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if indexPath.section == 1{
+        if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableSupplementaryView(ofKind:     kind, withReuseIdentifier: "headerCell", for: indexPath) as! FlashcardSmallSetViewControllerHeader
             let imageName = viewmodel.smallSetSection.isOpened ? "chevron.down" : "chevron.up"
             cell.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
             cell.collapseButton.addTarget(self, action: #selector(handleCollapseButton(_:)), for: .touchUpInside)
+          
+           
             return cell
         }
         return UICollectionReusableView()
     }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        return viewmodel.sectionsCount
+//        if viewmodel.numberOfFlashCards > 0{
+//            return 2
+//        }else{
+//            return 1
+//        }
     }
     
 }

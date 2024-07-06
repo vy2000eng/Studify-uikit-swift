@@ -72,11 +72,15 @@ class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         print("list view loaded")
-        navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
+        //navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
 
         //setupAddButton()
-        setupCloseButton()
+       // setupCloseButton()
         setup()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        viewmodel.viewControllerCurrentlyAppearing = 1
+        super.viewDidAppear(animated)
     }
 }
 
@@ -129,36 +133,36 @@ extension FlashCardListViewController{
             target: self,
             action: #selector(closeViewController))
     }
-    func createOptionsBarButtonItem() -> UIBarButtonItem{
-        let addFlashCardAction = UIAction(title: "add flashcard"){ _ in
-            let vc = AddNewFlashCardViewController(flashcardSetViewModel: self.viewmodel, whichControllerPushed: 1)
-            // MARK: This delegate is for adding a flashcard to only the collection view defined in this viewcontroller.
-            // The protocol for this delegate is defined in AddNewFlashCardViewController.
-            // That is a fact. I know it might seem obvious, but I hope this help future you.
-            // MARK: "flashCardListViewControllerDelegate" is defined in "AddNewFlashCardViewController"
-            vc.flashCardListViewControllerDelegate = self
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-            
-        }
-        let filterLearnedAction = UIAction(title: "learned flashcards"){ _ in
-            
-        }
-        
-        let filterUnlearnedAction = UIAction(title: "unlearned flashcards"){ _ in
-            
-        }
-        
-        let filterAllAction = UIAction(title: "all flashcards"){ _ in
-            
-        }
-
-        let menu = UIMenu(title: "options", children: [addFlashCardAction, filterLearnedAction, filterUnlearnedAction, filterAllAction])
-        
-        return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: menu)
-        
-        
-    }
+//    func createOptionsBarButtonItem() -> UIBarButtonItem{
+//        let addFlashCardAction = UIAction(title: "add flashcard"){ _ in
+//            let vc = AddNewFlashCardViewController(flashcardSetViewModel: self.viewmodel, whichControllerPushed: 1)
+//            // MARK: This delegate is for adding a flashcard to only the collection view defined in this viewcontroller.
+//            // The protocol for this delegate is defined in AddNewFlashCardViewController.
+//            // That is a fact. I know it might seem obvious, but I hope this help future you.
+//            // MARK: "flashCardListViewControllerDelegate" is defined in "AddNewFlashCardViewController"
+//            vc.flashCardListViewControllerDelegate = self
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            
+//            
+//        }
+//        let filterLearnedAction = UIAction(title: "learned flashcards"){ _ in
+//            
+//        }
+//        
+//        let filterUnlearnedAction = UIAction(title: "unlearned flashcards"){ _ in
+//            
+//        }
+//        
+//        let filterAllAction = UIAction(title: "all flashcards"){ _ in
+//            
+//        }
+//
+//        let menu = UIMenu(title: "options", children: [addFlashCardAction, filterLearnedAction, filterUnlearnedAction, filterAllAction])
+//        
+//        return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: menu)
+//        
+//        
+//    }
     
     @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {

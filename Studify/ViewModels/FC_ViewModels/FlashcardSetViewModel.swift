@@ -15,6 +15,8 @@ protocol didAddFlashCardToSetViewControllerDelegate{
     func didAddFlashCardToSetView()
 }
 
+
+
 class SmallSetSection{
     let data:[FlashcardViewModel]
     var isOpened:Bool = true
@@ -37,6 +39,11 @@ class FlashcardSetViewModel{
     
     var smallSetSection: SmallSetSection
     
+    var viewControllerCurrentlyAppearing:Int
+    
+    
+    
+    
 
 
     
@@ -50,8 +57,13 @@ class FlashcardSetViewModel{
         self.topicID = topicID
         self.currentIndex = 0
         self.smallSetSection = SmallSetSection(data: flashcards)
+        self.viewControllerCurrentlyAppearing = 0
 
         getAllFlashcards()
+    }
+    
+    var sectionsCount:Int{
+        return numberOfFlashCards > 0 ? 2 : 0
     }
     
     

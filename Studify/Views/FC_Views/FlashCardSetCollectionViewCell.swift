@@ -115,7 +115,7 @@ extension FlashCardSetCollectionViewCell{
         ]
         
         tightConstraints = [
-            mainView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            mainView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             
             termLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 5),
             vstack.topAnchor.constraint(equalTo: termLabel.bottomAnchor, constant: 5),

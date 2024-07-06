@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 final class FlashCardTabViewController:UITabBarController, AddFlashCardToListViewCollectionDelegate, AddFlashCardToSetViewCollectionDelegate, UpdateFlashCardInFlashCardListViewControllerCollectionViewDelegate, UpdateFlashCardInFlashCardSetViewControllerCollectionViewDelegate{
   
@@ -15,16 +16,17 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
     
     let flashcardSetViewController: FlashCardSetViewController
     let flashcardListViewController: FlashCardListViewController
-    let nav1: UINavigationController
-    let nav2: UINavigationController
+//    let nav1: UINavigationController
+//    let nav2: UINavigationController
+
 
     init(topicID:UUID, topicIndexPath: IndexPath){
         self.viewmodel = FlashcardSetViewModel(topicID: topicID)
         self.topicIndexPath = topicIndexPath
         self.flashcardSetViewController = FlashCardSetViewController(viewmodel: viewmodel, topicIndexPath: topicIndexPath)
         self.flashcardListViewController = FlashCardListViewController(viewmodel: viewmodel, topicIndexPath: topicIndexPath)
-        self.nav1 = UINavigationController(rootViewController: flashcardSetViewController)
-        self.nav2 = UINavigationController(rootViewController: flashcardListViewController)
+//        self.nav1 = UINavigationController(rootViewController: flashcardSetViewController)
+//        self.nav2 = UINavigationController(rootViewController: flashcardListViewController)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -42,19 +44,26 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
 }
 
 extension FlashCardTabViewController{
+
+    
     private func setup(){
-        nav1.navigationBar.prefersLargeTitles = false
-        nav2.navigationBar.prefersLargeTitles = false
+        
+        navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
+        navigationItem.leftBarButtonItem = closeBarButtonItem()
+//        nav1.navigationBar.prefersLargeTitles = false
+//        nav2.navigationBar.prefersLargeTitles = false
+        
         flashcardSetViewController.addFlashCardInListViewControllerDelegate = self
         flashcardListViewController.addFlashCardInSetViewControllerDelegate = self
         flashcardSetViewController.updateFlashCardInListViewControllerDelegate = self
         flashcardListViewController.updateFlashCardInSetViewControllerDelegate = self
         
-        nav1.tabBarItem = UITabBarItem(title: "set",image: UIImage(systemName: "menucard"), tag: 1)
-        nav2.tabBarItem = UITabBarItem(title: "list", image:UIImage(systemName: "list.bullet"), tag: 2)
-        
+//        nav1.tabBarItem = UITabBarItem(title: "set",image: UIImage(systemName: "menucard"), tag: 1)
+//        nav2.tabBarItem = UITabBarItem(title: "list", image:UIImage(systemName: "list.bullet"), tag: 2)
+        flashcardSetViewController.tabBarItem = UITabBarItem(title: "Set", image: UIImage(systemName: "menucard"), tag: 1)
+           flashcardListViewController.tabBarItem = UITabBarItem(title: "List", image: UIImage(systemName: "list.bullet"), tag: 2)
         setViewControllers(
-            [nav1, nav2],
+            [flashcardSetViewController,flashcardListViewController],
             animated: true
         )
     }
@@ -144,9 +153,15 @@ extension FlashCardTabViewController{
         
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
-                self.viewmodel.isSectionCollapsed() ?
-                self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSetCell,indexPathSmallSetCell]):
-                self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSetCell])
+                if self.viewmodel.numberOfFlashCards == 0{
+                    self.flashcardSetViewController.collectionView.deleteSections(IndexSet(integer: 0))
+                    self.flashcardSetViewController.collectionView.deleteSections(IndexSet(integer: 1))
+                }else{
+                    self.viewmodel.isSectionCollapsed() ?
+                    self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSetCell,indexPathSmallSetCell]):
+                    self.flashcardSetViewController.collectionView.deleteItems(at: [indexPathSetCell])
+                }
+ 
 
 
             },completion: { finished in
@@ -241,9 +256,16 @@ extension FlashCardTabViewController{
        
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
-                self.viewmodel.isSectionCollapsed() ?
-                self.flashcardSetViewController.collectionView.insertItems(at: [indexPathSetCell,indexPathSmallSetCell]):
-                self.flashcardSetViewController.collectionView.insertItems(at: [indexPathSetCell])
+                if self.viewmodel.numberOfFlashCards == 1{
+                    self.flashcardSetViewController.collectionView.insertSections(IndexSet(integer: 0))
+                    self.flashcardSetViewController.collectionView.insertSections(IndexSet(integer: 1))
+
+                }else{
+                    self.viewmodel.isSectionCollapsed() ?
+                    self.flashcardSetViewController.collectionView.insertItems(at: [indexPathSetCell,indexPathSmallSetCell]):
+                    self.flashcardSetViewController.collectionView.insertItems(at: [indexPathSetCell])
+                }
+   
 
               
             },completion: { finished in
@@ -256,6 +278,81 @@ extension FlashCardTabViewController{
             })
         }
     }
+}
+
+extension FlashCardTabViewController{
+    
+    func createOptionsBarButtonItem() -> UIBarButtonItem{
+        let addFlashCardAction = UIAction(title: "add flashcard") { [weak self] _ in
+            
+            guard let self = self else { return }
+
+            
+            let vc = AddNewFlashCardViewController(flashcardSetViewModel: self.viewmodel , whichControllerPushed: self.viewmodel.viewControllerCurrentlyAppearing)
+            // MARK: This delegate is for adding a flashcard to only the collection view defined in this viewcontroller.
+            // The protocol for this delegate is defined in AddNewFlashCardViewController.
+            // That is a fact. I know it might seem obvious, but I hope this help future you.
+            // MARK: "flashCardListViewControllerDelegate" is defined in "AddNewFlashCardViewController"
+            
+            if self.viewmodel.viewControllerCurrentlyAppearing == 0{
+                vc.flashCardSetViewControllerDelegate = self.flashcardSetViewController
+            }else{
+                vc.flashCardListViewControllerDelegate = self.flashcardListViewController
+            }
+            let addFlashCardNavigationController = UINavigationController(rootViewController: vc)
+            present(addFlashCardNavigationController, animated: true)
+           // vc.flashCardSetViewControllerDelegate = self.viewmodel.viewControllerCurrentlyAppearing == 0 ?  flashcardSetViewController as? FlashCardSetViewController: flashcardListViewController as? FlashCardListViewController
+           // self.navigationController?.pushViewController(vc, animated: true)
+            
+            
+        }
+        let filterLearnedAction = UIAction(title: "learned flashcards"){ _ in
+            
+        }
+        
+        let filterUnlearnedAction = UIAction(title: "unlearned flashcards"){ _ in
+            
+        }
+        
+        let filterAllAction = UIAction(title: "all flashcards"){ _ in
+            
+        }
+
+        let menu = UIMenu(title: "options", children: [addFlashCardAction ,filterLearnedAction, filterUnlearnedAction, filterAllAction])
+        
+        return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: menu)
+        
+        
+    }
+    
+    func closeBarButtonItem() -> UIBarButtonItem{
+        
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle"))
+        barButtonItem.target = self
+        barButtonItem.action = #selector(closeViewController)
+     
+        return barButtonItem
+        
+        
+    }
+    
+    @objc
+    private func closeViewController(){
+        
+        if viewmodel.viewControllerCurrentlyAppearing == 0 {
+            self.flashcardSetViewController.delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath)
+        }else{
+            self.flashcardListViewController.delegate?.didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: topicIndexPath)
+            //self.flashcardListViewController.delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath)
+
+            
+        }
+        dismiss(animated: true)
+        
+    }
+    
+
+    
 }
 
 

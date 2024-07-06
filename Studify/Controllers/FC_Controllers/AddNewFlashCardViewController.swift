@@ -54,6 +54,10 @@ extension AddNewFlashCardViewController{
             barButtonSystemItem: .save,
             target: self,
             action: #selector(saveFlashCard))
+        
+       navigationItem.leftBarButtonItem = closeBarButtonItem()
+   
+        
         addFlashCardView.translatesAutoresizingMaskIntoConstraints = false
 
         setupConstraints()
@@ -103,9 +107,27 @@ extension AddNewFlashCardViewController{
         }
         viewmodel.addFlashcard(front: frontString, back: backString)
         updateSectionInFlashCardSetViewController()
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
+       // navigationController?.popViewController(animated: true)
                 
     }
+    
+    private func closeBarButtonItem() -> UIBarButtonItem{
+        
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle"))
+        barButtonItem.target = self
+        barButtonItem.action = #selector(closeViewController)
+     
+        return barButtonItem
+        
+    }
+    
+    @objc
+    private func closeViewController(){
+        dismiss(animated: true)
+    }
+    
+    
     private func updateSectionInFlashCardSetViewController(){
         whichControllerPushed == 0 ? flashCardSetViewControllerDelegate?.didAddFlashcardToSet() : flashCardListViewControllerDelegate?.didAddFlashcardToList()
     }
