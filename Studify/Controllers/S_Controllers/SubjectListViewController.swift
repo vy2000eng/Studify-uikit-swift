@@ -34,9 +34,11 @@ class SubjectListViewController: UIViewController, AddNewSubjectToSubjectListVie
         title = "Subjects"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
+        navigationItem.leftBarButtonItem = createSettingsBarButtonItem()
         view.addSubview(collectionView)
         setupConstraints()
     }
+    //TODO: we dont need this, but im not ready to face the consequences of deleting it just yet.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.getAllSubjects()
@@ -45,12 +47,7 @@ class SubjectListViewController: UIViewController, AddNewSubjectToSubjectListVie
 }
 extension SubjectListViewController{
     
-    @objc
-    private func addNewSubject(){
-        let vc = AddNewSubjectViewController()
-        vc.addNewSubjectToSubjectListViewControllerDelegate = self
-        navigationController?.pushViewController(vc, animated: true)
-    }
+ 
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
@@ -63,6 +60,34 @@ extension SubjectListViewController{
     
    
 }
+extension SubjectListViewController{
+    func createOptionsBarButtonItem() -> UIBarButtonItem {
+        return UIBarButtonItem(image: UIImage(systemName: "folder.badge.plus"), style: .plain, target: self, action: #selector(addNewSubject))
+
+    }
+    
+    func createSettingsBarButtonItem() -> UIBarButtonItem{
+        return UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(pushSettingsVc))
+ 
+    }
+    
+    @objc
+    private func addNewSubject(){
+        let vc = AddNewSubjectViewController()
+        vc.addNewSubjectToSubjectListViewControllerDelegate = self
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc
+    private func pushSettingsVc(){
+        let vc = SettingsViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    
+    }
+}
+
+
+
 extension SubjectListViewController{
     func subjectSet() -> NSCollectionLayoutSection{
         let fcSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
@@ -78,10 +103,8 @@ extension SubjectListViewController{
         
         
     }
-    func createOptionsBarButtonItem() -> UIBarButtonItem {
-        return UIBarButtonItem(image: UIImage(systemName: "folder.badge.plus"), style: .plain, target: self, action: #selector(addNewSubject))
 
-    }
+    
     func didAddSubjectToList() {
         viewModel.getAllSubjects()
         let newIndex = IndexPath(row: viewModel.numberOfSubjects-1, section: 0)

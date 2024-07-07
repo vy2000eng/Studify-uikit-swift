@@ -9,6 +9,17 @@ import Foundation
 import CoreData
 
 
+/**
+ 
+ 
+ 
+ {"Tyrian purple":"5f0f40","Carmine":"9a031e","UT orange":"fb8b24","Spanish orange":"e36414","Midnight green":"0f4c5c"}
+ 
+ 
+ */
+
+
+
 class CoreDataManager{
     static let shared = CoreDataManager()
     
