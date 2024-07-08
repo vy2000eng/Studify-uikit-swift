@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 struct TopicViewModel:Hashable{
@@ -29,6 +30,11 @@ struct TopicViewModel:Hashable{
     
     var topicCount:Int{
         topic.flashcardset?.count ?? 0
+    }
+    
+    var backGroundColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.topicColor
+        
     }
 
     

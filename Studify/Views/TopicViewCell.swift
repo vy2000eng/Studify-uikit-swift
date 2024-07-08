@@ -41,7 +41,7 @@ class TopicViewCell: SwipeCollectionViewCell {
     lazy var mainContentView: UIView = {
         let mainContentView = UIView()
         mainContentView.translatesAutoresizingMaskIntoConstraints = false
-        mainContentView.backgroundColor = warmClouds.lightTertiary
+        //mainContentView.backgroundColor = warmClouds.lightTertiary
 
         mainContentView.layer.shadowOffset = CGSize(width: 0, height: 1)
         mainContentView.layer.shadowOpacity = 0.2
@@ -88,6 +88,8 @@ class TopicViewCell: SwipeCollectionViewCell {
     }
 
     func configure(with topic: TopicViewModel) {
+        mainContentView.backgroundColor = topic.backGroundColor
+        
         topicNameLabel.text = topic.title
         countLabel.text = "📄 \(topic.topicCount) flashcards"
         createdOnLabel.text = "🕒 Created \(topic.createdOn.formatted(date: .abbreviated, time: .shortened))"

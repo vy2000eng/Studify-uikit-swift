@@ -52,7 +52,7 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
             
             if indexPath.row == viewmodel.currentIndex{
                 print("should be called here")
-                cell.mainView.backgroundColor = warmTreeTones.lightPrimary
+                cell.mainView.backgroundColor = ColorManager.shared.currentTheme.colors.listColor
             }
             return cell
             

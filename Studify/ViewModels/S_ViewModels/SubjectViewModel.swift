@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct SubjectViewModel{
     private var subject: Subject
@@ -34,5 +35,8 @@ struct SubjectViewModel{
     }
     var addedFirst:Int16{
         subject.addedFirst
+    }
+    var backgroundColor: UIColor{
+        ColorManager.shared.currentTheme.colors.subjectColor
     }
 }

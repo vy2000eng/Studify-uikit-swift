@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
+//TODO: realzied we are us
 class FlashcardViewModel{
     
     private var flashcard : FlashCard
@@ -19,6 +21,17 @@ class FlashcardViewModel{
     
     var id: UUID{
         flashcard.id
+    }
+    
+    var setBackgroundColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.setColor
+        
+    }
+    
+    var listBackgroundColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.listColor
+
+        
     }
     
     var front:String{
@@ -36,5 +49,8 @@ class FlashcardViewModel{
     func setBackString(back: String){
         flashcard.back = back
     }
+    
+    
+    
     
 }

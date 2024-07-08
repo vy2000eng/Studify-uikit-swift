@@ -7,8 +7,16 @@
 
 import Foundation
 
+extension Notification.Name {
+    static let themeDidChange = Notification.Name("themeDidChange")
+    
+   
+}
 
 class ColorManager{
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     static let shared = ColorManager()
     
     private(set) var currentTheme: AppTheme {
@@ -22,15 +30,15 @@ class ColorManager{
     private init() {
         self.currentTheme = .themeOne
         
-        // Then load the saved theme, if any
         if let loadedTheme = loadTheme() {
             self.currentTheme = loadedTheme
         }
-        //self.currentTheme = loadTheme()
     }
     
     func setTheme( theme: AppTheme) {
         self.currentTheme = theme
+        NotificationCenter.default.post(name: .themeDidChange, object: nil)
+
     }
     
     private func saveTheme() {

@@ -63,6 +63,8 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(applyTheme), name: .themeDidChange, object: nil)
+
         title = subjectTitle
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
@@ -71,9 +73,21 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         viewmodel.getAllTopics()
         viewmodel.getAllMaps()
     }
+    deinit {
+          NotificationCenter.default.removeObserver(self)
+      }
 }
 
 extension TopicMapViewController{
+    
+    @objc
+    func applyTheme(){
+        collectionView.reloadData()
+        //collectionView.reloadSections(IndexSet(integer: 0))
+      //  collectionView.reloadSections(IndexSet(integer: 1))
+
+    }
+
     
     func setupConstraints(){
         NSLayoutConstraint.activate([

@@ -30,14 +30,14 @@ class FlashCardListCollectionViewCell: UICollectionViewCell {
         topContentView.layer.cornerRadius = 2
         topContentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]  // Top left and top right
 
-        topContentView.backgroundColor = warmTreeTones.lightPrimary
+       // topContentView.backgroundColor = warmTreeTones.lightPrimary
 
         return topContentView
     }()
     lazy var bottomContentView: UIView = {
         let bottomContentView = UIView()
         bottomContentView.translatesAutoresizingMaskIntoConstraints = false
-        bottomContentView.backgroundColor = warmTreeTones.lightSecondary
+       // bottomContentView.backgroundColor = warmTreeTones.lightSecondary
         bottomContentView.layer.cornerRadius = 2
         bottomContentView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]   // Top left and top right
 
@@ -114,6 +114,8 @@ extension FlashCardListCollectionViewCell{
     }
     
     func configure(flashCard: FlashcardViewModel){
+        topContentView.backgroundColor = flashCard.setBackgroundColor
+        bottomContentView.backgroundColor = flashCard.listBackgroundColor
         termLabel.text = flashCard.front
         termLabel.font = UIFont(name: "Helvetica-Bold", size: 15)
         defLabel.text = flashCard.back

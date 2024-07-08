@@ -33,13 +33,28 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(applyTheme), name: .themeDidChange, object: nil)
+
 
         view.backgroundColor = UIColor.systemBackground
         setup()
     }
+    deinit {
+          NotificationCenter.default.removeObserver(self)
+      }
 }
 
 extension FlashCardTabViewController{
+    @objc
+    func applyTheme(){
+        flashcardSetViewController.collectionView.reloadSections(IndexSet(integer: 0))
+        flashcardSetViewController.collectionView.reloadSections(IndexSet(integer: 1))
+        
+        flashcardListViewController.collectionView.reloadSections(IndexSet(integer: 0))
+
+
+    }
+    
   
     private func setup(){
         

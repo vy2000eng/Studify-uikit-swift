@@ -17,7 +17,7 @@ import UIKit
 class MapViewCell:  TopicViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+       // setup()
         
     }
     
@@ -28,10 +28,11 @@ class MapViewCell:  TopicViewCell {
      
 }
 extension MapViewCell{
-    func setup(){
-        mainContentView.backgroundColor = warmClouds.lightPrimary
-    }
+//    func setup(){
+//        mainContentView.backgroundColor = warmClouds.lightPrimary
+//    }
     func configure(with map: MapViewModel){
+        mainContentView.backgroundColor = map.backGroundColor
         topicNameLabel.text = map.title
         countLabel.text = "📍 \(map.mindMapCount) maps"
         createdOnLabel.text = "🕒 Created \(map.createdOn.formatted(date: .abbreviated, time: .shortened))"

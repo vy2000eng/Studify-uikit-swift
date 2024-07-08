@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 struct MapViewModel:Hashable{
@@ -29,5 +30,10 @@ struct MapViewModel:Hashable{
     
     var mindMapCount:Int{
         map.mapSet?.count ?? 0
+    }
+    
+    var backGroundColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.mapColor
+        
     }
 }

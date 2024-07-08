@@ -37,7 +37,7 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
        
         let mainView = UIView()
         mainView.translatesAutoresizingMaskIntoConstraints = false
-        mainView.backgroundColor = warmTreeTones.lightTertiary!.withAlphaComponent(0.5)
+      //  mainView.backgroundColor = warmTreeTones.lightTertiary!.withAlphaComponent(0.5)
         mainView.layer.cornerRadius = 2
         mainView.layer.shadowColor = UIColor.black.cgColor
         mainView.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -65,7 +65,7 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
         print("prepare for reuse")
         
         super.prepareForReuse()
-        return mainView.backgroundColor = warmTreeTones.lightTertiary!.withAlphaComponent(0.5)
+        return mainView.backgroundColor = ColorManager.shared.currentTheme.colors.setColor.withAlphaComponent(0.5)
     }
     
     override init(frame: CGRect) {
@@ -135,6 +135,7 @@ extension FlashCardSetCollectionViewCell{
     
     func configure(flashcard: FlashcardViewModel, bottomTopStyle:Int ){
         let termLabelFontSize : CGFloat = bottomTopStyle == 0 ? 12 : 8
+        mainView.backgroundColor = flashcard.setBackgroundColor.withAlphaComponent(0.5)
         
         let text = flashcard.isShowingFront ? flashcard.front : flashcard.back
         termText.text = text

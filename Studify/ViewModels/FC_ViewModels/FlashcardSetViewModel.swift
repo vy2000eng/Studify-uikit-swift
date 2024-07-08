@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol didAddFlashCardToListViewControllerDelegate{
     func didAddFlashCardToListView()
@@ -44,6 +45,8 @@ class FlashcardSetViewModel{
     var numberOfFlashCards:Int{
         flashcards.count
     }
+    
+
     
     init(topicID: UUID) {
         print("init")
@@ -96,5 +99,6 @@ class FlashcardSetViewModel{
     func isSectionCollapsed() -> Bool{
         return smallSetSection.isOpened
     }
+    
     
 }

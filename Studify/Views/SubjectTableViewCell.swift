@@ -51,7 +51,7 @@ class SubejctListViewCell: SwipeCollectionViewCell {
        
         let mainContentView = UIView()
         mainContentView.translatesAutoresizingMaskIntoConstraints = false
-        mainContentView.backgroundColor = OceanSandTheme.lightPrimary
+      //  mainContentView.backgroundColor = OceanSandTheme.lightPrimary
         mainContentView.layer.shadowOffset = CGSize(width: 0, height: 1)
         mainContentView.layer.shadowOpacity = 0.2
         mainContentView.layer.shadowRadius = 1.0
@@ -95,6 +95,7 @@ class SubejctListViewCell: SwipeCollectionViewCell {
     }
 
     func configure(with subject: SubjectViewModel) {
+        mainContentView.backgroundColor = subject.backgroundColor
         subjectNameLabel.text = subject.name
         topicsCountLabel.text = "📄 \(subject.topicsCount) sets"
         mapsCountLabel.text = "📍 \(subject.mapsCount) maps"

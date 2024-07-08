@@ -30,6 +30,8 @@ class SubjectListViewController: UIViewController, AddNewSubjectToSubjectListVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(applyTheme), name: .themeDidChange, object: nil)
+
         print("loaded")
         title = "Subjects"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -38,6 +40,10 @@ class SubjectListViewController: UIViewController, AddNewSubjectToSubjectListVie
         view.addSubview(collectionView)
         setupConstraints()
     }
+    deinit {
+          NotificationCenter.default.removeObserver(self)
+      }
+    
     //TODO: we dont need this, but im not ready to face the consequences of deleting it just yet.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -83,6 +89,10 @@ extension SubjectListViewController{
         let vc = SettingsViewController()
         navigationController?.pushViewController(vc, animated: true)
     
+    }
+    @objc
+    func applyTheme(){
+        collectionView.reloadSections(IndexSet(integer: 0))
     }
 }
 
