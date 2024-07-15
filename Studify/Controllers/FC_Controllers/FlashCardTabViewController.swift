@@ -33,10 +33,12 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //view.backgroundColor = viewmodel.background
+       // flashcardSetViewController.view.backgroundColor = viewmodel.background
         NotificationCenter.default.addObserver(self, selector: #selector(applyTheme), name: .themeDidChange, object: nil)
 
 
-        view.backgroundColor = UIColor.systemBackground
+        view.backgroundColor = viewmodel.background
         setup()
     }
     deinit {
@@ -47,10 +49,16 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
 extension FlashCardTabViewController{
     @objc
     func applyTheme(){
-        flashcardSetViewController.collectionView.reloadSections(IndexSet(integer: 0))
-        flashcardSetViewController.collectionView.reloadSections(IndexSet(integer: 1))
+        view.backgroundColor = viewmodel.background
+        tabBar.backgroundColor = viewmodel.background
+         tabBar.barTintColor = viewmodel.background
+         tabBar.isTranslucent = false
         
-        flashcardListViewController.collectionView.reloadSections(IndexSet(integer: 0))
+        flashcardSetViewController.view.backgroundColor = viewmodel.background
+        flashcardListViewController.view.backgroundColor = viewmodel.background
+        //flashcardSetViewController.collectionView.reloadSections(IndexSet(integer: 1))
+        
+         // flashcardListViewController.collectionView.reloadSections(IndexSet(integer: 1))
 
 
     }
@@ -68,7 +76,15 @@ extension FlashCardTabViewController{
         
         flashcardSetViewController.tabBarItem = UITabBarItem(title: "Set", image: UIImage(systemName: "menucard"), tag: 1)
         flashcardListViewController.tabBarItem = UITabBarItem(title: "List", image: UIImage(systemName: "list.bullet"), tag: 2)
+        
         setViewControllers(  [flashcardSetViewController,flashcardListViewController], animated: true)
+        view.backgroundColor = viewmodel.background
+        tabBar.backgroundColor = viewmodel.background
+         tabBar.barTintColor = viewmodel.background
+         tabBar.isTranslucent = false
+        
+        //tabBar.backgroundColor = viewmodel.background
+
     }
 }
 

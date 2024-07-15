@@ -46,8 +46,8 @@ class TopicViewCell: SwipeCollectionViewCell {
         mainContentView.layer.shadowOffset = CGSize(width: 0, height: 1)
         mainContentView.layer.shadowOpacity = 0.2
         mainContentView.layer.shadowRadius = 1.0
-        mainContentView.layer.borderWidth = 1
-        mainContentView.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
+        mainContentView.layer.borderWidth = 2
+       // mainContentView.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
         mainContentView.layer.cornerRadius = 2
         return mainContentView
     }()
@@ -88,7 +88,15 @@ class TopicViewCell: SwipeCollectionViewCell {
     }
 
     func configure(with topic: TopicViewModel) {
+        //mainContentView.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
+        mainContentView.layer.borderColor = ColorManager.shared.currentTheme.colors.backGroundColor == .black ?  UIColor.white.withAlphaComponent(0.1).cgColor :  UIColor.black.withAlphaComponent(0.1).cgColor
+
+        
         mainContentView.backgroundColor = topic.backGroundColor
+        topicNameLabel.textColor = topic.fontColor
+        countLabel.textColor = topic.fontColor
+        createdOnLabel.textColor = topic.fontColor
+        
         
         topicNameLabel.text = topic.title
         countLabel.text = "📄 \(topic.topicCount) flashcards"

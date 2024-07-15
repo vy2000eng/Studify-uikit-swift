@@ -49,6 +49,7 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         }
         
         let v = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
+        v.backgroundColor = .clear
         v.delegate = self
         v.dataSource = self
         v.register(TopicViewCell.self, forCellWithReuseIdentifier: "topicCell")
@@ -62,11 +63,14 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(applyTheme), name: .themeDidChange, object: nil)
-
+        view.backgroundColor = viewmodel.background
         title = subjectTitle
+        navigationController?.navigationBar.barTintColor = viewmodel.background == .white ? .white : .black
         navigationController?.navigationBar.prefersLargeTitles = true
+        
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
         view.addSubview(collectionView)
         setupConstraints()
@@ -82,9 +86,9 @@ extension TopicMapViewController{
     
     @objc
     func applyTheme(){
-        collectionView.reloadData()
-        //collectionView.reloadSections(IndexSet(integer: 0))
-      //  collectionView.reloadSections(IndexSet(integer: 1))
+        view.backgroundColor = viewmodel.background
+        //collectionView.reloadData()
+
 
     }
 

@@ -12,7 +12,7 @@ import UIKit
 class SettingsViewModel{
    // let currentTheme = ColorManager.shared.currentTheme
    // let setting  = Setting()
-    let title = ["Theme One", "Ocean Sand", "Warm Clouds", "Trea Tones", "Mild Winter", "Royalty"]
+    let title = ["SuperNova", "ThunderStorm", "StormySea"]
     
     let selectedRow = 0
     
@@ -41,12 +41,28 @@ class SettingsViewModel{
         return ColorManager.shared.currentTheme.colors.mapColor
     }
     
-    var setColor: UIColor {
-        return ColorManager.shared.currentTheme.colors.setColor
+    var setTopColor: UIColor {
+        return ColorManager.shared.currentTheme.colors.topColor
     }
     
-    var listColor: UIColor {
-        return ColorManager.shared.currentTheme.colors.listColor
+    var setBottomColor: UIColor {
+        return ColorManager.shared.currentTheme.colors.bottomColor
+    }
+    
+    
+    var listTopColor: UIColor {
+        return ColorManager.shared.currentTheme.colors.topColor
+    }
+    
+    var listBottomColor: UIColor {
+        return ColorManager.shared.currentTheme.colors.bottomColor
+    }
+    
+    var fontColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.fontColor
+    }
+    var backgroundColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.backGroundColor
     }
     
     

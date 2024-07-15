@@ -19,20 +19,17 @@ class FlashcardViewModel{
         self.flashcard = flashcard
     }
     
+    var background:UIColor{
+        ColorManager.shared.currentTheme.colors.backGroundColor
+    }
+    
+    
     var id: UUID{
         flashcard.id
     }
     
-    var setBackgroundColor:UIColor{
-        return ColorManager.shared.currentTheme.colors.setColor
-        
-    }
-    
-    var listBackgroundColor:UIColor{
-        return ColorManager.shared.currentTheme.colors.listColor
-
-        
-    }
+  
+ 
     
     var front:String{
         flashcard.front
@@ -48,6 +45,21 @@ class FlashcardViewModel{
     
     func setBackString(back: String){
         flashcard.back = back
+    }
+    
+    var topBackgroundColor:UIColor{
+       // return ColorManager.shared.currentTheme.colors.setColor
+        return ColorManager.shared.currentTheme.colors.topColor
+    }
+    
+    var bottomBackgroundColor:UIColor{
+       // return ColorManager.shared.currentTheme.colors.listColor
+        return ColorManager.shared.currentTheme.colors.bottomColor
+        
+    }
+    
+    var fontColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.fontColor
     }
     
     

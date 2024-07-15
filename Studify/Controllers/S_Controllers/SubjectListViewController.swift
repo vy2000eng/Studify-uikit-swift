@@ -24,6 +24,7 @@ class SubjectListViewController: UIViewController, AddNewSubjectToSubjectListVie
         v.delegate = self
         v.dataSource = self
         v.isScrollEnabled = true
+        v.backgroundColor = .clear
         return v
     }()
     let viewModel = SubjectListViewModel()
@@ -31,10 +32,19 @@ class SubjectListViewController: UIViewController, AddNewSubjectToSubjectListVie
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(applyTheme), name: .themeDidChange, object: nil)
-
+        view.backgroundColor = viewModel.background
         print("loaded")
         title = "Subjects"
+
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewModel.fontColor]
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewModel.fontColor]
+
+        navigationController?.navigationBar.barTintColor = viewModel.background
         navigationController?.navigationBar.prefersLargeTitles = true
+
+        
+        
+        
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
         navigationItem.leftBarButtonItem = createSettingsBarButtonItem()
         view.addSubview(collectionView)
@@ -92,6 +102,7 @@ extension SubjectListViewController{
     }
     @objc
     func applyTheme(){
+        view.backgroundColor = viewModel.background
         collectionView.reloadSections(IndexSet(integer: 0))
     }
 }

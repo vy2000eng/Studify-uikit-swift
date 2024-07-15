@@ -36,4 +36,8 @@ struct MapViewModel:Hashable{
         return ColorManager.shared.currentTheme.colors.mapColor
         
     }
+    
+    var fontColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.fontColor
+    }
 }

@@ -32,7 +32,17 @@ extension MapViewCell{
 //        mainContentView.backgroundColor = warmClouds.lightPrimary
 //    }
     func configure(with map: MapViewModel){
+        mainContentView.layer.borderColor = ColorManager.shared.currentTheme.colors.backGroundColor == .black ?  UIColor.white.withAlphaComponent(0.1).cgColor :  UIColor.black.withAlphaComponent(0.1).cgColor
+
+        
+        
         mainContentView.backgroundColor = map.backGroundColor
+        topicNameLabel.textColor = map.fontColor
+        countLabel.textColor = map.fontColor
+        createdOnLabel.textColor = map.fontColor
+        
+        
+        
         topicNameLabel.text = map.title
         countLabel.text = "📍 \(map.mindMapCount) maps"
         createdOnLabel.text = "🕒 Created \(map.createdOn.formatted(date: .abbreviated, time: .shortened))"

@@ -49,6 +49,7 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
         }
         
         let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        v.backgroundColor = .clear
         v.translatesAutoresizingMaskIntoConstraints = false
         
         v.register(FlashCardSetCollectionViewCell.self, forCellWithReuseIdentifier: "setCell")
@@ -66,6 +67,11 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
     override func viewDidLoad() {
         super.viewDidLoad()
         print("set view loaded")
+        view.backgroundColor = viewmodel.background
+
+        
+        
+       // collectionView.backgroundColor = viewmodel.background
         setupView()
     }
     
@@ -90,7 +96,7 @@ extension FlashCardSetViewController{
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 65),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
     

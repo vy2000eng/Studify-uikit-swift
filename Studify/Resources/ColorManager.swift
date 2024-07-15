@@ -28,7 +28,7 @@ class ColorManager{
     // private(set) var currentTheme: AppTheme
     
     private init() {
-        self.currentTheme = .themeOne
+        self.currentTheme = .superNova
         
         if let loadedTheme = loadTheme() {
             self.currentTheme = loadedTheme
@@ -50,7 +50,7 @@ class ColorManager{
            let savedTheme = AppTheme(rawValue: savedThemeRawValue) {
             return savedTheme
         }
-        return .themeOne // Default theme
+        return .superNova// Default theme
     }
     
     

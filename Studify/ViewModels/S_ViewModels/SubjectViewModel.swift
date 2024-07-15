@@ -37,6 +37,12 @@ struct SubjectViewModel{
         subject.addedFirst
     }
     var backgroundColor: UIColor{
+        ColorManager.shared.currentTheme.colors.backGroundColor
+    }
+    var subjectBackgroundColor:UIColor{
         ColorManager.shared.currentTheme.colors.subjectColor
+    }
+    var subjectFontColor:UIColor{
+        ColorManager.shared.currentTheme.colors.fontColor
     }
 }

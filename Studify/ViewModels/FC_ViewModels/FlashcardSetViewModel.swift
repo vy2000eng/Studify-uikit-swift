@@ -46,6 +46,10 @@ class FlashcardSetViewModel{
         flashcards.count
     }
     
+    var background:UIColor{
+        ColorManager.shared.currentTheme.colors.backGroundColor
+    }
+    
 
     
     init(topicID: UUID) {

@@ -114,8 +114,11 @@ extension FlashCardListCollectionViewCell{
     }
     
     func configure(flashCard: FlashcardViewModel){
-        topContentView.backgroundColor = flashCard.setBackgroundColor
-        bottomContentView.backgroundColor = flashCard.listBackgroundColor
+        topContentView.backgroundColor = flashCard.topBackgroundColor
+        bottomContentView.backgroundColor = flashCard.bottomBackgroundColor
+        termLabel.textColor = flashCard.fontColor
+        defLabel.textColor = flashCard.fontColor
+
         termLabel.text = flashCard.front
         termLabel.font = UIFont(name: "Helvetica-Bold", size: 15)
         defLabel.text = flashCard.back

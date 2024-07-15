@@ -43,7 +43,7 @@ class SubejctListViewCell: SwipeCollectionViewCell {
     lazy var createdOnLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .secondaryLabel
+        //label.textColor =
         return label
     }()
 
@@ -55,8 +55,8 @@ class SubejctListViewCell: SwipeCollectionViewCell {
         mainContentView.layer.shadowOffset = CGSize(width: 0, height: 1)
         mainContentView.layer.shadowOpacity = 0.2
         mainContentView.layer.shadowRadius = 1.0
-        mainContentView.layer.borderWidth = 1
-        mainContentView.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
+        mainContentView.layer.borderWidth = 2
+       // mainContentView.layer.borderColor =  UIColor.white.withAlphaComponent(0.1).cgColor
         mainContentView.layer.cornerRadius = 2
         return mainContentView
     }()
@@ -95,11 +95,22 @@ class SubejctListViewCell: SwipeCollectionViewCell {
     }
 
     func configure(with subject: SubjectViewModel) {
-        mainContentView.backgroundColor = subject.backgroundColor
+        mainContentView.layer.borderColor = ColorManager.shared.currentTheme.colors.backGroundColor == .black ?  UIColor.white.withAlphaComponent(0.1).cgColor :  UIColor.black.withAlphaComponent(0.1).cgColor
+
+        
+        mainContentView.backgroundColor = subject.subjectBackgroundColor
+        subjectNameLabel.textColor = subject.subjectFontColor
         subjectNameLabel.text = subject.name
+        
         topicsCountLabel.text = "📄 \(subject.topicsCount) sets"
+        topicsCountLabel.textColor = subject.subjectFontColor
+        
         mapsCountLabel.text = "📍 \(subject.mapsCount) maps"
+        mapsCountLabel.textColor = subject.subjectFontColor
+        
         createdOnLabel.text = "🕒 Created \(subject.createdOn.formatted(date: .abbreviated, time: .shortened))"
+        createdOnLabel.textColor = subject.subjectFontColor
+        
     }
 }
 

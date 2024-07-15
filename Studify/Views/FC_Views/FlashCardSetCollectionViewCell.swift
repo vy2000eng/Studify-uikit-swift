@@ -65,7 +65,8 @@ class FlashCardSetCollectionViewCell: UICollectionViewCell {
         print("prepare for reuse")
         
         super.prepareForReuse()
-        return mainView.backgroundColor = ColorManager.shared.currentTheme.colors.setColor.withAlphaComponent(0.5)
+        mainView.backgroundColor = ColorManager.shared.currentTheme.colors.topColor
+      //  return mainView.backgroundColor = ColorManager.shared.currentTheme.colors.setColor.withAlphaComponent(0.5)
     }
     
     override init(frame: CGRect) {
@@ -135,13 +136,15 @@ extension FlashCardSetCollectionViewCell{
     
     func configure(flashcard: FlashcardViewModel, bottomTopStyle:Int ){
         let termLabelFontSize : CGFloat = bottomTopStyle == 0 ? 12 : 8
-        mainView.backgroundColor = flashcard.setBackgroundColor.withAlphaComponent(0.5)
+        //mainView.backgroundColor = flashcard.setBackgroundColor.withAlphaComponent(0.5)
+        mainView.backgroundColor = flashcard.topBackgroundColor
+        termText.textColor = flashcard.fontColor
         
         let text = flashcard.isShowingFront ? flashcard.front : flashcard.back
         termText.text = text
         
+        
         let fontSize = determineFontSize(for: text, topBottomStyle:  bottomTopStyle)
-        termText.font = UIFont(name: "Helvetica", size: fontSize)
         termLabel.font = UIFont(name: "Helvetica-Bold", size: termLabelFontSize)
         termLabel.text = flashcard.isShowingFront ? "term" : "def"
         termText.font = UIFont(name:"Helvetica", size: fontSize)

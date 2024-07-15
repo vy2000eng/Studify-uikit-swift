@@ -56,8 +56,10 @@ class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewCo
         let layout = UICollectionViewCompositionalLayout {  sectionIndex, enviroment in
             return self.flashcardSet()
         }
-        
+
         let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        v.backgroundColor = .clear
+
         v.translatesAutoresizingMaskIntoConstraints = false
         v.register(FlashCardListCollectionViewCell.self, forCellWithReuseIdentifier: "listCell")
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector( handleLongPress(gesture:)))
@@ -71,7 +73,11 @@ class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewCo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.barTintColor = viewmodel.background == .white ? .white : .black
+
         navigationItem.title = "List View"
+        view.backgroundColor = viewmodel.background
+
         setup()
     }
     override func viewDidAppear(_ animated: Bool) {

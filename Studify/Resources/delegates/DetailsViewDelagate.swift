@@ -172,8 +172,10 @@ extension TopicMapViewController: UICollectionViewDelegate{
             vc.flashcardSetViewController.delegate = self
             vc.flashcardListViewController.delegate = self
             let navigationController = UINavigationController(rootViewController: vc)
+            
  
             navigationController.modalPresentationStyle = .fullScreen
+           // navigationController.navigationBar.backgroundColor = viewmodel.background
             present(navigationController, animated: true)
         }
     }

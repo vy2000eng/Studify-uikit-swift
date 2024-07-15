@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 class SubjectListViewModel{
@@ -13,6 +14,14 @@ class SubjectListViewModel{
     
     var numberOfSubjects:Int{
         subjects.count
+    }
+    
+    var background:UIColor{
+        ColorManager.shared.currentTheme.colors.backGroundColor
+    }
+    
+    var fontColor:UIColor{
+        ColorManager.shared.currentTheme.colors.fontColor
     }
     
     init(){

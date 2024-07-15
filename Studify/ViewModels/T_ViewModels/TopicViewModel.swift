@@ -37,6 +37,9 @@ struct TopicViewModel:Hashable{
         
     }
 
+    var fontColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.fontColor
+    }
     
     
     

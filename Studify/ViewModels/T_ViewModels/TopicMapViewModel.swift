@@ -22,6 +22,7 @@ class Sections{
 }
 
 import Foundation
+import UIKit
 class TopicMapViewModel{
     
     var subjectID: UUID
@@ -62,6 +63,10 @@ class TopicMapViewModel{
             self.sections = []
             break
         }
+    }
+    
+    var background:UIColor{
+        ColorManager.shared.currentTheme.colors.backGroundColor
     }
     
     var bothSectionEmpty:Bool{
