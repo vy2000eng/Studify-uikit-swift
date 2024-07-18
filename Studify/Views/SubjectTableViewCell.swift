@@ -12,6 +12,7 @@ import SwipeCellKit
 
 class SubejctListViewCell: SwipeCollectionViewCell {
     private lazy var stackView: UIStackView = {
+       
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 6
@@ -19,31 +20,31 @@ class SubejctListViewCell: SwipeCollectionViewCell {
         return stack
     }()
 
-     lazy var subjectNameLabel: UILabel = {
+    lazy var subjectNameLabel: UILabel = {
+       
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        label.textColor = .label
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-     lazy var topicsCountLabel: UILabel = {
+    lazy var topicsCountLabel: UILabel = {
+       
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .secondaryLabel
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var mapsCountLabel: UILabel = {
-       let label = UILabel()
-       label.font = UIFont.systemFont(ofSize: 14)
-       label.textColor = .secondaryLabel
-       return label
-   }()
+       
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     lazy var createdOnLabel: UILabel = {
+        
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        //label.textColor =
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -51,12 +52,10 @@ class SubejctListViewCell: SwipeCollectionViewCell {
        
         let mainContentView = UIView()
         mainContentView.translatesAutoresizingMaskIntoConstraints = false
-      //  mainContentView.backgroundColor = OceanSandTheme.lightPrimary
         mainContentView.layer.shadowOffset = CGSize(width: 0, height: 1)
         mainContentView.layer.shadowOpacity = 0.2
         mainContentView.layer.shadowRadius = 1.0
         mainContentView.layer.borderWidth = 2
-       // mainContentView.layer.borderColor =  UIColor.white.withAlphaComponent(0.1).cgColor
         mainContentView.layer.cornerRadius = 2
         return mainContentView
     }()
@@ -69,6 +68,7 @@ class SubejctListViewCell: SwipeCollectionViewCell {
     }
 
     required init?(coder: NSCoder) {
+        
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -82,6 +82,7 @@ class SubejctListViewCell: SwipeCollectionViewCell {
         stackView.addArrangedSubview(createdOnLabel)
         
         NSLayoutConstraint.activate([
+            
             mainContentView.topAnchor.constraint(equalTo: contentView.topAnchor),
             mainContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             mainContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
@@ -95,25 +96,49 @@ class SubejctListViewCell: SwipeCollectionViewCell {
     }
 
     func configure(with subject: SubjectViewModel) {
+        
         mainContentView.layer.borderColor = ColorManager.shared.currentTheme.colors.backGroundColor == .black ?  UIColor.white.withAlphaComponent(0.1).cgColor :  UIColor.black.withAlphaComponent(0.1).cgColor
-
         
+        mainContentView.layer.borderColor = ColorManager.shared.currentTheme.colors.backGroundColor == .black
+        ? UIColor.white.withAlphaComponent(0.1).cgColor
+        : UIColor.black.withAlphaComponent(0.1).cgColor
         mainContentView.backgroundColor = subject.subjectBackgroundColor
-        subjectNameLabel.textColor = subject.subjectFontColor
-        subjectNameLabel.text = subject.name
         
-        topicsCountLabel.text = "📄 \(subject.topicsCount) sets"
-        topicsCountLabel.textColor = subject.subjectFontColor
+        let secondaryColor = subject.fontColorSecondary
+        let subtitleFont = subject.subtitleFont
         
-        mapsCountLabel.text = "📍 \(subject.mapsCount) maps"
-        mapsCountLabel.textColor = subject.subjectFontColor
+        subjectNameLabel.attributedText = .create(string: subject.name, font: subject.titleFont, color: subject.fontColor)
+        topicsCountLabel.attributedText = .create(string: "📄 \(subject.topicsCount) sets", font: subtitleFont, color: secondaryColor)
+        mapsCountLabel.attributedText = .create(string: "📍 \(subject.mapsCount) maps", font: subtitleFont, color: secondaryColor)
         
-        createdOnLabel.text = "🕒 Created \(subject.createdOn.formatted(date: .abbreviated, time: .shortened))"
-        createdOnLabel.textColor = subject.subjectFontColor
-        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        let formattedDate = dateFormatter.string(from: subject.createdOn)
+        createdOnLabel.attributedText = .create(string: "🕒 \(formattedDate)", font: subtitleFont, color: secondaryColor)
     }
 }
 
+
+extension NSAttributedString {
+    static func create(string: String, font: UIFont, color: UIColor) -> NSAttributedString {
+        return NSAttributedString(string: string, attributes: [.font: font, .foregroundColor: color])
+    }
+}
+//MARK: just for reference
+// subjectNameLabel.textColor = subject.fontColor
+//subjectNameLabel.text = subject.name
+
+//        topicsCountLabel.text = "📄 \(subject.topicsCount) sets"
+//        topicsCountLabel.textColor = subject.fontColorSecondary
+
+//        mapsCountLabel.text = "📍 \(subject.mapsCount) maps"
+//        mapsCountLabel.textColor = subject.fontColorSecondary
+
+//        createdOnLabel.text = "🕒 \(subject.createdOn.formatted(date: .numeric, time: .omitted)) at \(subject.createdOn.formatted(date: .omitted, time: .shortened)) "
+//        createdOnLabel.textColor = subject.fontColorSecondary
+
+//MARK: just for reference
 //class SubjectTableViewCell: UICollectionViewCell {
 //    
 //    lazy var subjectNameLabel: UILabel = {

@@ -33,15 +33,17 @@ class AddNewMapViewController: UIViewController{
     lazy var MapNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "map name"
+       // label.text = "map name"
         return label
     }()
     
     lazy var textField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "enter a map title"
+        //textField.placeholder = "enter a map title"
         textField.borderStyle = .roundedRect
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 2
         return textField
         
     }()
@@ -55,8 +57,32 @@ class AddNewMapViewController: UIViewController{
 
 extension AddNewMapViewController{
     private func setup(){
-        view.backgroundColor = UIColor.systemBackground
-        title = "Add new map"       
+        view.backgroundColor = viewModel.currentTheme.backGroundColor
+       // title = "Add new topic"
+        textField.textColor = viewModel.currentTheme.fontColor
+        textField.font = viewModel.font
+        textField.attributedPlaceholder = NSAttributedString(string: "Enter Map Title", attributes: [.font: viewModel.font,
+                                                                                                         .foregroundColor:viewModel.fontColor.withAlphaComponent(0.5)
+                                                                                                        ])
+        textField.backgroundColor = viewModel.currentTheme.backGroundColor
+        textField.layer.borderColor = viewModel.currentTheme.backGroundColor == .black ? UIColor.white.withAlphaComponent(0.5).cgColor : UIColor.black.withAlphaComponent(0.5).cgColor
+       // MapNameLabel.textColor = viewModel.currentTheme.fontColor
+        MapNameLabel.attributedText = NSAttributedString(string: "Map Name",
+                                                         attributes: [.foregroundColor: viewModel.fontColor,
+                                                                      .font: viewModel.titleFont])
+        
+        
+      
+        title = "Add New Map"
+        
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.prefersLargeTitles = false // If you want a standard size title
+            navigationBar.titleTextAttributes = [
+                .foregroundColor: viewModel.fontColor,
+                .font: viewModel.titleFont
+            ]
+        }
+        
         setupAddButton()
         setupCloseButton()
         

@@ -42,7 +42,17 @@ struct SubjectViewModel{
     var subjectBackgroundColor:UIColor{
         ColorManager.shared.currentTheme.colors.subjectColor
     }
-    var subjectFontColor:UIColor{
+    var fontColor:UIColor{
         ColorManager.shared.currentTheme.colors.fontColor
+    }
+    
+    var fontColorSecondary:UIColor{
+        return ColorManager.shared.currentTheme.colors.fontColorSecondary
+    }
+    var titleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.primaryFont
+    }
+    var subtitleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.secondaryFont
     }
 }

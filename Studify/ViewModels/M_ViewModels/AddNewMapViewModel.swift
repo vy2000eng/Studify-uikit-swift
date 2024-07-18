@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 class AddNewMapViewModel{
@@ -16,6 +17,21 @@ class AddNewMapViewModel{
     
     func addMap(title:String){
         CoreDataManager.shared.addMapToSubject(title: title, subjectID: subjectID)
+    }
+    
+    var currentTheme:Theme{
+        ColorManager.shared.currentTheme.colors
+    }
+    
+    var fontColor:UIColor{
+        ColorManager.shared.currentTheme.colors.fontColor
+    }
+    var font:UIFont{
+        ColorManager.shared.currentTheme.colors.regularFont
+    }
+    
+    var titleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.primaryFont
     }
     
 }

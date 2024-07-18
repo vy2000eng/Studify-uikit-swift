@@ -49,6 +49,19 @@ class FlashcardSetViewModel{
     var background:UIColor{
         ColorManager.shared.currentTheme.colors.backGroundColor
     }
+    var fontColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.fontColor
+    }
+    var fontColorSecondary:UIColor{
+        return ColorManager.shared.currentTheme.colors.fontColorSecondary
+    }
+    
+    var titleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.primaryFont
+    }
+    var subtitleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.secondaryFont
+    }
     
 
     

@@ -11,43 +11,65 @@ protocol AddNewSubjectToSubjectListViewControllerDelegate:AnyObject{
     func didAddSubjectToList()
 }
 
+
+
 class AddNewSubjectViewController: UIViewController {
     
     lazy var SubjectNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Subject Name"
         return label
     }()
     
     lazy var textField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "enter a subject title"
         textField.borderStyle = .roundedRect
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 2
         return textField
         
     }()
     weak var addNewSubjectToSubjectListViewControllerDelegate : AddNewSubjectToSubjectListViewControllerDelegate?
     
     let viewModel = AddNewSubjectViewModel()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupSaveButton()
+        setupCloseButton()
     }
 }
 
 extension AddNewSubjectViewController{
     
     private func setupView(){
-        view.backgroundColor = UIColor.systemBackground
+        view.backgroundColor = viewModel.currentTheme.backGroundColor
+        textField.textColor = viewModel.currentTheme.fontColor
+        textField.font = viewModel.font
+
+        textField.attributedPlaceholder = NSAttributedString(string: "Enter Subject Title", attributes: [.font: viewModel.font,
+                                                                                                         .foregroundColor:viewModel.fontColor.withAlphaComponent(0.5)
+                                                                                                        ])
+        textField.backgroundColor = viewModel.currentTheme.backGroundColor
+        textField.layer.borderColor = viewModel.currentTheme.backGroundColor == .black ? UIColor.white.withAlphaComponent(0.5).cgColor : UIColor.black.withAlphaComponent(0.5).cgColor
+        SubjectNameLabel.attributedText = NSAttributedString(string: "Subject Name",
+                                                           attributes: [.foregroundColor: viewModel.fontColor,
+                                                                        .font: viewModel.titleFont])
+      
         title = "Add new subject"
-        navigationItem.rightBarButtonItem =
-        UIBarButtonItem(
-            barButtonSystemItem: .save,
-            target: self,
-            action: #selector(saveSubject))
+        
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.prefersLargeTitles = false // If you want a standard size title
+            navigationBar.titleTextAttributes = [
+                .foregroundColor: viewModel.fontColor,
+                .font: viewModel.titleFont
+            ]
+        }
+
+        
         [SubjectNameLabel, textField]
             .forEach{
                 subViewToAdd in view.addSubview(subViewToAdd)
@@ -98,10 +120,36 @@ extension AddNewSubjectViewController{
             present(alert, animated: true)
             return
         }
+        
+        
+        
+        
+        
         let createdOn = Date()
         viewModel.addSubject(title: subjectName, createdOn: createdOn)
         addNewSubjectToSubjectListViewControllerDelegate?.didAddSubjectToList()
+        closeViewController()
+    }
+    @objc
+    private func closeViewController() {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension AddNewSubjectViewController{
+    private func setupCloseButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(closeViewController))
+    }
+    
+    private func setupSaveButton(){
+        navigationItem.rightBarButtonItem =
+        UIBarButtonItem(
+            barButtonSystemItem: .save,
+            target: self,
+            action: #selector(saveSubject))
         
-        navigationController?.popViewController(animated: true)
     }
 }

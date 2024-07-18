@@ -36,8 +36,11 @@ class SubjectListViewController: UIViewController, AddNewSubjectToSubjectListVie
         print("loaded")
         title = "Subjects"
 
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewModel.fontColor]
-        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewModel.fontColor]
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewModel.fontColor,
+                                                                   .font:viewModel.subtitleFont
+                                                                    ]
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewModel.fontColor,
+                                                                        .font: viewModel.titleFont]
 
         navigationController?.navigationBar.barTintColor = viewModel.background
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -91,7 +94,16 @@ extension SubjectListViewController{
     private func addNewSubject(){
         let vc = AddNewSubjectViewController()
         vc.addNewSubjectToSubjectListViewControllerDelegate = self
-        navigationController?.pushViewController(vc, animated: true)
+        let navigationController = UINavigationController(rootViewController: vc)
+        vc.view.backgroundColor = viewModel.background
+        print("add New Subject clicked")
+        
+
+      //  navigationController.modalPresentationStyle = .fullScreen
+       // navigationController.navigationBar.backgroundColor = viewmodel.background
+        present(navigationController, animated: true)
+        
+        //navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc
@@ -104,6 +116,12 @@ extension SubjectListViewController{
     func applyTheme(){
         view.backgroundColor = viewModel.background
         collectionView.reloadSections(IndexSet(integer: 0))
+        
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewModel.fontColor,
+                                                                   .font: viewModel.subtitleFont  ]
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewModel.fontColor,
+                                                                        .font:viewModel.titleFont    ]
+        navigationController?.navigationBar.barTintColor = viewModel.background
     }
 }
 

@@ -22,10 +22,6 @@ class TopicMapHeaderViewCell: UICollectionViewCell{
        let v = UILabel()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.backgroundColor = .clear
-       // v.font = UIFont(name: "HelveticaNeue-Italic", size: 15)
-        //v.textColor = UIColor.darkGray
-        
-
         return v
     }()
     

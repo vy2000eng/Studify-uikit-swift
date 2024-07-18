@@ -10,110 +10,74 @@ import UIKit
 
 
 class SettingsViewModel{
-   // let currentTheme = ColorManager.shared.currentTheme
-   // let setting  = Setting()
-    let title = ["SuperNova", "ThunderStorm", "StormySea"]
-    
-    let selectedRow = 0
-    
-    var currentTheme: AppTheme {
-         get { ColorManager.shared.currentTheme }
-        set { ColorManager.shared.setTheme(theme:newValue) }
-     }
-    
+    var isIntermediaryThemeDark : Bool
+    var currentTheme            : AppTheme
+    var currentFontTheme        : themeFont
+    let themeTitle              = ["SuperNova", "DarkPastel", "StormySea","CloudySunset"]
+    let fontTitle               = ["Avenir","BaskerVille", "Georgia", "HelveticaNeue","Verdana", "GillSans","Optima","AmericanTypeWriter","AppleSDGothicNeo","Damascus"]
+    let cellTitle               = ["Subject", "Topic", "Map", "Top Set", "Bottom Set", "Top List", "Bottom List"]
+    //let selectedRow             = 0
+  
+      
+    init() {
+        currentFontTheme = FontManager.shared.currentThemeFont
+        currentTheme = ColorManager.shared.currentTheme
+        isIntermediaryThemeDark = currentTheme.colors.backGroundColor == .black ? true:false
+    }
     
     func setTheme(theme: AppTheme){
         ColorManager.shared.setTheme(theme:theme)
-
+        currentTheme = ColorManager.shared.currentTheme
+        isIntermediaryThemeDark = currentTheme.colors.backGroundColor == .black ? true:false
     }
     
- 
+    func setFontTheme(themeFont: themeFont){
+        FontManager.shared.setThemeFont(themeFont:  themeFont)
+        currentFontTheme = FontManager.shared.currentThemeFont
+    }
     
     var subjectColor: UIColor {
-        return ColorManager.shared.currentTheme.colors.subjectColor
+        return currentTheme.colors.subjectColor
     }
     
     var topicColor: UIColor {
-        return ColorManager.shared.currentTheme.colors.topicColor
+        return currentTheme.colors.topicColor
     }
     
     var mapColor: UIColor {
-        return ColorManager.shared.currentTheme.colors.mapColor
+        return currentTheme.colors.mapColor
     }
     
-    var setTopColor: UIColor {
-        return ColorManager.shared.currentTheme.colors.topColor
+    var topColor: UIColor {
+        return currentTheme.colors.topColor
     }
     
-    var setBottomColor: UIColor {
-        return ColorManager.shared.currentTheme.colors.bottomColor
+    var bottomColor: UIColor {
+        return currentTheme.colors.bottomColor
     }
     
-    
-    var listTopColor: UIColor {
-        return ColorManager.shared.currentTheme.colors.topColor
+    var backgroundColor:UIColor{
+        return currentTheme.colors.backGroundColor
     }
     
-    var listBottomColor: UIColor {
-        return ColorManager.shared.currentTheme.colors.bottomColor
+    var primaryFont:UIFont{
+        return currentTheme.colors.primaryFont
+    }
+    
+    var secondaryFont:UIFont{
+        return currentTheme.colors.secondaryFont
+    }
+    
+    var tertiaryFont:UIFont{
+        return currentTheme.colors.tertiaryFont
     }
     
     var fontColor:UIColor{
-        return ColorManager.shared.currentTheme.colors.fontColor
+        return currentTheme.colors.fontColor
     }
-    var backgroundColor:UIColor{
-        return ColorManager.shared.currentTheme.colors.backGroundColor
-    }
-    
-    
 }
-//struct Setting{
-//    
-//    
-//   
-//    
-//    
-//    var subjectColor: UIColor {
-//        return ColorManager.shared.currentTheme.colors.subjectColor
-//    }
-//    
-//    var topicColor: UIColor {
-//        return ColorManager.shared.currentTheme.colors.topicColor
-//    }
-//    
-//    var mapColor: UIColor {
-//        return ColorManager.shared.currentTheme.colors.mapColor
-//    }
-//    
-//    var setColor: UIColor {
-//        return ColorManager.shared.currentTheme.colors.setColor
-//    }
-//    
-//    var listColor: UIColor {
-//        return ColorManager.shared.currentTheme.colors.listColor
-//    }
-//    
-//}
 
-//
-//struct Setting{
-//    let appTheme:AppTheme
-//    init(appTheme: AppTheme) {
-//        self.appTheme = appTheme
-//    }
-////    let subjectColor:UIColor
-////    let listColor:UIColor
-////    let topicColor:UIColor
-////    let mapColor:UIColor
-////    let setColor: UIColor
-////    
-////    init(theme: Theme) {
-////        self.subjectColor = theme.subjectColor
-////        self.listColor = theme.listColor
-////        self.topicColor = theme.topicColor
-////        self.mapColor = theme.mapColor
-////        self.setColor = theme.setColor
-////    }
-//    
-//    
-//}
+//    var currentTheme: AppTheme {
+//         get { ColorManager.shared.currentTheme }
+//        set { ColorManager.shared.setTheme(theme:newValue) }
+//     }

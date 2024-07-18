@@ -68,8 +68,20 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         NotificationCenter.default.addObserver(self, selector: #selector(applyTheme), name: .themeDidChange, object: nil)
         view.backgroundColor = viewmodel.background
         title = subjectTitle
-        navigationController?.navigationBar.barTintColor = viewmodel.background == .white ? .white : .black
+        
+        
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewmodel.fontColor,
+                                                                   .font:viewmodel.subtitleFont
+                                                                    ]
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewmodel.fontColor,
+                                                                        .font: viewmodel.titleFont]
+
+        navigationController?.navigationBar.barTintColor = viewmodel.background
         navigationController?.navigationBar.prefersLargeTitles = true
+
+        
+       
+        
         
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
         view.addSubview(collectionView)
@@ -87,7 +99,16 @@ extension TopicMapViewController{
     @objc
     func applyTheme(){
         view.backgroundColor = viewmodel.background
-        //collectionView.reloadData()
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewmodel.fontColor,
+                                                                   .font:viewmodel.subtitleFont
+                                                                    ]
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewmodel.fontColor,
+                                                                        .font: viewmodel.titleFont]
+
+        navigationController?.navigationBar.barTintColor = viewmodel.background
+        navigationController?.navigationBar.prefersLargeTitles = true
+       
+        collectionView.reloadData()
 
 
     }

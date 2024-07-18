@@ -23,6 +23,15 @@ class SubjectListViewModel{
     var fontColor:UIColor{
         ColorManager.shared.currentTheme.colors.fontColor
     }
+    var titleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.primaryFont
+    }
+    var subtitleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.secondaryFont
+
+        
+    }
+
     
     init(){
         getAllSubjects()

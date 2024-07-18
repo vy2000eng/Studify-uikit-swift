@@ -9,327 +9,138 @@ import Foundation
 import UIKit
 
 
-enum selectedRow{
-    case one, two,three,four
-}
-
-class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+class SettingsViewController: UIViewController{
     
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        3
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return viewmodel.title[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-
-        switch(row){
-        case 0:
-            //viewmodel.setTheme(theme: AppTheme.superNova)
-            //resetColor(theme: AppTheme.themeOne)
-            resetColor(theme: AppTheme.superNova)
-            break
-            
-        case 1:
-            resetColor(theme: AppTheme.thunderStorm)
-            break
-        case 2:
-            resetColor(theme: AppTheme.stormySea)
-            break
-            
-
-           // viewmodel.setTheme(theme: AppTheme.thunderStorm)
-//        case 1:
-//            //viewmodel.setTheme(theme: AppTheme.oceanSand)
-//            resetColor(theme: AppTheme.oceanSand)
-//
-//            break
-//        case 2:
-//            //viewmodel.setTheme(theme: AppTheme.warmClouds)
-//            resetColor(theme: AppTheme.warmClouds)
-//
-//            break
-//        case 3:
-//           // viewmodel.setTheme(theme: AppTheme.warmTreeTones)
-//            resetColor(theme: AppTheme.warmTreeTones)
-//            break
-//        case 4:
-//            resetColor(theme: AppTheme.mildWinter)
-//            break
-//        case 5:
-//            resetColor(theme: AppTheme.royalty)
-//            break
-//            
-        default:
-            fatalError("couldn't select a color")
-        }
-        
-    }
-
-    
-    
+    var currentTheme = ColorManager.shared.currentTheme
     let viewmodel = SettingsViewModel()
+    let settingCardView :SettingsCardsView
+    let labels: [UILabel]
     
-   
-    lazy var vstack: UIStackView = {
-       let vstack = UIStackView()
-        vstack.translatesAutoresizingMaskIntoConstraints = false
-        vstack.axis = .vertical
-        vstack.spacing = 10
-        vstack.distribution = .fillEqually
-        return vstack
-    }()
-    
-    lazy var subjectlabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    init() {
         
-    }()
-    
-    lazy var topiclabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        settingCardView = SettingsCardsView(settingViewmodel: viewmodel, frame: .zero)
         
-    }()
-    
-    lazy var maplabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        labels = [settingCardView.subjectlabel,
+                  settingCardView.topiclabel,
+                  settingCardView.maplabel,
+                  settingCardView.topSetlabel,
+                  settingCardView.bottomSetlabel,
+                  settingCardView.topListlabel,
+                  settingCardView.bottomListlabel]
         
-    }()
- 
-    lazy var setVstack: UIStackView = {
-        let setStackView = UIStackView()
-        setStackView.translatesAutoresizingMaskIntoConstraints = false
-        setStackView.axis = .vertical
-        setStackView.distribution = .fillEqually
-        return setStackView
-    }()
-    
-    lazy var topSetlabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        super.init(nibName: nil, bundle: nil)
         
-    }()
-    lazy var bottomSetlabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-        
-    }()
+    }
     
-
-    
-    lazy var listVstack:UIStackView = {
-        var listStackView = UIStackView()
-        listStackView.translatesAutoresizingMaskIntoConstraints = false
-        listStackView.axis = .vertical
-        listStackView.distribution = .fillEqually
-        return listStackView
-    }()
-    
-    
-//    lazy var listlabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//        
-//    }()
-    lazy var topListlabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-        
-    }()
-    lazy var bottomListlabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-        
-    }()
-
-    lazy var colorPicker:UIPickerView = {
-        let picker = UIPickerView()
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        picker.delegate = self
-        picker.dataSource = self
-        return picker
-        
-    }()
-    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Settings"
-        view.backgroundColor = .systemBackground
+       // title = "Settings"
+        
+        
         navigationItem.rightBarButtonItem  = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTheme))
         setup()
     }
-    
-    
-    
-    
-    
-}
-
-struct ColorItem{
-    let label: UILabel
-    let color: UIColor
-    let title: String
-
 }
 extension SettingsViewController{
+    
     private func setup(){
-        view.backgroundColor = viewmodel.backgroundColor
-        view.addSubview(vstack)
-        
+        view.backgroundColor =  currentTheme.colors.backGroundColor
 
-        vstack.addArrangedSubview(colorPicker)
-        vstack.addArrangedSubview(subjectlabel)
-        vstack.addArrangedSubview(topiclabel)
-        vstack.addArrangedSubview(maplabel)
-        vstack.addArrangedSubview(setVstack)
-        vstack.addArrangedSubview(listVstack)
         
-//        setlabel.addSubview(topSetlabel)
-//        setlabel.addSubview(bottomSetlabel)
-//        listlabel.addSubview(topListlabel)
-//        listlabel.addSubview(bottomListlabel)
+  //      title = "Settings"
         
-        setVstack.addArrangedSubview(topSetlabel)
-        setVstack.addArrangedSubview(bottomSetlabel)
+//        if let navigationBar = navigationController?.navigationBar {
+//            navigationBar.prefersLargeTitles = true // If you want a standard size title
+//            navigationBar.titleTextAttributes = [
+//                .foregroundColor: viewmodel.fontColor,
+//                .font: viewmodel.primaryFont
+//            ]
+//        }
         
-        listVstack.addArrangedSubview(topListlabel)
-        listVstack.addArrangedSubview(bottomListlabel)
+        setupTitle(theme: viewmodel.currentTheme)
         
         
+        settingCardView.colorPicker.delegate = self
+        settingCardView.colorPicker.dataSource = self
+        //settingCardView.backgroundColor =  viewmodel.backgroundColor
+        settingCardView.translatesAutoresizingMaskIntoConstraints = false
+        settingCardView.colorPicker.selectRow(viewmodel.currentTheme.rawValue, inComponent: 0, animated: false)
+        settingCardView.colorPicker.selectRow(viewmodel.currentFontTheme.rawValue, inComponent: 1, animated: false)
         
-        
-        colorPicker.selectRow(viewmodel.currentTheme.rawValue, inComponent: 0, animated: false)
-        
-        subjectlabel.backgroundColor = viewmodel.subjectColor
-        topiclabel.backgroundColor = viewmodel.topicColor
-        maplabel.backgroundColor = viewmodel.mapColor
-        
-        topSetlabel.backgroundColor = viewmodel.setTopColor
-        bottomSetlabel.backgroundColor = viewmodel.setBottomColor
-        
-        topListlabel.backgroundColor = viewmodel.listTopColor
-        bottomListlabel.backgroundColor = viewmodel.listBottomColor
-        
-        
-        subjectlabel.text = "Subject"
-        subjectlabel.textColor = viewmodel.fontColor
-        
-        topiclabel.text = "Topic"
-        topiclabel.textColor = viewmodel.fontColor
-        
-        maplabel.text = "map"
-        maplabel.textColor = viewmodel.fontColor
-        
-        topSetlabel.text = "Top Set"
-        topSetlabel.textColor = viewmodel.fontColor
-        
-        bottomSetlabel.text = "Bottom Set"
-        bottomSetlabel.textColor = viewmodel.fontColor
-        
-        topListlabel.text = "Top List"
-        topListlabel.textColor = viewmodel.fontColor
-        
-        bottomListlabel.text = "Bottom List"
-        bottomListlabel.textColor = viewmodel.fontColor
-
+        view.addSubview(settingCardView)
         setupConstraints()
-
     }
-    private func setupConstraints(){
-        NSLayoutConstraint.activate([
-            
-            vstack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            vstack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            vstack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            vstack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-
-            
-        ])
+    
+    func setupTitle(theme: AppTheme){
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.prefersLargeTitles = true // If you want a standard size title
+            navigationBar.largeTitleTextAttributes = [
+                .foregroundColor: theme.colors.fontColor,
+                .font: theme.colors.primaryFont
+            ]
         
-        
-    }
-    @objc
-    private func saveTheme(){
-        
-        if let theme = AppTheme(rawValue:  colorPicker.selectedRow(inComponent: 0)) {
-            ColorManager.shared.setTheme(theme:theme)
-           // viewmodel.selectedRow =
-            //resetColor(theme: viewmodel.currentTheme)
-            navigationController?.popViewController(animated: true)
-            //resetColor()
+            // Force refresh of the navigation item
+            navigationItem.title = nil
+            navigationItem.title = "Settings"
         }
         
     }
     
-    func resetColor(theme: AppTheme){
-        //        let labelArr = [ColorItem(label: subjectlabel, color: theme.colors.subjectColor, title: "Subject"),
-        //                        ColorItem(label: topiclabel, color: theme.colors.topicColor, title: "Topic"),
-        //                        ColorItem(label: maplabel, color:theme.colors.mapColor, title: "Map"),
-        //                        ColorItem(label: setlabel, color: theme.colors.setColor, title: "Set"),
-        //                        ColorItem(label: listlabel, color: theme.colors.listColor, title: "List")]
-        //
-        //        for label in labelArr{
-        //            label.label.backgroundColor = label.color
-        //
-        view.backgroundColor = viewmodel.backgroundColor
-
-        
-        subjectlabel.backgroundColor =           theme.colors.subjectColor
-        topiclabel.backgroundColor =             theme.colors.topicColor
-        maplabel.backgroundColor =               theme.colors.mapColor
-       
-        topSetlabel.backgroundColor =            theme.colors.topColor
-        bottomSetlabel.backgroundColor =         theme.colors.bottomColor
-       
-        topListlabel.backgroundColor =           theme.colors.topColor
-        bottomListlabel.backgroundColor =        theme.colors.bottomColor
-        
-        
-        //subjectlabel.text = "Subject"
-        subjectlabel.textColor =                    theme.colors.fontColor
-        
-       // topiclabel.text = "Topic"
-        topiclabel.textColor =                      theme.colors.fontColor
-        
-        maplabel.textColor = theme.colors.fontColor
-        
-        //topSetlabel.text = "Top Set"
-        topSetlabel.textColor =                     theme.colors.fontColor
-        
-        //bottomSetlabel.text = "Bottom Set"
-        bottomSetlabel.textColor =                   theme.colors.fontColor
-        
-        //topListlabel.text = "Top List"
-        topListlabel.textColor =                     theme.colors.fontColor
-        
-        //bottomListlabel.text = "Bottom List"
-        bottomListlabel.textColor =                 theme.colors.fontColor
-        
-        
+    private func setupConstraints(){
+        NSLayoutConstraint.activate([
+            settingCardView.topAnchor.constraint(equalTo: view.topAnchor),
+            settingCardView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            settingCardView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            settingCardView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            
+        ])
     }
     
-    
-    
-    
+    @objc
+    private func saveTheme(){
+
+        let alert = UIAlertController(
+            title: "Confirmation",
+            message: "Are you sure you want to apply these changes?",
+            preferredStyle: .alert)
+        alert.addAction(
+            UIAlertAction(
+                title: "Cancel",
+                style: .destructive,
+                handler: {[weak self] UIAlertAction in
+                    guard let self = self else {
+                        return
+                    }
+                    dismiss(animated: true)
+                }
+            ))
+        alert.addAction(
+            UIAlertAction(
+                title: "Apply Theme",
+                style: .default,
+                handler: {[weak self] UIAlertAction in
+                    
+                    guard let self = self else {
+                        return
+                    }
+                    
+                    if let fontTheme = themeFont(rawValue:  settingCardView.colorPicker.selectedRow(inComponent: 1)){
+                        viewmodel.setFontTheme(themeFont: fontTheme)
+                    }
+                    if let theme = AppTheme(rawValue: settingCardView.colorPicker.selectedRow(inComponent: 0)) {
+                        viewmodel.setTheme(theme: theme)
+                        
+                    }
+                    navigationController?.popViewController(animated: true)
+                }
+                
+            ))
+        present(alert, animated: true)
+    }
 }
     
 

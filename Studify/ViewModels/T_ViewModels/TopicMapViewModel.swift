@@ -69,6 +69,22 @@ class TopicMapViewModel{
         ColorManager.shared.currentTheme.colors.backGroundColor
     }
     
+    
+    var fontColor:UIColor{
+        ColorManager.shared.currentTheme.colors.fontColor
+    }
+    var titleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.primaryFont
+    }
+    var subtitleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.secondaryFont
+
+        
+    }
+    
+    
+    
+    
     var bothSectionEmpty:Bool{
         return (numberOfTopics == 0 && numberOfMaps == 0) ? true: false
     }
