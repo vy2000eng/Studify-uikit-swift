@@ -12,6 +12,7 @@ import UIKit
 class SettingsViewController: UIViewController{
     
     var currentTheme = ColorManager.shared.currentTheme
+    var currentFont = FontManager.shared.currentThemeFont
     let viewmodel = SettingsViewModel()
     let settingCardView :SettingsCardsView
     let labels: [UILabel]
@@ -49,24 +50,12 @@ extension SettingsViewController{
     
     private func setup(){
         view.backgroundColor =  currentTheme.colors.backGroundColor
-
-        
-  //      title = "Settings"
-        
-//        if let navigationBar = navigationController?.navigationBar {
-//            navigationBar.prefersLargeTitles = true // If you want a standard size title
-//            navigationBar.titleTextAttributes = [
-//                .foregroundColor: viewmodel.fontColor,
-//                .font: viewmodel.primaryFont
-//            ]
-//        }
         
         setupTitle(theme: viewmodel.currentTheme)
         
         
         settingCardView.colorPicker.delegate = self
         settingCardView.colorPicker.dataSource = self
-        //settingCardView.backgroundColor =  viewmodel.backgroundColor
         settingCardView.translatesAutoresizingMaskIntoConstraints = false
         settingCardView.colorPicker.selectRow(viewmodel.currentTheme.rawValue, inComponent: 0, animated: false)
         settingCardView.colorPicker.selectRow(viewmodel.currentFontTheme.rawValue, inComponent: 1, animated: false)
