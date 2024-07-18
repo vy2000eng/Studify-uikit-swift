@@ -19,6 +19,8 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
     let subjectIndexPath: IndexPath
     var subjectTitle: String
     var isRowSectionCollapsed = false
+    private var optionsMenu: UIMenu?
+
     weak var updateTopicAndMapCountInSubjectCollectionViewDelegate: UpdateTopicAndMapCountInSubjectCollectionViewDelegate?
     
     init( subject: SubjectViewModel, subjectIndexPath:IndexPath){
@@ -71,18 +73,14 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         
         
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewmodel.fontColor,
-                                                                   .font:viewmodel.subtitleFont
-                                                                    ]
+                                                                   .font:viewmodel.subtitleFont ]
+        
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewmodel.fontColor,
                                                                         .font: viewmodel.titleFont]
 
         navigationController?.navigationBar.barTintColor = viewmodel.background
         navigationController?.navigationBar.prefersLargeTitles = true
 
-        
-       
-        
-        
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
         view.addSubview(collectionView)
         setupConstraints()
@@ -124,6 +122,8 @@ extension TopicMapViewController{
     }
     
     func createOptionsBarButtonItem() -> UIBarButtonItem {
+        
+        
         let addATopicAction = UIAction(title: "add topic", image: UIImage(systemName: "doc")) { _ in
             let vc = AddNewTopicViewController(subjectID: self.viewmodel.subjectID)
             vc.delegate = self
@@ -139,14 +139,74 @@ extension TopicMapViewController{
             let navController = UINavigationController(rootViewController: vc)
 
             self.present(navController,animated: true)
-           // self.navigationController?.pushViewController(vc, animated: true)
             print("add map")
         }
+         
         
-        let menu = UIMenu(title: "add options", children: [addATopicAction, addMapAction])
+        let whichSectionFirstAction = viewmodel.sectionsCount >= 2
+        ? UIAction(title: viewmodel.topicMapPrecedence == 0 ? "Maps Section First" : "Topic Section First", image: UIImage(systemName: "shuffle")){ [weak self] action  in
+            guard let self = self else{ return}
+            
+            let newTopicMapPrecedence = viewmodel.topicMapPrecedence == 0 ? 1 : 0
+            viewmodel.setOpenedFirst(subjectID: viewmodel.subjectID, openedFirst: Int16(newTopicMapPrecedence))
         
-        return UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), menu: menu)
+            
+            let tempSections = viewmodel.sections[0]
+            viewmodel.sections[0] = viewmodel.sections[1]
+            viewmodel.sections[1] = tempSections
+            animateCollectionViewReload()
+            
+            print(viewmodel.topicMapPrecedence)
+        }
+        : UIAction(title: viewmodel.topicMapPrecedence == 0 ? "Maps Section First" : "Topic Section First", image: UIImage(systemName: "shuffle")){
+            [weak self] action  in
+            guard let self = self else {return}
+            
+            let alert = UIAlertController(
+                title: "Cannot Shuffle",
+                message: "You need at least one topic and one map to shuffle sections.",
+                preferredStyle: .alert)
+            alert.addAction(
+                UIAlertAction(
+                    title: "OK",
+                    style: .destructive,
+                    handler: {[weak self] UIAlertAction in
+                        
+                        guard let self = self else {
+                            return
+                        }
+                        dismiss(animated: true)
+                    }
+                ))
+            present(alert, animated: true)
+            
+            
+            
+        }
+        
+        optionsMenu = UIMenu(title: "options", children: [addATopicAction, addMapAction, whichSectionFirstAction])
+
+        
+       return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: optionsMenu)
     }
+
+
+
+    func animateCollectionViewReload() {
+        UIView.transition(with: collectionView,
+                          duration: 0.5,
+                          options: .transitionCrossDissolve,
+                          animations: { [weak self] in
+            self?.collectionView.reloadData()
+        }, completion: { [weak self] finished in
+            guard let self = self else {return }
+            if finished{
+                navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
+
+            }
+        })
+    }
+    
     
 
 

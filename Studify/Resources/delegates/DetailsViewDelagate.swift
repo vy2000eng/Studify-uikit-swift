@@ -97,27 +97,34 @@ extension TopicMapViewController: UICollectionViewDelegate{
                 else{
                     print("index path in delete topic:\(indexPath.section)")
                     if self.viewmodel.topicMapPrecedence == 0 && self.viewmodel.numberOfTopics == 0{
+
                         self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: 1)
-                        self.viewmodel.sections.remove(at:  indexPath.section)
-                        
+
                         self.collectionView.reloadSections(IndexSet(integer: indexPath.section == 0 ? 1 : 0))
 
                     }
-                    print("sections count in dtfcv: \(self.viewmodel.sections.count)")
+                    self.viewmodel.sections.remove(at:  indexPath.section)
+
                     let indexSet = IndexSet(integer:indexPath.section)
 
                     self.collectionView.deleteSections(indexSet)
 
 
                 }
+                print("sections count in dtfcv: \(self.viewmodel.sections.count)")
+
             },completion: { finished in
                 if finished{
                     if (self.viewmodel.mapsIsEmpty && self.viewmodel.topicMapPrecedence == 1){
                         self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: -1)
+
                     }
                 }
+                self.navigationItem.rightBarButtonItem = self.createOptionsBarButtonItem()
+
             })
         }
+
         updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
 
     }
@@ -139,11 +146,11 @@ extension TopicMapViewController: UICollectionViewDelegate{
                     print("index path in delete map:\(indexPath.section)")
                     if self.viewmodel.topicMapPrecedence == 1 && self.viewmodel.numberOfMaps == 0{
                         self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: 0)
-                        self.viewmodel.sections.remove(at:  indexPath.section)
                         self.collectionView.reloadSections(IndexSet(integer: indexPath.section == 0 ? 1 : 0))
 
                     }
                     print("section to remove: \(indexPath.section)")
+                    self.viewmodel.sections.remove(at:  indexPath.section)
                     let indexSet = IndexSet(integer:  indexPath.section)
                     self.collectionView.deleteSections(indexSet)
                 }
@@ -152,10 +159,15 @@ extension TopicMapViewController: UICollectionViewDelegate{
                 if finished{
                     if self.viewmodel.topicsIsEmpty && self.viewmodel.topicMapPrecedence == 0 {
                         self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: -1)
+                        print("sections count in dtfcv: \(self.viewmodel.sections.count)")
+
                     }
+                    self.navigationItem.rightBarButtonItem = self.createOptionsBarButtonItem()
+
                 }
             })
         }
+
         updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
 
     }
@@ -189,10 +201,17 @@ extension TopicMapViewController: SwipeCollectionViewCellDelegate{
             let deleteAction = SwipeAction(style: .destructive, title: nil) { action, indexPath in
                 if self.viewmodel.sectionType(for: indexPath.section ) == .topics{
                     self.deleteTopic(at: indexPath)
+                    //let sectionIndexToDelete = self.viewmodel.topicMapPrecedence == 0 ? 0:1
+                   // self.viewmodel.sections.remove(at: sectionIndexToDelete)
+
                     
                 }else{
                     self.deleteMap(at: indexPath)
+                    //self.viewmodel.sections.remove(at: indexPath.section)
+                    
                 }
+                self.navigationItem.rightBarButtonItem = self.createOptionsBarButtonItem()
+
             }
             deleteAction.image = UIImage(systemName: "trash")
             return [deleteAction]

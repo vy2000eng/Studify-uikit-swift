@@ -63,6 +63,8 @@ class TopicMapViewModel{
             self.sections = []
             break
         }
+        print("sections count: \(self.sections.count)")
+
     }
     
     var background:UIColor{

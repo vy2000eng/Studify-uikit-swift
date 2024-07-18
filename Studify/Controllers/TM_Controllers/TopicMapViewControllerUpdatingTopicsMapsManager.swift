@@ -65,8 +65,9 @@ extension TopicMapViewController{
                 if wasEmpty && self.viewmodel.topicMapPrecedence != type.rawValue {
                     let newSection = Sections(header: type == .topics ? "topics" : "maps",
                                               data: type == .topics ? .topics(self.viewmodel.topics) : .maps(self.viewmodel.maps))
-                    
+                    print("about to appened section")
                     self.viewmodel.sections.append(newSection)
+                    print("section count:\(self.viewmodel.sections.count)")
               
                     self.collectionView.insertSections(IndexSet(integer: indexPath.section))
                 } else {
@@ -82,12 +83,14 @@ extension TopicMapViewController{
                     DispatchQueue.main.async{
                         self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
 
-                        
+                        self.navigationItem.rightBarButtonItem = self.createOptionsBarButtonItem()
+
                     }
                 }
                 
             })
         }
+        print("sections Count: \(viewmodel.sections.count)")
         print(sectionIndex == 0 ? "second" : "third")
         updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
 
