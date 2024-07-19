@@ -14,13 +14,16 @@ class AddNewFlashCardView: UIView {
     let defaultTFFront = "Enter Term"
     
     let defaultTFBack = "Enter Definition"
+    let addFlashCardViewmodel:AddNewFlashCardViewModel
+    
+ 
 
 
     lazy var verticalStack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.backgroundColor = UIColor.systemBackground
+       // stack.backgroundColor = UIColor.systemBackground
         stack.spacing = 20
         return stack
     }()
@@ -35,16 +38,24 @@ class AddNewFlashCardView: UIView {
     lazy var backStringLabel: UILabel = configureLabel(text: "Definition:")
     lazy var frontStringTextField: UITextView = configureTextField(placeholder: "Enter Term")
     lazy var backStringTextField: UITextView = configureTextField(placeholder: "Enter Definition")
-    override init(frame: CGRect) {
+    
+   
+    
+    init(addFlashCardViewmodel:AddNewFlashCardViewModel, frame: CGRect){
+        self.addFlashCardViewmodel = addFlashCardViewmodel
         super.init(frame: frame)
         setup()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -52,6 +63,19 @@ class AddNewFlashCardView: UIView {
 
 extension AddNewFlashCardView{
     private func setup(){
+        backgroundColor = .clear
+//        frontStringlabel .attributedText = NSAttributedString(string: "Term: ",
+//                                                                                      attributes: [.foregroundColor: addFlashCardViewmodel.fontColor,
+//                                                                                                   .font: addFlashCardViewmodel.titleFont])
+//        backStringLabel.attributedText = NSAttributedString(string: "Definition: ",
+//                                                                                  attributes: [.foregroundColor: addFlashCardViewmodel.fontColor,
+//                                                                                               .font: addFlashCardViewmodel.titleFont])
+        
+        
+        
+
+        
+        
         addSubview(stackScrollView)
         verticalStack.addArrangedSubview(frontStringlabel)
         verticalStack.addArrangedSubview(frontStringTextField)
@@ -83,15 +107,15 @@ extension AddNewFlashCardView{
     private func configureTextField(placeholder: String) -> UITextView{
         //let defaultText = placeholder
         let textView = UITextView()
-        textView.font = UIFont(name: "HelveticaNeue", size: 12)
+        textView.font = addFlashCardViewmodel.regularFont
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.cornerRadius = 2
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.isScrollEnabled = false // Start with no scrolling
         textView.text = placeholder
-        textView.textColor = UIColor.lightGray
-        textView.backgroundColor = UIColor.white
+        textView.textColor = addFlashCardViewmodel.fontColor
+        textView.backgroundColor = addFlashCardViewmodel.backGroundColor
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
         textView.textAlignment = .left
         textView.delegate = self
@@ -111,8 +135,9 @@ extension AddNewFlashCardView{
     private func configureLabel(text: String) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.text = text
+        label.attributedText = NSAttributedString(string: text,
+                                                  attributes: [.foregroundColor: addFlashCardViewmodel.fontColor,
+                                                               .font: addFlashCardViewmodel.titleFont])
         return label
     }
 }
@@ -165,11 +190,11 @@ extension AddNewFlashCardView: UITextViewDelegate {
             
             textView.text = textView == frontStringTextField ? "Enter Term" : "Enter Definition"
             //textView.textColor = UIColor.darkGray // Placeholder color
-            textView.textColor = UIColor.lightGray
+            textView.textColor = addFlashCardViewmodel.fontColorSecondary.withAlphaComponent(0.5)
             textView.font = UIFont(name: "HelveticaNeue", size: 12)
         }
         
-        textView.textColor = UIColor.darkGray // Placeholder color
+        textView.textColor = addFlashCardViewmodel.fontColor // Placeholder color
         textView.font = UIFont(name: "HelveticaNeue", size: 12)
     }
 }

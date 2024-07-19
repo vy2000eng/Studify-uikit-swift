@@ -18,7 +18,7 @@ protocol AddNewFlashCardToListViewControllerDelegate: AnyObject{
 
 class AddNewFlashCardViewController: UIViewController{
     
-    private let addFlashCardView = AddNewFlashCardView()
+    private let addFlashCardView:AddNewFlashCardView
     let viewmodel: AddNewFlashCardViewModel
     let flashcardSetViewModel: FlashcardSetViewModel
     let whichControllerPushed: Int
@@ -27,10 +27,11 @@ class AddNewFlashCardViewController: UIViewController{
     weak var flashCardListViewControllerDelegate: AddNewFlashCardToListViewControllerDelegate?
     
     init(flashcardSetViewModel: FlashcardSetViewModel, whichControllerPushed: Int){
-       
         self.whichControllerPushed = whichControllerPushed
         self.flashcardSetViewModel = flashcardSetViewModel
         self.viewmodel = AddNewFlashCardViewModel(topicID: flashcardSetViewModel.topicID)
+        self.addFlashCardView = AddNewFlashCardView(addFlashCardViewmodel: viewmodel, frame: .zero)
+
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -46,8 +47,16 @@ class AddNewFlashCardViewController: UIViewController{
 }
 extension AddNewFlashCardViewController{
     private func setupView(){
-        view.backgroundColor = UIColor.systemBackground
+        view.backgroundColor = viewmodel.backGroundColor
+        
         title = "add new flashcard"
+
+        
+
+        
+        
+        
+        
         view.addSubview(addFlashCardView)
         navigationItem.rightBarButtonItem =
         UIBarButtonItem(

@@ -63,13 +63,15 @@ final class EditFlashCardViewController: UIViewController{
 extension EditFlashCardViewController{
     
     private func setupView(){
-        view.backgroundColor = UIColor.systemBackground
+        view.backgroundColor = viewmodel.backGroundColor
         title = "add new flashcard"
         view.addSubview(navBar)
         let navItem = UINavigationItem(title: "Details")
         navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveFlashCard))
         navItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteFlashCard))
         navBar.setItems([navItem], animated: false)
+        navBar.backgroundColor = viewmodel.backGroundColor
+        navBar.barTintColor = viewmodel.backGroundColor
         view.addSubview(editFlashCardView)
         editFlashCardView.translatesAutoresizingMaskIntoConstraints = false
         setupConstraints()

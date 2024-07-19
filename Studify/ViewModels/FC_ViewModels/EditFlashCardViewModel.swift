@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 class EditFlashCardViewModel{
     let flashcardId: UUID
     
@@ -19,6 +20,10 @@ class EditFlashCardViewModel{
     } 
     func deleteFlashCard(){
         CoreDataManager.shared.deleteFlashCard(flashCardID: flashcardId)
+        
+    }
+    var backGroundColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.backGroundColor
         
     }
 }
