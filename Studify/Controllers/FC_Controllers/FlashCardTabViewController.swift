@@ -90,6 +90,48 @@ extension FlashCardTabViewController{
 
 extension FlashCardTabViewController{
     
+    private func animateReloadingCollectionView(){
+        let listCollectionView = flashcardListViewController.collectionView
+        let setCollectionView = flashcardSetViewController.collectionView
+        
+        DispatchQueue.main.async{ [weak self] in
+            guard let self = self else {return}
+            
+            switch viewmodel.viewControllerCurrentlyAppearing{
+                
+            case 0:
+                UIView.transition(with:  setCollectionView, duration: 0.3, options: .transitionCrossDissolve, animations: { [weak self] in
+                    guard let self = self else{
+                        return
+                    }
+                    setCollectionView.reloadData()
+                    
+                }, completion: {finished in
+                    listCollectionView.reloadData()
+                    
+                })
+                
+                break
+            case 1:
+                UIView.transition(with:  listCollectionView, duration: 0.3, options: .transitionCrossDissolve, animations: { [weak self] in
+                    guard let self = self else{
+                        return
+                    }
+                    listCollectionView.reloadData()
+                    
+                }, completion: {finished in
+                    setCollectionView.reloadData()
+                    
+                })
+                break
+            default:
+                fatalError("couldnt reload data")
+            }
+
+        }
+        
+    }
+    
     func createOptionsBarButtonItem() -> UIBarButtonItem{
         let addFlashCardAction = UIAction(title: "add flashcard") { [weak self] _ in
             
@@ -111,15 +153,24 @@ extension FlashCardTabViewController{
             present(addFlashCardNavigationController, animated: true)
             
         }
-        let filterLearnedAction = UIAction(title: "learned flashcards"){ _ in
-            
+        let filterLearnedAction = UIAction(title: "learned flashcards"){[weak self] _ in
+            guard let self = self else {return}
+            viewmodel.getLearnedFlashcards()
+            animateReloadingCollectionView()
         }
         
-        let filterUnlearnedAction = UIAction(title: "unlearned flashcards"){ _ in
-            
+        let filterUnlearnedAction = UIAction(title: "still learning flashcards"){ [weak self] _ in
+            guard let self = self else {return}
+            viewmodel.getStillLearningFlashcards()
+            animateReloadingCollectionView()
         }
         
-        let filterAllAction = UIAction(title: "all flashcards"){ _ in
+        let filterAllAction = UIAction(title: "all flashcards"){ [weak self]_ in
+            guard let self = self else {return}
+            viewmodel.getAllFlashcards()
+            animateReloadingCollectionView()
+            
+            
             
         }
 

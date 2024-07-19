@@ -19,6 +19,10 @@ extension FlashCard {
     @NSManaged public var back: String
     @NSManaged public var front: String
     @NSManaged public var id: UUID
+    @NSManaged public var learned: Bool
+    @NSManaged public var stillLearning: Bool
+
+    
     @NSManaged public var topic: Topic?
 
 }

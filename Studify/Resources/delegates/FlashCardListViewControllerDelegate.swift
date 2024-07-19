@@ -12,6 +12,13 @@ extension FlashCardListViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
         return true
     }
+    func toggleLearnedFlashcard(flashcardID:UUID){
+        viewmodel.toggleLearnedFlashcard(flashcardID: flashcardID)
+    }
+    func toggleStillLearningFlashcard(flashcardID:UUID){
+        viewmodel.toggleStillLearninigFlashcard(flashcardID: flashcardID)
+    }
+    
     
     
     
@@ -19,13 +26,16 @@ extension FlashCardListViewController: UICollectionViewDelegate{
 
 extension FlashCardListViewController: SwipeCollectionViewCellDelegate{
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
+        let flashcard = viewmodel.flashcard(by: indexPath.row)
         switch(orientation){
-        case .left: 
-            let stillLearningAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+        case .left:
+            let stillLearningAction = SwipeAction(style: .default, title: nil) { [weak self] action, indexPath in
+                guard let self = self else {return}
                 print("still learning")
+                toggleStillLearningFlashcard(flashcardID: flashcard.id)
             }
             
-            //stillLearningAction.image = UIImage(systemName: "star")
+            
             stillLearningAction.title = "still learning"
             stillLearningAction.font = viewmodel.subtitleFont
             stillLearningAction.backgroundColor = .darkRed.withAlphaComponent(0.5)
@@ -33,12 +43,14 @@ extension FlashCardListViewController: SwipeCollectionViewCellDelegate{
             
         
         case .right: 
-            let learnedAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+            let learnedAction = SwipeAction(style: .default, title: nil) { [weak self ] action, indexPath in
+                guard let self = self else {return}
                 print("already know")
+                toggleLearnedFlashcard(flashcardID: flashcard.id)
+
+                
             }
-            
-            //learnedAction.image = UIImage(systemName: "star")
-          //  learnedAction.image = UIImage(systemName: "")
+     
             learnedAction.title = "Know"
             learnedAction.font = viewmodel.subtitleFont
             learnedAction.backgroundColor = .darkGreen

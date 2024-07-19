@@ -93,6 +93,27 @@ class FlashcardSetViewModel{
         
     }
     
+    func getLearnedFlashcards(){
+        flashcards = flashcards.lazy.filter({$0.learned})
+    }
+    
+    func getStillLearningFlashcards(){
+        flashcards = flashcards.lazy.filter({$0.stillLearning})
+
+        
+    }
+    
+    func toggleLearnedFlashcard(flashcardID:UUID){
+        CoreDataManager.shared.toggleLearned(flashcardID: flashcardID)
+    }
+    
+    func toggleStillLearninigFlashcard(flashcardID:UUID){
+        CoreDataManager.shared.toggleStillLearning(flashcardID: flashcardID)
+    }
+    
+    
+   
+    
     func deleteFlashcard(flashcard:FlashcardViewModel){
         CoreDataManager.shared.deleteFlashCard(flashCardID: flashcard.id)
         getAllFlashcards()

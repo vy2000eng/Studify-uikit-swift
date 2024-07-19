@@ -4,6 +4,8 @@
         <attribute name="back" optional="YES" attributeType="String"/>
         <attribute name="front" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="learned" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="stillLearning" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <relationship name="topic" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Topic" inverseName="flashcardset" inverseEntity="Topic"/>
     </entity>
     <entity name="Maps" representedClassName="Maps" syncable="YES">

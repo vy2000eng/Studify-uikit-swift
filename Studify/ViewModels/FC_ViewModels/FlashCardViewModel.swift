@@ -34,6 +34,14 @@ class FlashcardViewModel{
     var back:String{
         flashcard.back
     }
+    
+    var learned:Bool{
+        flashcard.learned
+    }
+    
+    var stillLearning:Bool{
+        flashcard.stillLearning
+    }
 
     var topBackgroundColor:UIColor{
         return ColorManager.shared.currentTheme.colors.topColor

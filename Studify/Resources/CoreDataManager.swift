@@ -114,6 +114,8 @@ class CoreDataManager{
         newflashCard.id = UUID()
         newflashCard.front = front
         newflashCard.back = back
+        newflashCard.learned = false
+        newflashCard.stillLearning = true
         do{
             let topic = try context.fetch(fetchRequest).first
             topic?.addToFlashcardset(newflashCard)
@@ -199,6 +201,37 @@ class CoreDataManager{
             flashcard?.front = front
             flashcard?.back = back
             try context.save()
+        }catch let error as NSError{
+            print("Error updating FlashCard: \(error.userInfo), \(error.localizedDescription)")
+        }
+    }
+    func toggleLearned(flashcardID:UUID){
+        let fetchRequest: NSFetchRequest<FlashCard> = FlashCard.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", flashcardID.uuidString)
+        do{
+            let flashcard = try context.fetch(fetchRequest).first(where: {$0.id == flashcardID})
+            flashcard?.learned = !flashcard!.learned
+            flashcard?.stillLearning = !flashcard!.stillLearning
+
+            try context.save()
+            
+            
+        }catch let error as NSError{
+            print("Error updating FlashCard: \(error.userInfo), \(error.localizedDescription)")
+        }
+    }
+    
+    func toggleStillLearning(flashcardID:UUID){
+        let fetchRequest: NSFetchRequest<FlashCard> = FlashCard.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", flashcardID.uuidString)
+        do{
+            let flashcard = try context.fetch(fetchRequest).first(where: {$0.id == flashcardID})
+            flashcard?.stillLearning = !flashcard!.stillLearning
+            flashcard?.learned = !flashcard!.learned
+
+            try context.save()
+            
+            
         }catch let error as NSError{
             print("Error updating FlashCard: \(error.userInfo), \(error.localizedDescription)")
         }
