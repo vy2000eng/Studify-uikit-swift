@@ -132,6 +132,7 @@ extension FlashCardListViewController{
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [fc])
        
         let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 10
         return section
         
         

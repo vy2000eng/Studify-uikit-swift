@@ -7,8 +7,9 @@
 
 import Foundation
 import UIKit
+import SwipeCellKit
 
-class FlashCardListCollectionViewCell: UICollectionViewCell {
+class FlashCardListCollectionViewCell: SwipeCollectionViewCell {
     lazy var termLabel: UILabel = {
         
         let termLabel = UILabel()
@@ -79,9 +80,9 @@ extension FlashCardListCollectionViewCell{
     private func setupConstraints(){
         NSLayoutConstraint.activate([
             
-            mainView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 10),
-            mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 5),
-            mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -5),
+            mainView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant:  5),
+            mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant:  -5),
             mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             topContentView.topAnchor.constraint(equalTo: mainView.topAnchor),

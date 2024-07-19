@@ -196,14 +196,14 @@ extension TopicMapViewController: UICollectionViewDelegate{
 extension TopicMapViewController: SwipeCollectionViewCellDelegate{
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
 
-                switch(orientation){
+        switch(orientation){
         case .left:
             let deleteAction = SwipeAction(style: .destructive, title: nil) { action, indexPath in
                 if self.viewmodel.sectionType(for: indexPath.section ) == .topics{
                     self.deleteTopic(at: indexPath)
                     //let sectionIndexToDelete = self.viewmodel.topicMapPrecedence == 0 ? 0:1
-                   // self.viewmodel.sections.remove(at: sectionIndexToDelete)
-
+                    // self.viewmodel.sections.remove(at: sectionIndexToDelete)
+                    
                     
                 }else{
                     self.deleteMap(at: indexPath)
@@ -211,7 +211,7 @@ extension TopicMapViewController: SwipeCollectionViewCellDelegate{
                     
                 }
                 self.navigationItem.rightBarButtonItem = self.createOptionsBarButtonItem()
-
+                
             }
             deleteAction.image = UIImage(systemName: "trash")
             return [deleteAction]

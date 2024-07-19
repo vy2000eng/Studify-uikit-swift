@@ -22,6 +22,9 @@ extension FlashCardListViewController: UICollectionViewDataSource{
         }
         let flashcard = viewmodel.flashcard(by: indexPath.row)
         cell.configure(flashCard: flashcard)
+        cell.delegate = self
+        
+        
         return cell
     }
     
