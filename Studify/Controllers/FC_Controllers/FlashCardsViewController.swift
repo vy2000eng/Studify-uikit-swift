@@ -69,9 +69,6 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
         print("set view loaded")
         view.backgroundColor = viewmodel.background
 
-        
-        
-       // collectionView.backgroundColor = viewmodel.background
         setupView()
     }
     
@@ -93,7 +90,7 @@ extension FlashCardSetViewController{
     private func setupConstraints(){
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 65),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 40),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

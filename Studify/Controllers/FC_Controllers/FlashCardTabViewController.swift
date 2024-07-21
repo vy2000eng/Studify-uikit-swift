@@ -7,10 +7,14 @@
 
 import UIKit
 import Foundation
+import NotificationBannerSwift
 
 //MARK: These delegates are inside of FlashCardsCollectionsManager
 final class FlashCardTabViewController:UITabBarController, AddFlashCardToListViewCollectionDelegate, AddFlashCardToSetViewCollectionDelegate, UpdateFlashCardInFlashCardListViewControllerCollectionViewDelegate, UpdateFlashCardInFlashCardSetViewControllerCollectionViewDelegate{
   
+    
+   
+    
     let viewmodel:FlashcardSetViewModel
     let topicIndexPath: IndexPath
     
@@ -33,14 +37,22 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.backgroundColor = viewmodel.background
-       // flashcardSetViewController.view.backgroundColor = viewmodel.background
         NotificationCenter.default.addObserver(self, selector: #selector(applyTheme), name: .themeDidChange, object: nil)
 
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        title = viewmodel.sectionTitle.type.title // This will be your initial large title
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewmodel.fontColor,
+                                                                   .font:viewmodel.subtitleFont ]
+        
+      
 
+        
+        
         view.backgroundColor = viewmodel.background
         setup()
     }
+
     deinit {
           NotificationCenter.default.removeObserver(self)
       }
@@ -56,9 +68,7 @@ extension FlashCardTabViewController{
         
         flashcardSetViewController.view.backgroundColor = viewmodel.background
         flashcardListViewController.view.backgroundColor = viewmodel.background
-        //flashcardSetViewController.collectionView.reloadSections(IndexSet(integer: 1))
-        
-         // flashcardListViewController.collectionView.reloadSections(IndexSet(integer: 1))
+       
 
 
     }
@@ -66,8 +76,9 @@ extension FlashCardTabViewController{
   
     private func setup(){
         
+        
+        
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
-        navigationItem.leftBarButtonItem = closeBarButtonItem()
         
         flashcardSetViewController.addFlashCardInListViewControllerDelegate = self
         flashcardListViewController.addFlashCardInSetViewControllerDelegate = self
@@ -77,13 +88,17 @@ extension FlashCardTabViewController{
         flashcardSetViewController.tabBarItem = UITabBarItem(title: "Set", image: UIImage(systemName: "menucard"), tag: 1)
         flashcardListViewController.tabBarItem = UITabBarItem(title: "List", image: UIImage(systemName: "list.bullet"), tag: 2)
         
+        
+        
+        
         setViewControllers(  [flashcardSetViewController,flashcardListViewController], animated: true)
         view.backgroundColor = viewmodel.background
         tabBar.backgroundColor = viewmodel.background
          tabBar.barTintColor = viewmodel.background
          tabBar.isTranslucent = false
+        delegate = self
         
-        //tabBar.backgroundColor = viewmodel.background
+
 
     }
 }
@@ -153,25 +168,42 @@ extension FlashCardTabViewController{
             present(addFlashCardNavigationController, animated: true)
             
         }
-        let filterLearnedAction = UIAction(title: "learned flashcards"){[weak self] _ in
+        
+        let banner = NotificationBanner(title: "Notice!",subtitle: "", style: .info)
+        banner.dismissOnSwipeUp = true
+        banner.dismissOnTap = true
+        banner.duration = 5
+        
+        let filterLearnedAction = UIAction(title: "learned", image: UIImage(systemName: "doc")){[weak self] _ in
             guard let self = self else {return}
+            viewmodel.sectionTitle = .learnedFlashCards
+            title = viewmodel.sectionTitle.type.title
             viewmodel.getLearnedFlashcards()
             animateReloadingCollectionView()
+            banner.subtitleLabel?.text = "The flashcards are only the ones you have learned"
+            banner.show(bannerPosition: .top)
         }
         
-        let filterUnlearnedAction = UIAction(title: "still learning flashcards"){ [weak self] _ in
+        let filterUnlearnedAction = UIAction(title: "still learning", image: UIImage(systemName: "doc")){ [weak self] _ in
             guard let self = self else {return}
+            viewmodel.sectionTitle = .stillLearningFlashCards
+            title = viewmodel.sectionTitle.type.title
             viewmodel.getStillLearningFlashcards()
             animateReloadingCollectionView()
+            banner.subtitleLabel?.text = "The flashcards are only the ones you are still learning"
+            banner.show(bannerPosition: .top)
         }
         
-        let filterAllAction = UIAction(title: "all flashcards"){ [weak self]_ in
+        let filterAllAction = UIAction(title: "all",image: UIImage(systemName: "doc")){ [weak self]_ in
             guard let self = self else {return}
+            viewmodel.sectionTitle = .allFlashCards
+            title = viewmodel.sectionTitle.type.title
+
             viewmodel.getAllFlashcards()
             animateReloadingCollectionView()
-            
-            
-            
+            banner.subtitleLabel?.text = "The flashcards are all the flashcards"
+            banner.show(bannerPosition: .top)
+    
         }
 
         let menu = UIMenu(title: "options", children: [addFlashCardAction ,filterLearnedAction, filterUnlearnedAction, filterAllAction])
@@ -200,4 +232,16 @@ extension FlashCardTabViewController{
 
 
 
+extension FlashCardTabViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        viewController.navigationController?.navigationBar.prefersLargeTitles = true
+        viewController.navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewmodel.fontColor,
+                                                                        .font: viewmodel.titleFont]
+        navigationItem.largeTitleDisplayMode = .always
 
+        
+        
+        title = viewmodel.sectionTitle.type.title
+        
+    }
+}

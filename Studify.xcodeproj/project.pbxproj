@@ -12,6 +12,7 @@
 		392A5D7B2C39CB67007F4F86 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D7A2C39CB67007F4F86 /* ColorManager.swift */; };
 		392A5D7D2C461363007F4F86 /* SettingsCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D7C2C461362007F4F86 /* SettingsCardsView.swift */; };
 		392A5D7F2C48BFE8007F4F86 /* SettingsColorPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D7E2C48BFE7007F4F86 /* SettingsColorPickerController.swift */; };
+		392A5D822C4B2713007F4F86 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 392A5D812C4B2713007F4F86 /* NotificationBannerSwift */; };
 		393DF68C2C336BC7000F1D41 /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DF68B2C336BC7000F1D41 /* Subject+CoreDataProperties.swift */; };
 		393DF68E2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DF68D2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift */; };
 		393DF6912C371222000F1D41 /* FlashcardSmallSetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DF6902C371221000F1D41 /* FlashcardSmallSetHeader.swift */; };
@@ -157,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				396D6CB52C2495F0000DD57C /* SwipeCellKit in Frameworks */,
+				392A5D822C4B2713007F4F86 /* NotificationBannerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +419,7 @@
 			name = Studify;
 			packageProductDependencies = (
 				396D6CB42C2495F0000DD57C /* SwipeCellKit */,
+				392A5D812C4B2713007F4F86 /* NotificationBannerSwift */,
 			);
 			productName = Studify;
 			productReference = 39A4BC612C03924200F833D2 /* Studify.app */;
@@ -448,6 +451,7 @@
 			mainGroup = 39A4BC582C03924100F833D2;
 			packageReferences = (
 				396D6CB32C2495F0000DD57C /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
+				392A5D802C4B2712007F4F86 /* XCRemoteSwiftPackageReference "NotificationBanner" */,
 			);
 			productRefGroup = 39A4BC622C03924200F833D2 /* Products */;
 			projectDirPath = "";
@@ -757,6 +761,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		392A5D802C4B2712007F4F86 /* XCRemoteSwiftPackageReference "NotificationBanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Daltron/NotificationBanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		396D6CB32C2495F0000DD57C /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwipeCellKit/SwipeCellKit";
@@ -768,6 +780,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		392A5D812C4B2713007F4F86 /* NotificationBannerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 392A5D802C4B2712007F4F86 /* XCRemoteSwiftPackageReference "NotificationBanner" */;
+			productName = NotificationBannerSwift;
+		};
 		396D6CB42C2495F0000DD57C /* SwipeCellKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 396D6CB32C2495F0000DD57C /* XCRemoteSwiftPackageReference "SwipeCellKit" */;

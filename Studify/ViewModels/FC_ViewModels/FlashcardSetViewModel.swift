@@ -27,11 +27,39 @@ class SmallSetSection{
     }
 }
 
+struct headingTitle{
+var title:String
+    init(title: String) {
+        self.title = title
+    }
+
+    
+}
+enum flashcardType:Int, CaseIterable{
+    case allFlashCards = 0
+    case stillLearningFlashCards = 1
+    case learnedFlashCards = 2
+    
+    var type:headingTitle{
+        switch self {
+        case.allFlashCards:
+            return headingTitle(title: "All Flashcards")
+        case .stillLearningFlashCards:
+            return headingTitle(title: "Still Learning Flash Cards")
+
+        case .learnedFlashCards:
+            return headingTitle(title: "Learned Flash Cards")
+
+        }
+    }
+}
 
 
 class FlashcardSetViewModel{
     
     var topicID: UUID
+    
+    var sectionTitle:flashcardType
     
     
     var flashcards = [FlashcardViewModel]()
@@ -71,6 +99,7 @@ class FlashcardSetViewModel{
         self.currentIndex = 0
         self.smallSetSection = SmallSetSection(data: flashcards)
         self.viewControllerCurrentlyAppearing = 0
+        self.sectionTitle = .allFlashCards
         
         getAllFlashcards()
     }
@@ -94,21 +123,25 @@ class FlashcardSetViewModel{
     }
     
     func getLearnedFlashcards(){
-        flashcards = flashcards.lazy.filter({$0.learned})
+        getAllFlashcards()
+        flashcards = flashcards.filter({$0.learned})
     }
     
     func getStillLearningFlashcards(){
-        flashcards = flashcards.lazy.filter({$0.stillLearning})
+        getAllFlashcards()
+        flashcards = flashcards.filter({$0.stillLearning})
 
         
     }
     
     func toggleLearnedFlashcard(flashcardID:UUID){
         CoreDataManager.shared.toggleLearned(flashcardID: flashcardID)
+       // getLearnedFlashcards()
     }
     
     func toggleStillLearninigFlashcard(flashcardID:UUID){
         CoreDataManager.shared.toggleStillLearning(flashcardID: flashcardID)
+        //getStillLearningFlashcards()
     }
     
     

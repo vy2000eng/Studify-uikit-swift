@@ -75,8 +75,17 @@ class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewCo
         super.viewDidLoad()
         navigationController?.navigationBar.barTintColor = viewmodel.background == .white ? .white : .black
 
-        navigationItem.title = "List View"
         view.backgroundColor = viewmodel.background
+        //title = "AllFlashcards"
+        //navigationItem.largeTitleDisplayMode = .always
+        
+        
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        
+//        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewmodel.fontColor,
+//                                                                        .font: viewmodel.titleFont]
+//        title = "List"
+
 
         setup()
     }
