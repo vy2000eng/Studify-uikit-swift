@@ -20,12 +20,14 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
     
     let flashcardSetViewController: FlashCardSetViewController
     let flashcardListViewController: FlashCardListViewController
+    let flashcardGameViewController: FlashCardGameViewController
 
     init(topicID:UUID, topicIndexPath: IndexPath){
         self.viewmodel = FlashcardSetViewModel(topicID: topicID)
         self.topicIndexPath = topicIndexPath
         self.flashcardSetViewController = FlashCardSetViewController(viewmodel: viewmodel, topicIndexPath: topicIndexPath)
         self.flashcardListViewController = FlashCardListViewController(viewmodel: viewmodel, topicIndexPath: topicIndexPath)
+        self.flashcardGameViewController = FlashCardGameViewController(viewmodel: viewmodel)
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -87,11 +89,11 @@ extension FlashCardTabViewController{
         
         flashcardSetViewController.tabBarItem = UITabBarItem(title: "Set", image: UIImage(systemName: "menucard"), tag: 1)
         flashcardListViewController.tabBarItem = UITabBarItem(title: "List", image: UIImage(systemName: "list.bullet"), tag: 2)
+        flashcardGameViewController.tabBarItem = UITabBarItem(title: "Learn", image:UIImage(systemName: "play"), tag:3)
         
         
         
-        
-        setViewControllers(  [flashcardSetViewController,flashcardListViewController], animated: true)
+        setViewControllers(  [flashcardSetViewController,flashcardListViewController, flashcardGameViewController], animated: true)
         view.backgroundColor = viewmodel.background
         tabBar.backgroundColor = viewmodel.background
          tabBar.barTintColor = viewmodel.background

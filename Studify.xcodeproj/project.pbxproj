@@ -24,6 +24,10 @@
 		394879802C1560B4002D3DEB /* FlashcardSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3948797F2C1560B4002D3DEB /* FlashcardSetViewModel.swift */; };
 		394879822C1560D4002D3DEB /* FlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394879812C1560D4002D3DEB /* FlashCardViewModel.swift */; };
 		394879842C15F09D002D3DEB /* TopicMapHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394879832C15F09D002D3DEB /* TopicMapHeaderViewCell.swift */; };
+		395B71022C4DC5E700A9EBB6 /* FlashCardGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395B71012C4DC5E700A9EBB6 /* FlashCardGameViewController.swift */; };
+		395B71042C4E015F00A9EBB6 /* FlashCardGameViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395B71032C4E015F00A9EBB6 /* FlashCardGameViewControllerDelegate.swift */; };
+		395B71062C4E046500A9EBB6 /* FlashCardGameViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395B71052C4E046500A9EBB6 /* FlashCardGameViewControllerDataSource.swift */; };
+		395B71082C4E0C7800A9EBB6 /* FlashCardGameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395B71072C4E0C7800A9EBB6 /* FlashCardGameCollectionViewCell.swift */; };
 		396D6CB52C2495F0000DD57C /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 396D6CB42C2495F0000DD57C /* SwipeCellKit */; };
 		396D6CB72C2515F9000DD57C /* FlashCardTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CB62C2515F9000DD57C /* FlashCardTabViewController.swift */; };
 		396D6CB92C25165A000DD57C /* FlashCardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CB82C25165A000DD57C /* FlashCardListViewController.swift */; };
@@ -96,6 +100,10 @@
 		3948797F2C1560B4002D3DEB /* FlashcardSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardSetViewModel.swift; sourceTree = "<group>"; };
 		394879812C1560D4002D3DEB /* FlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardViewModel.swift; sourceTree = "<group>"; };
 		394879832C15F09D002D3DEB /* TopicMapHeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicMapHeaderViewCell.swift; sourceTree = "<group>"; };
+		395B71012C4DC5E700A9EBB6 /* FlashCardGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardGameViewController.swift; sourceTree = "<group>"; };
+		395B71032C4E015F00A9EBB6 /* FlashCardGameViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardGameViewControllerDelegate.swift; sourceTree = "<group>"; };
+		395B71052C4E046500A9EBB6 /* FlashCardGameViewControllerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardGameViewControllerDataSource.swift; sourceTree = "<group>"; };
+		395B71072C4E0C7800A9EBB6 /* FlashCardGameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardGameCollectionViewCell.swift; sourceTree = "<group>"; };
 		396D6CB62C2515F9000DD57C /* FlashCardTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardTabViewController.swift; sourceTree = "<group>"; };
 		396D6CB82C25165A000DD57C /* FlashCardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardListViewController.swift; sourceTree = "<group>"; };
 		396D6CBB2C251F7B000DD57C /* AddNewFlashCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFlashCardViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +203,7 @@
 				396D6CCF2C2B1593000DD57C /* FlashCardListCollectionViewCell.swift */,
 				393EE5932C2DB91800277FAF /* EditFlashCardView.swift */,
 				393DF6902C371221000F1D41 /* FlashcardSmallSetHeader.swift */,
+				395B71072C4E0C7800A9EBB6 /* FlashCardGameCollectionViewCell.swift */,
 			);
 			path = FC_Views;
 			sourceTree = "<group>";
@@ -227,6 +236,7 @@
 				396D6CB82C25165A000DD57C /* FlashCardListViewController.swift */,
 				396D6CBB2C251F7B000DD57C /* AddNewFlashCardViewController.swift */,
 				393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */,
+				395B71012C4DC5E700A9EBB6 /* FlashCardGameViewController.swift */,
 			);
 			path = FC_Controllers;
 			sourceTree = "<group>";
@@ -346,6 +356,7 @@
 				39B817B12C0EBDDA00CB843B /* SubjectListViewControllerDelagate.swift */,
 				396D6CC92C277E73000DD57C /* FlashCardSetViewControllerDelegate.swift */,
 				396D6CD32C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift */,
+				395B71032C4E015F00A9EBB6 /* FlashCardGameViewControllerDelegate.swift */,
 			);
 			path = delegates;
 			sourceTree = "<group>";
@@ -357,6 +368,7 @@
 				39B817AF2C0EBD2E00CB843B /* SubjectDetailsViewControllerDataSource.swift */,
 				396D6CCB2C277EBE000DD57C /* FlashCardSetViewControllerDataSource.swift */,
 				396D6CD12C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift */,
+				395B71052C4E046500A9EBB6 /* FlashCardGameViewControllerDataSource.swift */,
 			);
 			path = datasources;
 			sourceTree = "<group>";
@@ -485,11 +497,13 @@
 				393EE5942C2DB91800277FAF /* EditFlashCardView.swift in Sources */,
 				396D6CCC2C277EBE000DD57C /* FlashCardSetViewControllerDataSource.swift in Sources */,
 				396D6CD22C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift in Sources */,
+				395B71022C4DC5E700A9EBB6 /* FlashCardGameViewController.swift in Sources */,
 				396D6CB72C2515F9000DD57C /* FlashCardTabViewController.swift in Sources */,
 				39DEDE0E2C114E8200C725CE /* Subjects.xcdatamodeld in Sources */,
 				39B817B22C0EBDDA00CB843B /* SubjectListViewControllerDelagate.swift in Sources */,
 				39B817AC2C0E8C3F00CB843B /* SubjectViewModel.swift in Sources */,
 				39DEDE172C114F2300C725CE /* FlashCard+CoreDataClass.swift in Sources */,
+				395B71042C4E015F00A9EBB6 /* FlashCardGameViewControllerDelegate.swift in Sources */,
 				39DEDE452C134BBF00C725CE /* AddNewMapViewController.swift in Sources */,
 				39DEDE222C12033300C725CE /* DetailsViewDataSource.swift in Sources */,
 				39DEDE182C114F2300C725CE /* FlashCard+CoreDataProperties.swift in Sources */,
@@ -498,6 +512,7 @@
 				39DEDE192C114F2300C725CE /* Subject+CoreDataClass.swift in Sources */,
 				39DEDE242C12073900C725CE /* TopicViewCell.swift in Sources */,
 				39DEDE412C12C0FF00C725CE /* AddNewTopicViewController.swift in Sources */,
+				395B71082C4E0C7800A9EBB6 /* FlashCardGameCollectionViewCell.swift in Sources */,
 				39B817AE2C0E903200CB843B /* SubjectTableViewCell.swift in Sources */,
 				393EE5902C2DB42B00277FAF /* EditFlashCardViewController.swift in Sources */,
 				396D6CBE2C252010000DD57C /* AddNewFlashCardViewModel.swift in Sources */,
@@ -519,6 +534,7 @@
 				39E3C7AB2C39AEE1007E8A88 /* TabViewCollectionsManager.swift in Sources */,
 				39B817C82C10D56100CB843B /* TopicViewModel.swift in Sources */,
 				394879822C1560D4002D3DEB /* FlashCardViewModel.swift in Sources */,
+				395B71062C4E046500A9EBB6 /* FlashCardGameViewControllerDataSource.swift in Sources */,
 				393DF6912C371222000F1D41 /* FlashcardSmallSetHeader.swift in Sources */,
 				39DEDE202C12032100C725CE /* DetailsViewDelagate.swift in Sources */,
 				39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */,
