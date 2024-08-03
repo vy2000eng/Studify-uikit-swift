@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		390BE1C82C5EF29900D12C60 /* GameConclusionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390BE1C72C5EF29800D12C60 /* GameConclusionView.swift */; };
 		392A5D772C39BC78007F4F86 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D762C39BC78007F4F86 /* SettingsViewController.swift */; };
 		392A5D792C39BCB3007F4F86 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D782C39BCB3007F4F86 /* SettingsViewModel.swift */; };
 		392A5D7B2C39CB67007F4F86 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D7A2C39CB67007F4F86 /* ColorManager.swift */; };
@@ -85,6 +86,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		390BE1C72C5EF29800D12C60 /* GameConclusionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConclusionView.swift; sourceTree = "<group>"; };
 		392A5D762C39BC78007F4F86 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		392A5D782C39BCB3007F4F86 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		392A5D7A2C39CB67007F4F86 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				393EE5932C2DB91800277FAF /* EditFlashCardView.swift */,
 				393DF6902C371221000F1D41 /* FlashcardSmallSetHeader.swift */,
 				395B71072C4E0C7800A9EBB6 /* FlashCardGameCollectionViewCell.swift */,
+				390BE1C72C5EF29800D12C60 /* GameConclusionView.swift */,
 			);
 			path = FC_Views;
 			sourceTree = "<group>";
@@ -523,6 +526,7 @@
 				39A4BC842C039B8D00F833D2 /* SubjectModel.swift in Sources */,
 				39E3C7B02C39B137007E8A88 /* ListViewCollectionsManager.swift in Sources */,
 				39E3C7AE2C39B127007E8A88 /* SetViewCollectionsManager.swift in Sources */,
+				390BE1C82C5EF29900D12C60 /* GameConclusionView.swift in Sources */,
 				39B817AA2C0E835700CB843B /* SubjectListViewModel.swift in Sources */,
 				392A5D7F2C48BFE8007F4F86 /* SettingsColorPickerController.swift in Sources */,
 				39DEDE282C12148C00C725CE /* MapViewCell.swift in Sources */,
