@@ -84,6 +84,12 @@ class FlashCardListViewController: UIViewController, AddNewFlashCardToListViewCo
         viewmodel.viewControllerCurrentlyAppearing = 1
         super.viewDidAppear(animated)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewmodel.viewControllerCurrentlyAppearing = 1
+        super.viewWillAppear(animated)
+
+    }
 }
 
 extension FlashCardListViewController{

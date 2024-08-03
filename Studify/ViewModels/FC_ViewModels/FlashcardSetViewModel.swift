@@ -62,7 +62,9 @@ class FlashcardSetViewModel{
     var sectionTitle:flashcardType
     
     
-    var flashcards = [FlashcardViewModel]()
+    var listSetFlashcards = [FlashcardViewModel]()
+    
+    //var gameFlashCards = [FlashcardViewModel]()
     
     var currentIndex:Int
     
@@ -70,9 +72,15 @@ class FlashcardSetViewModel{
     
     var viewControllerCurrentlyAppearing:Int
     
-    var numberOfFlashCards:Int{
-        flashcards.count
+    var numberOfListSetFlashCards:Int{
+        listSetFlashcards.count
     }
+    
+//    var numberOfGameFlashCards:Int{
+//        gameFlashCards.count
+//    }
+    
+    
     
     var background:UIColor{
         ColorManager.shared.currentTheme.colors.backGroundColor
@@ -97,39 +105,46 @@ class FlashcardSetViewModel{
         print("init")
         self.topicID = topicID
         self.currentIndex = 0
-        self.smallSetSection = SmallSetSection(data: flashcards)
+        self.smallSetSection = SmallSetSection(data: listSetFlashcards)
         self.viewControllerCurrentlyAppearing = 0
         self.sectionTitle = .allFlashCards
         
-        getAllFlashcards()
+        getAllFlashcardsForListSet()
+        //TODO: inside of the managers when theyre being updated, not being updated here!!!meaning not being updated in the game set flashcards
+        //getAllFlashcardsForGame()
     }
     
     var sectionsCount:Int{
-        return numberOfFlashCards > 0 ? 2 : 0
+        return numberOfListSetFlashCards > 0 ? 2 : 0
     }
     
     
     func numberOfRowsForflashCards() -> Int{
-        return numberOfFlashCards
+        return numberOfListSetFlashCards
     }
     
     func flashcard(by index: Int) -> FlashcardViewModel{
-        flashcards[index]
+        listSetFlashcards[index]
     }
     
-    func getAllFlashcards(){
-        flashcards = CoreDataManager.shared.getAllFlashCardsForTopic(topicID: topicID).map(FlashcardViewModel.init)
+    func getAllFlashcardsForListSet(){
+        listSetFlashcards = CoreDataManager.shared.getAllFlashCardsForTopic(topicID: topicID).map(FlashcardViewModel.init)
         
     }
     
+//    func getAllFlashcardsForGame(){
+//        gameFlashCards = CoreDataManager.shared.getAllFlashCardsForTopic(topicID: topicID).map(FlashcardViewModel.init)
+//        
+//    }
+    
     func getLearnedFlashcards(){
-        getAllFlashcards()
-        flashcards = flashcards.filter({$0.learned})
+        getAllFlashcardsForListSet()
+        listSetFlashcards = listSetFlashcards.filter({$0.learned})
     }
     
     func getStillLearningFlashcards(){
-        getAllFlashcards()
-        flashcards = flashcards.filter({$0.stillLearning})
+        getAllFlashcardsForListSet()
+        listSetFlashcards = listSetFlashcards.filter({$0.stillLearning})
 
         
     }
@@ -149,7 +164,7 @@ class FlashcardSetViewModel{
     
     func deleteFlashcard(flashcard:FlashcardViewModel){
         CoreDataManager.shared.deleteFlashCard(flashCardID: flashcard.id)
-        getAllFlashcards()
+        getAllFlashcardsForListSet()
         
     }
     
@@ -159,8 +174,8 @@ class FlashcardSetViewModel{
     }
     
     func initSmallSetSection(){
-        getAllFlashcards()
-        smallSetSection = SmallSetSection(data: flashcards)
+        getAllFlashcardsForListSet()
+        smallSetSection = SmallSetSection(data: listSetFlashcards)
     }
     
     func toggleSection(){

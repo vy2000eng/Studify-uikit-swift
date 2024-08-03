@@ -16,6 +16,7 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
    
     
     let viewmodel:FlashcardSetViewModel
+    //let flashcardGameViewModel: FlashCardGameViewModel
     let topicIndexPath: IndexPath
     
     let flashcardSetViewController: FlashCardSetViewController
@@ -24,6 +25,7 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
 
     init(topicID:UUID, topicIndexPath: IndexPath){
         self.viewmodel = FlashcardSetViewModel(topicID: topicID)
+        //self.flashcardGameViewModel = FlashCardGameViewModel(topicID: topicID)
         self.topicIndexPath = topicIndexPath
         self.flashcardSetViewController = FlashCardSetViewController(viewmodel: viewmodel, topicIndexPath: topicIndexPath)
         self.flashcardListViewController = FlashCardListViewController(viewmodel: viewmodel, topicIndexPath: topicIndexPath)
@@ -110,6 +112,7 @@ extension FlashCardTabViewController{
     private func animateReloadingCollectionView(){
         let listCollectionView = flashcardListViewController.collectionView
         let setCollectionView = flashcardSetViewController.collectionView
+       // let gameCollectionView = flashcardGameViewController.collectionView
         
         DispatchQueue.main.async{ [weak self] in
             guard let self = self else {return}
@@ -125,6 +128,7 @@ extension FlashCardTabViewController{
                     
                 }, completion: {finished in
                     listCollectionView.reloadData()
+                  //  gameCollectionView.reloadData()
                     
                 })
                 
@@ -138,9 +142,28 @@ extension FlashCardTabViewController{
                     
                 }, completion: {finished in
                     setCollectionView.reloadData()
+                  //  gameCollectionView.reloadData()
+
                     
                 })
                 break
+//            case 2:
+//                UIView.transition(with:  listCollectionView, duration: 0.3, options: .transitionCrossDissolve, animations: { [weak self] in
+//                    guard let self = self else{
+//                        return
+//                    }
+//                    gameCollectionView.reloadData()
+//
+//                    
+//                }, completion: {finished in
+//                    //setCollectionView.reloadData()
+//                    //listCollectionView.reloadData()
+//
+//
+//                    
+//                })
+//                break
+                
             default:
                 fatalError("couldnt reload data")
             }
@@ -150,6 +173,7 @@ extension FlashCardTabViewController{
     }
     
     func createOptionsBarButtonItem() -> UIBarButtonItem{
+    
         let addFlashCardAction = UIAction(title: "add flashcard") { [weak self] _ in
             
             guard let self = self else { return }
@@ -201,7 +225,7 @@ extension FlashCardTabViewController{
             viewmodel.sectionTitle = .allFlashCards
             title = viewmodel.sectionTitle.type.title
 
-            viewmodel.getAllFlashcards()
+            viewmodel.getAllFlashcardsForListSet()
             animateReloadingCollectionView()
             banner.subtitleLabel?.text = "The flashcards are all the flashcards"
             banner.show(bannerPosition: .top)
@@ -209,7 +233,7 @@ extension FlashCardTabViewController{
         }
 
         let menu = UIMenu(title: "options", children: [addFlashCardAction ,filterLearnedAction, filterUnlearnedAction, filterAllAction])
-        
+       // :  UIMenu(title: "options", children: [filterLearnedAction, filterUnlearnedAction, filterAllAction])
         return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: menu)
         
     }
@@ -236,6 +260,14 @@ extension FlashCardTabViewController{
 
 extension FlashCardTabViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        navigationItem.rightBarButtonItem
+        = viewmodel.viewControllerCurrentlyAppearing == 2
+        ? nil
+        : createOptionsBarButtonItem()
+
+
+            
+        
         viewController.navigationController?.navigationBar.prefersLargeTitles = true
         viewController.navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewmodel.fontColor,
                                                                         .font: viewmodel.titleFont]
@@ -243,7 +275,11 @@ extension FlashCardTabViewController: UITabBarControllerDelegate {
 
         
         
-        title = viewmodel.sectionTitle.type.title
+        title 
+        = viewmodel.viewControllerCurrentlyAppearing == 2
+        ? "Game"
+        : viewmodel.sectionTitle.type.title
+
         
     }
 }

@@ -9,8 +9,8 @@ import Foundation
 extension FlashCardListViewController{
     func didAddFlashcardToList() {
         
-        viewmodel.getAllFlashcards()
-        let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
+        viewmodel.getAllFlashcardsForListSet()
+        let indexPathSetCell = IndexPath(row: viewmodel.numberOfListSetFlashCards-1, section: 0)
         self.viewmodel.currentIndex = indexPathSetCell.row
         
         DispatchQueue.main.async {
@@ -36,7 +36,7 @@ extension FlashCardListViewController{
     
     func didUpdateFlashCardInList(indexPath: IndexPath) {
       
-        viewmodel.getAllFlashcards()
+        viewmodel.getAllFlashcardsForListSet()
         let indexPathListCell = IndexPath(row: indexPath.row, section: 0)
         self.viewmodel.currentIndex = indexPathListCell.row
         
@@ -58,7 +58,7 @@ extension FlashCardListViewController{
     
     func didDeleteFlashCardInList(indexPath: IndexPath) {
         
-        viewmodel.getAllFlashcards()
+        viewmodel.getAllFlashcardsForListSet()
         let indexPathListCell = IndexPath(row: indexPath.row, section: 0)
         self.viewmodel.currentIndex = indexPath.row == 0 ? 0 : max(0, indexPath.row - 1)
                 
@@ -68,7 +68,7 @@ extension FlashCardListViewController{
             }, completion: { finished in
                 if finished {
                     // Scroll to the new current index if needed
-                    if self.viewmodel.numberOfFlashCards > 0 {
+                    if self.viewmodel.numberOfListSetFlashCards > 0 {
                         let newIndexPath = IndexPath(row: self.viewmodel.currentIndex, section: 0)
                         self.collectionView.scrollToItem(at: newIndexPath, at: .centeredVertically, animated: true)
                        

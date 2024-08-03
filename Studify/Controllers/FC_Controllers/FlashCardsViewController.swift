@@ -77,6 +77,12 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
         super.viewDidAppear(animated)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        viewmodel.viewControllerCurrentlyAppearing = 0
+        super.viewWillAppear(animated)
+
+    }
+    
 }
 
 extension FlashCardSetViewController{

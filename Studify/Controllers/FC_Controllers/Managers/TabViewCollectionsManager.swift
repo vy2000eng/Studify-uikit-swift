@@ -65,7 +65,7 @@ extension FlashCardTabViewController{
     //MARK: DELETE
     func didDeleteFlashCardInList(indexPath: IndexPath, newIndexPathForList: IndexPath){
         
-        viewmodel.getAllFlashcards()
+        viewmodel.getAllFlashcardsForListSet()
         let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
         
         DispatchQueue.main.async {
@@ -84,14 +84,14 @@ extension FlashCardTabViewController{
     
     func didDeleteFlashCardInSet(indexPath:IndexPath){
         
-        viewmodel.getAllFlashcards()
+        viewmodel.getAllFlashcardsForListSet()
         //were using this to delete the item, that is in fact deleted, but still in the list via the ui
         let indexPathSetCell = IndexPath(row:indexPath.row, section: 0)
         let indexPathSmallSetCell = IndexPath(row: indexPath.row, section: 1)
         
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
-                if self.viewmodel.numberOfFlashCards == 0{
+                if self.viewmodel.numberOfListSetFlashCards == 0{
                     self.flashcardSetViewController.collectionView.deleteSections(IndexSet(integer: 0))
                     self.flashcardSetViewController.collectionView.deleteSections(IndexSet(integer: 1))
                 }else{
@@ -104,7 +104,7 @@ extension FlashCardTabViewController{
                 if finished{
                     self.flashcardSetViewController.collectionView.layoutIfNeeded()
                     DispatchQueue.main.async {
-                        if self.viewmodel.numberOfFlashCards > 0 {
+                        if self.viewmodel.numberOfListSetFlashCards > 0 {
                             // were using this to delete scroll to the new item that was determined in
                             let updatedIndexPathSetCell = IndexPath(row: self.viewmodel.currentIndex, section: 0)
                             self.flashcardSetViewController.collectionView.scrollToItem(at: updatedIndexPathSetCell, at: .centeredHorizontally, animated: false)
@@ -117,7 +117,7 @@ extension FlashCardTabViewController{
     //MARK: UPDATE
     func didUpdateFlashCardInList(indexPath:IndexPath){
         
-        viewmodel.getAllFlashcards()
+        viewmodel.getAllFlashcardsForListSet()
         let indexPathSetCell = IndexPath(row: indexPath.row, section: 0)
         
         DispatchQueue.main.async {
@@ -134,7 +134,7 @@ extension FlashCardTabViewController{
     
     func didUpdateFlashCardInSet(indexPath:IndexPath){
         
-        viewmodel.getAllFlashcards()
+        viewmodel.getAllFlashcardsForListSet()
         
         let indexPathSetCell = IndexPath(row:self.viewmodel.currentIndex, section: 0)
         let indexPathSmallSetCell = IndexPath(row: self.viewmodel.currentIndex, section: 1)
@@ -160,8 +160,8 @@ extension FlashCardTabViewController{
     //MARK: ADD
     func didAddFlashcardToList() {
         
-        viewmodel.getAllFlashcards()
-        let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
+        viewmodel.getAllFlashcardsForListSet()
+        let indexPathSetCell = IndexPath(row: viewmodel.numberOfListSetFlashCards-1, section: 0)
         
         DispatchQueue.main.async {
             self.flashcardListViewController.collectionView.performBatchUpdates({
@@ -178,13 +178,13 @@ extension FlashCardTabViewController{
     
     func didAddFlashcardToSet() {
         
-        viewmodel.getAllFlashcards()
-        let indexPathSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 0)
-        let indexPathSmallSetCell = IndexPath(row: viewmodel.numberOfFlashCards-1, section: 1)
+        viewmodel.getAllFlashcardsForListSet()
+        let indexPathSetCell = IndexPath(row: viewmodel.numberOfListSetFlashCards-1, section: 0)
+        let indexPathSmallSetCell = IndexPath(row: viewmodel.numberOfListSetFlashCards-1, section: 1)
         
         DispatchQueue.main.async {
             self.flashcardSetViewController.collectionView.performBatchUpdates({
-                if self.viewmodel.numberOfFlashCards == 1{
+                if self.viewmodel.numberOfListSetFlashCards == 1{
                     self.flashcardSetViewController.collectionView.insertSections(IndexSet(integer: 0))
                     self.flashcardSetViewController.collectionView.insertSections(IndexSet(integer: 1))
                     

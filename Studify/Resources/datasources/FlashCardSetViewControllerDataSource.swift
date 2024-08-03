@@ -15,10 +15,10 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if section == 0{
-            return viewmodel.numberOfFlashCards
+            return viewmodel.numberOfListSetFlashCards
         }else{
             if viewmodel.smallSetSection.isOpened{
-                return viewmodel.numberOfFlashCards
+                return viewmodel.numberOfListSetFlashCards
             }
             else{
                 return 0
