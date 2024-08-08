@@ -7,6 +7,63 @@
 
 import UIKit
 
+
+class CounterLabelClass:UIView{
+   
+    lazy var label = createCountLabel()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSubview(label)
+        setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+        
+    }
+    
+    private func createCountLabel()->UILabel{
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .gray
+        return label
+        
+    }
+    private func setupConstraints(){
+        _ = label
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: topAnchor),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor),
+            label.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+    }
+}
+
+class RightCounterLabelClass:CounterLabelClass{
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+}
+class LeftCounterLabelClass:CounterLabelClass{
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+
 class FlashCardGameViewController: UIViewController{
     
     let viewmodel:FlashcardSetViewModel
@@ -16,6 +73,18 @@ class FlashCardGameViewController: UIViewController{
     private var currentIndex = 0
     
     private var cardViews:[FlashCardGameCollectionViewCell] = []
+    
+    private var rightCounterView: RightCounterLabelClass = {
+        let view = RightCounterLabelClass()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var leftCounterView: LeftCounterLabelClass = {
+        let view = LeftCounterLabelClass()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     init(viewmodel: FlashcardSetViewModel) {
         
@@ -29,9 +98,14 @@ class FlashCardGameViewController: UIViewController{
     }
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCounterViews()
+        setupConstraintsForCounters()
+        
         setupCardViews()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -47,6 +121,34 @@ class FlashCardGameViewController: UIViewController{
 }
 
 extension FlashCardGameViewController{
+    
+    private func setupCounterViews(){
+        view.addSubview(rightCounterView)
+        view.addSubview(leftCounterView)
+    }
+    
+    private func setupConstraintsForCounters(){
+        print("counters func")
+        // Right Counter View
+        NSLayoutConstraint.activate([
+            rightCounterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+                 rightCounterView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+                 rightCounterView.widthAnchor.constraint(equalToConstant: 80),
+                 rightCounterView.heightAnchor.constraint(equalToConstant: 40),
+                 
+                 // Left Counter View
+                 leftCounterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+                 leftCounterView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+                 leftCounterView.widthAnchor.constraint(equalToConstant: 80),
+                 leftCounterView.heightAnchor.constraint(equalToConstant: 40)
+        
+        
+        ])
+        //temp code
+        rightCounterView.label.text = "10"
+        leftCounterView.label.text  = "10"
+ 
+    }
     
     private func setupCardViews(){
         flashcardGameViewModel.getAllFlashcardsForGame()
@@ -158,7 +260,7 @@ extension FlashCardGameViewController{
         resultsView.configure(numberOfLearnedFlashCards: 5, numberOfStillLearningFlashCards: 5, viewmodel:flashcardGameViewModel)
         
         NSLayoutConstraint.activate([
-            resultsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 50),
+            resultsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 80),
             resultsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 50),
             resultsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
             resultsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -50),
