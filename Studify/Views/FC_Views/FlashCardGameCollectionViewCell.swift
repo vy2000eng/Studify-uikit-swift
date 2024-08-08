@@ -36,6 +36,7 @@ class FlashCardGameCollectionViewCell:UIView{
         mainView.layer.shadowRadius = 1.0
         mainView.layer.borderWidth = 2
         mainView.layer.cornerRadius = 2
+        
         return mainView
     }()
     
@@ -60,6 +61,8 @@ class FlashCardGameCollectionViewCell:UIView{
     }
     
     private func setup(){
+        layer.borderWidth = 8
+        layer.cornerRadius = 2
         
         addSubview(mainView)
         mainView.addSubview(termLabel)
@@ -90,7 +93,10 @@ class FlashCardGameCollectionViewCell:UIView{
     }
     
     func configure(flashcard: FlashcardViewModel, bottomTopStyle:Int ){
-       
+        
+        layer.borderColor = flashcard.background.cgColor
+        backgroundColor = flashcard.background
+
         let termLabelFontSize : CGFloat = bottomTopStyle == 0 ? 12 : 8
         
         mainView.layer.borderColor = ColorManager.shared.currentTheme.colors.backGroundColor == .black
@@ -98,6 +104,7 @@ class FlashCardGameCollectionViewCell:UIView{
         : UIColor.black.withAlphaComponent(0.1).cgColor
       
         mainView.backgroundColor = flashcard.topBackgroundColor
+        
         
         let text = flashcard.isShowingFront ? flashcard.front : flashcard.back
         let fontSize = determineFontSize(for: text, topBottomStyle:  bottomTopStyle)
@@ -135,48 +142,3 @@ extension FlashCardGameCollectionViewCell{
     
     
 }
-
-   //let flashcardSetCollectionViewCell:FlashCardSetCollectionViewCell
-    
-    
-    
-//    override init(frame: CGRect) {
-//       self.flashcardSetCollectionViewCell = FlashCardSetCollectionViewCell()
-//        super.init(frame: frame)
-//      //  setup()
-//
-//        
-//    }
-    
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-   
-    
-//}
-//extension FlashCardGameCollectionViewCell{
-//    
-//    func setup(){
-//        flashcardSetCollectionViewCell.translatesAutoresizingMaskIntoConstraints = false
-//        addSubview(flashcardSetCollectionViewCell)
-//       // setupConstraints()
-//        
-//    }
-//    private func setupConstraints(){
-//        NSLayoutConstraint.activate([
-//            flashcardSetCollectionViewCell.topAnchor.constraint(equalTo: topAnchor),
-//            flashcardSetCollectionViewCell.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            flashcardSetCollectionViewCell.trailingAnchor.constraint(equalTo: trailingAnchor),
-//            flashcardSetCollectionViewCell.bottomAnchor.constraint(equalTo: bottomAnchor)
-//
-//        ])
-//        
-//    }
-    
-//    func configure(flashcard: FlashcardViewModel){
-//        flashcardSetCollectionViewCell.configure(flashcard: flashcard, bottomTopStyle: 0)
-//        //configure(flashcard: flashcard, bottomTopStyle: 0)
-//    }
-//    
-//}

@@ -15,7 +15,7 @@ class FlashCardGameViewModel{
     var currentIndex:Int
     
     var backGroundColor:UIColor{
-        return ColorManager.shared.currentTheme.colors.mapColor
+        return ColorManager.shared.currentTheme.colors.backGroundColor
         
     }
     

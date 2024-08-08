@@ -8,34 +8,6 @@
 import Foundation
 import UIKit
 
-//struct OceanSandTheme{
-//    static let darkPrimary = UIColor(named:"darkblue")
-//    static let darkSecondary = UIColor(named:"oceanblue")
-//    static let lightPrimary = UIColor(named: "lightpeach")
-//    static let lightSecondary = UIColor(named: "tan")
-//    static let lightTertiary = UIColor(named: "pastelyellow")
-//    static let georgiaFont15 = UIFont(name: "Georgia", size: 15)
-//    static let georgiaFont12 = UIFont(name: "Georgia", size: 12)
-//}
-//
-//struct warmClouds{
-//    static let darkPrimary = UIColor(named: "Cyclamen")
-//    static let darkSecondary = UIColor(named: "Amaranth Pink")
-//    static let lightPrimary = UIColor(named: "Pink Lace")
-//    static let lightSecondary = UIColor(named: "Beige")
-//    static let lightTertiary = UIColor(named: "Powder Blue")
-//}
-//
-//struct warmTreeTones{
-//    static let darkPrimary = UIColor(named: "Apricot")
-//    static let darkSecondary = UIColor(named: "Melon")
-//    static let lightPrimary = UIColor(named: "Pastel Pink")
-//    static let lightSecondary = UIColor(named: "English Lavender")
-//    static let lightTertiary = UIColor(named: "Old Lavender")
-//    
-//    
-//    
-//}
 
 struct Theme{
     
@@ -54,34 +26,6 @@ struct Theme{
     let tertiaryFont: UIFont
     let regularFont:UIFont
 }
-
-/**
- 
- 
- let regular = UIFont(name: "Georgia", size: 17)
- let bold = UIFont(name: "Georgia-Bold", size: 17)
- let italic = UIFont(name: "Georgia-Italic", size: 17)
- 
- let regular = UIFont(name: "Verdana", size: 17)
- let bold = UIFont(name: "Verdana-Bold", size: 17)
- let italic = UIFont(name: "Verdana-Italic", size: 17)
- 
- let regular = UIFont(name: "HelveticaNeue", size: 17)
- let bold = UIFont(name: "HelveticaNeue-Bold", size: 17)
- let italic = UIFont(name: "HelveticaNeue-Italic", size: 17)
- 
- let regular = UIFont(name: "TimesNewRomanPSMT", size: 17)
- let bold = UIFont(name: "TimesNewRomanPS-BoldMT", size: 17)
- let italic = UIFont(name: "TimesNewRomanPS-ItalicMT", size: 17)
- 
- */
-    
-//struct Font{
-//    let primaryFont:UIFont
-//    let secondaryFont:UIFont
-//    let tertiaryFont: UIFont
-//    
-//}
 
 enum FontStyle {
     case regular
@@ -206,44 +150,7 @@ struct Font {
             
         }
     }
-    
-    
-    
-    //    let Courier = [UIFont(name: "Courier", size: 14),
-    //                   UIFont(name: "Courier-Italic", size: 14),
-    //                   UIFont(name: "Courier-Bold", size: 17),
-    //    ]
-    //
-    //    let Avenir = [UIFont(name: "Avenir-Book", size: 14),
-    //                  UIFont(name: "Avenir-BlackOblique", size: 14),
-    //                  UIFont(name: "Avenir-Black", size: 17)
-    //    ]
-    //
-    //    let Georgia =  [UIFont(name: "Georgia", size: 14),
-    //                    UIFont(name: "Georgia-Italic", size: 14),
-    //                    UIFont(name: "Georgia-Bold", size: 17)
-    //    ]
-    //
-    //    let Helvetica = [UIFont(name: "HelveticaNeue", size: 14),
-    //                     UIFont(name: "HelveticaNeue-Italic", size: 14),
-    //                     UIFont(name: "HelveticaNeue-Bold", size: 17)
-    //    ]
-    //
-    //    let Verdana = [
-    //        UIFont(name: "Verdana", size: 14),
-    //        UIFont(name: "Verdana-Italic", size: 14),
-    //        UIFont(name: "Verdana-Bold", size: 17)
-    //
-    //    ]
-    //
-    //    let TimesNewRoman = [
-    //         UIFont(name: "TimesNewRomanPSMT", size: 14),
-    //         UIFont(name: "TimesNewRomanPS-ItalicMT", size: 14),
-    //         UIFont(name: "TimesNewRomanPS-BoldMT", size: 17)
-    //    ]
-    
-    
-    
+
     
 enum AppTheme: Int, CaseIterable{
     case superNova = 0
@@ -319,14 +226,8 @@ enum AppTheme: Int, CaseIterable{
                          secondaryFont: FontManager.shared.primaryFont(style: .semiBold, size: 14),
                          tertiaryFont: FontManager.shared.primaryFont(style: .italic, size: 14),
                          regularFont: FontManager.shared.primaryFont(style: .regular, size: 14)
-
-                         
             )
-            
         }
-        
-        
-        
     }
 }
 

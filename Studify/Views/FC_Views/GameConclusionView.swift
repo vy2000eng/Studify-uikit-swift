@@ -10,99 +10,69 @@ import UIKit
 
 
 class GameConclusionView: UIView{
-//    let numberOfLearnedFlashCards:Int
-//    let numberOfStillLearningFlashCards: Int
-    
-    
     lazy var conclusionLabelStack:UIStackView = {
         let label = UIStackView()
         label.axis = .vertical
+        label.distribution = .equalSpacing
+        label.spacing = 15
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    lazy var learnedFlashCardsLabel:UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()    
-    
-    lazy var stillLearningFlashCardLabel:UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    private lazy var buttonStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.spacing = 20
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
     }()
-    
-    lazy var scoreLabel:UILabel = {
-       let scoreLabel = UILabel()
-        scoreLabel.translatesAutoresizingMaskIntoConstraints = false
-        return scoreLabel
-    }()
-    
-    lazy var buttonLabel:UILabel = {
-        let buttonLabel = UILabel()
-        buttonLabel.translatesAutoresizingMaskIntoConstraints = false
-        return buttonLabel
-    }()
-    
-    lazy var saveButton:UIButton = {
-        let saveButton = UIButton()
-        saveButton.translatesAutoresizingMaskIntoConstraints = false
-        return saveButton
-    }()
-    
-    lazy var resetButton:UIButton = {
-       let resetButton = UIButton()
-        resetButton.translatesAutoresizingMaskIntoConstraints = false
-        return resetButton
-    }()
+  
+    lazy var learnedFlashCardsLabel = createLabel()
+    lazy var stillLearningFlashCardLabel = createLabel()
+    lazy var scoreLabel = createLabel()
+    lazy var buttonLabel = createLabel()
+    lazy var saveButton = createButton(title: "Save FlashCards")
+    lazy var resetButton = createButton(title: "Reset FlashCards")
+
     
     override init(frame:CGRect){
-        
-       // self.numberOfLearnedFlashCards = numberOfLearnedFlashCards
-       // self.numberOfStillLearningFlashCards = numberOfStillLearningFlashCards
-
         super.init(frame: .zero)
-
+        setup()
+        setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    
 }
 extension GameConclusionView{
     private func setup(){
-        
+       // ..addSubview(containerView)
+       // containerView.addSubview(conclusionLabelStack)
         addSubview(conclusionLabelStack)
         conclusionLabelStack.addArrangedSubview(learnedFlashCardsLabel)
         conclusionLabelStack.addArrangedSubview(stillLearningFlashCardLabel)
         conclusionLabelStack.addArrangedSubview(scoreLabel)
-        buttonLabel.addSubview(saveButton)
-        buttonLabel.addSubview(resetButton)
-        conclusionLabelStack.addArrangedSubview(buttonLabel)
+        conclusionLabelStack.addArrangedSubview(buttonStack)
+        buttonStack.addArrangedSubview(saveButton)
+        buttonStack.addArrangedSubview(resetButton)
+
     }
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-            conclusionLabelStack.topAnchor.constraint(equalTo: topAnchor,constant: 20),
-            conclusionLabelStack.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 20),
-            conclusionLabelStack.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -20),
-            conclusionLabelStack.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -20),
-            
-            saveButton.topAnchor.constraint(equalTo: buttonLabel.topAnchor, constant: 10),
-            saveButton.leadingAnchor.constraint(equalTo: buttonLabel.leadingAnchor, constant: 10),
-            saveButton.bottomAnchor.constraint(equalTo: buttonLabel.bottomAnchor, constant: -10),
-            
-            resetButton.topAnchor.constraint(equalTo: buttonLabel.topAnchor, constant: 10),
-            resetButton.trailingAnchor.constraint(equalTo: buttonLabel.trailingAnchor, constant: 10),
-            resetButton.bottomAnchor.constraint(equalTo: buttonLabel.bottomAnchor, constant: -10)
+            conclusionLabelStack.topAnchor.constraint(equalTo: topAnchor),
+            conclusionLabelStack.leadingAnchor.constraint(equalTo: leadingAnchor),
+            conclusionLabelStack.trailingAnchor.constraint(equalTo: trailingAnchor),
+            conclusionLabelStack.bottomAnchor.constraint(equalTo: bottomAnchor),
+ 
         ])
     }
     
     func configure(numberOfLearnedFlashCards:Int, numberOfStillLearningFlashCards: Int, viewmodel: FlashCardGameViewModel){
+        
+        conclusionLabelStack.backgroundColor = .darkSlateGrey
         
         let learnedFlashCardsAttributedString = NSAttributedString(
             string: "You have Learned \(numberOfLearnedFlashCards)",
@@ -112,18 +82,41 @@ extension GameConclusionView{
             string: "You Are Still Learning \(numberOfStillLearningFlashCards)",
             attributes: [.font: viewmodel.titleFont, .foregroundColor: viewmodel.fontColor])
         
-        let saveButtonAttributedText = NSAttributedString(
-            string: "save current flashCards",
+        let scoredLabelAttributedString = NSAttributedString(
+            string: "your Score: (TODO CHANGE 100 %)",
             attributes: [.font: viewmodel.titleFont, .foregroundColor: viewmodel.fontColor])
         
-        let resetButtonAttributedText = NSAttributedString(
-            string: "reset current flashCards",
-            attributes: [.font: viewmodel.titleFont, .foregroundColor: viewmodel.fontColor])
-
+        
         stillLearningFlashCardLabel.attributedText = learnedFlashCardsAttributedString
-        learnedFlashCardsLabel.attributedText = learnedFlashCardsAttributedString
-        saveButton.setAttributedTitle(saveButtonAttributedText, for: .normal)
-        resetButton.setAttributedTitle(resetButtonAttributedText, for: .normal)
+        learnedFlashCardsLabel.attributedText = stillLearningFlashCardsAttributedString
+        scoreLabel.attributedText = scoredLabelAttributedString
+        
+        
+        saveButton.titleLabel?.font = viewmodel.subtitleFont
+        resetButton.titleLabel?.font = viewmodel.subtitleFont
+   
         
     }
+}
+
+extension GameConclusionView{
+    
+    private func createLabel() -> UILabel {
+      let label = UILabel()
+      label.translatesAutoresizingMaskIntoConstraints = false
+      label.textAlignment = .center
+      label.numberOfLines = 0
+      return label
+  }
+  
+  private func createButton(title: String) -> UIButton {
+      let button = UIButton(type: .system)
+      button.translatesAutoresizingMaskIntoConstraints = false
+      button.setTitle(title, for: .normal)
+      button.backgroundColor = .systemBlue
+      button.setTitleColor(.white, for: .normal)
+      button.layer.cornerRadius = 10
+      return button
+  }
+    
 }

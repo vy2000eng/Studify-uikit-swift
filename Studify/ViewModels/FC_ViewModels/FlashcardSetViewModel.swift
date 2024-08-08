@@ -63,9 +63,7 @@ class FlashcardSetViewModel{
     
     
     var listSetFlashcards = [FlashcardViewModel]()
-    
-    //var gameFlashCards = [FlashcardViewModel]()
-    
+        
     var currentIndex:Int
     
     var smallSetSection: SmallSetSection
@@ -75,12 +73,6 @@ class FlashcardSetViewModel{
     var numberOfListSetFlashCards:Int{
         listSetFlashcards.count
     }
-    
-//    var numberOfGameFlashCards:Int{
-//        gameFlashCards.count
-//    }
-    
-    
     
     var background:UIColor{
         ColorManager.shared.currentTheme.colors.backGroundColor
