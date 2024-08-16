@@ -231,8 +231,13 @@ extension FlashCardTabViewController{
             banner.show(bannerPosition: .top)
     
         }
+        let studyAction = UIAction(title:"study",image: UIImage(systemName: "graduationcap")){[weak self] _ in
+            guard let self = self else {return}
+            
+            
+        }
 
-        let menu = UIMenu(title: "options", children: [addFlashCardAction ,filterLearnedAction, filterUnlearnedAction, filterAllAction])
+        let menu = UIMenu(title: "options", children: [addFlashCardAction ,filterLearnedAction, filterUnlearnedAction, filterAllAction, studyAction])
        // :  UIMenu(title: "options", children: [filterLearnedAction, filterUnlearnedAction, filterAllAction])
         return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: menu)
         

@@ -14,6 +14,9 @@ class FlashCardGameViewModel{
     
     var currentIndex:Int
     
+    var learnedFlashcardCount: Int = 0
+    var stillLearningFlashCardCount:Int = 0
+    
     var backGroundColor:UIColor{
         return ColorManager.shared.currentTheme.colors.backGroundColor
         

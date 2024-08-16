@@ -15,6 +15,20 @@ import UIKit
 
 
 class GameConclusionView: UIView{
+    
+    private lazy var containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .darkSlateGrey
+        view.layer.cornerRadius = 1
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 4)
+        view.layer.shadowRadius = 5
+        view.layer.shadowOpacity = 0.1
+        return view
+    }()
+    
+    
     lazy var conclusionLabelStack:UIStackView = {
         let label = UIStackView()
         label.axis = .vertical
@@ -53,44 +67,68 @@ class GameConclusionView: UIView{
 }
 extension GameConclusionView{
     private func setup(){
-       // ..addSubview(containerView)
-       // containerView.addSubview(conclusionLabelStack)
-        addSubview(conclusionLabelStack)
+        // ..addSubview(containerView)
+        // containerView.addSubview(conclusionLabelStack)
+        //        addSubview(conclusionLabelStack)
+        //        conclusionLabelStack.addArrangedSubview(learnedFlashCardsLabel)
+        //        conclusionLabelStack.addArrangedSubview(stillLearningFlashCardLabel)
+        //        conclusionLabelStack.addArrangedSubview(scoreLabel)
+        //        conclusionLabelStack.addArrangedSubview(buttonStack)
+        //        buttonStack.addArrangedSubview(saveButton)
+        //        buttonStack.addArrangedSubview(resetButton)
+        
+        addSubview(containerView)
+        containerView.addSubview(conclusionLabelStack)
         conclusionLabelStack.addArrangedSubview(learnedFlashCardsLabel)
         conclusionLabelStack.addArrangedSubview(stillLearningFlashCardLabel)
         conclusionLabelStack.addArrangedSubview(scoreLabel)
         conclusionLabelStack.addArrangedSubview(buttonStack)
         buttonStack.addArrangedSubview(saveButton)
         buttonStack.addArrangedSubview(resetButton)
-
+        
     }
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-            conclusionLabelStack.topAnchor.constraint(equalTo: topAnchor),
-            conclusionLabelStack.leadingAnchor.constraint(equalTo: leadingAnchor),
-            conclusionLabelStack.trailingAnchor.constraint(equalTo: trailingAnchor),
-            conclusionLabelStack.bottomAnchor.constraint(equalTo: bottomAnchor),
- 
+            containerView.topAnchor.constraint(equalTo: topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            conclusionLabelStack.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 30),
+            conclusionLabelStack.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            conclusionLabelStack.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            conclusionLabelStack.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -30),
+            
+            buttonStack.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
     func configure(numberOfLearnedFlashCards:Int, numberOfStillLearningFlashCards: Int, viewmodel: FlashCardGameViewModel){
         
+        
+        let num = (Float(numberOfLearnedFlashCards)/Float(viewmodel.numberOfGameFlashCards))*100
+        let formattedNum = String(format: "%.0f", num)
+        
         conclusionLabelStack.backgroundColor = .darkSlateGrey
         
-        let learnedFlashCardsAttributedString = NSAttributedString(
-            string: "You have Learned \(numberOfLearnedFlashCards)",
-            attributes: [.font: viewmodel.titleFont, .foregroundColor: viewmodel.fontColor])
         
-        let stillLearningFlashCardsAttributedString = NSAttributedString(
-            string: "You Are Still Learning \(numberOfStillLearningFlashCards)",
-            attributes: [.font: viewmodel.titleFont, .foregroundColor: viewmodel.fontColor])
+        let learnedFlashCardsAttributedString =
+        createAttributedString(string:"You have Learned: \(numberOfLearnedFlashCards)",
+                               font: viewmodel.titleFont,
+                               color: viewmodel.fontColor)
         
-        let scoredLabelAttributedString = NSAttributedString(
-            string: "your Score: (TODO CHANGE 100 %)",
-            attributes: [.font: viewmodel.titleFont, .foregroundColor: viewmodel.fontColor])
         
+        let stillLearningFlashCardsAttributedString =
+        createAttributedString(string:"You Are Still Learning: \(numberOfStillLearningFlashCards)",
+                               font: viewmodel.titleFont,
+                               color: viewmodel.fontColor)
+
+        
+        let scoredLabelAttributedString =
+        createAttributedString(string:"Your Score: \(formattedNum)%",
+                               font: viewmodel.titleFont,
+                               color: viewmodel.fontColor)
         
         stillLearningFlashCardLabel.attributedText = learnedFlashCardsAttributedString
         learnedFlashCardsLabel.attributedText = stillLearningFlashCardsAttributedString
@@ -99,7 +137,7 @@ extension GameConclusionView{
         
         saveButton.titleLabel?.font = viewmodel.subtitleFont
         resetButton.titleLabel?.font = viewmodel.subtitleFont
-   
+        
         
     }
 }
@@ -123,5 +161,9 @@ extension GameConclusionView{
       button.layer.cornerRadius = 10
       return button
   }
+    
+    private func createAttributedString(string: String, font: UIFont, color: UIColor) -> NSAttributedString {
+          return NSAttributedString(string: string, attributes: [.font: font, .foregroundColor: color])
+      }
     
 }

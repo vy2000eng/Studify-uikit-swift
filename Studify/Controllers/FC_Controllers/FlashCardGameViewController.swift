@@ -26,6 +26,7 @@ class CounterLabelClass:UIView{
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .gray
+        label.clipsToBounds = true
         return label
         
     }
@@ -38,6 +39,11 @@ class CounterLabelClass:UIView{
             label.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
+    override func layoutSubviews() {
+         super.layoutSubviews()
+         layer.cornerRadius = 3
+         label.layer.cornerRadius = 3
+     }
 }
 
 class RightCounterLabelClass:CounterLabelClass{
@@ -86,6 +92,8 @@ class FlashCardGameViewController: UIViewController{
         return view
     }()
     
+    private var resultsView:UIView?
+    
     init(viewmodel: FlashcardSetViewModel) {
         
         self.viewmodel = viewmodel
@@ -132,22 +140,27 @@ extension FlashCardGameViewController{
         // Right Counter View
         NSLayoutConstraint.activate([
             rightCounterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-                 rightCounterView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-                 rightCounterView.widthAnchor.constraint(equalToConstant: 80),
-                 rightCounterView.heightAnchor.constraint(equalToConstant: 40),
-                 
-                 // Left Counter View
-                 leftCounterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-                 leftCounterView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-                 leftCounterView.widthAnchor.constraint(equalToConstant: 80),
-                 leftCounterView.heightAnchor.constraint(equalToConstant: 40)
-        
-        
+            rightCounterView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            rightCounterView.widthAnchor.constraint(equalToConstant: 60),
+            rightCounterView.heightAnchor.constraint(equalToConstant: 40),
+            
+            // Left Counter View
+            leftCounterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            leftCounterView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            
+            leftCounterView.widthAnchor.constraint(equalToConstant: 60),
+            leftCounterView.heightAnchor.constraint(equalToConstant: 40)
+            
+            
         ])
-        //temp code
-        rightCounterView.label.text = "10"
-        leftCounterView.label.text  = "10"
- 
+        rightCounterView.clipsToBounds = true
+        leftCounterView.clipsToBounds = true
+        
+        
+        
+        rightCounterView.label.text = "\(flashcardGameViewModel.learnedFlashcardCount)"
+        leftCounterView.label.text = "\(flashcardGameViewModel.stillLearningFlashCardCount)"
+        
     }
     
     private func setupCardViews(){
@@ -159,12 +172,8 @@ extension FlashCardGameViewController{
             cardView.configure(flashcard: flashcard, bottomTopStyle: 0)
             cardView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(cardView)
-            NSLayoutConstraint.activate([
-                cardView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                cardView.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: 50),
-                cardView.widthAnchor.constraint(equalTo: view.widthAnchor ,multiplier: 0.95),
-                cardView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
-            ])
+            deactivateCardViewConstraints(cardView: cardView, activateConstraints: 1)
+    
             
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
             cardView.addGestureRecognizer(panGesture)
@@ -211,9 +220,19 @@ extension FlashCardGameViewController{
                     
                     guard let self = self else { return }
                     card.removeFromSuperview()
-                    deactivateConstraints(cardView: card)
+                    deactivateCardViewConstraints(cardView: card,activateConstraints:  0)
                     
                     currentIndex += 1
+                    
+                    
+                    if xFromCenter > 100{
+                        flashcardGameViewModel.learnedFlashcardCount += 1
+                    }else{
+                        flashcardGameViewModel.stillLearningFlashCardCount += 1
+                    }
+                    
+                    rightCounterView.label.text = "\(flashcardGameViewModel.learnedFlashcardCount)"
+                    leftCounterView.label.text = "\(flashcardGameViewModel.stillLearningFlashCardCount)"
                     
                     if currentIndex < flashcardGameViewModel.gameFlashCards.count {
                         resetCardPositions()
@@ -254,31 +273,91 @@ extension FlashCardGameViewController{
         
         cardViews.forEach { $0.removeFromSuperview() }
         cardViews.removeAll()
-        let resultsView = GameConclusionView()
-        resultsView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(resultsView)
-        resultsView.configure(numberOfLearnedFlashCards: 5, numberOfStillLearningFlashCards: 5, viewmodel:flashcardGameViewModel)
+        let newResultsView = GameConclusionView()
+        newResultsView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(newResultsView)
         
-        NSLayoutConstraint.activate([
+        newResultsView.resetButton.addTarget(self, action: #selector(resetFlashCards(_:)), for: .touchUpInside)
+        
+        newResultsView.configure(
+            numberOfLearnedFlashCards: flashcardGameViewModel.learnedFlashcardCount,
+            numberOfStillLearningFlashCards: flashcardGameViewModel.stillLearningFlashCardCount,
+            viewmodel: flashcardGameViewModel
+        )
+        
+        resultsViewConstraints(resultsView: newResultsView, activateConstraints: 1)
+        
+        // Store the reference
+        self.resultsView = newResultsView
+    }
+    
+    private func deactivateCardViewConstraints(cardView:UIView, activateConstraints:Int){
+        resultsView?.removeFromSuperview()
+
+        activateConstraints == 0
+        ?NSLayoutConstraint.deactivate([
+            cardView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            cardView.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: 50),
+            cardView.widthAnchor.constraint(equalTo: view.widthAnchor ,multiplier: 0.95),
+            cardView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
+        ])
+        :NSLayoutConstraint.activate([
+            cardView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            cardView.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: 50),
+            cardView.widthAnchor.constraint(equalTo: view.widthAnchor ,multiplier: 0.95),
+            cardView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
+        ])
+        
+    }
+    
+    private func resultsViewConstraints(resultsView:UIView,activateConstraints:Int){
+        
+
+        activateConstraints == 0
+        ? NSLayoutConstraint.deactivate([
             resultsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 80),
             resultsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 50),
             resultsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
             resultsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -50),
         ])
+        : NSLayoutConstraint.activate([
+            resultsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 80),
+            resultsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 50),
+            resultsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            resultsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -50),
+        ])
+        
+        
     }
     
-    private func deactivateConstraints(cardView:UIView){
-        NSLayoutConstraint.deactivate([
-            cardView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            cardView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            cardView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            cardView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
-        ])
+    @objc
+    private func resetFlashCards(_ sender: UIButton){
+        guard let resultsView = self.resultsView else {
+            print("Results view not found")
+            return
+        }
+        
+        currentIndex = 0
+        flashcardGameViewModel.learnedFlashcardCount = 0
+        flashcardGameViewModel.stillLearningFlashCardCount = 0
+        rightCounterView.label.text = "0"
+        leftCounterView.label.text = "0"
+        
+        resultsViewConstraints(resultsView: resultsView, activateConstraints: 0)
+        
+        
+        setupCardViews()
     }
 }
 
 extension Collection {
     subscript(safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
+    }
+}
+
+extension Float {
+    var clean: String {
+       return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }
