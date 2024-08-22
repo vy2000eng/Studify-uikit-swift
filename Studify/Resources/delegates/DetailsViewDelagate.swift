@@ -184,6 +184,8 @@ extension TopicMapViewController: UICollectionViewDelegate{
             vc.flashcardSetViewController.delegate = self
             vc.flashcardListViewController.delegate = self
             navigationController?.pushViewController(vc, animated:true)
+            
+            
 
 //            let navigationController = UINavigationController(rootViewController: vc)
 //            

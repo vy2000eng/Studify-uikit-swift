@@ -21,7 +21,7 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
     
     let flashcardSetViewController: FlashCardSetViewController
     let flashcardListViewController: FlashCardListViewController
-    let flashcardGameViewController: FlashCardGameViewController
+    //let flashcardGameViewController: FlashCardGameViewController
 
     init(topicID:UUID, topicIndexPath: IndexPath){
         self.viewmodel = FlashcardSetViewModel(topicID: topicID)
@@ -29,7 +29,7 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
         self.topicIndexPath = topicIndexPath
         self.flashcardSetViewController = FlashCardSetViewController(viewmodel: viewmodel, topicIndexPath: topicIndexPath)
         self.flashcardListViewController = FlashCardListViewController(viewmodel: viewmodel, topicIndexPath: topicIndexPath)
-        self.flashcardGameViewController = FlashCardGameViewController(viewmodel: viewmodel)
+       // self.flashcardGameViewController = FlashCardGameViewController(viewmodel: viewmodel)
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -91,19 +91,16 @@ extension FlashCardTabViewController{
         
         flashcardSetViewController.tabBarItem = UITabBarItem(title: "Set", image: UIImage(systemName: "menucard"), tag: 1)
         flashcardListViewController.tabBarItem = UITabBarItem(title: "List", image: UIImage(systemName: "list.bullet"), tag: 2)
-        flashcardGameViewController.tabBarItem = UITabBarItem(title: "Learn", image:UIImage(systemName: "play"), tag:3)
+        //flashcardGameViewController.tabBarItem = UITabBarItem(title: "Learn", image:UIImage(systemName: "play"), tag:3)
         
         
         
-        setViewControllers(  [flashcardSetViewController,flashcardListViewController, flashcardGameViewController], animated: true)
+        setViewControllers(  [flashcardSetViewController,flashcardListViewController], animated: true)
         view.backgroundColor = viewmodel.background
         tabBar.backgroundColor = viewmodel.background
-         tabBar.barTintColor = viewmodel.background
-         tabBar.isTranslucent = false
+        tabBar.barTintColor = viewmodel.background
+        tabBar.isTranslucent = false
         delegate = self
-        
-
-
     }
 }
 
@@ -262,7 +259,7 @@ extension FlashCardTabViewController{
 }
 
 
-
+//TODO: we dont need some of this code regarding changing the title
 extension FlashCardTabViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         navigationItem.rightBarButtonItem
