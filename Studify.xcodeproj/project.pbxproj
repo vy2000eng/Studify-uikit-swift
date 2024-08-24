@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		390BE1C82C5EF29900D12C60 /* GameConclusionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390BE1C72C5EF29800D12C60 /* GameConclusionView.swift */; };
+		3919CEF72C76BDAE00F08FF4 /* FlashCardOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CEF62C76BDAE00F08FF4 /* FlashCardOptionsViewController.swift */; };
 		392A5D772C39BC78007F4F86 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D762C39BC78007F4F86 /* SettingsViewController.swift */; };
 		392A5D792C39BCB3007F4F86 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D782C39BCB3007F4F86 /* SettingsViewModel.swift */; };
 		392A5D7B2C39CB67007F4F86 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D7A2C39CB67007F4F86 /* ColorManager.swift */; };
@@ -87,6 +88,7 @@
 
 /* Begin PBXFileReference section */
 		390BE1C72C5EF29800D12C60 /* GameConclusionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConclusionView.swift; sourceTree = "<group>"; };
+		3919CEF62C76BDAE00F08FF4 /* FlashCardOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardOptionsViewController.swift; sourceTree = "<group>"; };
 		392A5D762C39BC78007F4F86 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		392A5D782C39BCB3007F4F86 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		392A5D7A2C39CB67007F4F86 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				396D6CBB2C251F7B000DD57C /* AddNewFlashCardViewController.swift */,
 				393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */,
 				395B71012C4DC5E700A9EBB6 /* FlashCardGameViewController.swift */,
+				3919CEF62C76BDAE00F08FF4 /* FlashCardOptionsViewController.swift */,
 			);
 			path = FC_Controllers;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				395B71062C4E046500A9EBB6 /* FlashCardGameViewControllerDataSource.swift in Sources */,
 				393DF6912C371222000F1D41 /* FlashcardSmallSetHeader.swift in Sources */,
 				39DEDE202C12032100C725CE /* DetailsViewDelagate.swift in Sources */,
+				3919CEF72C76BDAE00F08FF4 /* FlashCardOptionsViewController.swift in Sources */,
 				39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */,
 				393DF68C2C336BC7000F1D41 /* Subject+CoreDataProperties.swift in Sources */,
 				393EE5922C2DB45F00277FAF /* EditFlashCardViewModel.swift in Sources */,

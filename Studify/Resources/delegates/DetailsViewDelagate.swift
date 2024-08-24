@@ -180,10 +180,13 @@ extension TopicMapViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         if viewmodel.sectionType(for: indexPath.section)  == .topics{
-            let vc = FlashCardTabViewController(topicID: viewmodel.topic(by: indexPath.row).id, topicIndexPath: indexPath)
-            vc.flashcardSetViewController.delegate = self
-            vc.flashcardListViewController.delegate = self
-            navigationController?.pushViewController(vc, animated:true)
+            //TODO: this is good code, we just need to put it somewhere else
+//            let vc = FlashCardTabViewController(topicID: viewmodel.topic(by: indexPath.row).id, topicIndexPath: indexPath)
+//            vc.flashcardSetViewController.delegate = self
+//            vc.flashcardListViewController.delegate = self
+//            navigationController?.pushViewController(vc, animated:true)
+            let vc = FlashCardOptionsViewContoleer()
+            navigationController?.pushViewController(vc, animated: true)
             
             
 
