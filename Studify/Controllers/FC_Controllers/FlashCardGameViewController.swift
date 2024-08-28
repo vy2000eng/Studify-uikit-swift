@@ -72,9 +72,9 @@ class LeftCounterLabelClass:CounterLabelClass{
 
 class FlashCardGameViewController: UIViewController{
     
-    let viewmodel:FlashcardSetViewModel
+  //  let viewmodel:FlashcardSetViewModel
     
-    let flashcardGameViewModel :FlashCardGameViewModel
+    var flashcardGameViewModel :FlashCardGameViewModel
     
     private var currentIndex = 0
     
@@ -94,11 +94,13 @@ class FlashCardGameViewController: UIViewController{
     
     private var resultsView:UIView?
     
-    init(viewmodel: FlashcardSetViewModel) {
+    init(topicID:UUID) {
         
-        self.viewmodel = viewmodel
-        self.flashcardGameViewModel = FlashCardGameViewModel(topicID: viewmodel.topicID)
+   
+        self.flashcardGameViewModel = FlashCardGameViewModel(topicID: topicID)
+
         super.init(nibName: nil, bundle: nil)
+
     }
     
     required init?(coder: NSCoder) {
@@ -109,6 +111,7 @@ class FlashCardGameViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = flashcardGameViewModel.backGroundColor
         setupCounterViews()
         setupConstraintsForCounters()
         
@@ -117,13 +120,13 @@ class FlashCardGameViewController: UIViewController{
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        viewmodel.viewControllerCurrentlyAppearing = 2
+       // viewmodel.viewControllerCurrentlyAppearing = 2
         flashcardGameViewModel.getAllFlashcardsForGame()
         super.viewDidAppear(animated)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        viewmodel.viewControllerCurrentlyAppearing = 2
+       // viewmodel.viewControllerCurrentlyAppearing = 2
         super.viewWillAppear(animated)
     }
 }
@@ -247,7 +250,7 @@ extension FlashCardGameViewController{
                     guard let self = self else{return}
                     card.center = CGPoint(x: view.self.center.x, y: view.self.center.y + 50)
                     card.transform = .identity
-                    self.cardViews[safe: index  ]?.layer.borderColor = viewmodel.background.cgColor
+                    self.cardViews[safe: index  ]?.layer.borderColor = flashcardGameViewModel.backGroundColor.cgColor
                 }
             }
         default:
@@ -263,8 +266,8 @@ extension FlashCardGameViewController{
                 guard let self = self else {return}
                 cardView.center = CGPoint(x: view.self.center.x, y: view.self.center.y + 50)
                 cardView.alpha = 1
-                cardView.layer.borderColor = viewmodel.background.cgColor
-                cardView.backgroundColor = viewmodel.background
+                cardView.layer.borderColor = flashcardGameViewModel.backGroundColor.cgColor
+                cardView.backgroundColor = flashcardGameViewModel.backGroundColor
             }
         }
     }
