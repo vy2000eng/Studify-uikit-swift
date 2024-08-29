@@ -22,8 +22,10 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
     let flashcardSetViewController: FlashCardSetViewController
     let flashcardListViewController: FlashCardListViewController
     //let flashcardGameViewController: FlashCardGameViewController
+    let topicID: UUID
 
     init(topicID:UUID, topicIndexPath: IndexPath){
+        self.topicID = topicID
         self.viewmodel = FlashcardSetViewModel(topicID: topicID)
         //self.flashcardGameViewModel = FlashCardGameViewModel(topicID: topicID)
         self.topicIndexPath = topicIndexPath
@@ -49,12 +51,17 @@ final class FlashCardTabViewController:UITabBarController, AddFlashCardToListVie
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewmodel.fontColor,
                                                                    .font:viewmodel.subtitleFont ]
         
-      
-
+    
         
         
         view.backgroundColor = viewmodel.background
         setup()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        viewmodel.viewControllerCurrentlyAppearing == 0 ?
+        self.flashcardSetViewController.delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath) :
+        self.flashcardListViewController.delegate?.didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: topicIndexPath)
     }
 
     deinit {
@@ -247,15 +254,17 @@ extension FlashCardTabViewController{
         barButtonItem.action = #selector(closeViewController)
         return barButtonItem
     }
-    
-    @objc
-    private func closeViewController(){
-        
-        viewmodel.viewControllerCurrentlyAppearing == 0 ?
-        self.flashcardSetViewController.delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath) :
-        self.flashcardListViewController.delegate?.didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: topicIndexPath)
-        dismiss(animated: true)
-    }
+    //TODO: WE DO NOT NEED THIS
+        @objc
+        private func closeViewController(){
+            
+            viewmodel.viewControllerCurrentlyAppearing == 0 ?
+            self.flashcardSetViewController.delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath) :
+            self.flashcardListViewController.delegate?.didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: topicIndexPath)
+            dismiss(animated: true)
+        }
+    //TODO: WE DO NOT NEED THIS
+
 }
 
 

@@ -28,8 +28,14 @@ enum Section {
     case main
 }
 
-class TopicOptionsViewController: UIViewController, UICollectionViewDelegate{
-                                  //FlashCardSetViewControllerDelegate, FlashCardListViewControllerDelegate {
+protocol UpdateNumberOfFlashCardsFromOptionsViewControllerDelegate:AnyObject{
+    func didUpdateNumberOfFlashCardsFromOptionsViewController(indexPath:IndexPath)
+}
+
+class TopicOptionsViewController: UIViewController, UICollectionViewDelegate,
+                                  FlashCardSetViewControllerDelegate, FlashCardListViewControllerDelegate {
+    
+    //TODO: THIS IS IMPLEMENTED ELSE WHERE SO GET RID OF THIS
 //    func didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: IndexPath) {
 //        <#code#>
 //    }
@@ -43,6 +49,7 @@ class TopicOptionsViewController: UIViewController, UICollectionViewDelegate{
     let topicID:UUID
     let topicIndexPath: IndexPath
     let viewmodel:TopicOptionsViewModel
+    weak var delegate:UpdateNumberOfFlashCardsFromOptionsViewControllerDelegate?
     
     init(topicID:UUID, topicIndexPath: IndexPath){
         self.topicIndexPath = topicIndexPath
@@ -57,6 +64,8 @@ class TopicOptionsViewController: UIViewController, UICollectionViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
         setupNavigationBarTitle()
         configureCollectionView()
         configureDataSource()
@@ -121,10 +130,8 @@ extension TopicOptionsViewController{
             var selectedBackgroundConfig = UIView()
             backgroundView.backgroundColor = .clear
 
-            
             selectedBackgroundConfig.backgroundColor = .blue.withAlphaComponent(0.5) // Slightly transparent when selected
             cell.selectedBackgroundView = selectedBackgroundConfig
-            
             
         }
         
@@ -148,7 +155,10 @@ extension TopicOptionsViewController{
 extension TopicOptionsViewController{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0{
-            let vc = FlashCardTabViewController(topicID: topicID, topicIndexPath: indexPath)
+            let vc = FlashCardTabViewController(topicID: topicID, topicIndexPath: topicIndexPath)
+            //vc.did
+            vc.flashcardSetViewController.delegate = self
+            vc.flashcardListViewController.delegate = self
             
             navigationController?.pushViewController(vc, animated:true)
         }
@@ -159,4 +169,20 @@ extension TopicOptionsViewController{
         collectionView.deselectItem(at: indexPath, animated: true)
 
     }
+}
+
+//FlashCardViewControllerDelegate
+extension TopicOptionsViewController{
+    
+    func didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: IndexPath) {
+        delegate?.didUpdateNumberOfFlashCardsFromOptionsViewController(indexPath: indexPath)
+        
+    }
+    
+    func didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: IndexPath) {
+        delegate?.didUpdateNumberOfFlashCardsFromOptionsViewController(indexPath: indexPath)
+
+    }
+    
+    
 }

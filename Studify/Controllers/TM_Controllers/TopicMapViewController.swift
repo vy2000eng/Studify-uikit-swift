@@ -11,8 +11,12 @@ import UIKit
 protocol UpdateTopicAndMapCountInSubjectCollectionViewDelegate:AnyObject{
     func didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: IndexPath)
 }
-
-class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate,FlashCardSetViewControllerDelegate,FlashCardListViewControllerDelegate {
+// TODO: WE DO NOT NEED THIS HERE: FlashCardSetViewControllerDelegate,FlashCardListViewControllerDelegate,UpdateNumberOfFlashCardsFromOptionsViewControllerDelegate 
+class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate,FlashCardSetViewControllerDelegate,FlashCardListViewControllerDelegate,UpdateNumberOfFlashCardsFromOptionsViewControllerDelegate {
+  
+    
+   
+    
     
     //MARK: this word begin
     let viewmodel : TopicMapViewModel
@@ -211,6 +215,7 @@ extension TopicMapViewController{
 
 
     func updateNumberOfFlashcardsInTopicSection(indexPath:IndexPath){
+        print("AFTER UPDATE CALLED: \(indexPath)")
         viewmodel.getAllTopics()
     
         DispatchQueue.main.async {
@@ -218,7 +223,7 @@ extension TopicMapViewController{
                 self.collectionView.reloadItems(at: [indexPath])
             })
         }
-        
+   
     }
     
     func didUpdateTopic() {
@@ -233,14 +238,31 @@ extension TopicMapViewController{
 
     }
     
-    func didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: IndexPath) {
-        updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
+    //TODO: DELETE THIS
+                    func didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: IndexPath) {
+                        updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
 
-    }
-    func didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: IndexPath) {
-        updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
+                    }
+                    func didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: IndexPath) {
+                        updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
 
-    }
+                    }
+    //TODO: DELETE THIS
+    
+    
+
+    //TODO: KEEP THIS
+        func didUpdateNumberOfFlashCardsFromOptionsViewController(indexPath: IndexPath) {
+            updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
+
+        }
+    //TODO: KEEP THIS
+
+    
+//    func didUpdateNumberOfFlashCardsFromOptionsViewController(in) {
+//        updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
+//
+//    }
   
 }
 

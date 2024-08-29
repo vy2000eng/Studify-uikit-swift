@@ -185,7 +185,9 @@ extension TopicMapViewController: UICollectionViewDelegate{
 //            vc.flashcardSetViewController.delegate = self
 //            vc.flashcardListViewController.delegate = self
 //            navigationController?.pushViewController(vc, animated:true)
+            //TODO: IM PRETTY SURE WE DONT NEED THE ID CUZ WERE NOT USING IT FOR ANYTHING, JUST THE INDEX PATH
             let vc = TopicOptionsViewController(topicID: viewmodel.topic(by: indexPath.row).id, topicIndexPath: indexPath)
+            vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)
             
             
