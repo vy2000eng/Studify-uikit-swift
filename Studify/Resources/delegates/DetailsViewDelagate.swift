@@ -180,23 +180,10 @@ extension TopicMapViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         if viewmodel.sectionType(for: indexPath.section)  == .topics{
-            //TODO: this is good code, we just need to put it somewhere else
-//            let vc = FlashCardTabViewController(topicID: viewmodel.topic(by: indexPath.row).id, topicIndexPath: indexPath)
-//            vc.flashcardSetViewController.delegate = self
-//            vc.flashcardListViewController.delegate = self
-//            navigationController?.pushViewController(vc, animated:true)
-            //TODO: IM PRETTY SURE WE DONT NEED THE ID CUZ WERE NOT USING IT FOR ANYTHING, JUST THE INDEX PATH
             let vc = TopicOptionsViewController(topicID: viewmodel.topic(by: indexPath.row).id, topicIndexPath: indexPath)
             vc.delegate = self
             navigationController?.pushViewController(vc, animated: true)
-            
-            
 
-//            let navigationController = UINavigationController(rootViewController: vc)
-//            
-// 
-//            navigationController.modalPresentationStyle = .fullScreen
-//            present(navigationController, animated: true)
         }
     }
 }
@@ -209,14 +196,8 @@ extension TopicMapViewController: SwipeCollectionViewCellDelegate{
             let deleteAction = SwipeAction(style: .destructive, title: nil) { action, indexPath in
                 if self.viewmodel.sectionType(for: indexPath.section ) == .topics{
                     self.deleteTopic(at: indexPath)
-                    //let sectionIndexToDelete = self.viewmodel.topicMapPrecedence == 0 ? 0:1
-                    // self.viewmodel.sections.remove(at: sectionIndexToDelete)
-                    
-                    
                 }else{
-                    self.deleteMap(at: indexPath)
-                    //self.viewmodel.sections.remove(at: indexPath.section)
-                    
+                    self.deleteMap(at: indexPath)                    
                 }
                 self.navigationItem.rightBarButtonItem = self.createOptionsBarButtonItem()
                 

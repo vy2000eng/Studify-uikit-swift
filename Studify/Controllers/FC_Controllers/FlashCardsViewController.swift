@@ -102,13 +102,7 @@ extension FlashCardSetViewController{
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
-    
-    private func setupCloseButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .close,
-            target: self,
-            action: #selector(closeViewController))
-    }
+
 }
 
 extension FlashCardSetViewController{
@@ -152,14 +146,7 @@ extension FlashCardSetViewController{
         vc.flashCardSetViewControllerDelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
-    //TODO: WE CAN GET RID OF THIS
-    @objc
-    private func closeViewController() {
-        print("VIEW CONTROLLER CLOSED")
-        delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath)
-        dismiss(animated: true, completion: nil)
-    }
-    
+
     @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
             let point = gesture.location(in: self.collectionView)

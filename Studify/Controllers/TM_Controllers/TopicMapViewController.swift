@@ -11,14 +11,8 @@ import UIKit
 protocol UpdateTopicAndMapCountInSubjectCollectionViewDelegate:AnyObject{
     func didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: IndexPath)
 }
-// TODO: WE DO NOT NEED THIS HERE: FlashCardSetViewControllerDelegate,FlashCardListViewControllerDelegate,UpdateNumberOfFlashCardsFromOptionsViewControllerDelegate 
-class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate,FlashCardSetViewControllerDelegate,FlashCardListViewControllerDelegate,UpdateNumberOfFlashCardsFromOptionsViewControllerDelegate {
+class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate,UpdateNumberOfFlashCardsFromOptionsViewControllerDelegate {
   
-    
-   
-    
-    
-    //MARK: this word begin
     let viewmodel : TopicMapViewModel
     let subjectIndexPath: IndexPath
     var subjectTitle: String
@@ -103,18 +97,17 @@ extension TopicMapViewController{
         view.backgroundColor = viewmodel.background
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewmodel.fontColor,
                                                                    .font:viewmodel.subtitleFont
-                                                                    ]
+        ]
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewmodel.fontColor,
                                                                         .font: viewmodel.titleFont]
-
+        
         navigationController?.navigationBar.barTintColor = viewmodel.background
         navigationController?.navigationBar.prefersLargeTitles = true
-       
+        
         collectionView.reloadData()
-
-
+        
     }
-
+    
     
     func setupConstraints(){
         NSLayoutConstraint.activate([
@@ -132,7 +125,7 @@ extension TopicMapViewController{
             let vc = AddNewTopicViewController(subjectID: self.viewmodel.subjectID)
             vc.delegate = self
             let navController = UINavigationController(rootViewController: vc)
-
+            
             self.present(navController,animated: true)
             print("add Topic")
         }
@@ -141,11 +134,11 @@ extension TopicMapViewController{
             let vc = AddNewMapViewController(subjectID: self.viewmodel.subjectID)
             vc.delegate = self
             let navController = UINavigationController(rootViewController: vc)
-
+            
             self.present(navController,animated: true)
             print("add map")
         }
-         
+        
         
         let whichSectionFirstAction = viewmodel.sectionsCount >= 2
         ? UIAction(title: viewmodel.topicMapPrecedence == 0 ? "Maps Section First" : "Topic Section First", image: UIImage(systemName: "shuffle")){ [weak self] action  in
@@ -153,7 +146,7 @@ extension TopicMapViewController{
             
             let newTopicMapPrecedence = viewmodel.topicMapPrecedence == 0 ? 1 : 0
             viewmodel.setOpenedFirst(subjectID: viewmodel.subjectID, openedFirst: Int16(newTopicMapPrecedence))
-        
+            
             
             let tempSections = viewmodel.sections[0]
             viewmodel.sections[0] = viewmodel.sections[1]
@@ -183,19 +176,13 @@ extension TopicMapViewController{
                     }
                 ))
             present(alert, animated: true)
-            
-            
-            
         }
         
         optionsMenu = UIMenu(title: "options", children: [addATopicAction, addMapAction, whichSectionFirstAction])
-
-        
-       return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: optionsMenu)
+        return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: optionsMenu)
     }
-
-
-
+    
+    
     func animateCollectionViewReload() {
         UIView.transition(with: collectionView,
                           duration: 0.5,
@@ -206,64 +193,41 @@ extension TopicMapViewController{
             guard let self = self else {return }
             if finished{
                 navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
-
+                
             }
         })
     }
     
-    
-
-
     func updateNumberOfFlashcardsInTopicSection(indexPath:IndexPath){
         print("AFTER UPDATE CALLED: \(indexPath)")
         viewmodel.getAllTopics()
-    
+        
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates({
                 self.collectionView.reloadItems(at: [indexPath])
             })
         }
-   
+        
     }
     
     func didUpdateTopic() {
         print("updateTopic called")
         updateSection(type: .topics)
-
+        
     }
     
     func didUpdateMap(){
         print("updateSection called")
         updateSection(type: .maps)
-
+        
     }
     
-    //TODO: DELETE THIS
-                    func didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: IndexPath) {
-                        updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
-
-                    }
-                    func didUpdateNumberOfFlashcardsFromFlashCardListViewController(indexPath: IndexPath) {
-                        updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
-
-                    }
-    //TODO: DELETE THIS
+    func didUpdateNumberOfFlashCardsFromOptionsViewController(indexPath: IndexPath) {
+        updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
+        
+    }
     
     
-
-    //TODO: KEEP THIS
-        func didUpdateNumberOfFlashCardsFromOptionsViewController(indexPath: IndexPath) {
-            updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
-
-        }
-    //TODO: KEEP THIS
-
-    
-//    func didUpdateNumberOfFlashCardsFromOptionsViewController(in) {
-//        updateNumberOfFlashcardsInTopicSection(indexPath: indexPath)
-//
-//    }
-  
 }
 
 //MARK: this word end
