@@ -2,7 +2,7 @@
 //  FlashCard+CoreDataClass.swift
 //  Studify
 //
-//  Created by VladyslavYatsuta on 6/5/24.
+//  Created by VladyslavYatsuta on 8/29/24.
 //
 //
 

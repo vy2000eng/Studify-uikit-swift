@@ -9,75 +9,58 @@ import Foundation
 
 enum SectionType: Int {
     case topics = 0
-    case maps = 1
+    //case maps = 1
 }
 
-extension TopicMapViewModel {
-    func sectionType(for section: Int) -> SectionType {
-        return topicMapPrecedence == 0 ? SectionType(rawValue: section)! : SectionType(rawValue: 1 - section)!
-    }
+extension TopicViewModel {
+//    func sectionType(for section: Int) -> SectionType {
+//        return topicMapPrecedence == 0 ? SectionType(rawValue: section)! : SectionType(rawValue: 1 - section)!
+//    }
 
 }
-extension TopicMapViewController{
+extension TopicViewController{
     func updateSection(type: SectionType) {
         print("update \(type) called")
         
         switch type {
         case .topics:
             viewmodel.getAllTopics()
-        case .maps:
-            viewmodel.getAllMaps()
         }
         
-        let wasEmpty = type == .topics ? viewmodel.numberOfTopics == 1 : viewmodel.numberOfMaps == 1
-        let otherIsEmpty = type == .topics ? viewmodel.numberOfMaps == 0 : viewmodel.numberOfTopics == 0
-        
-        if wasEmpty && otherIsEmpty {
-            handleFirstInsertion(for: type)
-        } else {
-            handleSubsequentInsertion(for: type, wasEmpty: wasEmpty)
-        }
+        viewmodel.numberOfTopics > 1
+        ? handleSubsequentInsertion(for: .topics)
+        :handleFirstInsertion(for: .topics)
+    
     }
     
     private func handleFirstInsertion(for type: SectionType) {
-        viewmodel.setOpenedFirst(subjectID: viewmodel.subjectID, openedFirst: Int16(type.rawValue))
-        let newSection = Sections(header: type == .topics ? "topics" : "maps",
-                                  data: type == .topics ? .topics(viewmodel.topics) : .maps(viewmodel.maps))
+        let newSection = Sections(header: "Topics" ,
+                                  data: .topics(viewmodel.topics) )
         viewmodel.sections.append(newSection)
+        assert(viewmodel.topics.count != 0)
         
-        DispatchQueue.main.async {
-            self.collectionView.performBatchUpdates({
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else{return}
+            
+      
+            
+            self.collectionView.performBatchUpdates({[weak self] in
+                guard let self = self else{return}
                 self.collectionView.insertSections(IndexSet(integer: 0))
             })
         }
         print("first")
-        updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
     }
     
-    private func handleSubsequentInsertion(for type: SectionType, wasEmpty: Bool) {
-        print("handle subsequent insertion")
-        let sectionIndex = viewmodel.topicMapPrecedence == type.rawValue ? 0 : 1
-        let itemIndex = type == .topics ? viewmodel.numberOfTopics - 1 : viewmodel.numberOfMaps - 1
-        let indexPath = IndexPath(row: itemIndex, section: sectionIndex)
-        
+    private func handleSubsequentInsertion(for type: SectionType) {
+        NSLog("handle subsuquent insertion")
+       // let sectionIndex = 0
+        let itemIndex =  viewmodel.numberOfTopics - 1
+        let indexPath = IndexPath(row: itemIndex, section: 0)
         DispatchQueue.main.async {
             self.collectionView.performBatchUpdates( {
-                if wasEmpty && self.viewmodel.topicMapPrecedence != type.rawValue {
-                    let newSection = Sections(header: type == .topics ? "topics" : "maps",
-                                              data: type == .topics ? .topics(self.viewmodel.topics) : .maps(self.viewmodel.maps))
-                    print("about to appened section")
-                    self.viewmodel.sections.append(newSection)
-                    print("section count:\(self.viewmodel.sections.count)")
-              
-                    self.collectionView.insertSections(IndexSet(integer: indexPath.section))
-                } else {
 
-                    if !self.viewmodel.isSectionCollapsed(indexPath.section) {
-                        self.viewmodel.toggleSection(sectionIndex)
-                        self.collectionView.reloadSections(IndexSet(integer: sectionIndex))
-                    }
                     self.collectionView.insertItems(at: [indexPath])
-                }
             },completion: {finished in
                 if finished{
                     DispatchQueue.main.async{
@@ -87,12 +70,25 @@ extension TopicMapViewController{
 
                     }
                 }
-                
             })
         }
-        print("sections Count: \(viewmodel.sections.count)")
-        print(sectionIndex == 0 ? "second" : "third")
-        updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
+      //  print("sections Count: \(viewmodel.sections.count)")
+       // print(sectionIndex == 0 ? "second" : "third")
 
+    }
+}
+
+extension TopicViewController{
+    func testupdateSection(type: SectionType){
+        updateSection(type: type)
+    }
+    func testHandleFirstInsertion(type:SectionType){
+        handleFirstInsertion(for: type)
+        
+    }
+    
+    func testHandleSubsequentInsertion(type:SectionType){
+        handleSubsequentInsertion(for: type)
+        
     }
 }

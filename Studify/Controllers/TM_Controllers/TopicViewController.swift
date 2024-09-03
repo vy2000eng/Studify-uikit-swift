@@ -11,20 +11,17 @@ import UIKit
 protocol UpdateTopicAndMapCountInSubjectCollectionViewDelegate:AnyObject{
     func didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: IndexPath)
 }
-class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate,UpdateNumberOfFlashCardsFromOptionsViewControllerDelegate {
+class TopicViewController: UIViewController,AddNewTopicViewControllerDelgate, AddNewMapViewControllerDelgate,UpdateNumberOfFlashCardsFromOptionsViewControllerDelegate {
   
     let viewmodel : TopicMapViewModel
-    let subjectIndexPath: IndexPath
-    var subjectTitle: String
-    var isRowSectionCollapsed = false
+    //var isRowSectionCollapsed = false
     private var optionsMenu: UIMenu?
 
     weak var updateTopicAndMapCountInSubjectCollectionViewDelegate: UpdateTopicAndMapCountInSubjectCollectionViewDelegate?
     
-    init( subject: SubjectViewModel, subjectIndexPath:IndexPath){
-        self.viewmodel = TopicMapViewModel(subjectID: subject.id)
-        self.subjectTitle = subject.name
-        self.subjectIndexPath = subjectIndexPath
+    init(){
+        self.viewmodel = TopicMapViewModel()
+    
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {
@@ -53,9 +50,7 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         v.delegate = self
         v.dataSource = self
         v.register(TopicViewCell.self, forCellWithReuseIdentifier: "topicCell")
-        v.register(MapViewCell.self, forCellWithReuseIdentifier: "mapCell")
         v.register(TopicMapHeaderViewCell.self, forSupplementaryViewOfKind:UICollectionView.elementKindSectionHeader , withReuseIdentifier: "headerCell")
-        v.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "fallbackIdentifier")
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -66,8 +61,9 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(applyTheme), name: .themeDidChange, object: nil)
+        
         view.backgroundColor = viewmodel.background
-        title = subjectTitle
+        title = "main section"
         
         
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewmodel.fontColor,
@@ -80,33 +76,20 @@ class TopicMapViewController: UIViewController,AddNewTopicViewControllerDelgate,
         navigationController?.navigationBar.prefersLargeTitles = true
 
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
+        navigationItem.leftBarButtonItem = createSettingsBarButtonItem()
+
         view.addSubview(collectionView)
         setupConstraints()
         viewmodel.getAllTopics()
-        viewmodel.getAllMaps()
+        //viewmodel.getAllMaps()
     }
     deinit {
           NotificationCenter.default.removeObserver(self)
       }
 }
 
-extension TopicMapViewController{
-    
-    @objc
-    func applyTheme(){
-        view.backgroundColor = viewmodel.background
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewmodel.fontColor,
-                                                                   .font:viewmodel.subtitleFont
-        ]
-        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewmodel.fontColor,
-                                                                        .font: viewmodel.titleFont]
-        
-        navigationController?.navigationBar.barTintColor = viewmodel.background
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        collectionView.reloadData()
-        
-    }
+extension TopicViewController{
+
     
     
     func setupConstraints(){
@@ -122,7 +105,7 @@ extension TopicMapViewController{
         
         
         let addATopicAction = UIAction(title: "add topic", image: UIImage(systemName: "doc")) { _ in
-            let vc = AddNewTopicViewController(subjectID: self.viewmodel.subjectID)
+            let vc = AddNewTopicViewController()
             vc.delegate = self
             let navController = UINavigationController(rootViewController: vc)
             
@@ -130,55 +113,55 @@ extension TopicMapViewController{
             print("add Topic")
         }
         
-        let addMapAction = UIAction(title: "add map", image: UIImage(systemName: "map")) { _ in
-            let vc = AddNewMapViewController(subjectID: self.viewmodel.subjectID)
-            vc.delegate = self
-            let navController = UINavigationController(rootViewController: vc)
-            
-            self.present(navController,animated: true)
-            print("add map")
-        }
+//        let addMapAction = UIAction(title: "add map", image: UIImage(systemName: "map")) { _ in
+//            let vc = AddNewMapViewController(subjectID: self.viewmodel.subjectID)
+//            vc.delegate = self
+//            let navController = UINavigationController(rootViewController: vc)
+//            
+//            self.present(navController,animated: true)
+//            print("add map")
+//        }
         
         
-        let whichSectionFirstAction = viewmodel.sectionsCount >= 2
-        ? UIAction(title: viewmodel.topicMapPrecedence == 0 ? "Maps Section First" : "Topic Section First", image: UIImage(systemName: "shuffle")){ [weak self] action  in
-            guard let self = self else{ return}
-            
-            let newTopicMapPrecedence = viewmodel.topicMapPrecedence == 0 ? 1 : 0
-            viewmodel.setOpenedFirst(subjectID: viewmodel.subjectID, openedFirst: Int16(newTopicMapPrecedence))
-            
-            
-            let tempSections = viewmodel.sections[0]
-            viewmodel.sections[0] = viewmodel.sections[1]
-            viewmodel.sections[1] = tempSections
-            animateCollectionViewReload()
-            
-            print(viewmodel.topicMapPrecedence)
-        }
-        : UIAction(title: viewmodel.topicMapPrecedence == 0 ? "Maps Section First" : "Topic Section First", image: UIImage(systemName: "shuffle")){
-            [weak self] action  in
-            guard let self = self else {return}
-            
-            let alert = UIAlertController(
-                title: "Cannot Shuffle",
-                message: "You need at least one topic and one map to shuffle sections.",
-                preferredStyle: .alert)
-            alert.addAction(
-                UIAlertAction(
-                    title: "OK",
-                    style: .destructive,
-                    handler: {[weak self] UIAlertAction in
-                        
-                        guard let self = self else {
-                            return
-                        }
-                        dismiss(animated: true)
-                    }
-                ))
-            present(alert, animated: true)
-        }
+//        let whichSectionFirstAction = viewmodel.sectionsCount >= 2
+//        ? UIAction(title: viewmodel.topicMapPrecedence == 0 ? "Maps Section First" : "Topic Section First", image: UIImage(systemName: "shuffle")){ [weak self] action  in
+//            guard let self = self else{ return}
+//            
+//            let newTopicMapPrecedence = viewmodel.topicMapPrecedence == 0 ? 1 : 0
+//           // viewmodel.setOpenedFirst(subjectID: viewmodel.subjectID, openedFirst: Int16(newTopicMapPrecedence))
+//            
+//            
+//            let tempSections = viewmodel.sections[0]
+//            viewmodel.sections[0] = viewmodel.sections[1]
+//            viewmodel.sections[1] = tempSections
+//            animateCollectionViewReload()
+//            
+//            print(viewmodel.topicMapPrecedence)
+//        }
+//        : UIAction(title: viewmodel.topicMapPrecedence == 0 ? "Maps Section First" : "Topic Section First", image: UIImage(systemName: "shuffle")){
+//            [weak self] action  in
+//            guard let self = self else {return}
+//            
+//            let alert = UIAlertController(
+//                title: "Cannot Shuffle",
+//                message: "You need at least one topic and one map to shuffle sections.",
+//                preferredStyle: .alert)
+//            alert.addAction(
+//                UIAlertAction(
+//                    title: "OK",
+//                    style: .destructive,
+//                    handler: {[weak self] UIAlertAction in
+//                        
+//                        guard let self = self else {
+//                            return
+//                        }
+//                        dismiss(animated: true)
+//                    }
+//                ))
+//            present(alert, animated: true)
+//        }
         
-        optionsMenu = UIMenu(title: "options", children: [addATopicAction, addMapAction, whichSectionFirstAction])
+        optionsMenu = UIMenu(title: "options", children: [addATopicAction])
         return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: optionsMenu)
     }
     
@@ -218,7 +201,7 @@ extension TopicMapViewController{
     
     func didUpdateMap(){
         print("updateSection called")
-        updateSection(type: .maps)
+       // updateSection(type: .maps)
         
     }
     
@@ -227,7 +210,46 @@ extension TopicMapViewController{
         
     }
     
+    func createSettingsBarButtonItem() -> UIBarButtonItem{
+        return UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(pushSettingsVc))
+
+    }
     
+    
+}
+
+
+extension TopicViewController{
+    @objc
+    private func pushSettingsVc(){
+        let vc = SettingsViewController()
+        navigationController?.pushViewController(vc, animated: true)
+
+    }
+
+    
+    @objc
+    func applyTheme(){
+        view.backgroundColor = viewmodel.background
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewmodel.fontColor,
+                                                                   .font:viewmodel.subtitleFont
+        ]
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewmodel.fontColor,
+                                                                        .font: viewmodel.titleFont]
+        
+        navigationController?.navigationBar.barTintColor = viewmodel.background
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        collectionView.reloadData()
+        
+    }
+}
+
+
+extension NSAttributedString {
+    static func create(string: String, font: UIFont, color: UIColor) -> NSAttributedString {
+        return NSAttributedString(string: string, attributes: [.font: font, .foregroundColor: color])
+    }
 }
 
 //MARK: this word end

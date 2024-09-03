@@ -14,12 +14,12 @@ protocol AddNewTopicViewControllerDelgate: AnyObject{
 class AddNewTopicViewController: UIViewController {
     
     weak var delegate: AddNewTopicViewControllerDelgate?
-    let subjectID : UUID
+   // let subjectID : UUID
     let viewModel: AddNewTopicViewModel
     
-    init(subjectID: UUID) {
-        self.subjectID = subjectID
-        self.viewModel = AddNewTopicViewModel(subjectId: subjectID)
+    init() {
+        //self.subjectID = subjectID
+        self.viewModel = AddNewTopicViewModel()
         super.init(nibName: nil, bundle: nil)
     }
     

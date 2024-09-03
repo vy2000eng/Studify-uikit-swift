@@ -36,7 +36,7 @@ extension MapViewCell{
         mainContentView.backgroundColor = map.backGroundColor
         
         topicNameLabel.attributedText = .create(string: map.title, font: map.titleFont, color: map.fontColor)
-        countLabel.attributedText = .create(string: "📍 \(map.mindMapCount) maps", font: map.subtitleFont, color: map.fontColorSecondary)
+       // countLabel.attributedText = .create(string: "📍 \(map.mindMapCount) maps", font: map.subtitleFont, color: map.fontColorSecondary)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short

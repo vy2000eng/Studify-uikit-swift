@@ -12,7 +12,7 @@ import SwipeCellKit
 
 
 
-extension TopicMapViewController: UICollectionViewDelegate{
+extension TopicViewController: UICollectionViewDelegate{
     
     func deleteTopic(at indexPath: IndexPath){
         let alert = UIAlertController(
@@ -45,38 +45,38 @@ extension TopicMapViewController: UICollectionViewDelegate{
         present(alert, animated: true)
         
     }
-    
-    func deleteMap(at indexPath: IndexPath){
-        let alert = UIAlertController(
-            title: "Are you sure you want to delete map?",
-            message: "This action cannot be undone",
-            preferredStyle: .alert)
-        alert.addAction(
-            UIAlertAction(
-                title: "cancel",
-                style: .default,
-                handler: {[weak self] UIAlertAction in
-                    self?.dismiss(animated: true)
-                }
-            ))
-        alert.addAction(
-            UIAlertAction(
-                title: "delete map",
-                style: .destructive,
-                handler: {[weak self] UIAlertAction in
-                    
-                    guard let map = self?.viewmodel.map(by: indexPath.row) else {
-                        fatalError("Couldn't delete map")
-                    }
-                    self?.viewmodel.deleteMap(map: map)
-                    self?.deleteMapFromCollectionView(indexPath: indexPath)
-                 
-                }
-                
-            ))
-        
-        present(alert, animated: true)
-    }
+//    
+//    func deleteMap(at indexPath: IndexPath){
+//        let alert = UIAlertController(
+//            title: "Are you sure you want to delete map?",
+//            message: "This action cannot be undone",
+//            preferredStyle: .alert)
+//        alert.addAction(
+//            UIAlertAction(
+//                title: "cancel",
+//                style: .default,
+//                handler: {[weak self] UIAlertAction in
+//                    self?.dismiss(animated: true)
+//                }
+//            ))
+//        alert.addAction(
+//            UIAlertAction(
+//                title: "delete map",
+//                style: .destructive,
+//                handler: {[weak self] UIAlertAction in
+//                    
+//                    guard let map = self?.viewmodel.map(by: indexPath.row) else {
+//                        fatalError("Couldn't delete map")
+//                    }
+//                    //self?.viewmodel.deleteMap(map: map)
+//                    self?.deleteMapFromCollectionView(indexPath: indexPath)
+//                 
+//                }
+//                
+//            ))
+//        
+//        present(alert, animated: true)
+//    }
     
     func deleteTopicFromCollectionView(indexPath: IndexPath){
         DispatchQueue.main.async {
@@ -86,7 +86,9 @@ extension TopicMapViewController: UICollectionViewDelegate{
                   
 
                 }
-                else if self.viewmodel.numberOfTopics == 0 && self.viewmodel.numberOfMaps == 0{
+//                else if self.viewmodel.numberOfTopics == 0 && self.viewmodel.numberOfMaps == 0{
+                else if self.viewmodel.numberOfTopics == 0 {
+                    //MARK: executed when there are about to be no flashcards or topics.
                     print("executed when there are about to be no flashcards or topics")
                     let indexSet = IndexSet(integer:indexPath.section)
                     self.viewmodel.sections.remove(at:  0)
@@ -96,9 +98,10 @@ extension TopicMapViewController: UICollectionViewDelegate{
                 
                 else{
                     print("index path in delete topic:\(indexPath.section)")
-                    if self.viewmodel.topicMapPrecedence == 0 && self.viewmodel.numberOfTopics == 0{
+                    //if self.viewmodel.topicMapPrecedence == 0 && self.viewmodel.numberOfTopics == 0{
+                    if  self.viewmodel.numberOfTopics == 0{
 
-                        self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: 1)
+                       // self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: 1)
 
                         self.collectionView.reloadSections(IndexSet(integer: indexPath.section == 0 ? 1 : 0))
 
@@ -115,62 +118,64 @@ extension TopicMapViewController: UICollectionViewDelegate{
 
             },completion: { finished in
                 if finished{
-                    if (self.viewmodel.mapsIsEmpty && self.viewmodel.topicMapPrecedence == 1){
-                        self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: -1)
-
-                    }
+//                    if (self.viewmodel.mapsIsEmpty && self.viewmodel.topicMapPrecedence == 1){
+//                      //  self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: -1)
+//
+//                    }
                 }
                 self.navigationItem.rightBarButtonItem = self.createOptionsBarButtonItem()
 
             })
         }
 
-        updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
+        //updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
 
     }
     
-    func deleteMapFromCollectionView(indexPath:IndexPath){
-        DispatchQueue.main.async {
-            self.collectionView.performBatchUpdates({
-                if self.viewmodel.numberOfMaps > 0 {
-                    self.collectionView.deleteItems(at: [indexPath])
-
-                }
-                else if self.viewmodel.numberOfTopics == 0 && self.viewmodel.numberOfMaps == 0{
-                    print("executed when there are about to be no flashcards or topics")
-                    let indexSet = IndexSet(integer:indexPath.section)
-                    self.viewmodel.sections.remove(at:  0)
-                    self.collectionView.deleteSections(indexSet)
-                }
-                else{
-                    print("index path in delete map:\(indexPath.section)")
-                    if self.viewmodel.topicMapPrecedence == 1 && self.viewmodel.numberOfMaps == 0{
-                        self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: 0)
-                        self.collectionView.reloadSections(IndexSet(integer: indexPath.section == 0 ? 1 : 0))
-
-                    }
-                    print("section to remove: \(indexPath.section)")
-                    self.viewmodel.sections.remove(at:  indexPath.section)
-                    let indexSet = IndexSet(integer:  indexPath.section)
-                    self.collectionView.deleteSections(indexSet)
-                }
-                
-            },completion: { finished in
-                if finished{
-                    if self.viewmodel.topicsIsEmpty && self.viewmodel.topicMapPrecedence == 0 {
-                        self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: -1)
-                        print("sections count in dtfcv: \(self.viewmodel.sections.count)")
-
-                    }
-                    self.navigationItem.rightBarButtonItem = self.createOptionsBarButtonItem()
-
-                }
-            })
-        }
-
-        updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
-
-    }
+//    func deleteMapFromCollectionView(indexPath:IndexPath){
+//        DispatchQueue.main.async {
+//            self.collectionView.performBatchUpdates({
+//                if self.viewmodel.numberOfMaps > 0 {
+//                    self.collectionView.deleteItems(at: [indexPath])
+//
+//                }
+//                else if self.viewmodel.numberOfTopics == 0 && self.viewmodel.numberOfMaps == 0{
+//                    print("executed when there are about to be no flashcards or topics")
+//                    let indexSet = IndexSet(integer:indexPath.section)
+//                    self.viewmodel.sections.remove(at:  0)
+//                    self.collectionView.deleteSections(indexSet)
+//                }
+//                else{
+//                    print("index path in delete map:\(indexPath.section)")
+//                    //if self.viewmodel.topicMapPrecedence == 1 && self.viewmodel.numberOfMaps == 0{
+//                    if  self.viewmodel.numberOfMaps == 0{
+//                       // self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: 0)
+//                        self.collectionView.reloadSections(IndexSet(integer: indexPath.section == 0 ? 1 : 0))
+//
+//                    }
+//                    print("section to remove: \(indexPath.section)")
+//                    self.viewmodel.sections.remove(at:  indexPath.section)
+//                    let indexSet = IndexSet(integer:  indexPath.section)
+//                    self.collectionView.deleteSections(indexSet)
+//                }
+//                
+//            },completion: { finished in
+//                if finished{
+//                    //if self.viewmodel.topicsIsEmpty && self.viewmodel.topicMapPrecedence == 0 {
+//                    if self.viewmodel.topicsIsEmpty  {
+//                       // self.viewmodel.setOpenedFirst(subjectID: self.viewmodel.subjectID, openedFirst: -1)
+//                        print("sections count in dtfcv: \(self.viewmodel.sections.count)")
+//
+//                    }
+//                    self.navigationItem.rightBarButtonItem = self.createOptionsBarButtonItem()
+//
+//                }
+//            })
+//        }
+//
+//       // updateTopicAndMapCountInSubjectCollectionViewDelegate?.didUpdateTopicMapCountInSubjectCollectionViewFromTopicMapViewController(subjectIndexPath: subjectIndexPath)
+//
+//    }
     
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
         return true
@@ -179,26 +184,30 @@ extension TopicMapViewController: UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        if viewmodel.sectionType(for: indexPath.section)  == .topics{
-            let vc = TopicOptionsViewController(topicID: viewmodel.topic(by: indexPath.row).id, topicIndexPath: indexPath)
-            vc.delegate = self
-            navigationController?.pushViewController(vc, animated: true)
-
-        }
+        let vc = TopicOptionsViewController(topicID: viewmodel.topic(by: indexPath.row).id, topicIndexPath: indexPath)
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
+//        if viewmodel.sectionType(for: indexPath.section)  == .topics{
+//            let vc = TopicOptionsViewController(topicID: viewmodel.topic(by: indexPath.row).id, topicIndexPath: indexPath)
+//            vc.delegate = self
+//            navigationController?.pushViewController(vc, animated: true)
+//
+//        }
     }
 }
 
-extension TopicMapViewController: SwipeCollectionViewCellDelegate{
+extension TopicViewController: SwipeCollectionViewCellDelegate{
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
 
         switch(orientation){
         case .left:
+            
             let deleteAction = SwipeAction(style: .destructive, title: nil) { action, indexPath in
-                if self.viewmodel.sectionType(for: indexPath.section ) == .topics{
+               // if self.viewmodel.sectionType(for: indexPath.section ) == .topics{
                     self.deleteTopic(at: indexPath)
-                }else{
-                    self.deleteMap(at: indexPath)                    
-                }
+                //}else{
+                //    self.deleteMap(at: indexPath)
+              //  }
                 self.navigationItem.rightBarButtonItem = self.createOptionsBarButtonItem()
                 
             }

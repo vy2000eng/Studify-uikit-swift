@@ -2,7 +2,7 @@
 //  MindMap+CoreDataProperties.swift
 //  Studify
 //
-//  Created by VladyslavYatsuta on 6/6/24.
+//  Created by VladyslavYatsuta on 8/29/24.
 //
 //
 

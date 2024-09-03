@@ -28,9 +28,9 @@ struct MapViewModel:Hashable{
         map.createdOn ?? Date()
     }
     
-    var mindMapCount:Int{
-        map.mapSet?.count ?? 0
-    }
+//    var mindMapCount:Int{
+//        map.mapSet?.count ?? 0
+//    }
     
     var backGroundColor:UIColor{
         return ColorManager.shared.currentTheme.colors.mapColor

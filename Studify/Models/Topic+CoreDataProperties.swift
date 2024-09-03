@@ -16,10 +16,10 @@ extension Topic {
         return NSFetchRequest<Topic>(entityName: "Topic")
     }
 
-    @NSManaged public var createdOn: Date
-    @NSManaged public var id: UUID
-    @NSManaged public var topicTitle: String
-    @NSManaged public var flashcardset: Set<FlashCard>?
+    @NSManaged public var createdOn: Date?
+    @NSManaged public var id: UUID?
+    @NSManaged public var topicTitle: String?
+    @NSManaged public var flashcardset: NSSet?
 
 }
 

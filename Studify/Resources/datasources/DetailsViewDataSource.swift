@@ -8,37 +8,46 @@
 import Foundation
 import UIKit
 
-extension TopicMapViewController: UICollectionViewDataSource{
+extension TopicViewController: UICollectionViewDataSource{
     
     func topicCell(indexPath:IndexPath) -> UICollectionViewCell{
         guard let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "topicCell", for: indexPath) as? TopicViewCell
         else{
-            return UICollectionViewCell()
+            fatalError("Unable to dequeue TopicViewCell. This is a developer error.")
         }
+        
+        //  do{
         let topic = viewmodel.topic(by: indexPath.row)
         cell.configure(with: topic)
         cell.delegate = self
         return cell
         
+        
+        
+        //        cell.configure(with: topic)
+        //        cell.delegate = self
+        //        return cell
+        //        
     }
     
-    func mapCell(indexPath:IndexPath) -> UICollectionViewCell{
-        guard let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "mapCell", for: indexPath) as? MapViewCell
-        else{
-            return UICollectionViewCell()
-        }
-        let map = viewmodel.map(by: indexPath.row)
-        cell.configure(with: map)
-        cell.delegate = self
-        
-        return cell
-    }
+//    func mapCell(indexPath:IndexPath) -> UICollectionViewCell{
+//        guard let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "mapCell", for: indexPath) as? MapViewCell
+//        else{
+//            return UICollectionViewCell()
+//        }
+//        let map = viewmodel.map(by: indexPath.row)
+//        cell.configure(with: map)
+//        cell.delegate = self
+//        
+//        return cell
+//    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return viewmodel.topicMapPrecedence == 0 ?
-        (indexPath.section == 0 ? topicCell(indexPath: indexPath) : mapCell(indexPath: indexPath)) :
-        (indexPath.section == 0 ?  mapCell(indexPath: indexPath) : topicCell(indexPath: indexPath))
-     
+//        return viewmodel.topicMapPrecedence == 0 ?
+//        (indexPath.section == 0 ? topicCell(indexPath: indexPath) : mapCell(indexPath: indexPath)) :
+//        (indexPath.section == 0 ?  mapCell(indexPath: indexPath) : topicCell(indexPath: indexPath))
+        
+      return topicCell(indexPath: indexPath)
         
         
     }
@@ -59,14 +68,22 @@ extension TopicMapViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // The logic for determining the number of rows is inside of the 'viewmodel.numberOfRows' method
-        let rows = viewmodel.numberOfRows(by: section)
-        return rows
+        do{
+            return  try viewmodel.numberOfRows(by: section)
+            
+            
+        }catch let error as NSError{
+            NSLog("Error fetching row count for section %d: %@ - %@", section, error.domain, error.localizedDescription)
 
+            return 0
+            
+        }
+        
     }
 }
 
 // objc methods
-extension TopicMapViewController{
+extension TopicViewController{
     /*MARK: handlecollapseButton
      How this works?
      1.) 

@@ -10,13 +10,21 @@
 		390BE1C82C5EF29900D12C60 /* GameConclusionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390BE1C72C5EF29800D12C60 /* GameConclusionView.swift */; };
 		3919CEF72C76BDAE00F08FF4 /* TopicOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CEF62C76BDAE00F08FF4 /* TopicOptionsViewController.swift */; };
 		3919CEF92C7A9DF200F08FF4 /* TopicOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CEF82C7A9DF200F08FF4 /* TopicOptionsViewModel.swift */; };
+		3919CF1A2C8172FE00F08FF4 /* FlashCard+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CF122C8172FE00F08FF4 /* FlashCard+CoreDataClass.swift */; };
+		3919CF1B2C8172FE00F08FF4 /* FlashCard+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CF132C8172FE00F08FF4 /* FlashCard+CoreDataProperties.swift */; };
+		3919CF1C2C8172FE00F08FF4 /* Maps+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CF142C8172FE00F08FF4 /* Maps+CoreDataClass.swift */; };
+		3919CF1D2C8172FE00F08FF4 /* Maps+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CF152C8172FE00F08FF4 /* Maps+CoreDataProperties.swift */; };
+		3919CF1E2C8172FE00F08FF4 /* Topic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CF162C8172FE00F08FF4 /* Topic+CoreDataClass.swift */; };
+		3919CF1F2C8172FE00F08FF4 /* Topic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CF172C8172FE00F08FF4 /* Topic+CoreDataProperties.swift */; };
+		3919CF202C8172FE00F08FF4 /* MindMap+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CF182C8172FE00F08FF4 /* MindMap+CoreDataClass.swift */; };
+		3919CF212C8172FE00F08FF4 /* MindMap+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CF192C8172FE00F08FF4 /* MindMap+CoreDataProperties.swift */; };
+		3919CF292C8375F900F08FF4 /* StudifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3919CF282C8375F900F08FF4 /* StudifyTests.swift */; };
 		392A5D772C39BC78007F4F86 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D762C39BC78007F4F86 /* SettingsViewController.swift */; };
 		392A5D792C39BCB3007F4F86 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D782C39BCB3007F4F86 /* SettingsViewModel.swift */; };
 		392A5D7B2C39CB67007F4F86 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D7A2C39CB67007F4F86 /* ColorManager.swift */; };
 		392A5D7D2C461363007F4F86 /* SettingsCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D7C2C461362007F4F86 /* SettingsCardsView.swift */; };
 		392A5D7F2C48BFE8007F4F86 /* SettingsColorPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A5D7E2C48BFE7007F4F86 /* SettingsColorPickerController.swift */; };
 		392A5D822C4B2713007F4F86 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 392A5D812C4B2713007F4F86 /* NotificationBannerSwift */; };
-		393DF68C2C336BC7000F1D41 /* Subject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DF68B2C336BC7000F1D41 /* Subject+CoreDataProperties.swift */; };
 		393DF68E2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DF68D2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift */; };
 		393DF6912C371222000F1D41 /* FlashcardSmallSetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DF6902C371221000F1D41 /* FlashcardSmallSetHeader.swift */; };
 		393EE5902C2DB42B00277FAF /* EditFlashCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */; };
@@ -38,8 +46,6 @@
 		396D6CBC2C251F7B000DD57C /* AddNewFlashCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CBB2C251F7B000DD57C /* AddNewFlashCardViewController.swift */; };
 		396D6CBE2C252010000DD57C /* AddNewFlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CBD2C252010000DD57C /* AddNewFlashCardViewModel.swift */; };
 		396D6CC02C252371000DD57C /* AddNewFlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CBF2C252371000DD57C /* AddNewFlashCardView.swift */; };
-		396D6CC32C274551000DD57C /* Topic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CC12C274551000DD57C /* Topic+CoreDataClass.swift */; };
-		396D6CC42C274551000DD57C /* Topic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CC22C274551000DD57C /* Topic+CoreDataProperties.swift */; };
 		396D6CC82C274C2E000DD57C /* FlashCardSetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CC72C274C2E000DD57C /* FlashCardSetCollectionViewCell.swift */; };
 		396D6CCA2C277E73000DD57C /* FlashCardSetViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CC92C277E73000DD57C /* FlashCardSetViewControllerDelegate.swift */; };
 		396D6CCC2C277EBE000DD57C /* FlashCardSetViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CCB2C277EBE000DD57C /* FlashCardSetViewControllerDataSource.swift */; };
@@ -62,21 +68,15 @@
 		39B817AE2C0E903200CB843B /* SubjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B817AD2C0E903200CB843B /* SubjectTableViewCell.swift */; };
 		39B817B02C0EBD2E00CB843B /* SubjectDetailsViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B817AF2C0EBD2E00CB843B /* SubjectDetailsViewControllerDataSource.swift */; };
 		39B817B22C0EBDDA00CB843B /* SubjectListViewControllerDelagate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B817B12C0EBDDA00CB843B /* SubjectListViewControllerDelagate.swift */; };
-		39B817C42C0FA5C600CB843B /* TopicMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B817C32C0FA5C600CB843B /* TopicMapViewController.swift */; };
+		39B817C42C0FA5C600CB843B /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B817C32C0FA5C600CB843B /* TopicViewController.swift */; };
 		39B817C62C109F2100CB843B /* TopicMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B817C52C109F2100CB843B /* TopicMapViewModel.swift */; };
 		39B817C82C10D56100CB843B /* TopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B817C72C10D56100CB843B /* TopicViewModel.swift */; };
+		39C6BCA22C83856E00910ADF /* TopicCoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C6BCA12C83856E00910ADF /* TopicCoreDataTests.swift */; };
 		39DEDE0E2C114E8200C725CE /* Subjects.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 399D38912C08D659008AFC5C /* Subjects.xcdatamodeld */; };
-		39DEDE172C114F2300C725CE /* FlashCard+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE0F2C114F2300C725CE /* FlashCard+CoreDataClass.swift */; };
-		39DEDE182C114F2300C725CE /* FlashCard+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE102C114F2300C725CE /* FlashCard+CoreDataProperties.swift */; };
-		39DEDE192C114F2300C725CE /* Subject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE112C114F2300C725CE /* Subject+CoreDataClass.swift */; };
 		39DEDE202C12032100C725CE /* DetailsViewDelagate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE1F2C12032100C725CE /* DetailsViewDelagate.swift */; };
 		39DEDE222C12033300C725CE /* DetailsViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE212C12033300C725CE /* DetailsViewDataSource.swift */; };
 		39DEDE242C12073900C725CE /* TopicViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE232C12073900C725CE /* TopicViewCell.swift */; };
 		39DEDE282C12148C00C725CE /* MapViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE272C12148C00C725CE /* MapViewCell.swift */; };
-		39DEDE372C1266B800C725CE /* Maps+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE322C1266B800C725CE /* Maps+CoreDataClass.swift */; };
-		39DEDE382C1266B800C725CE /* Maps+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE332C1266B800C725CE /* Maps+CoreDataProperties.swift */; };
-		39DEDE392C1266B800C725CE /* MindMap+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE342C1266B800C725CE /* MindMap+CoreDataClass.swift */; };
-		39DEDE3A2C1266B800C725CE /* MindMap+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE352C1266B800C725CE /* MindMap+CoreDataProperties.swift */; };
 		39DEDE3C2C1267E400C725CE /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE3B2C1267E400C725CE /* MapViewModel.swift */; };
 		39DEDE412C12C0FF00C725CE /* AddNewTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE402C12C0FF00C725CE /* AddNewTopicViewController.swift */; };
 		39DEDE432C12C12E00C725CE /* AddNewTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DEDE422C12C12E00C725CE /* AddNewTopicViewModel.swift */; };
@@ -85,18 +85,38 @@
 		39E3C7AB2C39AEE1007E8A88 /* TabViewCollectionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E3C7AA2C39AEE1007E8A88 /* TabViewCollectionsManager.swift */; };
 		39E3C7AE2C39B127007E8A88 /* SetViewCollectionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E3C7AD2C39B127007E8A88 /* SetViewCollectionsManager.swift */; };
 		39E3C7B02C39B137007E8A88 /* ListViewCollectionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E3C7AF2C39B137007E8A88 /* ListViewCollectionsManager.swift */; };
+		39ECFE2A2C840DB500CD73A5 /* TopicViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39ECFE292C840DB500CD73A5 /* TopicViewModelTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3919CF2A2C8375F900F08FF4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 39A4BC592C03924200F833D2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 39A4BC602C03924200F833D2;
+			remoteInfo = Studify;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		390BE1C72C5EF29800D12C60 /* GameConclusionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConclusionView.swift; sourceTree = "<group>"; };
 		3919CEF62C76BDAE00F08FF4 /* TopicOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicOptionsViewController.swift; sourceTree = "<group>"; };
 		3919CEF82C7A9DF200F08FF4 /* TopicOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicOptionsViewModel.swift; sourceTree = "<group>"; };
+		3919CF122C8172FE00F08FF4 /* FlashCard+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlashCard+CoreDataClass.swift"; path = "../../FlashCard+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3919CF132C8172FE00F08FF4 /* FlashCard+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlashCard+CoreDataProperties.swift"; path = "../../FlashCard+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3919CF142C8172FE00F08FF4 /* Maps+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Maps+CoreDataClass.swift"; path = "../../Maps+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3919CF152C8172FE00F08FF4 /* Maps+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Maps+CoreDataProperties.swift"; path = "../../Maps+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3919CF162C8172FE00F08FF4 /* Topic+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Topic+CoreDataClass.swift"; path = "../../Topic+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3919CF172C8172FE00F08FF4 /* Topic+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Topic+CoreDataProperties.swift"; path = "../../Topic+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3919CF182C8172FE00F08FF4 /* MindMap+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MindMap+CoreDataClass.swift"; path = "../../MindMap+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3919CF192C8172FE00F08FF4 /* MindMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MindMap+CoreDataProperties.swift"; path = "../../MindMap+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3919CF262C8375F800F08FF4 /* StudifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3919CF282C8375F900F08FF4 /* StudifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudifyTests.swift; sourceTree = "<group>"; };
 		392A5D762C39BC78007F4F86 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		392A5D782C39BCB3007F4F86 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		392A5D7A2C39CB67007F4F86 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		392A5D7C2C461362007F4F86 /* SettingsCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCardsView.swift; sourceTree = "<group>"; };
 		392A5D7E2C48BFE7007F4F86 /* SettingsColorPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsColorPickerController.swift; sourceTree = "<group>"; };
-		393DF68B2C336BC7000F1D41 /* Subject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Subject+CoreDataProperties.swift"; path = "../../Subject+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		393DF68D2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicMapViewControllerUpdatingTopicsMapsManager.swift; sourceTree = "<group>"; };
 		393DF6902C371221000F1D41 /* FlashcardSmallSetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardSmallSetHeader.swift; sourceTree = "<group>"; };
 		393EE58F2C2DB42B00277FAF /* EditFlashCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardViewController.swift; sourceTree = "<group>"; };
@@ -117,8 +137,6 @@
 		396D6CBB2C251F7B000DD57C /* AddNewFlashCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFlashCardViewController.swift; sourceTree = "<group>"; };
 		396D6CBD2C252010000DD57C /* AddNewFlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFlashCardViewModel.swift; sourceTree = "<group>"; };
 		396D6CBF2C252371000DD57C /* AddNewFlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFlashCardView.swift; sourceTree = "<group>"; };
-		396D6CC12C274551000DD57C /* Topic+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Topic+CoreDataClass.swift"; path = "../../Topic+CoreDataClass.swift"; sourceTree = "<group>"; };
-		396D6CC22C274551000DD57C /* Topic+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Topic+CoreDataProperties.swift"; path = "../../Topic+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		396D6CC72C274C2E000DD57C /* FlashCardSetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardSetCollectionViewCell.swift; sourceTree = "<group>"; };
 		396D6CC92C277E73000DD57C /* FlashCardSetViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardSetViewControllerDelegate.swift; sourceTree = "<group>"; };
 		396D6CCB2C277EBE000DD57C /* FlashCardSetViewControllerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardSetViewControllerDataSource.swift; sourceTree = "<group>"; };
@@ -144,20 +162,14 @@
 		39B817AD2C0E903200CB843B /* SubjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectTableViewCell.swift; sourceTree = "<group>"; };
 		39B817AF2C0EBD2E00CB843B /* SubjectDetailsViewControllerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectDetailsViewControllerDataSource.swift; sourceTree = "<group>"; };
 		39B817B12C0EBDDA00CB843B /* SubjectListViewControllerDelagate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectListViewControllerDelagate.swift; sourceTree = "<group>"; };
-		39B817C32C0FA5C600CB843B /* TopicMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicMapViewController.swift; sourceTree = "<group>"; };
+		39B817C32C0FA5C600CB843B /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 		39B817C52C109F2100CB843B /* TopicMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicMapViewModel.swift; sourceTree = "<group>"; };
 		39B817C72C10D56100CB843B /* TopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewModel.swift; sourceTree = "<group>"; };
-		39DEDE0F2C114F2300C725CE /* FlashCard+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlashCard+CoreDataClass.swift"; path = "../../FlashCard+CoreDataClass.swift"; sourceTree = "<group>"; };
-		39DEDE102C114F2300C725CE /* FlashCard+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlashCard+CoreDataProperties.swift"; path = "../../FlashCard+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		39DEDE112C114F2300C725CE /* Subject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Subject+CoreDataClass.swift"; path = "../../Subject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		39C6BCA12C83856E00910ADF /* TopicCoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCoreDataTests.swift; sourceTree = "<group>"; };
 		39DEDE1F2C12032100C725CE /* DetailsViewDelagate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewDelagate.swift; sourceTree = "<group>"; };
 		39DEDE212C12033300C725CE /* DetailsViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewDataSource.swift; sourceTree = "<group>"; };
 		39DEDE232C12073900C725CE /* TopicViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewCell.swift; sourceTree = "<group>"; };
 		39DEDE272C12148C00C725CE /* MapViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewCell.swift; sourceTree = "<group>"; };
-		39DEDE322C1266B800C725CE /* Maps+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Maps+CoreDataClass.swift"; sourceTree = "<group>"; };
-		39DEDE332C1266B800C725CE /* Maps+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Maps+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		39DEDE342C1266B800C725CE /* MindMap+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MindMap+CoreDataClass.swift"; path = "../../MindMap+CoreDataClass.swift"; sourceTree = "<group>"; };
-		39DEDE352C1266B800C725CE /* MindMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MindMap+CoreDataProperties.swift"; path = "../../MindMap+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		39DEDE3B2C1267E400C725CE /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		39DEDE402C12C0FF00C725CE /* AddNewTopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTopicViewController.swift; sourceTree = "<group>"; };
 		39DEDE422C12C12E00C725CE /* AddNewTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTopicViewModel.swift; sourceTree = "<group>"; };
@@ -166,9 +178,17 @@
 		39E3C7AA2C39AEE1007E8A88 /* TabViewCollectionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewCollectionsManager.swift; sourceTree = "<group>"; };
 		39E3C7AD2C39B127007E8A88 /* SetViewCollectionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewCollectionsManager.swift; sourceTree = "<group>"; };
 		39E3C7AF2C39B137007E8A88 /* ListViewCollectionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewCollectionsManager.swift; sourceTree = "<group>"; };
+		39ECFE292C840DB500CD73A5 /* TopicViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3919CF232C8375F800F08FF4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		39A4BC5E2C03924200F833D2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -181,6 +201,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3919CF272C8375F900F08FF4 /* StudifyTests */ = {
+			isa = PBXGroup;
+			children = (
+				3919CF282C8375F900F08FF4 /* StudifyTests.swift */,
+				39C6BCA12C83856E00910ADF /* TopicCoreDataTests.swift */,
+				39ECFE292C840DB500CD73A5 /* TopicViewModelTests.swift */,
+			);
+			path = StudifyTests;
+			sourceTree = "<group>";
+		};
 		392A5D752C39BC3B007F4F86 /* S_Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,7 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				3919CEF62C76BDAE00F08FF4 /* TopicOptionsViewController.swift */,
-				39B817C32C0FA5C600CB843B /* TopicMapViewController.swift */,
+				39B817C32C0FA5C600CB843B /* TopicViewController.swift */,
 				393DF68D2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift */,
 				39DEDE402C12C0FF00C725CE /* AddNewTopicViewController.swift */,
 				39DEDE442C134BBF00C725CE /* AddNewMapViewController.swift */,
@@ -256,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				39A4BC632C03924200F833D2 /* Studify */,
+				3919CF272C8375F900F08FF4 /* StudifyTests */,
 				39A4BC622C03924200F833D2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -264,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				39A4BC612C03924200F833D2 /* Studify.app */,
+				3919CF262C8375F800F08FF4 /* StudifyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -294,16 +326,14 @@
 		39A4BC792C0399C100F833D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				396D6CC22C274551000DD57C /* Topic+CoreDataProperties.swift */,
-				396D6CC12C274551000DD57C /* Topic+CoreDataClass.swift */,
-				393DF68B2C336BC7000F1D41 /* Subject+CoreDataProperties.swift */,
-				39DEDE112C114F2300C725CE /* Subject+CoreDataClass.swift */,
-				39DEDE322C1266B800C725CE /* Maps+CoreDataClass.swift */,
-				39DEDE332C1266B800C725CE /* Maps+CoreDataProperties.swift */,
-				39DEDE342C1266B800C725CE /* MindMap+CoreDataClass.swift */,
-				39DEDE352C1266B800C725CE /* MindMap+CoreDataProperties.swift */,
-				39DEDE0F2C114F2300C725CE /* FlashCard+CoreDataClass.swift */,
-				39DEDE102C114F2300C725CE /* FlashCard+CoreDataProperties.swift */,
+				3919CF122C8172FE00F08FF4 /* FlashCard+CoreDataClass.swift */,
+				3919CF132C8172FE00F08FF4 /* FlashCard+CoreDataProperties.swift */,
+				3919CF142C8172FE00F08FF4 /* Maps+CoreDataClass.swift */,
+				3919CF152C8172FE00F08FF4 /* Maps+CoreDataProperties.swift */,
+				3919CF162C8172FE00F08FF4 /* Topic+CoreDataClass.swift */,
+				3919CF172C8172FE00F08FF4 /* Topic+CoreDataProperties.swift */,
+				3919CF182C8172FE00F08FF4 /* MindMap+CoreDataClass.swift */,
+				3919CF192C8172FE00F08FF4 /* MindMap+CoreDataProperties.swift */,
 				39A4BC7F2C039B6A00F833D2 /* MindMapModel.swift */,
 				39A4BC812C039B7800F833D2 /* FlashCardModel.swift */,
 				39A4BC832C039B8D00F833D2 /* SubjectModel.swift */,
@@ -428,6 +458,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3919CF252C8375F800F08FF4 /* StudifyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3919CF2C2C8375F900F08FF4 /* Build configuration list for PBXNativeTarget "StudifyTests" */;
+			buildPhases = (
+				3919CF222C8375F800F08FF4 /* Sources */,
+				3919CF232C8375F800F08FF4 /* Frameworks */,
+				3919CF242C8375F800F08FF4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3919CF2B2C8375F900F08FF4 /* PBXTargetDependency */,
+			);
+			name = StudifyTests;
+			productName = StudifyTests;
+			productReference = 3919CF262C8375F800F08FF4 /* StudifyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		39A4BC602C03924200F833D2 /* Studify */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 39A4BC752C03924900F833D2 /* Build configuration list for PBXNativeTarget "Studify" */;
@@ -459,6 +507,10 @@
 				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
+					3919CF252C8375F800F08FF4 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 39A4BC602C03924200F833D2;
+					};
 					39A4BC602C03924200F833D2 = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -482,11 +534,19 @@
 			projectRoot = "";
 			targets = (
 				39A4BC602C03924200F833D2 /* Studify */,
+				3919CF252C8375F800F08FF4 /* StudifyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3919CF242C8375F800F08FF4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		39A4BC5F2C03924200F833D2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -499,6 +559,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3919CF222C8375F800F08FF4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39C6BCA22C83856E00910ADF /* TopicCoreDataTests.swift in Sources */,
+				3919CF292C8375F900F08FF4 /* StudifyTests.swift in Sources */,
+				39ECFE2A2C840DB500CD73A5 /* TopicViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		39A4BC5D2C03924200F833D2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -515,14 +585,9 @@
 				39DEDE0E2C114E8200C725CE /* Subjects.xcdatamodeld in Sources */,
 				39B817B22C0EBDDA00CB843B /* SubjectListViewControllerDelagate.swift in Sources */,
 				39B817AC2C0E8C3F00CB843B /* SubjectViewModel.swift in Sources */,
-				39DEDE172C114F2300C725CE /* FlashCard+CoreDataClass.swift in Sources */,
 				395B71042C4E015F00A9EBB6 /* FlashCardGameViewControllerDelegate.swift in Sources */,
 				39DEDE452C134BBF00C725CE /* AddNewMapViewController.swift in Sources */,
 				39DEDE222C12033300C725CE /* DetailsViewDataSource.swift in Sources */,
-				39DEDE182C114F2300C725CE /* FlashCard+CoreDataProperties.swift in Sources */,
-				396D6CC32C274551000DD57C /* Topic+CoreDataClass.swift in Sources */,
-				396D6CC42C274551000DD57C /* Topic+CoreDataProperties.swift in Sources */,
-				39DEDE192C114F2300C725CE /* Subject+CoreDataClass.swift in Sources */,
 				39DEDE242C12073900C725CE /* TopicViewCell.swift in Sources */,
 				39DEDE412C12C0FF00C725CE /* AddNewTopicViewController.swift in Sources */,
 				395B71082C4E0C7800A9EBB6 /* FlashCardGameCollectionViewCell.swift in Sources */,
@@ -532,6 +597,14 @@
 				39A4BC842C039B8D00F833D2 /* SubjectModel.swift in Sources */,
 				39E3C7B02C39B137007E8A88 /* ListViewCollectionsManager.swift in Sources */,
 				39E3C7AE2C39B127007E8A88 /* SetViewCollectionsManager.swift in Sources */,
+				3919CF1A2C8172FE00F08FF4 /* FlashCard+CoreDataClass.swift in Sources */,
+				3919CF1B2C8172FE00F08FF4 /* FlashCard+CoreDataProperties.swift in Sources */,
+				3919CF1C2C8172FE00F08FF4 /* Maps+CoreDataClass.swift in Sources */,
+				3919CF1D2C8172FE00F08FF4 /* Maps+CoreDataProperties.swift in Sources */,
+				3919CF1E2C8172FE00F08FF4 /* Topic+CoreDataClass.swift in Sources */,
+				3919CF1F2C8172FE00F08FF4 /* Topic+CoreDataProperties.swift in Sources */,
+				3919CF202C8172FE00F08FF4 /* MindMap+CoreDataClass.swift in Sources */,
+				3919CF212C8172FE00F08FF4 /* MindMap+CoreDataProperties.swift in Sources */,
 				390BE1C82C5EF29900D12C60 /* GameConclusionView.swift in Sources */,
 				39B817AA2C0E835700CB843B /* SubjectListViewModel.swift in Sources */,
 				392A5D7F2C48BFE8007F4F86 /* SettingsColorPickerController.swift in Sources */,
@@ -540,7 +613,7 @@
 				3948797C2C155FA9002D3DEB /* FlashCardsViewController.swift in Sources */,
 				3919CEF92C7A9DF200F08FF4 /* TopicOptionsViewModel.swift in Sources */,
 				39A4BC822C039B7800F833D2 /* FlashCardModel.swift in Sources */,
-				39B817C42C0FA5C600CB843B /* TopicMapViewController.swift in Sources */,
+				39B817C42C0FA5C600CB843B /* TopicViewController.swift in Sources */,
 				39B817C62C109F2100CB843B /* TopicMapViewModel.swift in Sources */,
 				39DEDE472C134C0C00C725CE /* AddNewMapViewModel.swift in Sources */,
 				39DEDE3C2C1267E400C725CE /* MapViewModel.swift in Sources */,
@@ -554,7 +627,6 @@
 				39DEDE202C12032100C725CE /* DetailsViewDelagate.swift in Sources */,
 				3919CEF72C76BDAE00F08FF4 /* TopicOptionsViewController.swift in Sources */,
 				39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */,
-				393DF68C2C336BC7000F1D41 /* Subject+CoreDataProperties.swift in Sources */,
 				393EE5922C2DB45F00277FAF /* EditFlashCardViewModel.swift in Sources */,
 				39B817B02C0EBD2E00CB843B /* SubjectDetailsViewControllerDataSource.swift in Sources */,
 				39B817A82C0E7E9500CB843B /* AddNewSubjectViewModel.swift in Sources */,
@@ -562,16 +634,12 @@
 				39A4BC672C03924200F833D2 /* SceneDelegate.swift in Sources */,
 				396D6CD42C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift in Sources */,
 				396D6CD02C2B1593000DD57C /* FlashCardListCollectionViewCell.swift in Sources */,
-				39DEDE372C1266B800C725CE /* Maps+CoreDataClass.swift in Sources */,
-				39DEDE382C1266B800C725CE /* Maps+CoreDataProperties.swift in Sources */,
 				392A5D772C39BC78007F4F86 /* SettingsViewController.swift in Sources */,
 				394879792C13FB0B002D3DEB /* Colors.swift in Sources */,
 				392A5D7D2C461363007F4F86 /* SettingsCardsView.swift in Sources */,
 				39DEDE432C12C12E00C725CE /* AddNewTopicViewModel.swift in Sources */,
 				396D6CC02C252371000DD57C /* AddNewFlashCardView.swift in Sources */,
-				39DEDE392C1266B800C725CE /* MindMap+CoreDataClass.swift in Sources */,
 				396D6CC82C274C2E000DD57C /* FlashCardSetCollectionViewCell.swift in Sources */,
-				39DEDE3A2C1266B800C725CE /* MindMap+CoreDataProperties.swift in Sources */,
 				39B817542C0D1F6600CB843B /* CoreDataManager.swift in Sources */,
 				396D6CB92C25165A000DD57C /* FlashCardListViewController.swift in Sources */,
 				39B817A62C0E7B6C00CB843B /* AddNewSubjectViewController.swift in Sources */,
@@ -581,6 +649,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3919CF2B2C8375F900F08FF4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 39A4BC602C03924200F833D2 /* Studify */;
+			targetProxy = 3919CF2A2C8375F900F08FF4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		39A4BC6F2C03924900F833D2 /* LaunchScreen.storyboard */ = {
@@ -594,6 +670,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3919CF2D2C8375F900F08FF4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 68J3XHLUKJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vy2000eng-gmail.StudifyTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Studify.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Studify";
+			};
+			name = Debug;
+		};
+		3919CF2E2C8375F900F08FF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 68J3XHLUKJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vy2000eng-gmail.StudifyTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Studify.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Studify";
+			};
+			name = Release;
+		};
 		39A4BC732C03924900F833D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -772,6 +884,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3919CF2C2C8375F900F08FF4 /* Build configuration list for PBXNativeTarget "StudifyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3919CF2D2C8375F900F08FF4 /* Debug */,
+				3919CF2E2C8375F900F08FF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		39A4BC5C2C03924200F833D2 /* Build configuration list for PBXProject "Studify" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
