@@ -1,6 +1,33 @@
 {
-  "originHash" : "9a35696756389cd771db84c63dde7b1a300bb16b61fbf152dd8e717837ff32d7",
+  "originHash" : "b7758531652b3cc64870f6168503346c754050d54f5d941ab91209dabe7f847f",
   "pins" : [
+    {
+      "identity" : "marqueelabel",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cbpowell/MarqueeLabel",
+      "state" : {
+        "revision" : "877e810534cda9afabb8143ae319b7c3341b121b",
+        "version" : "4.5.0"
+      }
+    },
+    {
+      "identity" : "notificationbanner",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Daltron/NotificationBanner",
+      "state" : {
+        "revision" : "be52806c3b95f9210955a8a94259d40f8a9e928d",
+        "version" : "4.0.0"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit",
+      "state" : {
+        "revision" : "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
+        "version" : "5.7.1"
+      }
+    },
     {
       "identity" : "swipecellkit",
       "kind" : "remoteSourceControl",
