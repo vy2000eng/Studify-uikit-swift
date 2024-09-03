@@ -2,7 +2,7 @@
 //  MindMap+CoreDataProperties.swift
 //  Studify
 //
-//  Created by VladyslavYatsuta on 6/5/24.
+//  Created by VladyslavYatsuta on 8/29/24.
 //
 //
 
@@ -18,7 +18,7 @@ extension MindMap {
 
     @NSManaged public var id: UUID?
     @NSManaged public var title: String?
-    @NSManaged public var subject: Subject?
+    @NSManaged public var maps: Maps?
 
 }
 

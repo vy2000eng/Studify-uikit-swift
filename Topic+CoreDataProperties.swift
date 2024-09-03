@@ -2,7 +2,7 @@
 //  Topic+CoreDataProperties.swift
 //  Studify
 //
-//  Created by VladyslavYatsuta on 6/22/24.
+//  Created by VladyslavYatsuta on 8/29/24.
 //
 //
 
@@ -20,7 +20,6 @@ extension Topic {
     @NSManaged public var id: UUID
     @NSManaged public var topicTitle: String
     @NSManaged public var flashcardset: Set<FlashCard>?
-    @NSManaged public var subject: Subject?
 
 }
 

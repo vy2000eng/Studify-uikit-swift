@@ -15,10 +15,10 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if section == 0{
-            return viewmodel.numberOfFlashCards
+            return viewmodel.numberOfListSetFlashCards
         }else{
             if viewmodel.smallSetSection.isOpened{
-                return viewmodel.numberOfFlashCards
+                return viewmodel.numberOfListSetFlashCards
             }
             else{
                 return 0
@@ -52,7 +52,8 @@ extension FlashCardSetViewController: UICollectionViewDataSource{
             
             if indexPath.row == viewmodel.currentIndex{
                 print("should be called here")
-                cell.mainView.backgroundColor = warmTreeTones.lightPrimary
+                cell.mainView.backgroundColor = ColorManager.shared.currentTheme.colors.bottomColor
+             //   cell.mainView.backgroundColor = ColorManager.shared.currentTheme.colors.listColor
             }
             return cell
             

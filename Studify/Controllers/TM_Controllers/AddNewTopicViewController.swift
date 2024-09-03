@@ -14,12 +14,12 @@ protocol AddNewTopicViewControllerDelgate: AnyObject{
 class AddNewTopicViewController: UIViewController {
     
     weak var delegate: AddNewTopicViewControllerDelgate?
-    let subjectID : UUID
+   // let subjectID : UUID
     let viewModel: AddNewTopicViewModel
     
-    init(subjectID: UUID) {
-        self.subjectID = subjectID
-        self.viewModel = AddNewTopicViewModel(subjectId: subjectID)
+    init() {
+        //self.subjectID = subjectID
+        self.viewModel = AddNewTopicViewModel()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,15 +30,15 @@ class AddNewTopicViewController: UIViewController {
     lazy var TopicNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "topic name"
         return label
     }()
     
     lazy var textField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "enter a topic title"
         textField.borderStyle = .roundedRect
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 2
         return textField
         
     }()
@@ -53,8 +53,29 @@ class AddNewTopicViewController: UIViewController {
 extension AddNewTopicViewController{
     
     private func setupView(){
-        view.backgroundColor = UIColor.systemBackground
-        title = "Add new topic"
+        view.backgroundColor = viewModel.currentTheme.backGroundColor
+        textField.textColor = viewModel.currentTheme.fontColor
+        textField.font = viewModel.font
+        textField.backgroundColor = viewModel.currentTheme.backGroundColor
+        textField.layer.borderColor = viewModel.currentTheme.backGroundColor == .black ? UIColor.white.withAlphaComponent(0.5).cgColor : UIColor.black.withAlphaComponent(0.5).cgColor
+        textField.attributedPlaceholder = NSAttributedString(string: "Enter Topic Title",
+                                                             attributes: [.font: viewModel.font,
+                                                                          .foregroundColor:viewModel.fontColor.withAlphaComponent(0.5) ])
+
+
+        TopicNameLabel.attributedText = NSAttributedString(string: "Topic Name",
+                                                           attributes: [.foregroundColor: viewModel.fontColor,
+                                                                        .font: viewModel.titleFont])
+      
+        title = "Add New Topic"
+        
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.prefersLargeTitles = false // If you want a standard size title
+            navigationBar.titleTextAttributes = [
+                .foregroundColor: viewModel.fontColor,
+                .font: viewModel.titleFont
+            ]
+        }
         
         setupAddButton()
         setupCloseButton()

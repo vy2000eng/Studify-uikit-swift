@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 struct MapViewModel:Hashable{
@@ -27,7 +28,28 @@ struct MapViewModel:Hashable{
         map.createdOn ?? Date()
     }
     
-    var mindMapCount:Int{
-        map.mapSet?.count ?? 0
+//    var mindMapCount:Int{
+//        map.mapSet?.count ?? 0
+//    }
+    
+    var backGroundColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.mapColor
+        
     }
+    
+    var fontColor:UIColor{
+        return ColorManager.shared.currentTheme.colors.fontColor
+    }
+    var fontColorSecondary:UIColor{
+        return ColorManager.shared.currentTheme.colors.fontColorSecondary
+    }
+    
+    var titleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.primaryFont
+    }
+    var subtitleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.secondaryFont
+    }
+    
+
 }

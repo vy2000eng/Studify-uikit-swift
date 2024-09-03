@@ -9,25 +9,140 @@ import Foundation
 import CoreData
 
 
+/**
+ 
+ 
+ 
+ {"Tyrian purple":"5f0f40","Carmine":"9a031e","UT orange":"fb8b24","Spanish orange":"e36414","Midnight green":"0f4c5c"}
+ 
+ 
+ */
+//MARK: 5000 - create error
+//MARK: 6000 - read error
+//MARK: 7000 - update error
+//MARK: 8000 - delete error
+
+
+
+
+
 class CoreDataManager{
-    static let shared = CoreDataManager()
+    static var shared = CoreDataManager()
+    let persistentContainer: NSPersistentContainer
     
-    private init(){}
+//    private init(inMemory: Bool = false) {
+//            persistentContainer = NSPersistentContainer(name: "Subjects")
+//            
+//            if inMemory {
+//                let description = NSPersistentStoreDescription()
+//                description.type = NSInMemoryStoreType
+//                persistentContainer.persistentStoreDescriptions = [description]
+//            }
+//            
+//            persistentContainer.loadPersistentStores { (storeDescription, error) in
+//                if let error = error as NSError? {
+//                    fatalError("Unresolved error \(error), \(error.userInfo)")
+//                }
+//            }
+//            persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+//        }
+//    private init() {
+//        persistentContainer = NSPersistentContainer(name: "Subjects")
+//        persistentContainer.loadPersistentStores { _, error in
+//            if let error = error as NSError? {
+//                fatalError("Unresolved Error \(error), \(error.userInfo)")
+//            }
+//        }
+//    }
     
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Subjects")
-        container.loadPersistentStores { _, err  in
-            if let err = err as NSError?{
-                fatalError("Unresolved Error \(err), \(err.userInfo)")
+    // This initializer is for testing purposes
+    init(inMemory: Bool = false) {
+        persistentContainer = NSPersistentContainer(name: "Subjects")
+        if inMemory {
+            persistentContainer.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+        }
+        persistentContainer.loadPersistentStores { _, error in
+            if let error = error as NSError? {
+                fatalError("Unresolved Error \(error), \(error.userInfo)")
             }
         }
-        return container
-    }()
+    }
+    
+//    init(inMemory: Bool = false) {
+//         persistentContainer = NSPersistentContainer(name: "Subjects")
+//         if inMemory {
+//             let description = NSPersistentStoreDescription()
+//             description.type = NSInMemoryStoreType
+//             persistentContainer.persistentStoreDescriptions = [description]
+//         }
+//         persistentContainer.loadPersistentStores { _, error in
+//             if let error = error as NSError? {
+//                 fatalError("Unresolved Error \(error), \(error.userInfo)")
+//             }
+//         }
+//     }
     
     var context: NSManagedObjectContext {
-        
-        persistentContainer.viewContext
+        return persistentContainer.viewContext
     }
+    
+    func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
+        persistentContainer.performBackgroundTask(block)
+    }
+    //MARK: this is how u make db operation on a backlground thread
+//    func addNewTopic(title: String, completion: @escaping (Result<Void, Error>) -> Void) {
+//        performBackgroundTask { context in
+//            let newTopic = Topic(context: context)
+//            newTopic.topicTitle = title
+//            newTopic.id = UUID()
+//            newTopic.createdOn = Date()
+//            
+//            do {
+//                try context.save()
+//                DispatchQueue.main.async {
+//                    completion(.success(()))
+//                }
+//            } catch {
+//                DispatchQueue.main.async {
+//                    completion(.failure(error))
+//                }
+//            }
+//        }
+//    }
+    //MARK: in the vc
+//    func addNewTopic(title: String) {
+//         coreDataManager.addNewTopic(title: title) { [weak self] result in
+//             switch result {
+//             case .success:
+//                 print("Topic added successfully")
+//                 self?.getAllTopics() // Refresh the topics list
+//             case .failure(let error):
+//                 print("Failed to add topic: \(error)")
+//                 // Handle the error (e.g., show an alert to the user)
+//             }
+//         }
+//     }
+
+    
+//    static func testInstance() -> CoreDataManager {
+//           return CoreDataManager(inMemory: true)
+       //}
+    //    private init(){}
+    //
+    //    lazy var persistentContainer: NSPersistentContainer = {
+    //        let container = NSPersistentContainer(name: "Subjects")
+    //        container.loadPersistentStores { _, err  in
+    //            if let err = err as NSError?{
+    //                fatalError("Unresolved Error \(err), \(err.userInfo)")
+    //            }
+    //        }
+    //        return container
+    //    }()
+    //
+    //    var context: NSManagedObjectContext {
+    //
+    //        persistentContainer.viewContext
+    //    }
     
     func saveContext(){
         if context.hasChanges{
@@ -40,34 +155,34 @@ class CoreDataManager{
     }
     // MARK: - create functions
     
-    func addNewSubject(title: String, createdOn: Date){
-        let newSubject = Subject(context: context)
-        newSubject.title = title
-        newSubject.id = UUID()
-        newSubject.createdOn = createdOn
-        newSubject.addedFirst = -1
-        do{
-            try context.save()
-        }catch let error as NSError{
-            print("Error adding a new subject: \(error.userInfo), \(error.localizedDescription)")
-        }
-    }
+    //    func addNewSubject(title: String, createdOn: Date){
+    //        let newSubject = Subject(context: context)
+    //        newSubject.title = title
+    //        newSubject.id = UUID()
+    //        newSubject.createdOn = createdOn
+    //        newSubject.addedFirst = -1
+    //        do{
+    //            try context.save()
+    //        }catch let error as NSError{
+    //            print("Error adding a new subject: \(error.userInfo), \(error.localizedDescription)")
+    //        }
+    //    }
     
     
     
     
     
-    func addTopicToSubject(title:String, subjectID:UUID){
-        let fetchRequest : NSFetchRequest<Subject> = Subject.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id=%@", subjectID.uuidString)
+    func addNewTopic(title:String){
+        //        let fetchRequest : NSFetchRequest<Subject> = Subject.fetchRequest()
+        //        fetchRequest.predicate = NSPredicate(format: "id=%@", subjectID.uuidString)
         let newTopic = Topic(context: context)
         newTopic.topicTitle = title
         newTopic.id = UUID()
         newTopic.createdOn = Date()
         do{
-            let subject = try context.fetch(fetchRequest).first
-            subject?.addToTopics(newTopic)
-            newTopic.subject = subject
+            //            let subject = try context.fetch(fetchRequest).first
+            //            subject?.addToTopics(newTopic)
+            //            newTopic.subject = subject
             try context.save()
         }catch let error as NSError{
             print("Error deleting subject: \(error.userInfo), \(error.localizedDescription)")
@@ -75,8 +190,8 @@ class CoreDataManager{
     }
     
     func addMapToSubject(title: String, subjectID:UUID){
-        let fetchRequest: NSFetchRequest<Subject> = Subject.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id=%@",subjectID.uuidString)
+        //        let fetchRequest: NSFetchRequest<Subject> = Subject.fetchRequest()
+        //        fetchRequest.predicate = NSPredicate(format: "id=%@",subjectID.uuidString)
         
         let newMap = Maps(context: context)
         newMap.title = title
@@ -84,9 +199,9 @@ class CoreDataManager{
         newMap.createdOn = Date()
         
         do{
-            let subject = try context.fetch(fetchRequest).first
-            subject?.addToMaps(newMap)
-            newMap.subject = subject
+            //            let subject = try context.fetch(fetchRequest).first
+            //            subject?.addToMaps(newMap)
+            //            newMap.subject = subject
             try context.save()
         }catch let error as NSError{
             print("Error add new map: \(error.userInfo) , \(error.localizedDescription)")
@@ -103,6 +218,8 @@ class CoreDataManager{
         newflashCard.id = UUID()
         newflashCard.front = front
         newflashCard.back = back
+        newflashCard.learned = false
+        newflashCard.stillLearning = true
         do{
             let topic = try context.fetch(fetchRequest).first
             topic?.addToFlashcardset(newflashCard)
@@ -116,57 +233,57 @@ class CoreDataManager{
     
     // MARK: - read  functions
     
-    func getOpenedFirst(subjectID: UUID)->Int16{
-        let fetchRequest: NSFetchRequest<Subject> = Subject.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id=%@", subjectID.uuidString)
-        
-        do{
-            let subject =  try context.fetch(fetchRequest)
-            return  subject.first!.addedFirst          //  context.delete((subject.first)!)
-            
-        }catch let error as NSError{
-            print("Error retrieving openedFirst subject: \(error.userInfo), \(error.localizedDescription)")
-            return -2
-        }
-        
-        
-    }
+    //    func getOpenedFirst(subjectID: UUID)->Int16{
+    //        let fetchRequest: NSFetchRequest<Subject> = Subject.fetchRequest()
+    //        fetchRequest.predicate = NSPredicate(format: "id=%@", subjectID.uuidString)
+    //
+    //        do{
+    //            let subject =  try context.fetch(fetchRequest)
+    //            return  subject.first!.addedFirst          //  context.delete((subject.first)!)
+    //
+    //        }catch let error as NSError{
+    //            print("Error retrieving openedFirst subject: \(error.userInfo), \(error.localizedDescription)")
+    //            return -2
+    //        }
+    //
+    //
+    //    }
     
-    func getAllSubjects() -> [Subject]?{
-        do{
-            return try  context.fetch(Subject.fetchRequest())
-        }catch let error as NSError{
-            print("Error fetching all subjects: \(error.userInfo), \(error.localizedDescription)")
-            return nil
-        }
-    }
+    //    func getAllSubjects() -> [Subject]?{
+    //        do{
+    //            return try  context.fetch(Subject.fetchRequest())
+    //        }catch let error as NSError{
+    //            print("Error fetching all subjects: \(error.userInfo), \(error.localizedDescription)")
+    //            return nil
+    //        }
+    //    }
     
-    func getAllTopicsForSubject(subjectid: UUID) ->[Topic]{
+    func getAllTopics() ->[Topic]{
         
         let fetchRequest: NSFetchRequest<Topic> = Topic.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "subject.id == %@", subjectid.uuidString )
+        //fetchRequest.predicate = NSPredicate(format: "subject.id == %@", subjectid.uuidString )
         
         do {
             let topics = try context.fetch(fetchRequest)
             return topics
-        } catch {
-            print("Error fetching topics for subject ID \(subjectid): \(error)")
+        } catch let error as NSError{
+            print("Error fetching topics for subject ID \(error.userInfo): \(error.localizedDescription)")
             return []  // Return an empty array if the fetch fails
         }
     }
     
-    func getAllMapsForSubject(subjectid: UUID) -> [Maps]{
-        
-        let fetchRequest: NSFetchRequest<Maps> = Maps.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "subject.id == %@", subjectid.uuidString )
-        do {
-            let maps = try context.fetch(fetchRequest)
-            return maps
-        } catch {
-            print("Error fetching maps for subject ID \(subjectid): \(error)")
-            return []  // Return an empty array if the fetch fails
-        }
-    }
+    //    func getAllMapsForSubject(subjectid: UUID) -> [Maps]{
+    //
+    //        let fetchRequest: NSFetchRequest<Maps> = Maps.fetchRequest()
+    //        fetchRequest.predicate = NSPredicate(format: "subject.id == %@", subjectid.uuidString )
+    //        do {
+    //            let maps = try context.fetch(fetchRequest)
+    //            return maps
+    //        } catch {
+    //            print("Error fetching maps for subject ID \(subjectid): \(error)")
+    //            return []  // Return an empty array if the fetch fails
+    //        }
+    //    }
     
     func getAllFlashCardsForTopic(topicID: UUID) -> [FlashCard]{
         let fetchRequest: NSFetchRequest<FlashCard> = FlashCard.fetchRequest()
@@ -192,43 +309,96 @@ class CoreDataManager{
             print("Error updating FlashCard: \(error.userInfo), \(error.localizedDescription)")
         }
     }
-    
-    func setOpenedFirst(subjectID:UUID, addedFirst:Int16){
-        let fetchRequest : NSFetchRequest<Subject> = Subject.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id=%@", subjectID.uuidString)
+    func toggleLearned(flashcardID:UUID){
+        let fetchRequest: NSFetchRequest<FlashCard> = FlashCard.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", flashcardID.uuidString)
         do{
-            let subject =  try context.fetch(fetchRequest)
-            subject.first?.addedFirst = addedFirst
+            let flashcard = try context.fetch(fetchRequest).first(where: {$0.id == flashcardID})
+            flashcard?.learned = !flashcard!.learned
+            flashcard?.stillLearning = !flashcard!.stillLearning
+            
             try context.save()
             
+            
         }catch let error as NSError{
-            print("Error updating openedFirst in subject: \(error.userInfo), \(error.localizedDescription)")
+            print("Error updating FlashCard: \(error.userInfo), \(error.localizedDescription)")
         }
     }
+    
+    func toggleStillLearning(flashcardID:UUID){
+        let fetchRequest: NSFetchRequest<FlashCard> = FlashCard.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", flashcardID.uuidString)
+        do{
+            let flashcard = try context.fetch(fetchRequest).first(where: {$0.id == flashcardID})
+            flashcard?.stillLearning = !flashcard!.stillLearning
+            flashcard?.learned = !flashcard!.learned
+            
+            try context.save()
+            
+            
+        }catch let error as NSError{
+            print("Error updating FlashCard: \(error.userInfo), \(error.localizedDescription)")
+        }
+    }
+    func updateTopic(topicID: UUID, title: String){
+        let fetchRequest:NSFetchRequest<Topic> = Topic.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", topicID as CVarArg)
+        
+        do{
+            guard let topic = try context.fetch(fetchRequest).first else {
+                throw NSError(domain: "CoreDataManager", code: 6000, userInfo: [NSLocalizedDescriptionKey: "Topic not found"])
+            }
+            topic.topicTitle = title
+            try context.save()
+            
+            
+        }catch let error as NSError{
+            print("Error updating Topic: \(error.userInfo), \(error.localizedDescription)")
+
+            
+            
+        }
+    }
+    
+    //    func setOpenedFirst(subjectID:UUID, addedFirst:Int16){
+    //        let fetchRequest : NSFetchRequest<Subject> = Subject.fetchRequest()
+    //        fetchRequest.predicate = NSPredicate(format: "id=%@", subjectID.uuidString)
+    //        do{
+    //            let subject =  try context.fetch(fetchRequest)
+    //            subject.first?.addedFirst = addedFirst
+    //            try context.save()
+    //
+    //        }catch let error as NSError{
+    //            print("Error updating openedFirst in subject: \(error.userInfo), \(error.localizedDescription)")
+    //        }
+    //    }
     
     
     // MARK: - delete  functions
     
-    func deleteSubject(id: UUID){
-        let fetchRequest : NSFetchRequest<Subject> = Subject.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id=%@", id.uuidString)
-        do{
-            let subject =  try context.fetch(fetchRequest)
-            context.delete((subject.first)!)
-            try context.save()
-            
-        }catch let error as NSError{
-            print("Error deleting subject: \(error.userInfo), \(error.localizedDescription)")
-        }
-        
-    }
+    //    func deleteSubject(id: UUID){
+    //        let fetchRequest : NSFetchRequest<Subject> = Subject.fetchRequest()
+    //        fetchRequest.predicate = NSPredicate(format: "id=%@", id.uuidString)
+    //        do{
+    //            let subject =  try context.fetch(fetchRequest)
+    //            context.delete((subject.first)!)
+    //            try context.save()
+    //
+    //        }catch let error as NSError{
+    //            print("Error deleting subject: \(error.userInfo), \(error.localizedDescription)")
+    //        }
+    //
+    //    }
     
     func deleteTopic( topicID: UUID){
         let fetchRequest: NSFetchRequest<Topic> = Topic.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id=%@", topicID.uuidString)
+        fetchRequest.predicate = NSPredicate(format: "id==%@", topicID as CVarArg)
         do{
-            let topic = try context.fetch(fetchRequest)
-            context.delete((topic.first)!)
+            //let topic = try context.fetch(fetchRequest)
+            guard let topic = try context.fetch(fetchRequest).first else {
+                throw NSError(domain: "CoreDataManager", code: 8000, userInfo: [NSLocalizedDescriptionKey: "Topic not found"])
+            }
+            context.delete(topic)
             try context.save()
         }catch let error as NSError{
             print("Error deleting topic: \(error.userInfo), \(error.localizedDescription)")

@@ -17,7 +17,6 @@ import UIKit
 class MapViewCell:  TopicViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
         
     }
     
@@ -28,15 +27,36 @@ class MapViewCell:  TopicViewCell {
      
 }
 extension MapViewCell{
-    func setup(){
-        mainContentView.backgroundColor = warmClouds.lightPrimary
-    }
     func configure(with map: MapViewModel){
-        topicNameLabel.text = map.title
-        countLabel.text = "📍 \(map.mindMapCount) maps"
-        createdOnLabel.text = "🕒 Created \(map.createdOn.formatted(date: .abbreviated, time: .shortened))"
+       
+        mainContentView.layer.borderColor = ColorManager.shared.currentTheme.colors.backGroundColor == .black
+        ?  UIColor.white.withAlphaComponent(0.1).cgColor
+        :  UIColor.black.withAlphaComponent(0.1).cgColor
+        
+        mainContentView.backgroundColor = map.backGroundColor
+        
+        topicNameLabel.attributedText = .create(string: map.title, font: map.titleFont, color: map.fontColor)
+       // countLabel.attributedText = .create(string: "📍 \(map.mindMapCount) maps", font: map.subtitleFont, color: map.fontColorSecondary)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        let formattedDate = dateFormatter.string(from: map.createdOn)
+        createdOnLabel.attributedText = .create(string: "🕒 \(formattedDate)", font: map.subtitleFont, color: map.fontColorSecondary)
     }
 }
+
+
+//MARK: just here for reference:
+//        mainContentView.backgroundColor = map.backGroundColor
+//        topicNameLabel.textColor = map.fontColor
+//        countLabel.textColor = map.fontColorSecondary
+//        createdOnLabel.textColor = map.fontColorSecondary
+//
+//        topicNameLabel.text = map.title
+//        countLabel.text = "📍 \(map.mindMapCount) maps"
+//        createdOnLabel.text = "🕒 \(map.createdOn.formatted(date: .numeric, time: .omitted)) at \(map.createdOn.formatted(date: .omitted, time: .shortened))"
+
     
 //MARK: just here for referernce
 //    lazy var mapsNameLabel: UILabel = {

@@ -14,17 +14,14 @@ class TopicMapHeaderViewCell: UICollectionViewCell{
     lazy var headerView: UIView = {
        let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = .systemBackground
+        v.backgroundColor = .clear
         
         return v
     }()
     lazy var sectionTitle: UILabel = {
        let v = UILabel()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.font = UIFont(name: "HelveticaNeue-Italic", size: 15)
-        v.textColor = UIColor.darkGray
-        
-
+        v.backgroundColor = .clear
         return v
     }()
     
@@ -78,7 +75,12 @@ extension TopicMapHeaderViewCell{
     }
     
     func configureTopicHeader(title: String){
+       // headerView.backgroundColor = ColorManager.shared.currentTheme.colors.backGroundColor
+        contentView.backgroundColor = ColorManager.shared.currentTheme.colors.backGroundColor
+        sectionTitle.font =  UIFont.systemFont(ofSize: 14)
+        sectionTitle.textColor = ColorManager.shared.currentTheme.colors.fontColor
         sectionTitle.text = title
+        
         
     }
 }

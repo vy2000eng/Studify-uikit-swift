@@ -2,7 +2,7 @@
 //  FlashCard+CoreDataProperties.swift
 //  Studify
 //
-//  Created by VladyslavYatsuta on 6/5/24.
+//  Created by VladyslavYatsuta on 8/29/24.
 //
 //
 
@@ -19,6 +19,8 @@ extension FlashCard {
     @NSManaged public var back: String
     @NSManaged public var front: String
     @NSManaged public var id: UUID
+    @NSManaged public var learned: Bool
+    @NSManaged public var stillLearning: Bool
     @NSManaged public var topic: Topic?
 
 }

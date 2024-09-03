@@ -13,7 +13,7 @@ extension FlashCardListViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
        
-        return viewmodel.numberOfFlashCards
+        return viewmodel.numberOfListSetFlashCards
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -22,6 +22,9 @@ extension FlashCardListViewController: UICollectionViewDataSource{
         }
         let flashcard = viewmodel.flashcard(by: indexPath.row)
         cell.configure(flashCard: flashcard)
+        cell.delegate = self
+        
+        
         return cell
     }
     

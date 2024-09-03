@@ -49,6 +49,7 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
         }
         
         let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        v.backgroundColor = .clear
         v.translatesAutoresizingMaskIntoConstraints = false
         
         v.register(FlashCardSetCollectionViewCell.self, forCellWithReuseIdentifier: "setCell")
@@ -66,12 +67,20 @@ final class FlashCardSetViewController: UIViewController, AddNewFlashCardToSetVi
     override func viewDidLoad() {
         super.viewDidLoad()
         print("set view loaded")
+        view.backgroundColor = viewmodel.background
+
         setupView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         viewmodel.viewControllerCurrentlyAppearing = 0
         super.viewDidAppear(animated)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewmodel.viewControllerCurrentlyAppearing = 0
+        super.viewWillAppear(animated)
+
     }
     
 }
@@ -87,19 +96,13 @@ extension FlashCardSetViewController{
     private func setupConstraints(){
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 65),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 40),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
-    
-    private func setupCloseButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .close,
-            target: self,
-            action: #selector(closeViewController))
-    }
+
 }
 
 extension FlashCardSetViewController{
@@ -143,13 +146,7 @@ extension FlashCardSetViewController{
         vc.flashCardSetViewControllerDelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    @objc
-    private func closeViewController() {
-        delegate?.didUpdateNumberOfFlashcardsFromFlashCardSetViewController(indexPath: topicIndexPath)
-        dismiss(animated: true, completion: nil)
-    }
-    
+
     @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
             let point = gesture.location(in: self.collectionView)

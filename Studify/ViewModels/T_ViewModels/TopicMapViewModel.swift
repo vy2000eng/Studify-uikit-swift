@@ -6,7 +6,7 @@
 //
 enum sectionData{
     case topics([TopicViewModel])
-    case maps([MapViewModel])
+    //case maps([MapViewModel])
 }
 
 class Sections{
@@ -21,151 +21,88 @@ class Sections{
     }
 }
 
-import Foundation
-class TopicMapViewModel{
-    
-    var subjectID: UUID
-    var topics = [TopicViewModel]()
-    var maps = [MapViewModel]()
-    var sections = [Sections]()
-    var topicMapPrecedence:Int16 = -1
 
-    init(subjectID: UUID) {
-        
-        self.subjectID = subjectID
+import Foundation
+import UIKit
+class TopicMapViewModel{
+    var topics = [TopicViewModel]()
+    var sections = [Sections]()
+    // MARK:  Tested -TMVM init
+    init() {
         getAllTopics()
-        getAllMaps()
-        
-        let topicSection =  Sections(header: "topics", data: .topics(topics))
-        let mapSection = Sections(header: "maps", data: .maps(maps))
-        
-        if !bothSectionEmpty{
-            topicMapPrecedence = getOpenedFirst(subjectID: subjectID)
-      
-        }
-        else{
-            setOpenedFirst(subjectID: subjectID, openedFirst: -1)
-        }
-        
-        switch(topicMapPrecedence){
-            
-        case 0:
-           
-            self.sections = mapsIsEmpty ? [topicSection] : [topicSection,mapSection]
-            break
-        case 1:
-            
-            self.sections = topicsIsEmpty ?   [mapSection] : [mapSection, topicSection]
-            break
-        default:
-            
+        if numberOfTopics == 0{
             self.sections = []
-            break
+        }else{
+            let topicSection =  Sections(header: "Topics", data: .topics(topics))
+            self.sections = [topicSection]
+            
         }
     }
     
-    var bothSectionEmpty:Bool{
-        return (numberOfTopics == 0 && numberOfMaps == 0) ? true: false
+    var background:UIColor{
+        ColorManager.shared.currentTheme.colors.backGroundColor
     }
     
-    var mapsIsEmpty: Bool{
-        return numberOfMaps == 0
+    var fontColor:UIColor{
+        ColorManager.shared.currentTheme.colors.fontColor
     }
     
-    var topicsIsEmpty:Bool{
-        return numberOfTopics == 0
+    var titleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.primaryFont
     }
     
+    var subtitleFont:UIFont{
+        ColorManager.shared.currentTheme.colors.secondaryFont
+    }
+    
+    //MARK: Tested -TMVM numberOfTopics
     var numberOfTopics:Int{
         topics.count
     }
-    var numberOfMaps:Int{
-        maps.count
-    }
+    
+    //MARK: Tested -TMVM sectionsCount
     var sectionsCount:Int{
-        return (numberOfMaps > 0 ? 1 : 0) + (numberOfTopics > 0 ? 1 : 0)
+        return  (numberOfTopics > 0 ? 1 : 0)
     }
     
-    
+    //MARK: Tested -TMVM toggleSection
     func toggleSection(_ section: Int) {
         sections[section].isOpened = !sections[section].isOpened
     }
     
+    //MARK: Tested -TMVM isSectionCollapsed
     func isSectionCollapsed(_ section: Int) -> Bool {
         return sections[section].isOpened
     }
     
-    
-    func numberOfRowsForTopics() -> Int{
-        return numberOfTopics
-    }
-    func numberOfRowsForMaps()-> Int{
-        return numberOfMaps
-    }
-    
-    func numberOfRows(by section: Int)->Int{
-        if topicMapPrecedence == 0{
-            return section == 0 ?
-            (sections[section].isOpened ? numberOfRowsForTopics() : 0)  :
-            (sections[section].isOpened ? numberOfRowsForMaps()   : 0)
+    //MARK: Tested -TMVM numberOfRows
+    func numberOfRows(by section: Int)throws ->Int {
+        guard section == 0 else {
+            throw NSError(domain: "InvalidSectionError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid section index"])
         }
-        if topicMapPrecedence == 1 {
-            return section == 0 ?
-            (sections[section].isOpened ? numberOfRowsForMaps()   : 0)  :
-            (sections[section].isOpened ? numberOfRowsForTopics() : 0)
-        }
-        return 0
-    }
-    
-    
-    
-    func topic(by index:Int) ->TopicViewModel{
-        topics[index]
-    }
-    
-    func map(by index:Int) ->MapViewModel{
-        maps[index]
-    }
-    
-    
-    //MARK: Create
-    func insertTopic(title: String, id: UUID){
-        CoreDataManager.shared.addTopicToSubject(title:title,subjectID: subjectID)
-    }
-    
-    func setOpenedFirst(subjectID:UUID, openedFirst: Int16 ){
-        CoreDataManager.shared.setOpenedFirst(subjectID: subjectID, addedFirst: openedFirst)
-        topicMapPrecedence = openedFirst
-    }
-    
-    
-    //MARK: Read
-    func getAllMaps(){
-        maps = CoreDataManager.shared.getAllMapsForSubject(subjectid: subjectID).map(MapViewModel.init)
-    }
-    
-    func getOpenedFirst(subjectID:UUID) ->Int16{
-        return CoreDataManager.shared.getOpenedFirst(subjectID: subjectID)
         
+        guard let firstSection = sections.first else {
+            throw NSError(domain: "EmptySectionsError", code: 2, userInfo: [NSLocalizedDescriptionKey: "No sections available"])
+        }
+    
+        return firstSection.isOpened ? numberOfTopics : 0
     }
     
+    //MARK: Tested -TMVM topic
+    func topic(by index:Int) ->TopicViewModel{
+        return topics[index]
+    }
     
+    //MARK: Tested -TMVM -getAllTopics
     func getAllTopics(){
-        topics = CoreDataManager.shared.getAllTopicsForSubject(subjectid: subjectID).map(TopicViewModel.init)
+        topics = CoreDataManager.shared.getAllTopics().map(TopicViewModel.init)
     }
     
-    //MARK: delete
-    
+    //MARK: Tested -TMVM deleteTopic
     func deleteTopic(topic:TopicViewModel){
         CoreDataManager.shared.deleteTopic(topicID: topic.id)
         getAllTopics()
-        print("delete Topic called \(topics.count)")
     }
     
-    func deleteMap(map: MapViewModel){
-        CoreDataManager.shared.deleteMap(mapID:map.id)
-        getAllMaps()
-        print("delete map called \(maps.count)")
-    }
 }
 

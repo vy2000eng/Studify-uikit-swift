@@ -6,37 +6,53 @@
 //
 
 import Foundation
+import UIKit
 
-
-class SubjectListViewModel{
-    var subjects = [SubjectViewModel]()
-    
-    var numberOfSubjects:Int{
-        subjects.count
-    }
-    
-    init(){
-        getAllSubjects()
-    }
-    
-    func getAllSubjects(){
-        let s = CoreDataManager.shared.getAllSubjects() ?? []
-        subjects = s.map(SubjectViewModel.init)
-    }
-    
-    func numberOfRows() -> Int{
-        return numberOfSubjects
-    }
-    
-    func subject(by index:Int) -> SubjectViewModel{
-        subjects[index]
-    }
- 
-    
-    func deleteSubject(subject: SubjectViewModel){
-        CoreDataManager.shared.deleteSubject(id: subject.id)
-        getAllSubjects()
-        
-    }
-}
+//
+//class SubjectListViewModel{
+//    var subjects = [SubjectViewModel]()
+//    
+//    var numberOfSubjects:Int{
+//        subjects.count
+//    }
+//    
+//    var background:UIColor{
+//        ColorManager.shared.currentTheme.colors.backGroundColor
+//    }
+//    
+//    var fontColor:UIColor{
+//        ColorManager.shared.currentTheme.colors.fontColor
+//    }
+//    var titleFont:UIFont{
+//        ColorManager.shared.currentTheme.colors.primaryFont
+//    }
+//    var subtitleFont:UIFont{
+//        ColorManager.shared.currentTheme.colors.secondaryFont
+//    }
+//
+//    
+//    init(){
+//        getAllSubjects()
+//    }
+//    
+//    func getAllSubjects(){
+//        let s = CoreDataManager.shared.getAllSubjects() ?? []
+//        subjects = s.map(SubjectViewModel.init)
+//    }
+//    
+//    func numberOfRows() -> Int{
+//        return numberOfSubjects
+//    }
+//    
+//    func subject(by index:Int) -> SubjectViewModel{
+//        subjects[index]
+//    }
+// 
+//    
+//    func deleteSubject(subject: SubjectViewModel){
+//        CoreDataManager.shared.deleteSubject(id: subject.id)
+//        getAllSubjects()
+//        
+//    }
+//}
 

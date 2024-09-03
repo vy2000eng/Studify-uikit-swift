@@ -8,22 +8,22 @@
 import UIKit
 import SwipeCellKit
 
-extension SubjectListViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.numberOfRows()
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "subjectCell", for: indexPath) as? SubejctListViewCell else{
-            return UICollectionViewCell()
-        }
-        let subject = viewModel.subject(by: indexPath.row)
-        cell.configure(with: subject)
-        cell.delegate = self
-        return cell
-    }
-}
+//extension SubjectListViewController: UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        viewModel.numberOfRows()
+//        
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        guard let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "subjectCell", for: indexPath) as? SubejctListViewCell else{
+//            return UICollectionViewCell()
+//        }
+//        let subject = viewModel.subject(by: indexPath.row)
+//        cell.configure(with: subject)
+//        cell.delegate = self
+//        return cell
+//    }
+//}
     
 //    func numberOfSections(in tableView: UITableView) -> Int {
 //        return 1
