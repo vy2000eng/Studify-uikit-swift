@@ -33,7 +33,7 @@ class TopicMapViewModel{
         if numberOfTopics == 0{
             self.sections = []
         }else{
-            let topicSection =  Sections(header: "Topics", data: .topics(topics))
+            let topicSection =  Sections(header: "topics", data: .topics(topics))
             self.sections = [topicSection]
             
         }

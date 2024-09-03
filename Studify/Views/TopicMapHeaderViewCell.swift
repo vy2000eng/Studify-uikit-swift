@@ -67,19 +67,21 @@ extension TopicMapHeaderViewCell{
             sectionTitle.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -5),
             
             collapseButton.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 5),
-            collapseButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -10),
+            collapseButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -15),
             collapseButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             collapseButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor,constant: -5),
             
         ])
     }
     
-    func configureTopicHeader(title: String){
+    func configureTopicHeader(viewmodel: TopicMapViewModel){
        // headerView.backgroundColor = ColorManager.shared.currentTheme.colors.backGroundColor
-        contentView.backgroundColor = ColorManager.shared.currentTheme.colors.backGroundColor
-        sectionTitle.font =  UIFont.systemFont(ofSize: 14)
-        sectionTitle.textColor = ColorManager.shared.currentTheme.colors.fontColor
-        sectionTitle.text = title
+        contentView.backgroundColor = viewmodel.background
+        //sectionTitle.font =  UIFont.systemFont(ofSize: 14)
+       // sectionTitle.textColor = viewmodel.fontColor
+        //sectionTitle.text = title
+        //MARK: this is going to be an issue if there are ever any other sections
+        sectionTitle.attributedText = .create(string: viewmodel.sections[0].header, font: viewmodel.subtitleFont, color: viewmodel.fontColor)
         
         
     }

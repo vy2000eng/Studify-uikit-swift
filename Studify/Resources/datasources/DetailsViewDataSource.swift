@@ -53,8 +53,8 @@ extension TopicViewController: UICollectionViewDataSource{
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let cell = collectionView.dequeueReusableSupplementaryView(ofKind:     kind, withReuseIdentifier: "headerCell", for: indexPath) as! TopicMapHeaderViewCell
-        cell.configureTopicHeader(title: viewmodel.sections[indexPath.section].header)
-        let imageName = viewmodel.sections[indexPath.section].isOpened ? "arrow.left.arrow.right" : "arrow.up.arrow.down"
+        cell.configureTopicHeader(viewmodel: viewmodel)
+        let imageName = viewmodel.sections[indexPath.section].isOpened ? "chevron.down": "chevron.right"
         cell.collapseButton.setImage(UIImage(systemName: imageName), for: .normal)
         cell.collapseButton.addTarget(self, action: #selector(handleCollapseButton(_:)), for: .touchUpInside)
         cell.collapseButton.tag = indexPath.section

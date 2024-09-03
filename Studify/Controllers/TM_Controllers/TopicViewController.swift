@@ -63,11 +63,12 @@ class TopicViewController: UIViewController,AddNewTopicViewControllerDelgate, Ad
         NotificationCenter.default.addObserver(self, selector: #selector(applyTheme), name: .themeDidChange, object: nil)
         
         view.backgroundColor = viewmodel.background
-        title = "main section"
-        
+        title = "Main Section"
+        navigationController?.navigationBar.prefersLargeTitles = true
+
         
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewmodel.fontColor,
-                                                                   .font:viewmodel.subtitleFont ]
+                                                                   .font:viewmodel.titleFont ]
         
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewmodel.fontColor,
                                                                         .font: viewmodel.titleFont]
@@ -232,7 +233,7 @@ extension TopicViewController{
     func applyTheme(){
         view.backgroundColor = viewmodel.background
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: viewmodel.fontColor,
-                                                                   .font:viewmodel.subtitleFont
+                                                                   .font:viewmodel.titleFont
         ]
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: viewmodel.fontColor,
                                                                         .font: viewmodel.titleFont]
