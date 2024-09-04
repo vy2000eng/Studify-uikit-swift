@@ -37,7 +37,6 @@ class TopicViewController: UIViewController,AddNewTopicViewControllerDelgate, Ad
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
             section.interGroupSpacing = 10 // This adds vertical spacing between cells
-            //  section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50))
             let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
             header.pinToVisibleBounds = true  // This makes the header sticky
@@ -76,8 +75,7 @@ class TopicViewController: UIViewController,AddNewTopicViewControllerDelgate, Ad
         navigationController?.navigationBar.barTintColor = viewmodel.background
         navigationController?.navigationBar.prefersLargeTitles = true
 
-        navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
-        navigationItem.leftBarButtonItem = createSettingsBarButtonItem()
+        navigationItem.leftBarButtonItem = createOptionsBarButtonItem()
 
         view.addSubview(collectionView)
         setupConstraints()
@@ -113,56 +111,16 @@ extension TopicViewController{
             self.present(navController,animated: true)
             print("add Topic")
         }
+        let settingsAction = UIAction(title:"settings",image: UIImage(systemName: "gearshape")){ [weak self]_ in
+            guard let self = self else{return}
+            
+            pushSettingsVc()
+            
+            
+        }
+
         
-//        let addMapAction = UIAction(title: "add map", image: UIImage(systemName: "map")) { _ in
-//            let vc = AddNewMapViewController(subjectID: self.viewmodel.subjectID)
-//            vc.delegate = self
-//            let navController = UINavigationController(rootViewController: vc)
-//            
-//            self.present(navController,animated: true)
-//            print("add map")
-//        }
-        
-        
-//        let whichSectionFirstAction = viewmodel.sectionsCount >= 2
-//        ? UIAction(title: viewmodel.topicMapPrecedence == 0 ? "Maps Section First" : "Topic Section First", image: UIImage(systemName: "shuffle")){ [weak self] action  in
-//            guard let self = self else{ return}
-//            
-//            let newTopicMapPrecedence = viewmodel.topicMapPrecedence == 0 ? 1 : 0
-//           // viewmodel.setOpenedFirst(subjectID: viewmodel.subjectID, openedFirst: Int16(newTopicMapPrecedence))
-//            
-//            
-//            let tempSections = viewmodel.sections[0]
-//            viewmodel.sections[0] = viewmodel.sections[1]
-//            viewmodel.sections[1] = tempSections
-//            animateCollectionViewReload()
-//            
-//            print(viewmodel.topicMapPrecedence)
-//        }
-//        : UIAction(title: viewmodel.topicMapPrecedence == 0 ? "Maps Section First" : "Topic Section First", image: UIImage(systemName: "shuffle")){
-//            [weak self] action  in
-//            guard let self = self else {return}
-//            
-//            let alert = UIAlertController(
-//                title: "Cannot Shuffle",
-//                message: "You need at least one topic and one map to shuffle sections.",
-//                preferredStyle: .alert)
-//            alert.addAction(
-//                UIAlertAction(
-//                    title: "OK",
-//                    style: .destructive,
-//                    handler: {[weak self] UIAlertAction in
-//                        
-//                        guard let self = self else {
-//                            return
-//                        }
-//                        dismiss(animated: true)
-//                    }
-//                ))
-//            present(alert, animated: true)
-//        }
-        
-        optionsMenu = UIMenu(title: "options", children: [addATopicAction])
+        optionsMenu = UIMenu(title: "options", children: [settingsAction, addATopicAction])
         return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: optionsMenu)
     }
     
@@ -211,17 +169,16 @@ extension TopicViewController{
         
     }
     
-    func createSettingsBarButtonItem() -> UIBarButtonItem{
-        return UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(pushSettingsVc))
-
-    }
+//    func createSettingsBarButtonItem() -> UIBarButtonItem{
+//        return UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(pushSettingsVc))
+//
+//    }
     
     
 }
 
 
 extension TopicViewController{
-    @objc
     private func pushSettingsVc(){
         let vc = SettingsViewController()
         navigationController?.pushViewController(vc, animated: true)
