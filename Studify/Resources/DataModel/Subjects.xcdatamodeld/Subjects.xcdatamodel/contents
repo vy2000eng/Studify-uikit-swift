@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AppThemeDM" representedClassName="AppThemeDM" syncable="YES">
+        <attribute name="themeId" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="themeTitle" attributeType="String"/>
+        <relationship name="themeDM" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ThemeDM" inverseName="appThemeDM" inverseEntity="ThemeDM"/>
+    </entity>
     <entity name="FlashCard" representedClassName="FlashCard" syncable="YES">
         <attribute name="back" optional="YES" attributeType="String"/>
         <attribute name="front" attributeType="String"/>
@@ -18,6 +23,16 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="maps" maxCount="1" deletionRule="Cascade" destinationEntity="Maps" inverseName="mapSet" inverseEntity="Maps"/>
+    </entity>
+    <entity name="ThemeDM" representedClassName="ThemeDM" syncable="YES">
+        <attribute name="backgroundColor" attributeType="String"/>
+        <attribute name="bottomColor" attributeType="String"/>
+        <attribute name="fontColor" attributeType="String"/>
+        <attribute name="fontSecondaryColor" attributeType="String"/>
+        <attribute name="themeId" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="topColor" attributeType="String"/>
+        <attribute name="topicColor" attributeType="String"/>
+        <relationship name="appThemeDM" maxCount="1" deletionRule="Cascade" destinationEntity="AppThemeDM" inverseName="themeDM" inverseEntity="AppThemeDM"/>
     </entity>
     <entity name="Topic" representedClassName="Topic" syncable="YES">
         <attribute name="createdOn" attributeType="Date" usesScalarValueType="NO"/>

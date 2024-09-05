@@ -22,12 +22,12 @@ class SettingsCardsView:UIView{
     
     
     
-    lazy var subjectlabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-        
-    }()
+//    lazy var subjectlabel: UILabel = {
+//        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//        
+//    }()
     
     //let subjectViewCell = SubejctListViewCell()
     //let subjectviewmodel = SubjectViewModel(subject: <#T##Subject#>)
@@ -40,12 +40,12 @@ class SettingsCardsView:UIView{
         
     }()
     
-    lazy var maplabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-        
-    }()
+//    lazy var maplabel: UILabel = {
+//        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//        
+//    }()
     
     lazy var setVstack: UIStackView = {
         let setStackView = UIStackView()
@@ -126,9 +126,9 @@ extension SettingsCardsView{
         
         
         vstack.addArrangedSubview(colorPicker)
-        vstack.addArrangedSubview(subjectlabel)
+        //vstack.addArrangedSubview(subjectlabel)
         vstack.addArrangedSubview(topiclabel)
-        vstack.addArrangedSubview(maplabel)
+        //vstack.addArrangedSubview(maplabel)
         vstack.addArrangedSubview(setVstack)
         vstack.addArrangedSubview(listVstack)
         
@@ -140,9 +140,9 @@ extension SettingsCardsView{
         listVstack.addArrangedSubview(bottomListlabel)
         
         let labelArray: [(UILabel, UIColor)] = [
-            (subjectlabel, settingViewmodel.subjectColor),
+           // (subjectlabel, settingViewmodel.subjectColor),
             (topiclabel, settingViewmodel.topicColor),
-            (maplabel, settingViewmodel.mapColor),
+          //  (maplabel, settingViewmodel.mapColor),
             (topSetlabel, settingViewmodel.topColor),
             (bottomSetlabel, settingViewmodel.bottomColor),
             (topListlabel, settingViewmodel.topColor),

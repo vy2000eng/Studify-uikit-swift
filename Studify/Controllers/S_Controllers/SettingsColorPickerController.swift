@@ -14,14 +14,14 @@ extension SettingsViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return component == 0 ? 4 : 10
+        return component == 0 ? viewmodel.themeCount : viewmodel.fontCount
     }
 
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let attr :[NSAttributedString.Key: Any] = [.foregroundColor: viewmodel.isIntermediaryThemeDark ? UIColor.white : UIColor.black ]
-        return component == 0 ?
-        NSAttributedString( string: viewmodel.themeTitle[row],attributes: attr) :
-        NSAttributedString( string: viewmodel.fontTitle[row],attributes: attr)
+        return component == 0 
+        ? NSAttributedString( string: viewmodel.appDmTheme(by: row),attributes: attr)
+        : NSAttributedString( string: viewmodel.fontTitle[row],attributes: attr)
         
     }
     
@@ -125,7 +125,7 @@ extension SettingsViewController{
             }, completion: nil)
         }
     }
-    private func resetColor(theme: AppTheme){
+    func resetColor(theme: AppTheme){
         
         if theme.colors.backGroundColor != view.backgroundColor{
             UIView.transition(with: settingCardView, duration: 0.3, options: .transitionCrossDissolve, animations: { [weak self] in
@@ -143,9 +143,10 @@ extension SettingsViewController{
         }
         viewmodel.isIntermediaryThemeDark = theme.colors.backGroundColor == .black ? true: false
 
-        let labels = [settingCardView.subjectlabel :  theme.colors.subjectColor ,
+        let labels = [
+            //settingCardView.subjectlabel :  theme.colors.subjectColor ,
                       settingCardView.topiclabel: theme.colors.topicColor,
-                      settingCardView.maplabel: theme.colors.mapColor,
+                     // settingCardView.maplabel: theme.colors.mapColor,
                       settingCardView.topSetlabel: theme.colors.topColor,
                       settingCardView.bottomSetlabel: theme.colors.bottomColor,
                       settingCardView.topListlabel: theme.colors.topColor,

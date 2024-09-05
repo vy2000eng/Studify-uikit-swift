@@ -11,20 +11,45 @@ import UIKit
 
 struct Theme{
     
-    let subjectColor: UIColor
     let topicColor: UIColor
-    let mapColor: UIColor
     let topColor: UIColor
     let bottomColor: UIColor
-
     let fontColor: UIColor
     let fontColorSecondary:UIColor
     let backGroundColor: UIColor
-    //var themeFont:Font
     let primaryFont:UIFont
     let secondaryFont:UIFont
     let tertiaryFont: UIFont
     let regularFont:UIFont
+    
+    /*
+     
+     FontManager.shared.primaryFont(style: .bold, size: 17),
+     FontManager.shared.primaryFont(style: .semiBold, size: 14),
+     FontManager.shared.primaryFont(style: .italic, size: 14),
+     FontManager.shared.primaryFont(style: .regular, size: 14)
+     */
+    
+    init(topicColor: UIColor = .white, topColor: UIColor = .white, bottomColor: UIColor = .white, fontColor: UIColor = .black, fontColorSecondary: UIColor = .gray,
+         backGroundColor: UIColor = .white,
+         primaryFont: UIFont =      FontManager.shared.primaryFont(style: .bold, size: 17),
+         secondaryFont: UIFont =   FontManager.shared.primaryFont(style: .semiBold, size: 14),
+         tertiaryFont: UIFont = FontManager.shared.primaryFont(style: .italic, size: 14),
+         regularFont: UIFont = FontManager.shared.primaryFont(style: .regular, size: 14)
+
+    
+    ) {
+        self.topicColor = topicColor
+        self.topColor = topColor
+        self.bottomColor = bottomColor
+        self.fontColor = fontColor
+        self.fontColorSecondary = fontColorSecondary
+        self.backGroundColor = backGroundColor
+        self.primaryFont = primaryFont
+        self.secondaryFont = secondaryFont
+        self.tertiaryFont = tertiaryFont
+        self.regularFont = regularFont
+    }
 }
 
 enum FontStyle {
@@ -157,15 +182,17 @@ enum AppTheme: Int, CaseIterable{
     case darkPastel = 1
     case stormySea = 2
     case cloudySunset = 3
+    case defaultTheme = 4
     
     
     var colors:Theme {
         switch self {
             //dark theme
         case .superNova:
-            return  Theme(subjectColor: .russianViolet.withAlphaComponent(0.5),
+            return  Theme(
+                //subjectColor: .russianViolet.withAlphaComponent(0.5),
                           topicColor: .spaceCadet.withAlphaComponent(0.5),
-                          mapColor: .tyrianPurple.withAlphaComponent(0.3),
+                          //mapColor: .tyrianPurple.withAlphaComponent(0.3),
                           topColor: .prussianBlue.withAlphaComponent(0.4),
                           bottomColor: .kobicha.withAlphaComponent(0.4),
                           fontColor: UIColor.white,
@@ -178,27 +205,29 @@ enum AppTheme: Int, CaseIterable{
             )
             //dark theme
         case .darkPastel:
-            return Theme(subjectColor: .dpOxfordBlue.withAlphaComponent(0.4),
+            return Theme(
+                //subjectColor: .dpOxfordBlue.withAlphaComponent(0.4),
                          topicColor: .dpSpaceCadet.withAlphaComponent(0.6),
-                         mapColor: .dpEnglishViolet.withAlphaComponent(0.6),
+                        // mapColor: .dpEnglishViolet.withAlphaComponent(0.6),
                          topColor: .dpWine.withAlphaComponent(0.5),
                          bottomColor: .dpTyrianPurple.withAlphaComponent(0.5),
                          fontColor: UIColor.white,
                          fontColorSecondary: .darkFontSecondary,
                          backGroundColor: .black,
-                         primaryFont: FontManager.shared.primaryFont(style: .bold, size: 17),
+                         primaryFont:   FontManager.shared.primaryFont(style: .bold, size: 17),
                          secondaryFont: FontManager.shared.primaryFont(style: .semiBold, size: 14),
-                         tertiaryFont: FontManager.shared.primaryFont(style: .italic, size: 14),
-                         regularFont: FontManager.shared.primaryFont(style: .regular, size: 14)
+                         tertiaryFont:  FontManager.shared.primaryFont(style: .italic, size: 14),
+                         regularFont:   FontManager.shared.primaryFont(style: .regular, size: 14)
 
                          
                          
             )
             //dark theme
         case.stormySea:
-            return Theme(subjectColor: .oxfordBlue.withAlphaComponent(0.5),
+            return Theme(
+                //subjectColor: .oxfordBlue.withAlphaComponent(0.5),
                          topicColor: .iSprussianBlue.withAlphaComponent(0.5),
-                         mapColor: .indigoDye.withAlphaComponent(0.5),
+                        // mapColor: .indigoDye.withAlphaComponent(0.5),
                          topColor:  .midNightGreen.withAlphaComponent(0.5),
                          bottomColor: .darkSlateGrey.withAlphaComponent(0.2) ,
                          fontColor: UIColor.white,
@@ -213,9 +242,10 @@ enum AppTheme: Int, CaseIterable{
                          
             )
         case .cloudySunset:
-            return Theme(subjectColor: .csDimGray,
+            return Theme(
+                //subjectColor: .csDimGray,
                          topicColor: .csOldRose,
-                         mapColor: .csSalmonPink,
+                        // mapColor: .csSalmonPink,
                          topColor: .csMelon,
                          bottomColor: .csApricot,
                          fontColor: UIColor.black,
@@ -227,6 +257,9 @@ enum AppTheme: Int, CaseIterable{
                          tertiaryFont: FontManager.shared.primaryFont(style: .italic, size: 14),
                          regularFont: FontManager.shared.primaryFont(style: .regular, size: 14)
             )
+        case .defaultTheme:
+            return Theme()
+            
         }
     }
 }

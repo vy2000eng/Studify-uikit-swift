@@ -10,8 +10,6 @@ import UIKit
 
 extension Notification.Name {
     static let themeDidChange = Notification.Name("themeDidChange")
-    
-   
 }
 
 class ColorManager{

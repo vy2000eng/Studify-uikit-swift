@@ -10,19 +10,28 @@ import UIKit
 
 
 class SettingsViewModel{
+    var appThemeContainerViewModel :AppThemeDMContainerViewModel
     var isIntermediaryThemeDark : Bool
     var currentTheme            : AppTheme
     var currentFontTheme        : themeFont
-    let themeTitle              = ["SuperNova", "DarkPastel", "StormySea","CloudySunset"]
+   // var themeTitle              = ["SuperNova", "DarkPastel", "StormySea","CloudySunset"]
     let fontTitle               = ["Avenir","BaskerVille", "Georgia", "HelveticaNeue","Verdana", "GillSans","Optima","AmericanTypeWriter","AppleSDGothicNeo","Damascus"]
-    let cellTitle               = ["Subject", "Topic", "Map", "Top Set", "Bottom Set", "Top List", "Bottom List"]
+    let cellTitle               = [ "Topic",  "Top Set", "Bottom Set", "Top List", "Bottom List"]
     //let selectedRow             = 0
   
       
     init() {
+        appThemeContainerViewModel = AppThemeDMContainerViewModel()
         currentFontTheme = FontManager.shared.currentThemeFont
         currentTheme = ColorManager.shared.currentTheme
         isIntermediaryThemeDark = currentTheme.colors.backGroundColor == .black ? true:false
+    }
+    
+    var themeCount:Int{
+        appThemeContainerViewModel.themecount
+    }
+    var fontCount:Int{
+        fontTitle.count
     }
     
     func setTheme(theme: AppTheme){
@@ -36,17 +45,18 @@ class SettingsViewModel{
         currentFontTheme = FontManager.shared.currentThemeFont
     }
     
-    var subjectColor: UIColor {
-        return currentTheme.colors.subjectColor
-    }
+//    var subjectColor: UIColor {
+//        return currentTheme.colors.subjectColor
+//    }
     
     var topicColor: UIColor {
         return currentTheme.colors.topicColor
     }
     
-    var mapColor: UIColor {
-        return currentTheme.colors.mapColor
-    }
+    
+//    var mapColor: UIColor {
+//        return currentTheme.colors.mapColor
+//    }
     
     var topColor: UIColor {
         return currentTheme.colors.topColor
@@ -74,6 +84,12 @@ class SettingsViewModel{
     
     var fontColor:UIColor{
         return currentTheme.colors.fontColor
+    }
+    
+    
+    func appDmTheme(by row: Int) ->String{
+        return appThemeContainerViewModel.appThemeViewModel[row].title
+        
     }
 }
 

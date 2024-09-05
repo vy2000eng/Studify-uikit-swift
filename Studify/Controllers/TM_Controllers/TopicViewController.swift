@@ -75,7 +75,7 @@ class TopicViewController: UIViewController,AddNewTopicViewControllerDelgate, Ad
         navigationController?.navigationBar.barTintColor = viewmodel.background
         navigationController?.navigationBar.prefersLargeTitles = true
 
-        navigationItem.leftBarButtonItem = createOptionsBarButtonItem()
+        navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
 
         view.addSubview(collectionView)
         setupConstraints()

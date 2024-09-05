@@ -33,7 +33,7 @@ extension MapViewCell{
         ?  UIColor.white.withAlphaComponent(0.1).cgColor
         :  UIColor.black.withAlphaComponent(0.1).cgColor
         
-        mainContentView.backgroundColor = map.backGroundColor
+        //mainContentView.backgroundColor = map.backGroundColor
         
         topicNameLabel.attributedText = .create(string: map.title, font: map.titleFont, color: map.fontColor)
        // countLabel.attributedText = .create(string: "📍 \(map.mindMapCount) maps", font: map.subtitleFont, color: map.fontColorSecondary)

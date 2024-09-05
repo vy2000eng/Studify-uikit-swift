@@ -52,6 +52,13 @@
 		396D6CD02C2B1593000DD57C /* FlashCardListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CCF2C2B1593000DD57C /* FlashCardListCollectionViewCell.swift */; };
 		396D6CD22C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CD12C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift */; };
 		396D6CD42C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CD32C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift */; };
+		398B7C672C893B5A00FA7B59 /* ThemeDM+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C632C893B5A00FA7B59 /* ThemeDM+CoreDataClass.swift */; };
+		398B7C682C893B5A00FA7B59 /* ThemeDM+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C642C893B5A00FA7B59 /* ThemeDM+CoreDataProperties.swift */; };
+		398B7C692C893B5A00FA7B59 /* AppThemeDM+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C652C893B5A00FA7B59 /* AppThemeDM+CoreDataClass.swift */; };
+		398B7C6A2C893B5A00FA7B59 /* AppThemeDM+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C662C893B5A00FA7B59 /* AppThemeDM+CoreDataProperties.swift */; };
+		398B7C702C893F0E00FA7B59 /* AppThemeCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C6F2C893F0E00FA7B59 /* AppThemeCoreDataManager.swift */; };
+		398B7C732C89415500FA7B59 /* AppThemeDMViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C722C89415500FA7B59 /* AppThemeDMViewModel.swift */; };
+		398B7C752C8943A600FA7B59 /* AppThemeDMContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C742C8943A600FA7B59 /* AppThemeDMContainerViewModel.swift */; };
 		39A4BC652C03924200F833D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC642C03924200F833D2 /* AppDelegate.swift */; };
 		39A4BC672C03924200F833D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC662C03924200F833D2 /* SceneDelegate.swift */; };
 		39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC682C03924200F833D2 /* SubjectListViewController.swift */; };
@@ -102,14 +109,14 @@
 		390BE1C72C5EF29800D12C60 /* GameConclusionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConclusionView.swift; sourceTree = "<group>"; };
 		3919CEF62C76BDAE00F08FF4 /* TopicOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicOptionsViewController.swift; sourceTree = "<group>"; };
 		3919CEF82C7A9DF200F08FF4 /* TopicOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicOptionsViewModel.swift; sourceTree = "<group>"; };
-		3919CF122C8172FE00F08FF4 /* FlashCard+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlashCard+CoreDataClass.swift"; path = "../../FlashCard+CoreDataClass.swift"; sourceTree = "<group>"; };
-		3919CF132C8172FE00F08FF4 /* FlashCard+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlashCard+CoreDataProperties.swift"; path = "../../FlashCard+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		3919CF142C8172FE00F08FF4 /* Maps+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Maps+CoreDataClass.swift"; path = "../../Maps+CoreDataClass.swift"; sourceTree = "<group>"; };
-		3919CF152C8172FE00F08FF4 /* Maps+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Maps+CoreDataProperties.swift"; path = "../../Maps+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		3919CF162C8172FE00F08FF4 /* Topic+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Topic+CoreDataClass.swift"; path = "../../Topic+CoreDataClass.swift"; sourceTree = "<group>"; };
-		3919CF172C8172FE00F08FF4 /* Topic+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Topic+CoreDataProperties.swift"; path = "../../Topic+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		3919CF182C8172FE00F08FF4 /* MindMap+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MindMap+CoreDataClass.swift"; path = "../../MindMap+CoreDataClass.swift"; sourceTree = "<group>"; };
-		3919CF192C8172FE00F08FF4 /* MindMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MindMap+CoreDataProperties.swift"; path = "../../MindMap+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3919CF122C8172FE00F08FF4 /* FlashCard+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlashCard+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3919CF132C8172FE00F08FF4 /* FlashCard+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlashCard+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3919CF142C8172FE00F08FF4 /* Maps+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Maps+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3919CF152C8172FE00F08FF4 /* Maps+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Maps+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3919CF162C8172FE00F08FF4 /* Topic+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Topic+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3919CF172C8172FE00F08FF4 /* Topic+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Topic+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3919CF182C8172FE00F08FF4 /* MindMap+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MindMap+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3919CF192C8172FE00F08FF4 /* MindMap+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MindMap+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3919CF262C8375F800F08FF4 /* StudifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3919CF282C8375F900F08FF4 /* StudifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudifyTests.swift; sourceTree = "<group>"; };
 		392A5D762C39BC78007F4F86 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +150,13 @@
 		396D6CCF2C2B1593000DD57C /* FlashCardListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardListCollectionViewCell.swift; sourceTree = "<group>"; };
 		396D6CD12C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardListViewControllerDataSource.swift; sourceTree = "<group>"; };
 		396D6CD32C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardListViewControllerDelegate.swift; sourceTree = "<group>"; };
+		398B7C632C893B5A00FA7B59 /* ThemeDM+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeDM+CoreDataClass.swift"; sourceTree = "<group>"; };
+		398B7C642C893B5A00FA7B59 /* ThemeDM+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeDM+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		398B7C652C893B5A00FA7B59 /* AppThemeDM+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppThemeDM+CoreDataClass.swift"; sourceTree = "<group>"; };
+		398B7C662C893B5A00FA7B59 /* AppThemeDM+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppThemeDM+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		398B7C6F2C893F0E00FA7B59 /* AppThemeCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeCoreDataManager.swift; sourceTree = "<group>"; };
+		398B7C722C89415500FA7B59 /* AppThemeDMViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeDMViewModel.swift; sourceTree = "<group>"; };
+		398B7C742C8943A600FA7B59 /* AppThemeDMContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeDMContainerViewModel.swift; sourceTree = "<group>"; };
 		399D38922C08D659008AFC5C /* Subjects.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Subjects.xcdatamodel; sourceTree = "<group>"; };
 		39A4BC612C03924200F833D2 /* Studify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39A4BC642C03924200F833D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -282,6 +296,62 @@
 			path = FC_Controllers;
 			sourceTree = "<group>";
 		};
+		398B7C6B2C893B6C00FA7B59 /* ApplicationModels */ = {
+			isa = PBXGroup;
+			children = (
+				3919CF122C8172FE00F08FF4 /* FlashCard+CoreDataClass.swift */,
+				3919CF132C8172FE00F08FF4 /* FlashCard+CoreDataProperties.swift */,
+				3919CF142C8172FE00F08FF4 /* Maps+CoreDataClass.swift */,
+				3919CF152C8172FE00F08FF4 /* Maps+CoreDataProperties.swift */,
+				3919CF162C8172FE00F08FF4 /* Topic+CoreDataClass.swift */,
+				3919CF172C8172FE00F08FF4 /* Topic+CoreDataProperties.swift */,
+				3919CF182C8172FE00F08FF4 /* MindMap+CoreDataClass.swift */,
+				3919CF192C8172FE00F08FF4 /* MindMap+CoreDataProperties.swift */,
+				39A4BC7F2C039B6A00F833D2 /* MindMapModel.swift */,
+				39A4BC812C039B7800F833D2 /* FlashCardModel.swift */,
+				39A4BC832C039B8D00F833D2 /* SubjectModel.swift */,
+			);
+			path = ApplicationModels;
+			sourceTree = "<group>";
+		};
+		398B7C6C2C893BAF00FA7B59 /* ThemeModels */ = {
+			isa = PBXGroup;
+			children = (
+				398B7C632C893B5A00FA7B59 /* ThemeDM+CoreDataClass.swift */,
+				398B7C642C893B5A00FA7B59 /* ThemeDM+CoreDataProperties.swift */,
+				398B7C652C893B5A00FA7B59 /* AppThemeDM+CoreDataClass.swift */,
+				398B7C662C893B5A00FA7B59 /* AppThemeDM+CoreDataProperties.swift */,
+			);
+			path = ThemeModels;
+			sourceTree = "<group>";
+		};
+		398B7C6D2C893E9100FA7B59 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				399D38912C08D659008AFC5C /* Subjects.xcdatamodeld */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		398B7C6E2C893EE100FA7B59 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				392A5D7A2C39CB67007F4F86 /* ColorManager.swift */,
+				39B817532C0D1F6600CB843B /* CoreDataManager.swift */,
+				398B7C6F2C893F0E00FA7B59 /* AppThemeCoreDataManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		398B7C712C8940E200FA7B59 /* AppThemeViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				398B7C722C89415500FA7B59 /* AppThemeDMViewModel.swift */,
+				398B7C742C8943A600FA7B59 /* AppThemeDMContainerViewModel.swift */,
+			);
+			path = AppThemeViewModel;
+			sourceTree = "<group>";
+		};
 		39A4BC582C03924100F833D2 = {
 			isa = PBXGroup;
 			children = (
@@ -326,17 +396,8 @@
 		39A4BC792C0399C100F833D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3919CF122C8172FE00F08FF4 /* FlashCard+CoreDataClass.swift */,
-				3919CF132C8172FE00F08FF4 /* FlashCard+CoreDataProperties.swift */,
-				3919CF142C8172FE00F08FF4 /* Maps+CoreDataClass.swift */,
-				3919CF152C8172FE00F08FF4 /* Maps+CoreDataProperties.swift */,
-				3919CF162C8172FE00F08FF4 /* Topic+CoreDataClass.swift */,
-				3919CF172C8172FE00F08FF4 /* Topic+CoreDataProperties.swift */,
-				3919CF182C8172FE00F08FF4 /* MindMap+CoreDataClass.swift */,
-				3919CF192C8172FE00F08FF4 /* MindMap+CoreDataProperties.swift */,
-				39A4BC7F2C039B6A00F833D2 /* MindMapModel.swift */,
-				39A4BC812C039B7800F833D2 /* FlashCardModel.swift */,
-				39A4BC832C039B8D00F833D2 /* SubjectModel.swift */,
+				398B7C6C2C893BAF00FA7B59 /* ThemeModels */,
+				398B7C6B2C893B6C00FA7B59 /* ApplicationModels */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -344,6 +405,7 @@
 		39A4BC7A2C0399C900F833D2 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				398B7C712C8940E200FA7B59 /* AppThemeViewModel */,
 				3948797D2C155FF3002D3DEB /* FC_ViewModels */,
 				39DEDE3F2C12A2A200C725CE /* M_ViewModels */,
 				39DEDE3E2C12A29600C725CE /* T_ViewModels */,
@@ -368,14 +430,13 @@
 		39A4BC7C2C039A0700F833D2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				398B7C6E2C893EE100FA7B59 /* Manager */,
+				398B7C6D2C893E9100FA7B59 /* DataModel */,
 				3948797A2C14D047002D3DEB /* themes */,
 				39DEDE262C12111100C725CE /* datasources */,
 				39DEDE252C1210E700C725CE /* delegates */,
 				39A4BC722C03924900F833D2 /* Info.plist */,
 				39A4BC6D2C03924900F833D2 /* Assets.xcassets */,
-				399D38912C08D659008AFC5C /* Subjects.xcdatamodeld */,
-				39B817532C0D1F6600CB843B /* CoreDataManager.swift */,
-				392A5D7A2C39CB67007F4F86 /* ColorManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -609,12 +670,14 @@
 				39B817AA2C0E835700CB843B /* SubjectListViewModel.swift in Sources */,
 				392A5D7F2C48BFE8007F4F86 /* SettingsColorPickerController.swift in Sources */,
 				39DEDE282C12148C00C725CE /* MapViewCell.swift in Sources */,
+				398B7C732C89415500FA7B59 /* AppThemeDMViewModel.swift in Sources */,
 				392A5D7B2C39CB67007F4F86 /* ColorManager.swift in Sources */,
 				3948797C2C155FA9002D3DEB /* FlashCardsViewController.swift in Sources */,
 				3919CEF92C7A9DF200F08FF4 /* TopicOptionsViewModel.swift in Sources */,
 				39A4BC822C039B7800F833D2 /* FlashCardModel.swift in Sources */,
 				39B817C42C0FA5C600CB843B /* TopicViewController.swift in Sources */,
 				39B817C62C109F2100CB843B /* TopicMapViewModel.swift in Sources */,
+				398B7C752C8943A600FA7B59 /* AppThemeDMContainerViewModel.swift in Sources */,
 				39DEDE472C134C0C00C725CE /* AddNewMapViewModel.swift in Sources */,
 				39DEDE3C2C1267E400C725CE /* MapViewModel.swift in Sources */,
 				393DF68E2C347083000F1D41 /* TopicMapViewControllerUpdatingTopicsMapsManager.swift in Sources */,
@@ -624,6 +687,11 @@
 				394879822C1560D4002D3DEB /* FlashCardViewModel.swift in Sources */,
 				395B71062C4E046500A9EBB6 /* FlashCardGameViewControllerDataSource.swift in Sources */,
 				393DF6912C371222000F1D41 /* FlashcardSmallSetHeader.swift in Sources */,
+				398B7C702C893F0E00FA7B59 /* AppThemeCoreDataManager.swift in Sources */,
+				398B7C672C893B5A00FA7B59 /* ThemeDM+CoreDataClass.swift in Sources */,
+				398B7C682C893B5A00FA7B59 /* ThemeDM+CoreDataProperties.swift in Sources */,
+				398B7C692C893B5A00FA7B59 /* AppThemeDM+CoreDataClass.swift in Sources */,
+				398B7C6A2C893B5A00FA7B59 /* AppThemeDM+CoreDataProperties.swift in Sources */,
 				39DEDE202C12032100C725CE /* DetailsViewDelagate.swift in Sources */,
 				3919CEF72C76BDAE00F08FF4 /* TopicOptionsViewController.swift in Sources */,
 				39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */,
@@ -952,8 +1020,7 @@
 				399D38922C08D659008AFC5C /* Subjects.xcdatamodel */,
 			);
 			currentVersion = 399D38922C08D659008AFC5C /* Subjects.xcdatamodel */;
-			name = Subjects.xcdatamodeld;
-			path = /Users/voldemort/Desktop/ios_apps/Studify/Studify/Resources/Subjects.xcdatamodeld;
+			path = Subjects.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

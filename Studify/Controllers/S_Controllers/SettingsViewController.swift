@@ -16,14 +16,17 @@ class SettingsViewController: UIViewController{
     let viewmodel = SettingsViewModel()
     let settingCardView :SettingsCardsView
     let labels: [UILabel]
+    private var optionsMenu: UIMenu?
+
     
     init() {
         
         settingCardView = SettingsCardsView(settingViewmodel: viewmodel, frame: .zero)
         
-        labels = [settingCardView.subjectlabel,
+        labels = [
+            //settingCardView.subjectlabel,
                   settingCardView.topiclabel,
-                  settingCardView.maplabel,
+                //  settingCardView.maplabel,
                   settingCardView.topSetlabel,
                   settingCardView.bottomSetlabel,
                   settingCardView.topListlabel,
@@ -42,7 +45,8 @@ class SettingsViewController: UIViewController{
        // title = "Settings"
         
         
-        navigationItem.rightBarButtonItem  = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTheme))
+        //navigationItem.rightBarButtonItem  = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTheme))
+        navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
         setup()
     }
 }
@@ -89,6 +93,41 @@ extension SettingsViewController{
         ])
     }
     
+    
+    private func createOptionsBarButtonItem()-> UIBarButtonItem{
+        let addThemeAction = UIAction(title: "new theme 🎨"){ [weak self] _ in
+            guard let self = self else{return}
+            addNewTheme()
+            
+            
+            
+        }
+        let saveThemeAction = UIAction(title: "save theme 💾"){ [weak self] _ in
+            guard let self = self else{return}
+            saveTheme()
+            
+            
+        }
+        optionsMenu = UIMenu(title: "options", children: [saveThemeAction, addThemeAction])
+        return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: optionsMenu)
+        
+    }
+    
+
+
+}
+    
+extension SettingsViewController{
+    @objc
+    private func addNewTheme(){
+        currentTheme = .defaultTheme
+       // viewmodel.themeTitle.append("New Theme")
+        
+        resetColor(theme: currentTheme)
+        
+        
+    }
+    
     @objc
     private func saveTheme(){
 
@@ -130,6 +169,6 @@ extension SettingsViewController{
             ))
         present(alert, animated: true)
     }
-}
     
+}
 
