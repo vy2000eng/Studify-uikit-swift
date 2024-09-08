@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class SettingsViewController: UIViewController{
+class SettingsViewController: UIViewController, UIColorPickerViewControllerDelegate{
     
     var currentTheme = ColorManager.shared.currentTheme
     var currentFont = FontManager.shared.currentThemeFont
@@ -17,6 +17,7 @@ class SettingsViewController: UIViewController{
     let settingCardView :SettingsCardsView
     let labels: [UILabel]
     private var optionsMenu: UIMenu?
+    private var viewID:Int?
 
     
     init() {
@@ -31,6 +32,7 @@ class SettingsViewController: UIViewController{
                   settingCardView.bottomSetlabel,
                   settingCardView.topListlabel,
                   settingCardView.bottomListlabel]
+        
         
         super.init(nibName: nil, bundle: nil)
         
@@ -48,9 +50,15 @@ class SettingsViewController: UIViewController{
         //navigationItem.rightBarButtonItem  = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTheme))
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
         setup()
+        setupConstraints()
+        setupLongPress()
+
+
     }
 }
 extension SettingsViewController{
+    
+
     
     private func setup(){
         view.backgroundColor =  currentTheme.colors.backGroundColor
@@ -65,7 +73,29 @@ extension SettingsViewController{
         settingCardView.colorPicker.selectRow(viewmodel.currentFontTheme.rawValue, inComponent: 1, animated: false)
         
         view.addSubview(settingCardView)
-        setupConstraints()
+    }
+    
+    private func setupConstraints(){
+        NSLayoutConstraint.activate([
+            settingCardView.topAnchor.constraint(equalTo: view.topAnchor),
+            settingCardView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            settingCardView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            settingCardView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            
+        ])
+    }
+    
+    private func setupLongPress(){
+
+     //   settingCardView.topiclabel.addGestureRecognizer(longPress)
+        for (index, label) in labels.enumerated(){
+            let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
+            label.isUserInteractionEnabled = true
+            label.addGestureRecognizer(longPress)
+            label.tag = index
+            
+        }
+        
     }
     
     func setupTitle(theme: AppTheme){
@@ -83,15 +113,7 @@ extension SettingsViewController{
         
     }
     
-    private func setupConstraints(){
-        NSLayoutConstraint.activate([
-            settingCardView.topAnchor.constraint(equalTo: view.topAnchor),
-            settingCardView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            settingCardView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            settingCardView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            
-        ])
-    }
+
     
     
     private func createOptionsBarButtonItem()-> UIBarButtonItem{
@@ -170,5 +192,60 @@ extension SettingsViewController{
         present(alert, animated: true)
     }
     
+    
 }
 
+extension SettingsViewController{
+    @objc
+    func handleLongPress(gesture: UILongPressGestureRecognizer){
+        if gesture.state == .began{
+            viewID = gesture.view?.tag
+            
+            guard let id = viewID, id >= 0, id <= 4 else {
+                fatalError("Developer Error: viewID is nil or out of range (1-4)")
+            }
+            
+            
+            print("long press tapped")
+            let colorPickerVC = UIColorPickerViewController()
+            colorPickerVC.delegate = self
+            present(colorPickerVC,animated: true)
+            
+            
+        }
+        
+    }
+    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
+        guard let id = viewID, id >= 0, id <= 4 else {
+            fatalError("Developer Error: viewID is nil or out of range (1-4)")
+        }
+        
+        print(id)
+        switch id{
+        case 0:
+            settingCardView.topiclabel.backgroundColor = color
+            break
+        case 1:
+            settingCardView.topSetlabel.backgroundColor = color
+            
+            break
+        case 2:
+            settingCardView.bottomSetlabel.backgroundColor = color
+            
+            break
+        case 3:
+            settingCardView.topListlabel.backgroundColor = color
+            
+            break
+        case 4:
+            settingCardView.bottomListlabel.backgroundColor = color
+            
+            break
+            
+        default:
+            break
+            
+        }
+    }
+}
+    

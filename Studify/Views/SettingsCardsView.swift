@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+
+
 class SettingsCardsView:UIView{
     
     
@@ -36,6 +38,9 @@ class SettingsCardsView:UIView{
     lazy var topiclabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        //label.isUserInteractionEnabled = true
+//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gesture:)))
+//        label.addGestureRecognizer(longPress)
         return label
         
     }()
@@ -52,18 +57,21 @@ class SettingsCardsView:UIView{
         setStackView.translatesAutoresizingMaskIntoConstraints = false
         setStackView.axis = .vertical
         setStackView.distribution = .fillEqually
+        
         return setStackView
     }()
     
     lazy var topSetlabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+       // label.isUserInteractionEnabled = true
         return label
         
     }()
     lazy var bottomSetlabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+       // label.isUserInteractionEnabled = true
         return label
         
     }()
@@ -82,12 +90,14 @@ class SettingsCardsView:UIView{
     lazy var topListlabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        //label.isUserInteractionEnabled = true
         return label
         
     }()
     lazy var bottomListlabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+       // label.isUserInteractionEnabled = true
         return label
         
     }()
@@ -196,4 +206,27 @@ extension SettingsCardsView{
         
     }
     
+}
+
+
+
+
+extension SettingsCardsView{
+    enum settingSection{
+        case topic
+        case topSet
+        case bottomSet
+        case topList
+        case bottomList
+    }
+    
+    
+//    @objc
+//    func handleLongPress(gesture: UILongPressGestureRecognizer){
+//        if gesture.state == .began{
+//            NSLog("gesture tapped")
+//            
+//        }
+//        
+//    }
 }

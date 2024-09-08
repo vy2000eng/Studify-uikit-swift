@@ -59,6 +59,8 @@
 		398B7C702C893F0E00FA7B59 /* AppThemeCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C6F2C893F0E00FA7B59 /* AppThemeCoreDataManager.swift */; };
 		398B7C732C89415500FA7B59 /* AppThemeDMViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C722C89415500FA7B59 /* AppThemeDMViewModel.swift */; };
 		398B7C752C8943A600FA7B59 /* AppThemeDMContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C742C8943A600FA7B59 /* AppThemeDMContainerViewModel.swift */; };
+		398B7C792C89569B00FA7B59 /* ThemeDmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C782C89569B00FA7B59 /* ThemeDmViewModel.swift */; };
+		398B7C7B2C8956B400FA7B59 /* ThemeDmContainerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C7A2C8956B400FA7B59 /* ThemeDmContainerVM.swift */; };
 		39A4BC652C03924200F833D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC642C03924200F833D2 /* AppDelegate.swift */; };
 		39A4BC672C03924200F833D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC662C03924200F833D2 /* SceneDelegate.swift */; };
 		39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC682C03924200F833D2 /* SubjectListViewController.swift */; };
@@ -157,6 +159,8 @@
 		398B7C6F2C893F0E00FA7B59 /* AppThemeCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeCoreDataManager.swift; sourceTree = "<group>"; };
 		398B7C722C89415500FA7B59 /* AppThemeDMViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeDMViewModel.swift; sourceTree = "<group>"; };
 		398B7C742C8943A600FA7B59 /* AppThemeDMContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeDMContainerViewModel.swift; sourceTree = "<group>"; };
+		398B7C782C89569B00FA7B59 /* ThemeDmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDmViewModel.swift; sourceTree = "<group>"; };
+		398B7C7A2C8956B400FA7B59 /* ThemeDmContainerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDmContainerVM.swift; sourceTree = "<group>"; };
 		399D38922C08D659008AFC5C /* Subjects.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Subjects.xcdatamodel; sourceTree = "<group>"; };
 		39A4BC612C03924200F833D2 /* Studify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39A4BC642C03924200F833D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -346,10 +350,28 @@
 		398B7C712C8940E200FA7B59 /* AppThemeViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				398B7C772C89565A00FA7B59 /* ThemeDmVM */,
+				398B7C762C89563A00FA7B59 /* AppThemeDmVM */,
+			);
+			path = AppThemeViewModel;
+			sourceTree = "<group>";
+		};
+		398B7C762C89563A00FA7B59 /* AppThemeDmVM */ = {
+			isa = PBXGroup;
+			children = (
 				398B7C722C89415500FA7B59 /* AppThemeDMViewModel.swift */,
 				398B7C742C8943A600FA7B59 /* AppThemeDMContainerViewModel.swift */,
 			);
-			path = AppThemeViewModel;
+			path = AppThemeDmVM;
+			sourceTree = "<group>";
+		};
+		398B7C772C89565A00FA7B59 /* ThemeDmVM */ = {
+			isa = PBXGroup;
+			children = (
+				398B7C782C89569B00FA7B59 /* ThemeDmViewModel.swift */,
+				398B7C7A2C8956B400FA7B59 /* ThemeDmContainerVM.swift */,
+			);
+			path = ThemeDmVM;
 			sourceTree = "<group>";
 		};
 		39A4BC582C03924100F833D2 = {
@@ -635,9 +657,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				394879842C15F09D002D3DEB /* TopicMapHeaderViewCell.swift in Sources */,
+				398B7C792C89569B00FA7B59 /* ThemeDmViewModel.swift in Sources */,
 				396D6CCA2C277E73000DD57C /* FlashCardSetViewControllerDelegate.swift in Sources */,
 				396D6CBC2C251F7B000DD57C /* AddNewFlashCardViewController.swift in Sources */,
 				393EE5942C2DB91800277FAF /* EditFlashCardView.swift in Sources */,
+				398B7C7B2C8956B400FA7B59 /* ThemeDmContainerVM.swift in Sources */,
 				396D6CCC2C277EBE000DD57C /* FlashCardSetViewControllerDataSource.swift in Sources */,
 				395B710A2C55EE4800A9EBB6 /* FlashCardGameViewModel.swift in Sources */,
 				396D6CD22C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift in Sources */,
