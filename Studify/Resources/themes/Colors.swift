@@ -258,7 +258,9 @@ enum AppTheme: Int, CaseIterable{
                          regularFont: FontManager.shared.primaryFont(style: .regular, size: 14)
             )
         case .defaultTheme:
-            return Theme()
+            var theme = Theme()
+            return theme
+            
             
         }
     }

@@ -13,7 +13,7 @@ struct AppThemeDMViewModel{
     
     init(appThemeDm: AppThemeDM) {
         self.appThemeDm = appThemeDm
-        printbackGroundColor()
+       // printbackGroundColor()
     }
     
     var id:UUID{
@@ -24,11 +24,11 @@ struct AppThemeDMViewModel{
         appThemeDm.themeTitle
     }
     
-    func printbackGroundColor(){
-        let color:UIColor =  ColorManager.shared.currentTheme.colors.bottomColor
-        print(color.description)
-        
-    }
+//    func printbackGroundColor(){
+//        let color:UIColor =  ColorManager.shared.currentTheme.colors.bottomColor
+//        print(color.description)
+//        
+//    }
     
     
     

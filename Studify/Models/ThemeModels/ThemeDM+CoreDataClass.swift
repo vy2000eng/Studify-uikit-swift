@@ -2,7 +2,7 @@
 //  ThemeDM+CoreDataClass.swift
 //  Studify
 //
-//  Created by VladyslavYatsuta on 9/4/24.
+//  Created by VladyslavYatsuta on 9/8/24.
 //
 //
 

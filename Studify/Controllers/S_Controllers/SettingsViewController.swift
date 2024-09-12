@@ -51,7 +51,7 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
         navigationItem.rightBarButtonItem = createOptionsBarButtonItem()
         setup()
         setupConstraints()
-        setupLongPress()
+        //setupLongPress()
 
 
     }
@@ -96,6 +96,9 @@ extension SettingsViewController{
             
         }
         
+        navigationItem.rightBarButtonItem = createOptionsEdittingBarButtonItem()
+
+        
     }
     
     func setupTitle(theme: AppTheme){
@@ -120,6 +123,10 @@ extension SettingsViewController{
         let addThemeAction = UIAction(title: "new theme 🎨"){ [weak self] _ in
             guard let self = self else{return}
             addNewTheme()
+            showAlertWithTextPrompt()
+
+            setupLongPress()
+
             
             
             
@@ -135,6 +142,43 @@ extension SettingsViewController{
         
     }
     
+    
+    private func createOptionsEdittingBarButtonItem()-> UIBarButtonItem{
+    
+        let saveThemeAction = UIAction(title: "save theme 💾"){ [weak self] _ in
+            guard let self = self else{return}
+            saveTheme()
+            
+            
+        }
+        optionsMenu = UIMenu(title: "options", children: [saveThemeAction])
+        let button = UIButton(type: .system)
+            button.setImage(UIImage(systemName: "exclamationmark.2"), for: .normal)
+            button.tintColor = .red // Set the color of the ellipsis
+            
+            // Set the background color
+            //button.backgroundColor = .systemBlue  // Or any color you prefer
+            
+            // Make the button circular
+//            button.layer.cornerRadius = 15  // Adjust this value based on your desired size
+//            button.clipsToBounds = true
+            
+            // Set the button size
+            button.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            
+            // Add the menu to the button
+            button.menu = optionsMenu
+            button.showsMenuAsPrimaryAction = true
+            
+            // Create a UIBarButtonItem with the custom button
+            return UIBarButtonItem(customView: button)
+        //return UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: optionsMenu)
+        
+    }
+    
+    
+    
 
 
 }
@@ -146,7 +190,8 @@ extension SettingsViewController{
        // viewmodel.themeTitle.append("New Theme")
         
         resetColor(theme: currentTheme)
-        
+        navigationItem.title = "Editing Section Color Properties"
+
         
     }
     
@@ -221,6 +266,7 @@ extension SettingsViewController{
         }
         
         print(id)
+        
         switch id{
         case 0:
             settingCardView.topiclabel.backgroundColor = color
@@ -248,4 +294,41 @@ extension SettingsViewController{
         }
     }
 }
+    // alerts
+extension SettingsViewController{
     
+    func showAlertWithTextPrompt() {
+        let alert = UIAlertController(title: "Enter Theme Name", message: "Please name your theme", preferredStyle: .alert)
+        
+        alert.addTextField { (textField) in
+            textField.placeholder = "Theme name"
+        }
+        
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] (_) in
+            guard let self = self else {return}
+            guard let textField = alert.textFields?.first,
+                  let themeName = textField.text, !themeName.isEmpty else {
+                // Handle empty input
+                print("Theme name is empty")
+                return
+            }
+            viewmodel.addNewAppThemeDM(title: themeName)
+            settingCardView.colorPicker.selectRow(viewmodel.themeCount-1, inComponent: 0, animated: false)
+
+            
+            
+            
+            // Do something with the theme name
+            //self?.saveTheme(name: themeName)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(cancelAction)
+        alert.addAction(saveAction)
+        
+        present(alert, animated: true)
+    }
+    
+}

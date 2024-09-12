@@ -11,6 +11,7 @@ import UIKit
 
 class SettingsViewModel{
     var appThemeContainerViewModel :AppThemeDMContainerViewModel
+    var themeDMContainerViewModel: ThemeDmContainerVM
     var isIntermediaryThemeDark : Bool
     var currentTheme            : AppTheme
     var currentFontTheme        : themeFont
@@ -22,9 +23,16 @@ class SettingsViewModel{
       
     init() {
         appThemeContainerViewModel = AppThemeDMContainerViewModel()
+        
+        //MARK: part of test code
+        themeDMContainerViewModel = ThemeDmContainerVM(appThemeDmId: appThemeContainerViewModel.appThemeViewModel[10].id)
+        //MARK: part of test code
+
         currentFontTheme = FontManager.shared.currentThemeFont
         currentTheme = ColorManager.shared.currentTheme
         isIntermediaryThemeDark = currentTheme.colors.backGroundColor == .black ? true:false
+        testInsertingthemeTitle()
+        testAddThemeToAppTheme()
     }
     
     var themeCount:Int{
@@ -44,6 +52,14 @@ class SettingsViewModel{
         FontManager.shared.setThemeFont(themeFont:  themeFont)
         currentFontTheme = FontManager.shared.currentThemeFont
     }
+    
+    func addNewAppThemeDM(title:String){
+        appThemeContainerViewModel.insertTheme(title: title)
+        
+    }
+    
+    
+    
     
 //    var subjectColor: UIColor {
 //        return currentTheme.colors.subjectColor
@@ -97,3 +113,64 @@ class SettingsViewModel{
 //         get { ColorManager.shared.currentTheme }
 //        set { ColorManager.shared.setTheme(theme:newValue) }
 //     }
+extension SettingsViewModel{
+    //MARK: seeing if this will work
+    
+    func testInsertingthemeTitle(){
+        var themeTitle              = ["SuperNova", "DarkPastel", "StormySea","CloudySunset"]
+
+        for title in themeTitle {
+            appThemeContainerViewModel.insertTheme(title:title)
+        }
+        
+        
+    }
+    
+    
+    
+    func testAddThemeToAppTheme(){
+        
+        
+        
+        
+//        var t = Theme(
+//           //subjectColor: .russianViolet.withAlphaComponent(0.5),
+//                     topicColor: .spaceCadet.withAlphaComponent(0.5),
+//                     //mapColor: .tyrianPurple.withAlphaComponent(0.3),
+//                     topColor: .prussianBlue.withAlphaComponent(0.4),
+//                     bottomColor: .kobicha.withAlphaComponent(0.4),
+//                     fontColor: UIColor.white,
+//                     fontColorSecondary: .darkFontSecondary,
+//                     backGroundColor: .black,
+//                     primaryFont: FontManager.shared.primaryFont(style: .bold, size: 17),
+//                     secondaryFont: FontManager.shared.primaryFont(style: .semiBold, size: 14),
+//                     tertiaryFont: FontManager.shared.primaryFont(style: .italic, size: 14),
+//                     regularFont: FontManager.shared.primaryFont(style: .regular, size: 14)
+//       )
+        var t = Theme(
+           //subjectColor: .russianViolet.withAlphaComponent(0.5),
+                     topicColor: .blue,
+                     //mapColor: .tyrianPurple.withAlphaComponent(0.3),
+                     topColor: .red,
+                     bottomColor: .green,
+                     fontColor: UIColor.white,
+                     fontColorSecondary: .gray,
+                     backGroundColor: .black,
+                     primaryFont: FontManager.shared.primaryFont(style: .bold, size: 17),
+                     secondaryFont: FontManager.shared.primaryFont(style: .semiBold, size: 14),
+                     tertiaryFont: FontManager.shared.primaryFont(style: .italic, size: 14),
+                     regularFont: FontManager.shared.primaryFont(style: .regular, size: 14)
+       )
+        
+        
+//
+        themeDMContainerViewModel.insertIntoAppThemeDM(theme: t, appThemeDMId: appThemeContainerViewModel.appThemeViewModel[10].id)
+    }
+    
+    
+    
+    
+    
+    
+    
+}

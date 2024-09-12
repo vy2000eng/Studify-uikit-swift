@@ -11,7 +11,7 @@ class AppThemeDMContainerViewModel{
   
 
     init() {
-        getAllThemes()
+        getAllAppThemeDm()
 
     }
     var themecount:Int{
@@ -19,13 +19,13 @@ class AppThemeDMContainerViewModel{
     }
 
     
-    private func getAllThemes() {
+    private func getAllAppThemeDm() {
         appThemeViewModel = CoreDataManager.shared.getAllAppThemes().map(AppThemeDMViewModel.init)
     }
     
     func insertTheme(title:String){
-        CoreDataManager.shared.addNewTheme(title: title)
-        getAllThemes()
+        CoreDataManager.shared.addNewAppThemeDM(title: title)
+        getAllAppThemeDm()
     }
     
 }

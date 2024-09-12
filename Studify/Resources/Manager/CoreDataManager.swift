@@ -57,6 +57,9 @@ class CoreDataManager{
     
     // This initializer is for testing purposes
     init(inMemory: Bool = false) {
+        
+        ValueTransformer.setValueTransformer(UIColorTransformer(), forName: NSValueTransformerName("UIColorTransformer"))
+        
         persistentContainer = NSPersistentContainer(name: "Subjects")
         if inMemory {
             persistentContainer.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")

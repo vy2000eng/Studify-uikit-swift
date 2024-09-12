@@ -14,13 +14,30 @@ class ThemeDmViewModel{
     
     init(themeDM: ThemeDM) {
         self.themeDM = themeDM
-        printbackGroundColor()
     }
-    
-    func printbackGroundColor(){
-        let color:UIColor =  ColorManager.shared.currentTheme.colors.topColor
-        print(color.description)
         
-    }
+    var id                  :UUID    { themeDM.themeId}
+    
+    var backgroundColor     :UIColor { themeDM.backgroundColor}
+    var fontColor           :UIColor { themeDM.fontColor}
+    var fontSecondaryColor  :UIColor { themeDM.fontSecondaryColor}
+    
+    var topicColor          :UIColor { themeDM.topicColor}
+    var topSetColor         :UIColor { themeDM.topSetColor}
+    var bottomSetColor      :UIColor { themeDM.bottomSetColor}
+    var topListColor        :UIColor { themeDM.topListColor}
+    var bottomListColor     :UIColor { themeDM.bottomListColor}
+    
+
+
+    
+
+
+    
+    
+
+    
+    
+   
     
 }

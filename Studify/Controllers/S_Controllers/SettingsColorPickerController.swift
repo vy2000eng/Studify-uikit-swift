@@ -41,7 +41,13 @@ extension SettingsViewController: UIPickerViewDelegate, UIPickerViewDataSource {
                 currentTheme = AppTheme.cloudySunset
                 break
             default:
-                fatalError("couldn't select a color")
+                print("Theme View Model form Core data")
+                print(viewmodel.appDmTheme(by: row))
+                currentTheme = AppTheme.defaultTheme
+               // currentTheme = Theme()
+            
+                
+                //fatalError("couldn't select a color")
             }
             
             DispatchQueue.main.async { [weak self] in

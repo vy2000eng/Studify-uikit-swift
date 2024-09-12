@@ -3,7 +3,7 @@
     <entity name="AppThemeDM" representedClassName="AppThemeDM" syncable="YES">
         <attribute name="themeId" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="themeTitle" attributeType="String"/>
-        <relationship name="themeDM" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ThemeDM" inverseName="appThemeDM" inverseEntity="ThemeDM"/>
+        <relationship name="themeDM" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ThemeDM" inverseName="appThemeDM" inverseEntity="ThemeDM"/>
     </entity>
     <entity name="FlashCard" representedClassName="FlashCard" syncable="YES">
         <attribute name="back" optional="YES" attributeType="String"/>
@@ -25,13 +25,15 @@
         <relationship name="maps" maxCount="1" deletionRule="Cascade" destinationEntity="Maps" inverseName="mapSet" inverseEntity="Maps"/>
     </entity>
     <entity name="ThemeDM" representedClassName="ThemeDM" syncable="YES">
-        <attribute name="backgroundColor" attributeType="String"/>
-        <attribute name="bottomColor" attributeType="String"/>
-        <attribute name="fontColor" attributeType="String"/>
-        <attribute name="fontSecondaryColor" attributeType="String"/>
+        <attribute name="backgroundColor" attributeType="Transformable" valueTransformerName="UIColorTransformer" customClassName="UIColor"/>
+        <attribute name="bottomListColor" optional="YES" attributeType="Transformable" valueTransformerName="UIColorTransformer" customClassName="UIColor"/>
+        <attribute name="bottomSetColor" attributeType="Transformable" valueTransformerName="UIColorTransformer" customClassName="UIColor"/>
+        <attribute name="fontColor" attributeType="Transformable" valueTransformerName="UIColorTransformer" customClassName="UIColor"/>
+        <attribute name="fontSecondaryColor" attributeType="Transformable" valueTransformerName="UIColorTransformer" customClassName="UIColor"/>
         <attribute name="themeId" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="topColor" attributeType="String"/>
-        <attribute name="topicColor" attributeType="String"/>
+        <attribute name="topicColor" attributeType="Transformable" valueTransformerName="UIColorTransformer" customClassName="UIColor"/>
+        <attribute name="topListColor" optional="YES" attributeType="Transformable" valueTransformerName="UIColorTransformer" customClassName="UIColor"/>
+        <attribute name="topSetColor" attributeType="Transformable" valueTransformerName="UIColorTransformer" customClassName="UIColor"/>
         <relationship name="appThemeDM" maxCount="1" deletionRule="Cascade" destinationEntity="AppThemeDM" inverseName="themeDM" inverseEntity="AppThemeDM"/>
     </entity>
     <entity name="Topic" representedClassName="Topic" syncable="YES">
