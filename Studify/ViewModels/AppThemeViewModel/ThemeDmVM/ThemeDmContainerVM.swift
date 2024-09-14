@@ -10,8 +10,8 @@ import Foundation
 class ThemeDmContainerVM{
     var themeViewModel = [ThemeDmViewModel]()
     
-    init(appThemeDmId:UUID){
-        getAllThemeDMViewModel(appThemeId: appThemeDmId)
+    init(){
+        getAllThemeDMViewModel()
     }
     
     
@@ -21,13 +21,13 @@ class ThemeDmContainerVM{
     }
     
     
-    func getAllThemeDMViewModel(appThemeId:UUID){
-        themeViewModel = CoreDataManager.shared.getAllThemeDMForAppThemeDm(appThemeDmId: appThemeId).map(ThemeDmViewModel.init)
+    func getAllThemeDMViewModel(){
+        themeViewModel = CoreDataManager.shared.getAllThemeDMForAppThemeDm().map(ThemeDmViewModel.init)
         
     }
     
-    func insertIntoAppThemeDM(theme:Theme, appThemeDMId:UUID){
-        CoreDataManager.shared.insertThemeDMIntoAppThemeDM(theme: theme , appThemeDMId: appThemeDMId)
+    func insertIntoAppThemeDM(theme:Theme,  themeTitle:String){
+        CoreDataManager.shared.insertThemeDMIntoAppThemeDM(theme: theme , title: themeTitle)
         
     }
     

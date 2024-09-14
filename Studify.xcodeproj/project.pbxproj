@@ -52,15 +52,11 @@
 		396D6CD02C2B1593000DD57C /* FlashCardListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CCF2C2B1593000DD57C /* FlashCardListCollectionViewCell.swift */; };
 		396D6CD22C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CD12C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift */; };
 		396D6CD42C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396D6CD32C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift */; };
-		398B7C692C893B5A00FA7B59 /* AppThemeDM+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C652C893B5A00FA7B59 /* AppThemeDM+CoreDataClass.swift */; };
-		398B7C6A2C893B5A00FA7B59 /* AppThemeDM+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C662C893B5A00FA7B59 /* AppThemeDM+CoreDataProperties.swift */; };
 		398B7C702C893F0E00FA7B59 /* AppThemeCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C6F2C893F0E00FA7B59 /* AppThemeCoreDataManager.swift */; };
 		398B7C732C89415500FA7B59 /* AppThemeDMViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C722C89415500FA7B59 /* AppThemeDMViewModel.swift */; };
 		398B7C752C8943A600FA7B59 /* AppThemeDMContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C742C8943A600FA7B59 /* AppThemeDMContainerViewModel.swift */; };
 		398B7C792C89569B00FA7B59 /* ThemeDmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C782C89569B00FA7B59 /* ThemeDmViewModel.swift */; };
 		398B7C7B2C8956B400FA7B59 /* ThemeDmContainerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C7A2C8956B400FA7B59 /* ThemeDmContainerVM.swift */; };
-		398B7C822C8D716100FA7B59 /* ThemeDM+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C802C8D716100FA7B59 /* ThemeDM+CoreDataClass.swift */; };
-		398B7C832C8D716100FA7B59 /* ThemeDM+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C812C8D716100FA7B59 /* ThemeDM+CoreDataProperties.swift */; };
 		398B7C852C8E0EE800FA7B59 /* UIColorTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398B7C842C8E0EE800FA7B59 /* UIColorTransformer.swift */; };
 		39A4BC652C03924200F833D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC642C03924200F833D2 /* AppDelegate.swift */; };
 		39A4BC672C03924200F833D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A4BC662C03924200F833D2 /* SceneDelegate.swift */; };
@@ -97,6 +93,8 @@
 		39E3C7B02C39B137007E8A88 /* ListViewCollectionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E3C7AF2C39B137007E8A88 /* ListViewCollectionsManager.swift */; };
 		39ECFE2A2C840DB500CD73A5 /* TopicViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39ECFE292C840DB500CD73A5 /* TopicViewModelTests.swift */; };
 		C06912F82C94ED2B000A7D39 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06912F72C94ED2B000A7D39 /* DataManager.swift */; };
+		C06912FD2C953214000A7D39 /* ThemeDM+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06912FB2C953214000A7D39 /* ThemeDM+CoreDataClass.swift */; };
+		C06912FE2C953214000A7D39 /* ThemeDM+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06912FC2C953214000A7D39 /* ThemeDM+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,15 +152,11 @@
 		396D6CCF2C2B1593000DD57C /* FlashCardListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardListCollectionViewCell.swift; sourceTree = "<group>"; };
 		396D6CD12C2B1AA7000DD57C /* FlashCardListViewControllerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardListViewControllerDataSource.swift; sourceTree = "<group>"; };
 		396D6CD32C2B1BB6000DD57C /* FlashCardListViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardListViewControllerDelegate.swift; sourceTree = "<group>"; };
-		398B7C652C893B5A00FA7B59 /* AppThemeDM+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppThemeDM+CoreDataClass.swift"; sourceTree = "<group>"; };
-		398B7C662C893B5A00FA7B59 /* AppThemeDM+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppThemeDM+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		398B7C6F2C893F0E00FA7B59 /* AppThemeCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeCoreDataManager.swift; sourceTree = "<group>"; };
 		398B7C722C89415500FA7B59 /* AppThemeDMViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeDMViewModel.swift; sourceTree = "<group>"; };
 		398B7C742C8943A600FA7B59 /* AppThemeDMContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeDMContainerViewModel.swift; sourceTree = "<group>"; };
 		398B7C782C89569B00FA7B59 /* ThemeDmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDmViewModel.swift; sourceTree = "<group>"; };
 		398B7C7A2C8956B400FA7B59 /* ThemeDmContainerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDmContainerVM.swift; sourceTree = "<group>"; };
-		398B7C802C8D716100FA7B59 /* ThemeDM+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeDM+CoreDataClass.swift"; sourceTree = "<group>"; };
-		398B7C812C8D716100FA7B59 /* ThemeDM+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeDM+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		398B7C842C8E0EE800FA7B59 /* UIColorTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorTransformer.swift; sourceTree = "<group>"; };
 		399D38922C08D659008AFC5C /* Subjects.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Subjects.xcdatamodel; sourceTree = "<group>"; };
 		39A4BC612C03924200F833D2 /* Studify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Studify.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -201,6 +195,8 @@
 		39E3C7AF2C39B137007E8A88 /* ListViewCollectionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewCollectionsManager.swift; sourceTree = "<group>"; };
 		39ECFE292C840DB500CD73A5 /* TopicViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewModelTests.swift; sourceTree = "<group>"; };
 		C06912F72C94ED2B000A7D39 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		C06912FB2C953214000A7D39 /* ThemeDM+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeDM+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C06912FC2C953214000A7D39 /* ThemeDM+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeDM+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -325,10 +321,8 @@
 		398B7C6C2C893BAF00FA7B59 /* ThemeModels */ = {
 			isa = PBXGroup;
 			children = (
-				398B7C802C8D716100FA7B59 /* ThemeDM+CoreDataClass.swift */,
-				398B7C812C8D716100FA7B59 /* ThemeDM+CoreDataProperties.swift */,
-				398B7C652C893B5A00FA7B59 /* AppThemeDM+CoreDataClass.swift */,
-				398B7C662C893B5A00FA7B59 /* AppThemeDM+CoreDataProperties.swift */,
+				C06912FB2C953214000A7D39 /* ThemeDM+CoreDataClass.swift */,
+				C06912FC2C953214000A7D39 /* ThemeDM+CoreDataProperties.swift */,
 			);
 			path = ThemeModels;
 			sourceTree = "<group>";
@@ -680,8 +674,8 @@
 				39DEDE452C134BBF00C725CE /* AddNewMapViewController.swift in Sources */,
 				39DEDE222C12033300C725CE /* DetailsViewDataSource.swift in Sources */,
 				39DEDE242C12073900C725CE /* TopicViewCell.swift in Sources */,
-				398B7C822C8D716100FA7B59 /* ThemeDM+CoreDataClass.swift in Sources */,
-				398B7C832C8D716100FA7B59 /* ThemeDM+CoreDataProperties.swift in Sources */,
+				C06912FD2C953214000A7D39 /* ThemeDM+CoreDataClass.swift in Sources */,
+				C06912FE2C953214000A7D39 /* ThemeDM+CoreDataProperties.swift in Sources */,
 				39DEDE412C12C0FF00C725CE /* AddNewTopicViewController.swift in Sources */,
 				395B71082C4E0C7800A9EBB6 /* FlashCardGameCollectionViewCell.swift in Sources */,
 				39B817AE2C0E903200CB843B /* SubjectTableViewCell.swift in Sources */,
@@ -722,8 +716,6 @@
 				395B71062C4E046500A9EBB6 /* FlashCardGameViewControllerDataSource.swift in Sources */,
 				393DF6912C371222000F1D41 /* FlashcardSmallSetHeader.swift in Sources */,
 				398B7C702C893F0E00FA7B59 /* AppThemeCoreDataManager.swift in Sources */,
-				398B7C692C893B5A00FA7B59 /* AppThemeDM+CoreDataClass.swift in Sources */,
-				398B7C6A2C893B5A00FA7B59 /* AppThemeDM+CoreDataProperties.swift in Sources */,
 				39DEDE202C12032100C725CE /* DetailsViewDelagate.swift in Sources */,
 				3919CEF72C76BDAE00F08FF4 /* TopicOptionsViewController.swift in Sources */,
 				39A4BC692C03924200F833D2 /* SubjectListViewController.swift in Sources */,

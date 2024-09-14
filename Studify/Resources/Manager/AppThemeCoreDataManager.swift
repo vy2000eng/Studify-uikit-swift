@@ -11,34 +11,34 @@ import UIKit
 
 extension CoreDataManager{
     
-    func addNewAppThemeDM(title:String){
-        let newAppThemeDM = AppThemeDM(context: context)
-        newAppThemeDM.themeId = UUID()
-        newAppThemeDM.themeTitle = title
-        do{
-            try context.save()
-            
-        }catch let error as NSError{
-            print("Error adding theme: \(error.userInfo), \(error.localizedDescription)")
-   
-        }
-    }
+//    func addNewAppThemeDM(title:String){
+//        let newAppThemeDM = AppThemeDM(context: context)
+//        newAppThemeDM.themeId = UUID()
+//        newAppThemeDM.themeTitle = title
+//        do{
+//            try context.save()
+//            
+//        }catch let error as NSError{
+//            print("Error adding theme: \(error.userInfo), \(error.localizedDescription)")
+//   
+//        }
+//    }
+//    
+//    func getAllAppThemes()->[AppThemeDM]{
+//        let fetchRequest:NSFetchRequest<AppThemeDM> = AppThemeDM.fetchRequest()
+//        do{
+//            let themes = try context.fetch(fetchRequest)
+//            return themes
+//            
+//        }catch let error as NSError{
+//            NSLog("Error fetching all AppThemeDM: %@ : %@", error.userInfo, error.localizedDescription)
+//            return []
+//        }
+//    }
     
-    func getAllAppThemes()->[AppThemeDM]{
-        let fetchRequest:NSFetchRequest<AppThemeDM> = AppThemeDM.fetchRequest()
-        do{
-            let themes = try context.fetch(fetchRequest)
-            return themes
-            
-        }catch let error as NSError{
-            NSLog("Error fetching all AppThemeDM: %@ : %@", error.userInfo, error.localizedDescription)
-            return []
-        }
-    }
-    
-    func getAllThemeDMForAppThemeDm(appThemeDmId:UUID)->[ThemeDM]{
+    func getAllThemeDMForAppThemeDm()->[ThemeDM]{
         let fetchRequest:NSFetchRequest<ThemeDM> = ThemeDM.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id = %@", appThemeDmId as CVarArg)
+       // fetchRequest.predicate = NSPredicate(format: "id = %@", appThemeDmId as CVarArg)
         do {
             return try context.fetch(fetchRequest)
             
@@ -49,9 +49,9 @@ extension CoreDataManager{
         }
     }
     
-    func insertThemeDMIntoAppThemeDM(theme:Theme,appThemeDMId:UUID){
-        let fetchRequest:NSFetchRequest<AppThemeDM> = AppThemeDM.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id = %@", appThemeDMId.uuidString)
+    func insertThemeDMIntoAppThemeDM(theme:Theme, title:String){
+        let fetchRequest:NSFetchRequest<ThemeDM> = ThemeDM.fetchRequest()
+        //fetchRequest.predicate = NSPredicate(format: "id = %@", appThemeDMId.uuidString)
         
         let newThemeDM = ThemeDM(context: context)
         newThemeDM.backgroundColor = theme.backGroundColor
@@ -63,10 +63,12 @@ extension CoreDataManager{
         newThemeDM.topicColor = theme.topicColor
         newThemeDM.bottomListColor = theme.bottomColor
         newThemeDM.topListColor = theme.topColor
+        newThemeDM.themeTitle = title
+        //newThemeDM. = title
         
         do{
-            let appThemeDm = try context.fetch(fetchRequest).first
-            appThemeDm?.addToThemeDM(newThemeDM)
+//            let appThemeDm = try context.fetch(fetchRequest).first
+//            appThemeDm?.addToThemeDM(newThemeDM)
             try context.save()
             
         }catch let error as NSError{

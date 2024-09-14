@@ -10,8 +10,8 @@ import UIKit
 
 
 class SettingsViewModel{
-    var appThemeContainerViewModel :AppThemeDMContainerViewModel
-   // var themeDMContainerViewModel: ThemeDmContainerVM
+   // var appThemeContainerViewModel :AppThemeDMContainerViewModel
+    var themeDMContainerViewModel: ThemeDmContainerVM
     var isIntermediaryThemeDark : Bool
     var currentTheme            : AppTheme
     var currentFontTheme        : themeFont
@@ -22,10 +22,10 @@ class SettingsViewModel{
   
       
     init() {
-        appThemeContainerViewModel = AppThemeDMContainerViewModel()
+       // appThemeContainerViewModel = AppThemeDMContainerViewModel()
         
         //MARK: part of test code
-        //themeDMContainerViewModel = ThemeDmContainerVM(appThemeDmId: appThemeContainerViewModel.appThemeViewModel[0].id)
+        themeDMContainerViewModel = ThemeDmContainerVM()
         //MARK: part of test code
 
         currentFontTheme = FontManager.shared.currentThemeFont
@@ -36,7 +36,9 @@ class SettingsViewModel{
     }
     
     var themeCount:Int{
-        appThemeContainerViewModel.themecount
+        //appThemeContainerViewModel.themecount
+        themeDMContainerViewModel.themeVmCount
+        
     }
     var fontCount:Int{
         fontTitle.count
@@ -54,7 +56,7 @@ class SettingsViewModel{
     }
     
     func addNewAppThemeDM(title:String){
-        appThemeContainerViewModel.insertTheme(title: title)
+        //appThemeContainerViewModel.insertTheme(title: title)
         
     }
     
@@ -104,7 +106,8 @@ class SettingsViewModel{
     
     
     func appDmTheme(by row: Int) ->String{
-        return appThemeContainerViewModel.appThemeViewModel[row].title
+        return themeDMContainerViewModel.themeViewModel[row].themeTitle
+        //return appThemeContainerViewModel.appThemeViewModel[row].title
         
     }
 }

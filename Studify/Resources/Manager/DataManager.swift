@@ -21,14 +21,36 @@ class DataManager{
     }
     
     private func seedData(){
-        let appThemeContainerViewModel = AppThemeDMContainerViewModel()
+        //let appThemeContainerViewModel = AppThemeDMContainerViewModel()
 
-        var themeTitle = ["SuperNova", "DarkPastel", "StormySea","CloudySunset"]
+        let themeDMContainerViewModel = ThemeDmContainerVM()
+        var themeTitle = ["SuperNova"]
+        let t = Theme(
+           //subjectColor: .russianViolet.withAlphaComponent(0.5),
+                     topicColor: .spaceCadet.withAlphaComponent(0.5),
+                     //mapColor: .tyrianPurple.withAlphaComponent(0.3),
+                     topColor: .prussianBlue.withAlphaComponent(0.4),
+                     bottomColor: .kobicha.withAlphaComponent(0.4),
+                     fontColor: UIColor.white,
+                     fontColorSecondary: .darkFontSecondary,
+                     backGroundColor: .black,
+                     primaryFont: FontManager.shared.primaryFont(style: .bold, size: 17),
+                     secondaryFont: FontManager.shared.primaryFont(style: .semiBold, size: 14),
+                     tertiaryFont: FontManager.shared.primaryFont(style: .italic, size: 14),
+                     regularFont: FontManager.shared.primaryFont(style: .regular, size: 14)
+       )
+        themeDMContainerViewModel.insertIntoAppThemeDM(theme: t, themeTitle: "SuperNova")
         
         
-        for title in themeTitle {
-            appThemeContainerViewModel.insertTheme(title:title)
-        }
+        
+        
+        
+        
+        
+//        for title in themeTitle {
+//
+//            //appThemeContainerViewModel.insertTheme(title:title)
+//        }
         
 
         

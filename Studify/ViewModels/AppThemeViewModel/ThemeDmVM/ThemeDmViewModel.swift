@@ -17,6 +17,7 @@ class ThemeDmViewModel{
     }
         
     var id                  :UUID    { themeDM.themeId}
+    var themeTitle          :String  {themeDM.themeTitle}
     
     var backgroundColor     :UIColor { themeDM.backgroundColor}
     var fontColor           :UIColor { themeDM.fontColor}
