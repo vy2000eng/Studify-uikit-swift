@@ -11,7 +11,7 @@ import UIKit
 
 class SettingsViewModel{
     var appThemeContainerViewModel :AppThemeDMContainerViewModel
-    var themeDMContainerViewModel: ThemeDmContainerVM
+   // var themeDMContainerViewModel: ThemeDmContainerVM
     var isIntermediaryThemeDark : Bool
     var currentTheme            : AppTheme
     var currentFontTheme        : themeFont
@@ -25,14 +25,14 @@ class SettingsViewModel{
         appThemeContainerViewModel = AppThemeDMContainerViewModel()
         
         //MARK: part of test code
-        themeDMContainerViewModel = ThemeDmContainerVM(appThemeDmId: appThemeContainerViewModel.appThemeViewModel[10].id)
+        //themeDMContainerViewModel = ThemeDmContainerVM(appThemeDmId: appThemeContainerViewModel.appThemeViewModel[0].id)
         //MARK: part of test code
 
         currentFontTheme = FontManager.shared.currentThemeFont
         currentTheme = ColorManager.shared.currentTheme
         isIntermediaryThemeDark = currentTheme.colors.backGroundColor == .black ? true:false
-        testInsertingthemeTitle()
-        testAddThemeToAppTheme()
+        //testInsertingthemeTitle()
+       // testAddThemeToAppTheme()
     }
     
     var themeCount:Int{
@@ -116,15 +116,15 @@ class SettingsViewModel{
 extension SettingsViewModel{
     //MARK: seeing if this will work
     
-    func testInsertingthemeTitle(){
-        var themeTitle              = ["SuperNova", "DarkPastel", "StormySea","CloudySunset"]
-
-        for title in themeTitle {
-            appThemeContainerViewModel.insertTheme(title:title)
-        }
-        
-        
-    }
+//    func testInsertingthemeTitle(){
+//        var themeTitle              = ["SuperNova", "DarkPastel", "StormySea","CloudySunset"]
+//
+//        for title in themeTitle {
+//            appThemeContainerViewModel.insertTheme(title:title)
+//        }
+//        
+//        
+//    }
     
     
     
@@ -164,7 +164,7 @@ extension SettingsViewModel{
         
         
 //
-        themeDMContainerViewModel.insertIntoAppThemeDM(theme: t, appThemeDMId: appThemeContainerViewModel.appThemeViewModel[10].id)
+     ///   themeDMContainerViewModel.insertIntoAppThemeDM(theme: t, appThemeDMId: appThemeContainerViewModel.appThemeViewModel[10].id)
     }
     
     

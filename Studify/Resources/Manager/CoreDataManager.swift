@@ -29,6 +29,7 @@ import CoreData
 class CoreDataManager{
     static var shared = CoreDataManager()
     let persistentContainer: NSPersistentContainer
+  
     
 //    private init(inMemory: Bool = false) {
 //            persistentContainer = NSPersistentContainer(name: "Subjects")
@@ -70,6 +71,8 @@ class CoreDataManager{
             }
         }
     }
+    
+
     
 //    init(inMemory: Bool = false) {
 //         persistentContainer = NSPersistentContainer(name: "Subjects")
