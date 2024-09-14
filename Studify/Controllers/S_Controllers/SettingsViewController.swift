@@ -313,7 +313,7 @@ extension SettingsViewController{
                 print("Theme name is empty")
                 return
             }
-            viewmodel.addNewAppThemeDM(title: themeName)
+            //viewmodel.addNewAppThemeDM(title: themeName)
             settingCardView.colorPicker.selectRow(viewmodel.themeCount-1, inComponent: 0, animated: false)
 
             

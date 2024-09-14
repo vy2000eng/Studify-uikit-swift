@@ -30,25 +30,29 @@ struct Theme{
      FontManager.shared.primaryFont(style: .regular, size: 14)
      */
     
-    init(topicColor: UIColor = .white, topColor: UIColor = .white, bottomColor: UIColor = .white, fontColor: UIColor = .black, fontColorSecondary: UIColor = .gray,
-         backGroundColor: UIColor = .white,
-         primaryFont: UIFont =      FontManager.shared.primaryFont(style: .bold, size: 17),
-         secondaryFont: UIFont =   FontManager.shared.primaryFont(style: .semiBold, size: 14),
-         tertiaryFont: UIFont = FontManager.shared.primaryFont(style: .italic, size: 14),
-         regularFont: UIFont = FontManager.shared.primaryFont(style: .regular, size: 14)
+    init(topicColor         :UIColor = .white,
+         topColor           :UIColor = .white,
+         bottomColor        :UIColor = .white,
+         fontColor          :UIColor = .black,
+         fontColorSecondary :UIColor = .gray,
+         backGroundColor    :UIColor = .white,
+         primaryFont        :UIFont  =  FontManager.shared.primaryFont(style: .bold, size: 17),
+         secondaryFont      :UIFont  =  FontManager.shared.primaryFont(style: .semiBold, size: 14),
+         tertiaryFont       :UIFont  =  FontManager.shared.primaryFont(style: .italic, size: 14),
+         regularFont        :UIFont  =  FontManager.shared.primaryFont(style: .regular, size: 14)
 
     
     ) {
-        self.topicColor = topicColor
-        self.topColor = topColor
-        self.bottomColor = bottomColor
-        self.fontColor = fontColor
+        self.topicColor         = topicColor
+        self.topColor           = topColor
+        self.bottomColor        = bottomColor
+        self.fontColor          = fontColor
         self.fontColorSecondary = fontColorSecondary
-        self.backGroundColor = backGroundColor
-        self.primaryFont = primaryFont
-        self.secondaryFont = secondaryFont
-        self.tertiaryFont = tertiaryFont
-        self.regularFont = regularFont
+        self.backGroundColor    = backGroundColor
+        self.primaryFont        = primaryFont
+        self.secondaryFont      = secondaryFont
+        self.tertiaryFont       = tertiaryFont
+        self.regularFont        = regularFont
     }
 }
 

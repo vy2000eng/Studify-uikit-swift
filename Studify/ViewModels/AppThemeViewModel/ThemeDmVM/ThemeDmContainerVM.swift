@@ -22,12 +22,12 @@ class ThemeDmContainerVM{
     
     
     func getAllThemeDMViewModel(){
-        themeViewModel = CoreDataManager.shared.getAllThemeDMForAppThemeDm().map(ThemeDmViewModel.init)
+        themeViewModel = CoreDataManager.shared.getAllThemeDM().map(ThemeDmViewModel.init)
         
     }
     
     func insertIntoAppThemeDM(theme:Theme,  themeTitle:String){
-        CoreDataManager.shared.insertThemeDMIntoAppThemeDM(theme: theme , title: themeTitle)
+        CoreDataManager.shared.addNewThemeDM(theme: theme , title: themeTitle)
         
     }
     

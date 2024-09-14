@@ -36,7 +36,7 @@ extension CoreDataManager{
 //        }
 //    }
     
-    func getAllThemeDMForAppThemeDm()->[ThemeDM]{
+    func getAllThemeDM()->[ThemeDM]{
         let fetchRequest:NSFetchRequest<ThemeDM> = ThemeDM.fetchRequest()
        // fetchRequest.predicate = NSPredicate(format: "id = %@", appThemeDmId as CVarArg)
         do {
@@ -49,7 +49,7 @@ extension CoreDataManager{
         }
     }
     
-    func insertThemeDMIntoAppThemeDM(theme:Theme, title:String){
+    func addNewThemeDM(theme:Theme, title:String){
         let fetchRequest:NSFetchRequest<ThemeDM> = ThemeDM.fetchRequest()
         //fetchRequest.predicate = NSPredicate(format: "id = %@", appThemeDMId.uuidString)
         
@@ -64,7 +64,6 @@ extension CoreDataManager{
         newThemeDM.bottomListColor = theme.bottomColor
         newThemeDM.topListColor = theme.topColor
         newThemeDM.themeTitle = title
-        //newThemeDM. = title
         
         do{
 //            let appThemeDm = try context.fetch(fetchRequest).first
